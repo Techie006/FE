@@ -1,15 +1,15 @@
 // import Layout from "../componenets/common/Layout";
 // import Header from "../componenets/common/Header";
-// import CreateLayout from "../componenets/post/CreateLayout";
+// import AuthLayout from "../componenets/post/AuthLayout";
 
-const Create = (props) => {
+const Auth = (props) => {
   return (
     <>Create</>
     // <Layout>
     //   <Header />
-    //   <CreateLayout />
+    //   <AuthLayout />
     // </Layout>
   );
 };
 
-export default Create;
+export default Auth;
