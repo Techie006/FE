@@ -1,22 +1,20 @@
 import styled from "styled-components";
 
-const MediumTextarea = (props) => {
-  return <StyledTextarea>{props.children}</StyledTextarea>;
+const RecipeLargeLayout = (props) => {
+  return <StyledLayout>{props.children}</StyledLayout>;
 };
 
-export default MediumTextarea;
+export default RecipeLargeLayout;
 
-const StyledTextarea = styled.textarea`
+const StyledLayout = styled.div`
   font-size: 1rem;
   padding: 10px 10px;
-  width: 300px;
-  resize: none;
-  box-sizing: border-box;
+  width: 500px;
   border-radius: ${(props) => props.theme.boxRadius};
   box-shadow: ${(props) => props.theme.boxShadow};
   border-color: ${(props) => props.theme.borderColor};
   &:hover {
-    cursor: text;
+    cursor: pointer;
     border-color: ${(props) => props.theme.borderHoverColor};
   }
 `;

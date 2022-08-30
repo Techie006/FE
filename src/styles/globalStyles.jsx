@@ -28,6 +28,10 @@ export const defaultTheme = {
   hoverIconColor: "#5732fb",
   hoverTransform: "scale(1,1)",
 
+  // textarea
+  borderHoverColor: "#5732fb",
+  borderColor: "#EFEFEF",
+
   // box-shadow
   boxShadow: "rgba(149, 157, 165, 0.2) 0px 8px 24px",
   boxRadius: "5px",

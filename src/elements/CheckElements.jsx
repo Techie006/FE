@@ -1,11 +1,13 @@
 import styled from "styled-components";
 import { faBookmark } from "@fortawesome/free-solid-svg-icons";
 
+// links
 import SmallLink from "./links/SmallLink";
 import MediumLink from "./links/MediumLink";
 import MediumLinkWithHelper from "./links/MediumLinkWithHelper";
 import SmallLinkWithHelper from "./links/SmallLinkWithHelper";
 
+// texts
 import {
   SectionTitle,
   AccentText,
@@ -22,12 +24,25 @@ import {
   ModalSmallText,
 } from "./texts/modalTexts";
 
+// buttons
 import LargeButton from "./buttons/LargeButton";
 import MediumButton from "./buttons/MediumButton";
 import SmallButton from "./buttons/SmallButton";
 import ModalSmallButton from "./buttons/ModalSmallButton";
 import SmallIconButton from "./buttons/SmallIconButton";
 import LargeIconButton from "./buttons/LargeIconButton";
+
+// textareas
+import SmallTextarea from "./textareas/SmallTextarea";
+import MediumTextarea from "./textareas/MediumTextarea";
+
+// calendar
+import MiniCalender from "./calendar/MiniCalendar";
+
+// layouts
+import RecipeLargeLayout from "./layouts/RecipeLargeLayout";
+import RecipeMediumLayout from "./layouts/RecipeMediumLayout";
+import RecipeSmallLayout from "./layouts/RecipeSmallLayout";
 
 const CheckElements = (props) => {
   const clickHandler = (e) => {
@@ -52,7 +67,7 @@ const CheckElements = (props) => {
         />
       </StyledContainer>
       <StyledContainer>
-        3. Button
+        3. Buttons
         <LargeButton
           type='button'
           content='LargeButton'
@@ -95,6 +110,11 @@ const CheckElements = (props) => {
         </StyledCompare>
       </StyledContainer>
       <StyledContainer>
+        5. Textareas
+        <MediumTextarea></MediumTextarea>
+        <SmallTextarea></SmallTextarea>
+      </StyledContainer>
+      <StyledContainer>
         6. Texts
         <div>6-1. pageTexts</div>
         <SectionTitle>SectionTitle</SectionTitle>
@@ -109,6 +129,16 @@ const CheckElements = (props) => {
         <ModalAccentText>ModalAccentText</ModalAccentText>
         <ModalNormalText>ModalNormalText</ModalNormalText>
         <ModalSmallText>ModalSmallText</ModalSmallText>
+      </StyledContainer>
+      <StyledContainer>
+        7. Calendar
+        <MiniCalender></MiniCalender>
+      </StyledContainer>
+      <StyledContainer>
+        9. Layout
+        <RecipeLargeLayout>RecipeLargeLayout</RecipeLargeLayout>
+        <RecipeMediumLayout>RecipeMediumLayout</RecipeMediumLayout>
+        <RecipeSmallLayout>RecipeSmallLayout</RecipeSmallLayout>
       </StyledContainer>
     </>
   );
