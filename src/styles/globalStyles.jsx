@@ -32,6 +32,7 @@ export const defaultTheme = {
   boxShadow: "rgba(149, 157, 165, 0.2) 0px 8px 24px",
   boxRadius: "5px",
 
-  // transition
+  // transition and tansform
   transition: "all 0.3s",
+  transform: "scale(1,1)",
 };

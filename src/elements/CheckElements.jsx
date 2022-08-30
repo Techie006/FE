@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import { faBookmark } from "@fortawesome/free-solid-svg-icons";
 
 import SmallLink from "./links/SmallLink";
 import MediumLink from "./links/MediumLink";
@@ -21,7 +22,18 @@ import {
   ModalSmallText,
 } from "./texts/modalTexts";
 
+import LargeButton from "./buttons/LargeButton";
+import MediumButton from "./buttons/MediumButton";
+import SmallButton from "./buttons/SmallButton";
+import ModalSmallButton from "./buttons/ModalSmallButton";
+import SmallIconButton from "./buttons/SmallIconButton";
+import LargeIconButton from "./buttons/LargeIconButton";
+
 const CheckElements = (props) => {
+  const clickHandler = (e) => {
+    console.log("clicked!");
+  };
+
   return (
     <>
       <StyledContainer>
@@ -40,6 +52,49 @@ const CheckElements = (props) => {
         />
       </StyledContainer>
       <StyledContainer>
+        3. Button
+        <LargeButton
+          type='button'
+          content='LargeButton'
+          onClick={clickHandler}
+          disabled={false}
+        />
+        <MediumButton
+          type='button'
+          content='MediumButton'
+          onClick={clickHandler}
+          disabled={false}
+        />
+        <SmallButton
+          type='button'
+          content='SmallButton'
+          onClick={clickHandler}
+          disabled={false}
+        />
+        <ModalSmallButton
+          type='button'
+          content='ModalSmallButton'
+          onClick={clickHandler}
+          disabled={false}
+        />
+        <StyledCompare>
+          <SmallIconButton icon={faBookmark} onClick={clickHandler} />
+          <SmallIconButton
+            icon={faBookmark}
+            onClick={clickHandler}
+            disabled={true}
+          />
+        </StyledCompare>
+        <StyledCompare>
+          <LargeIconButton icon={faBookmark} onClick={clickHandler} />
+          <LargeIconButton
+            icon={faBookmark}
+            onClick={clickHandler}
+            disabled={true}
+          />
+        </StyledCompare>
+      </StyledContainer>
+      <StyledContainer>
         6. Texts
         <div>6-1. pageTexts</div>
         <SectionTitle>SectionTitle</SectionTitle>
@@ -56,10 +111,6 @@ const CheckElements = (props) => {
         <ModalSmallText>ModalSmallText</ModalSmallText>
       </StyledContainer>
     </>
-    // <Layout>
-    //   <Header />
-    //   <HomeLayout />
-    // </Layout>
   );
 };
 
@@ -70,4 +121,10 @@ const StyledContainer = styled.div`
   flex-direction: column;
   align-items: flex-start;
   margin-bottom: 30px;
+`;
+
+const StyledCompare = styled.div`
+  width: 50px;
+  display: flex;
+  justify-content: space-evenly;
 `;
