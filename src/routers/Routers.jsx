@@ -10,6 +10,9 @@ import Class from "../pages/Class";
 import My from "../pages/My";
 import NotFound from "../pages/NotFound";
 
+// TODO erase elements
+import Elements from "../pages/Elements";
+
 // TODO protected router for login
 // TODO class search
 const Routers = (props) => {
@@ -25,6 +28,7 @@ const Routers = (props) => {
         <Route path='/calendar' element={<Calendar />} />
         <Route path='/class' element={<Class />} />
         <Route path='/my' element={<My />} />
+        <Route path='/elements' element={<Elements />} />
         <Route path='*' element={<NotFound />} />
       </Routes>
     </BrowserRouter>

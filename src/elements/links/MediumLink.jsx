@@ -1,16 +1,16 @@
-import styled from "styled-components";
 import { Link } from "react-router-dom";
+import styled from "styled-components";
 
-const SmallLink = ({ content, link }) => {
+const MediumLink = ({ content, link }) => {
   return <StyledLink to={link}>{content}</StyledLink>;
 };
 
-export default SmallLink;
+export default MediumLink;
 
 const StyledLink = styled(Link)`
-  font-size: 0.5rem;
+  font-size: 0.7rem;
   text-decoration: none;
-  color: ${(props) => props.theme.smallLinkColor};
+  color: ${(props) => props.theme.mediumLinkColor};
   &:hover {
     cursor: pointer;
     text-decoration: underline;
