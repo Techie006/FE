@@ -4,11 +4,13 @@
 
 const Recipe = (props) => {
   return (
-    <>Recipe</>
-    // <Layout>
-    //   <Header />
-    //   <RecipeLayout />
-    // </Layout>
+    <>
+      {/* Recipe
+      <Layout>
+        <Header />
+        <RecipeLayout />
+      </Layout> */}
+    </>
   );
 };
 
