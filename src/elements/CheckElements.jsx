@@ -7,6 +7,11 @@ import MediumLink from "./links/MediumLink";
 import MediumLinkWithHelper from "./links/MediumLinkWithHelper";
 import SmallLinkWithHelper from "./links/SmallLinkWithHelper";
 
+// category
+import UnderlineCategory from "./category/UnderlineCategory";
+import ButtonCategory from "./category/ButtonCategory";
+import SelectCategory from "./category/SelectCategory";
+
 // texts
 import {
   SectionTitle,
@@ -23,6 +28,12 @@ import {
   ModalNormalText,
   ModalSmallText,
 } from "./texts/modalTexts";
+// inputs
+import InputWithLabelHelper from "./inputs/InputWithLabelHelper";
+import InputWithIcon from "./inputs/InputWithIcon";
+import LargeInput from "./inputs/LargeInput";
+import SmallInput from "./inputs/SmallInput";
+
 
 // buttons
 import LargeButton from "./buttons/LargeButton";
@@ -33,8 +44,8 @@ import SmallIconButton from "./buttons/SmallIconButton";
 import LargeIconButton from "./buttons/LargeIconButton";
 
 // textareas
-import SmallTextarea from "./textareas/SmallTextarea";
-import MediumTextarea from "./textareas/MediumTextarea";
+import SmallTextarea from "./textareas/SmallTextArea";
+import MediumTextarea from "./textareas/MediumTextArea";
 
 // calendar
 import MiniCalender from "./calendar/MiniCalendar";
@@ -43,6 +54,9 @@ import MiniCalender from "./calendar/MiniCalendar";
 import RecipeLargeLayout from "./layouts/RecipeLargeLayout";
 import RecipeMediumLayout from "./layouts/RecipeMediumLayout";
 import RecipeSmallLayout from "./layouts/RecipeSmallLayout";
+
+//searchbar
+import SearchBar from "./searchBar/SearchBar";
 
 const CheckElements = (props) => {
   const clickHandler = (e) => {
@@ -65,6 +79,15 @@ const CheckElements = (props) => {
           content='SmallLinkWithHelper'
           link='/elements'
         />
+      </StyledContainer>
+      <StyledContainer>
+        2. Categories
+        <UnderlineCategory/>
+        <ButtonCategory
+        type='button'
+        onClick={clickHandler}
+        />
+        <SelectCategory/>
       </StyledContainer>
       <StyledContainer>
         3. Buttons
@@ -110,6 +133,13 @@ const CheckElements = (props) => {
         </StyledCompare>
       </StyledContainer>
       <StyledContainer>
+        4. inputs
+        <InputWithLabelHelper/>
+        <InputWithIcon/>
+        <LargeInput/>
+        <SmallInput/>
+      </StyledContainer>
+      <StyledContainer>
         5. Textareas
         <MediumTextarea></MediumTextarea>
         <SmallTextarea></SmallTextarea>
@@ -139,6 +169,10 @@ const CheckElements = (props) => {
         <RecipeLargeLayout>RecipeLargeLayout</RecipeLargeLayout>
         <RecipeMediumLayout>RecipeMediumLayout</RecipeMediumLayout>
         <RecipeSmallLayout>RecipeSmallLayout</RecipeSmallLayout>
+      </StyledContainer>
+      <StyledContainer>
+        10. SearchBar
+        <SearchBar/>
       </StyledContainer>
     </>
   );
