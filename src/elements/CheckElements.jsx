@@ -8,9 +8,9 @@ import MediumLinkWithHelper from "./links/MediumLinkWithHelper";
 import SmallLinkWithHelper from "./links/SmallLinkWithHelper";
 
 // category
-import UnderlineCategory from "./category/UnderlineCategory";
-import ButtonCategory from "./category/ButtonCategory";
-import SelectCategory from "./category/SelectCategory";
+import UnderlineCategory from "./categories/UnderlineCategory";
+import ButtonCategory from "./categories/ButtonCategory";
+import SelectCategory from "./categories/SelectCategory";
 
 // texts
 import {
@@ -28,12 +28,12 @@ import {
   ModalNormalText,
   ModalSmallText,
 } from "./texts/modalTexts";
+
 // inputs
 import InputWithLabelHelper from "./inputs/InputWithLabelHelper";
 import InputWithIcon from "./inputs/InputWithIcon";
 import LargeInput from "./inputs/LargeInput";
 import SmallInput from "./inputs/SmallInput";
-
 
 // buttons
 import LargeButton from "./buttons/LargeButton";
@@ -44,8 +44,8 @@ import SmallIconButton from "./buttons/SmallIconButton";
 import LargeIconButton from "./buttons/LargeIconButton";
 
 // textareas
-import SmallTextarea from "./textareas/SmallTextArea";
-import MediumTextarea from "./textareas/MediumTextArea";
+import SmallTextarea from "./textareas/SmallTextarea";
+import MediumTextarea from "./textareas/MediumTextarea";
 
 // calendar
 import MiniCalender from "./calendar/MiniCalendar";
@@ -82,12 +82,12 @@ const CheckElements = (props) => {
       </StyledContainer>
       <StyledContainer>
         2. Categories
-        <UnderlineCategory/>
-        <ButtonCategory
-        type='button'
-        onClick={clickHandler}
+        <UnderlineCategory
+          title='UnderlineCategory'
+          contents={["category1", "category2", "category3", "category4"]}
         />
-        <SelectCategory/>
+        <ButtonCategory type='button' onClick={clickHandler} />
+        <SelectCategory />
       </StyledContainer>
       <StyledContainer>
         3. Buttons
@@ -134,10 +134,10 @@ const CheckElements = (props) => {
       </StyledContainer>
       <StyledContainer>
         4. inputs
-        <InputWithLabelHelper/>
-        <InputWithIcon/>
-        <LargeInput/>
-        <SmallInput/>
+        <InputWithLabelHelper />
+        <InputWithIcon />
+        <LargeInput />
+        <SmallInput />
       </StyledContainer>
       <StyledContainer>
         5. Textareas
@@ -172,7 +172,7 @@ const CheckElements = (props) => {
       </StyledContainer>
       <StyledContainer>
         10. SearchBar
-        <SearchBar/>
+        <SearchBar />
       </StyledContainer>
     </>
   );
