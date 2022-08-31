@@ -13,6 +13,22 @@ export const defaultTheme = {
   mediumLinkColor: "#5732fb",
   smallLinkColor: "gray",
 
+  // category
+  selectedCategoryItemColor : "black",
+  categoryItemColor : "gray",
+  selectBoxTitle : "20px",
+  
+  // input
+  inputBorderColor : "gray",
+  inputBorderHoverColor : "black",
+  msgColor : "black",
+  errorMsgColor : "red",
+
+  //searchbar
+  serachBarBorderColor : "gray",
+  serachBarBorderHoverColor : "black",
+  
+
   // divider
   dividerColor: "#FFFFFF",
 
