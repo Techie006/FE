@@ -1,37 +1,17 @@
 import styled from "styled-components";
-import { useForm } from "react-hook-form";
 
-const SmallInput = () => {
-    const {register, handleSubmit } = useForm({mode:"onChange"});
-
-  return (
-    <StyledWrapper>
-    <form onSubmit={handleSubmit}>
-        <input
-            type="text"
-            placeholder="SmallInput"
-            {...register("name1", {
-                required : "error msg",
-            })} 
-        />
-    </form>
-    </StyledWrapper>
-  );
+const SmallInput = ({ type, defaultValue, placeholder }) => {
+  return <StyledInput type={type} placeholder={placeholder} />;
 };
 
 export default SmallInput;
 
-const StyledWrapper = styled.div`
-
-    input{
-        margin : 10px;
-        width : 70px;
-        height : 20px;
-        border-color: ${(props) => props.theme.inputBorderColor};
-        &:hover {
-            cursor: pointer;
-            border-color: ${(props) => props.theme.inputBorderHoverColor};
-          }
-    }
-
-`
+const StyledInput = styled.input`
+  width: 150px;
+  border: 1px solid ${(props) => props.theme.borderColor};
+  border-radius: ${(props) => props.theme.boxRadius};
+  &:hover {
+    cursor: text;
+    border-color: ${(props) => props.theme.borderHoverColor};
+  }
+`;

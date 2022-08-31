@@ -17,12 +17,6 @@ export const defaultTheme = {
   categoryItemHoverColor: "#5732fb",
   categoryItemColor: "gray",
 
-  // input
-  inputBorderColor: "gray",
-  inputBorderHoverColor: "black",
-  msgColor: "black",
-  errorMsgColor: "red",
-
   //searchbar
   serachBarBorderColor: "gray",
   serachBarBorderHoverColor: "black",

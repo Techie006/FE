@@ -1,28 +1,12 @@
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import styled from "styled-components";
-import { useForm } from "react-hook-form";
 
-const InputWithIcon = () => {
-    const {register, handleSubmit } = useForm({mode:"onChange"});
-
+// TODO border 선 있는지 없는지는 디자인에 따라 변경
+const InputWithIcon = ({ type, placeholder, icon }) => {
   return (
     <StyledWrapper>
-    <form onSubmit={handleSubmit}>
-        <input
-            type="text"
-            placeholder="placeholder1"
-            {...register("name1", {
-                required : "error msg",
-            })} 
-        />
-
-        <input
-            type="text"
-            placeholder="placeholder2"
-            {...register("name2", {
-                required : "error msg",
-            })} 
-        />   
-    </form>
+      <StyledIcon icon={icon} size='sm' />
+      <StyledInput type={type} placeholder={placeholder} />
     </StyledWrapper>
   );
 };
@@ -30,28 +14,20 @@ const InputWithIcon = () => {
 export default InputWithIcon;
 
 const StyledWrapper = styled.div`
-    display : flex;
-    flex-direction : column;
+  display: flex;
+  align-items: center;
+`;
 
-    input {
-        margin : 10px;
-        background-repeat: no-repeat;
-        padding: 5px 5px;
-        width: 120px;
-        border-color: ${(props) => props.theme.inputBorderColor};
-        &:hover {
-            cursor: pointer;
-            border-color: ${(props) => props.theme.inputBorderHoverColor};
-          }
-    }
+const StyledIcon = styled(FontAwesomeIcon)`
+  color: ${(props) => props.theme.iconColor};
+  padding: 0px 3px;
+`;
 
-    input::-webkit-input-placeholder{
-    background-image: url("https://cdn1.iconfinder.com/data/icons/hawcons/32/698627-icon-111-search-256.png");
-    background-size: contain;
-    background-position:  1px center;
-    background-repeat: no-repeat;
-    text-align: center;
-    text-indent: 0;
-    }
-`
-
+const StyledInput = styled.input`
+  border: 1px solid ${(props) => props.theme.borderColor};
+  border-radius: ${(props) => props.theme.boxRadius};
+  &:hover {
+    cursor: text;
+    border-color: ${(props) => props.theme.borderHoverColor};
+  }
+`;
