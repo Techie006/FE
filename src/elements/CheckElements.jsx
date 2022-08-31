@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { faBookmark } from "@fortawesome/free-solid-svg-icons";
+import { faBookmark, faUser, faKey } from "@fortawesome/free-solid-svg-icons";
 
 // links
 import SmallLink from "./links/SmallLink";
@@ -8,9 +8,9 @@ import MediumLinkWithHelper from "./links/MediumLinkWithHelper";
 import SmallLinkWithHelper from "./links/SmallLinkWithHelper";
 
 // category
-import UnderlineCategory from "./category/UnderlineCategory";
-import ButtonCategory from "./category/ButtonCategory";
-import SelectCategory from "./category/SelectCategory";
+import UnderlineCategory from "./categories/UnderlineCategory";
+import ButtonCategory from "./categories/ButtonCategory";
+import SelectCategory from "./categories/SelectCategory";
 
 // texts
 import {
@@ -28,12 +28,11 @@ import {
   ModalNormalText,
   ModalSmallText,
 } from "./texts/modalTexts";
+
 // inputs
-import InputWithLabelHelper from "./inputs/InputWithLabelHelper";
 import InputWithIcon from "./inputs/InputWithIcon";
 import LargeInput from "./inputs/LargeInput";
 import SmallInput from "./inputs/SmallInput";
-
 
 // buttons
 import LargeButton from "./buttons/LargeButton";
@@ -44,8 +43,8 @@ import SmallIconButton from "./buttons/SmallIconButton";
 import LargeIconButton from "./buttons/LargeIconButton";
 
 // textareas
-import SmallTextarea from "./textareas/SmallTextArea";
-import MediumTextarea from "./textareas/MediumTextArea";
+import SmallTextarea from "./textareas/SmallTextarea";
+import MediumTextarea from "./textareas/MediumTextarea";
 
 // calendar
 import MiniCalender from "./calendar/MiniCalendar";
@@ -54,9 +53,6 @@ import MiniCalender from "./calendar/MiniCalendar";
 import RecipeLargeLayout from "./layouts/RecipeLargeLayout";
 import RecipeMediumLayout from "./layouts/RecipeMediumLayout";
 import RecipeSmallLayout from "./layouts/RecipeSmallLayout";
-
-//searchbar
-import SearchBar from "./searchBar/SearchBar";
 
 const CheckElements = (props) => {
   const clickHandler = (e) => {
@@ -82,12 +78,12 @@ const CheckElements = (props) => {
       </StyledContainer>
       <StyledContainer>
         2. Categories
-        <UnderlineCategory/>
-        <ButtonCategory
-        type='button'
-        onClick={clickHandler}
+        <UnderlineCategory
+          title='UnderlineCategory'
+          contents={["category1", "category2", "category3", "category4"]}
         />
-        <SelectCategory/>
+        <ButtonCategory type='button' onClick={clickHandler} />
+        <SelectCategory />
       </StyledContainer>
       <StyledContainer>
         3. Buttons
@@ -133,11 +129,14 @@ const CheckElements = (props) => {
         </StyledCompare>
       </StyledContainer>
       <StyledContainer>
-        4. inputs
-        <InputWithLabelHelper/>
-        <InputWithIcon/>
-        <LargeInput/>
-        <SmallInput/>
+        <div>4. inputs</div>
+        - InputWithIcon
+        <InputWithIcon placeholder='placeholder' icon={faUser} />
+        <InputWithIcon placeholder='placeholder' icon={faKey} />
+        - LargeInput
+        <LargeInput placeholder='placeholder' />
+        - SmallInput
+        <SmallInput placeholder='placeholder' />
       </StyledContainer>
       <StyledContainer>
         5. Textareas
@@ -169,10 +168,6 @@ const CheckElements = (props) => {
         <RecipeLargeLayout>RecipeLargeLayout</RecipeLargeLayout>
         <RecipeMediumLayout>RecipeMediumLayout</RecipeMediumLayout>
         <RecipeSmallLayout>RecipeSmallLayout</RecipeSmallLayout>
-      </StyledContainer>
-      <StyledContainer>
-        10. SearchBar
-        <SearchBar/>
       </StyledContainer>
     </>
   );

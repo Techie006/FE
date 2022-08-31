@@ -14,20 +14,12 @@ export const defaultTheme = {
   smallLinkColor: "gray",
 
   // category
-  selectedCategoryItemColor : "black",
-  categoryItemColor : "gray",
-  selectBoxTitle : "20px",
-  
-  // input
-  inputBorderColor : "gray",
-  inputBorderHoverColor : "black",
-  msgColor : "black",
-  errorMsgColor : "red",
+  categoryItemHoverColor: "#5732fb",
+  categoryItemColor: "gray",
 
   //searchbar
-  serachBarBorderColor : "gray",
-  serachBarBorderHoverColor : "black",
-  
+  serachBarBorderColor: "gray",
+  serachBarBorderHoverColor: "black",
 
   // divider
   dividerColor: "#FFFFFF",
