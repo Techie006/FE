@@ -1,15 +1,14 @@
-// import Layout from "../componenets/common/Layout";
-// import Header from "../componenets/common/Header";
-// import RecipeLayout from "../componenets/post/RecipeLayout";
+import Layout from "../components/common/Layout";
+import Header from "../components/common/Header";
+import RecipesLayout from "../components/recipes/RecipesLayout";
 
 const Recipe = (props) => {
   return (
     <>
-      {/* Recipe
       <Layout>
         <Header />
-        <RecipeLayout />
-      </Layout> */}
+        <RecipesLayout />
+      </Layout>
     </>
   );
 };

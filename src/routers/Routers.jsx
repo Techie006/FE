@@ -9,6 +9,7 @@ import Calendar from "../pages/Calendar";
 import Class from "../pages/Class";
 import My from "../pages/My";
 import NotFound from "../pages/NotFound";
+import RecipeDetail from "../components/recipes/RecipeDetail";
 
 // TODO erase elements
 import Elements from "../pages/Elements";
@@ -30,6 +31,7 @@ const Routers = (props) => {
         <Route path='/my' element={<My />} />
         <Route path='/elements' element={<Elements />} />
         <Route path='*' element={<NotFound />} />
+        <Route path='/recipe/detail/:id' element={<RecipeDetail />} />
       </Routes>
     </BrowserRouter>
   );

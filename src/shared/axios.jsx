@@ -107,4 +107,6 @@ export const apis = {
   // TODO delete 요청
   unfollow_user: (username) =>
     api.delete(`api/user/unfollow`, { data: { username } }),
+    unfollow_user: (username) =>
+    api.get(`api/user/unfollow`, { data: { username } }),
 };
