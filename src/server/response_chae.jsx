@@ -111,7 +111,7 @@ const RESP_CHAE = {
         message: "해당 사용자가 요리한 레시피가 없습니다.",
       },
     },
-    // 4. get calories (/api/statistics/ratio/calories)
+    // 5. get calories (/api/statistics/ratio/calories)
     GET_CALORIES_SUCCESS: {
       result: true,
       content: {
