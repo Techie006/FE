@@ -82,7 +82,11 @@ const CheckElements = (props) => {
           title='UnderlineCategory'
           contents={["category1", "category2", "category3", "category4"]}
         />
-        <ButtonCategory type='button' onClick={clickHandler} />
+        <ButtonCategory 
+        type='button' 
+        onClick={clickHandler}
+        contents={["category1", "category2", "category3"]}
+        />
         <SelectCategory />
       </StyledContainer>
       <StyledContainer>
