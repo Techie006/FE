@@ -1,14 +1,17 @@
-// import Layout from "../componenets/common/Layout";
-// import Header from "../componenets/common/Header";
-// import StatisticsLayout from "../componenets/post/StatisticsLayout";
+import Layout from "../components/common/Layout";
+import Header from "../components/common/Header";
+import StatisticsLayout from "../components/statistics/StatisticsLayout";
+import Helper from "../components/common/Helper";
+import Footer from "../components/common/Footer";
 
 const Statistics = (props) => {
   return (
-    <>Statistics</>
-    // <Layout>
-    //   <Header />
-    //   <StatisticsLayout />
-    // </Layout>
+    <Layout>
+      <Header />
+      <StatisticsLayout />
+      <Helper />
+      <Footer />
+    </Layout>
   );
 };
 
