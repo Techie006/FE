@@ -144,3 +144,5 @@ const RESP_CHAE = {
   CALENDAR: {},
   CLASS: {},
 };
+
+export default RESP_CHAE;
