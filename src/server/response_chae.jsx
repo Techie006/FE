@@ -6,7 +6,7 @@ const RESP_CHAE = {
       result: true,
       content: {
         // in-hurry, warning, fine
-        percentage: [33.3, 33.3, 33.3],
+        percentage: [0.3333, 0.3333, 0.3333],
         count: [3, 3, 3],
       },
       status: {
@@ -63,8 +63,8 @@ const RESP_CHAE = {
       result: true,
       content: {
         statistics: {
-          today: { calories: 300, nutrients: [3, 4, 5] },
-          yesterday: { calories: 300, nutrients: [3, 4, 5] },
+          today: { calories: 300, nutrients: [300, 400, 500] },
+          yesterday: { calories: 300, nutrients: [200, 300, 400] },
         },
       },
       status: {
@@ -93,10 +93,10 @@ const RESP_CHAE = {
             "2022-08-01",
             "2022-09-01",
           ],
-          carbohydrates: [10, 20, 30, 40, 50, 60, 70],
-          proteins: [2, 2, 20, 4, 50, 6, 7],
-          fats: [0, 3, 5, 5, 5, 6, 7],
-          sodium: [7, 6, 5, 4, 3, 2, 7],
+          carbohydrates: [10, 20, 30, 40, 50, 60, 70], //g
+          proteins: [2, 2, 20, 4, 50, 6, 7], //g
+          fats: [0, 3, 5, 5, 5, 6, 7], //g
+          sodium: [7, 6, 5, 4, 3, 2, 7], //mg
         },
       },
       status: {
@@ -125,7 +125,7 @@ const RESP_CHAE = {
             "2022-08-01",
             "2022-09-01",
           ],
-          calories: [10, 20, 30, 40, 50, 60, 70],
+          calories: [100, 200, 300, 400, 500, 600, 700], //kcal
         },
       },
       status: {
