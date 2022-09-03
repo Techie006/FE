@@ -29,12 +29,13 @@ export const apis = {
     axios.get(`/api/recipes/search`, { recipe_name }),
   get_recipe: ({ id }) => axios.get(`/api/recipe/${id}`),
   done_recipe: ({ id, ingredients_id }) =>
-    axios.get(`/api/recipe/finish?id=${id}`, { ingredients_id }),
-  like_recipe: ({ id }) => axios.get(`/api/recipe/like?id=${id}`),
-  unlike_recipe: ({ id }) => axios.get(`/api/recipe/unlike?id=${id}`),
+    axios.post(`/api/recipe/finish?id=${id}`, { ingredients_id }),
+  like_recipe: ({ id }) => axios.post(`/api/recipe/like?id=${id}`),
+  unlike_recipe: ({ id }) => axios.post(`/api/recipe/unlike?id=${id}`),
 
   // statistics
   get_state: () => axios.get(`/api/statistics/state`),
+  get_category: () => axios.get(`/api/statistics/category`),
   get_daily: () => axios.get(`/api/statistics/daily`),
   get_nutrients_ratio: ({ filter }) =>
     axios.get(`/api/statistics/ratio/nutrients`, { filter }),
