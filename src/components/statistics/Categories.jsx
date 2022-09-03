@@ -7,15 +7,15 @@ import SectionLayout from "../common/SectionLayout";
 import Loader from "../common/Loader";
 import HelpMsg from "../common/HelpMsg";
 
-const Daily = (props) => {
+const Categories = (props) => {
   const [loading, setLoading] = useState(true);
   const [data, setData] = useState({});
   const [showMsg, setShowMsg] = useState(false);
 
   const get_data = useCallback(async () => {
-    const resp = RESP_CHAE.STATISTICS.GET_CATEGORY_SUCCESS;
-    // const resp = RESP_CHAE.STATISTICS.GET_CATEGORY_FAIL;
-    // const resp = await apis.get_category();
+    const resp = RESP_CHAE.STATISTICS.GET_STATE_SUCCESS;
+    // const resp = RESP_CHAE.STATISTICS.GET_STATE_FAIL;
+    // const resp = await apis.get_state();
 
     const { result, content } = resp.data;
 
@@ -33,18 +33,18 @@ const Daily = (props) => {
   }, [get_data]);
 
   if (process.env.REACT_APP_DEBUG_ON) {
-    console.log(`[Daily] states: loading, showMsg, data`);
+    console.log(`[Categories] states: loading, showMsg, data`);
     console.log(loading);
     console.log(showMsg);
     console.log(data);
   }
 
-  const labels = ["해조류수", "임박", "정상"];
+  const labels = ["만료", "임박", "정상"];
   const percentage = data?.count;
 
   return (
     <SectionLayout>
-      <div>Daily</div>
+      <div>Categories</div>
       {loading ? <Loader /> : null}
       {!loading && showMsg ? (
         <HelpMsg
@@ -53,9 +53,30 @@ const Daily = (props) => {
           path={`/home`}
         />
       ) : null}
-      {!loading && !showMsg ? <div>개수보여주기</div> : null}
+      {!loading && !showMsg ? (
+        <ReactApexChart
+          type='donut'
+          series={percentage}
+          width={window.innerWidth > 500 ? "50%" : "100%"}
+          options={{
+            dataLabels: {
+              enabled: false,
+            },
+            legend: {
+              show: true,
+              position: "bottom",
+            },
+            labels: labels,
+            tooltip: {
+              y: {
+                formatter: (value) => `${value}개`,
+              },
+            },
+          }}
+        />
+      ) : null}
     </SectionLayout>
   );
 };
 
-export default Daily;
+export default Categories;

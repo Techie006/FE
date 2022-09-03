@@ -1,4 +1,4 @@
-.modal {
+/* .modal {
   display: none;
   position: fixed;
   top: 0;
@@ -14,7 +14,7 @@
   border: 0;
 }
 /*  모달창 크기 */
-.modal > section {
+/* .modal > section {
   width: 100%;
   height: 80%;
   max-width: 600px;
@@ -22,7 +22,7 @@
   border-radius: 0.3rem;
   background-color: #fff;
   /* 팝업이 열릴때 스르륵 열리는 효과 */
-  animation: modal-show 0.3s;
+/* animation: modal-show 0.3s;
   overflow: hidden;
 }
 .modal > section > header {
@@ -62,8 +62,8 @@
   display: flex;
   align-items: center;
   /* 팝업이 열릴때 스르륵 열리는 효과 */
-  animation: modal-bg-show 0.3s;
-}
+/* animation: modal-bg-show 0.3s; */
+/* }   */
 /* @keyframes modal-show {
     from {
       opacity: 0;
