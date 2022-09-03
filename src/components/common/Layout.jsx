@@ -8,5 +8,5 @@ export default Layout;
 
 const StLayout = styled.div`
   display: flex;
-  flex-direction: row;
+  flex-direction: column;
 `;
