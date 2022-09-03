@@ -1,5 +1,28 @@
+// MOCK API before connecting real API
+
 const RESP_CHAE = {
-  // chae
+  RECIPES: {
+    // 1. get ingredients state (/api/statistics/state)
+    GET_STATE_SUCCESS: {
+      result: true,
+      content: {
+        // in-hurry, warning, fine
+        percentage: [0.3333, 0.3333, 0.3333],
+        count: [3, 3, 3],
+      },
+      status: {
+        code: 200,
+        message: "식재료 상태 제공에 성공하였습니다.",
+      },
+    },
+    GET_STATE_FAIL: {
+      result: false,
+      status: {
+        code: 400,
+        message: "해당 사용자가 입력한 식재료가 없습니다.",
+      },
+    },
+  },
   STATISTICS: {
     // 1. get ingredients state (/api/statistics/state)
     GET_STATE_SUCCESS: {

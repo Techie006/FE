@@ -23,11 +23,13 @@ api.interceptors.request.use(function (config) {
 
 export const apis = {
   // recipes
-  get_recipe: ({ id }) => axios.get(`/api/recipe/${id}`),
   get_recipes: ({ pageNum, pageLimit }) =>
     axios.get(`/api/recipes?pageNum=${pageNum}&pageLimit=${pageLimit}`),
   get_searched_recipes: ({ recipe_name }) =>
     axios.get(`/api/recipes/search`, { recipe_name }),
+  get_recipe: ({ id }) => axios.get(`/api/recipe/${id}`),
+  done_recipe: ({ id, ingredients_id }) =>
+    axios.get(`/api/recipe/finish?id=${id}`, { ingredients_id }),
   like_recipe: ({ id }) => axios.get(`/api/recipe/like?id=${id}`),
   unlike_recipe: ({ id }) => axios.get(`/api/recipe/unlike?id=${id}`),
 
