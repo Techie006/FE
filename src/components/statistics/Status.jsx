@@ -1,7 +1,9 @@
 import { useState, useCallback, useEffect } from "react";
+import ReactApexChart from "react-apexcharts";
 
 import RESP_CHAE from "../../server/response_chae";
 import { apis } from "../../shared/axios";
+import SectionLayout from "../common/SectionLayout";
 import Loader from "../common/Loader";
 import HelpMsg from "../common/HelpMsg";
 
@@ -37,8 +39,11 @@ const Status = (props) => {
     console.log(data);
   }
 
+  const labels = ["만료", "임박", "정상"];
+  const percentage = data?.count;
+
   return (
-    <>
+    <SectionLayout>
       <div>Status</div>
       {loading ? <Loader /> : null}
       {!loading && showMsg ? (
@@ -48,8 +53,29 @@ const Status = (props) => {
           path={`/home`}
         />
       ) : null}
-      {!loading && !showMsg ? <div>show chart</div> : null}
-    </>
+      {!loading && !showMsg ? (
+        <ReactApexChart
+          type='donut'
+          series={percentage}
+          width={window.innerWidth > 500 ? "50%" : "100%"}
+          options={{
+            dataLabels: {
+              enabled: false,
+            },
+            legend: {
+              show: true,
+              position: "bottom",
+            },
+            labels: labels,
+            tooltip: {
+              y: {
+                formatter: (value) => `${value}개`,
+              },
+            },
+          }}
+        />
+      ) : null}
+    </SectionLayout>
   );
 };
 
