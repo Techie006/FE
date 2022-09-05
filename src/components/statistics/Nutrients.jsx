@@ -1,21 +1,30 @@
 import { useState, useCallback, useEffect } from "react";
-import ReactApexChart from "react-apexcharts";
+import Chart from "react-apexcharts";
 
 import RESP_CHAE from "../../server/response_chae";
 // import { apis } from "../../shared/axios";
 import SectionLayout from "../common/SectionLayout";
 import Loader from "../common/Loader";
 import HelpMsg from "../common/HelpMsg";
+import UnderlineCategory from "../../elements/categories/UnderlineCategory";
 
 const Nutrients = (props) => {
+  const NUTRIENTS = ["탄수화물", "단백질", "지방", "나트륨"];
+  const FILTERS = {
+    day: "일별",
+    week: "주별",
+    month: "월별",
+  };
+
   const [loading, setLoading] = useState(true);
   const [data, setData] = useState({});
   const [showMsg, setShowMsg] = useState(false);
+  const [filter, setFilter] = useState(FILTERS.day);
 
   const get_data = useCallback(async () => {
-    const resp = RESP_CHAE.STATISTICS.GET_STATE_SUCCESS;
-    // const resp = RESP_CHAE.STATISTICS.GET_STATE_FAIL;
-    // const resp = await apis.get_state();
+    const resp = RESP_CHAE.STATISTICS.GET_NUTRIENTS_SUCCESS;
+    // const resp = RESP_CHAE.STATISTICS.GET_NUTRIENTS_FAIL;
+    // const resp = await apis.get_nutrients_ratio({filter});
 
     const { result, content } = resp.data;
 
@@ -25,22 +34,48 @@ const Nutrients = (props) => {
     }
 
     setLoading(false);
-    setData({ ...content });
+    setData({ ...content.statistics });
   }, []);
 
   useEffect(() => {
     get_data();
-  }, [get_data]);
+  }, [get_data, filter]);
 
-  if (process.env.REACT_APP_DEBUG_ON) {
-    console.log(`[Nutrients] states: loading, showMsg, data`);
-    console.log(loading);
-    console.log(showMsg);
-    console.log(data);
+  // if (process.env.REACT_APP_DEBUG_ON) {
+  //   console.log(`[Nutrients] states: loading, showMsg, data`);
+  //   console.log(loading);
+  //   console.log(showMsg);
+  //   console.log(data);
+  // }
+
+  const labels = data?.days;
+  let nutrientsSeries = [];
+  for (let i = 1; i < Object.keys(data).length; i++) {
+    nutrientsSeries.push({
+      name: NUTRIENTS[i - 1],
+      data: data?.[Object.keys(data)[i]],
+    });
   }
 
-  const labels = ["만료", "임박", "정상"];
-  const percentage = data?.count;
+  const clickHandler = (e) => {
+    const content = e.target.textContent;
+    if (filter === content) {
+      return;
+    }
+    switch (content) {
+      case FILTERS.day:
+        setFilter("day");
+        break;
+      case FILTERS.week:
+        setFilter("week");
+        break;
+      case FILTERS.month:
+        setFilter("month");
+        break;
+      default:
+        break;
+    }
+  };
 
   return (
     <SectionLayout>
@@ -54,26 +89,52 @@ const Nutrients = (props) => {
         />
       ) : null}
       {!loading && !showMsg ? (
-        <ReactApexChart
-          type='donut'
-          series={percentage}
-          width={window.innerWidth > 500 ? "50%" : "100%"}
-          options={{
-            dataLabels: {
-              enabled: false,
-            },
-            legend: {
-              show: true,
-              position: "bottom",
-            },
-            labels: labels,
-            tooltip: {
-              y: {
-                formatter: (value) => `${value}개`,
+        <>
+          <UnderlineCategory
+            contents={Object.values(FILTERS)}
+            onClick={clickHandler}
+          />
+          <Chart
+            type='line'
+            series={nutrientsSeries}
+            width='100%'
+            options={{
+              chart: {
+                toolbar: {
+                  show: false,
+                },
               },
-            },
-          }}
-        />
+              dataLabels: {
+                enabled: false,
+              },
+              legend: {
+                show: true,
+                position: "bottom",
+              },
+              labels: labels,
+              xaxis: {
+                type: "datetime",
+                // labels: {
+                //   format: `yy년 MM월`,
+                // },
+                axisTicks: {
+                  show: false,
+                },
+                axisBorder: {
+                  show: false,
+                },
+              },
+              tooltip: {
+                y: {
+                  formatter: (value) => `${value}g`,
+                },
+              },
+              grid: {
+                show: false,
+              },
+            }}
+          />
+        </>
       ) : null}
     </SectionLayout>
   );

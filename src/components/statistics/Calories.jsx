@@ -8,7 +8,7 @@ import Loader from "../common/Loader";
 import HelpMsg from "../common/HelpMsg";
 import UnderlineCategory from "../../elements/categories/UnderlineCategory";
 
-const Categories = (props) => {
+const Calories = (props) => {
   const CALORIE = "칼로리";
   const FILTERS = {
     day: "일별",
@@ -114,9 +114,9 @@ const Categories = (props) => {
               labels: labels,
               xaxis: {
                 type: "datetime",
-                labels: {
-                  format: `yy년 MM월`,
-                },
+                // labels: {
+                //   format: `yy년 MM월`,
+                // },
                 axisTicks: {
                   show: false,
                 },
@@ -140,4 +140,4 @@ const Categories = (props) => {
   );
 };
 
-export default Categories;
+export default Calories;
