@@ -1,8 +1,7 @@
 import { useState, useCallback, useEffect } from "react";
-import ReactApexChart from "react-apexcharts";
 
 import RESP_CHAE from "../../server/response_chae";
-import { apis } from "../../shared/axios";
+// import { apis } from "../../shared/axios";
 import SectionLayout from "../common/SectionLayout";
 import Loader from "../common/Loader";
 import HelpMsg from "../common/HelpMsg";
@@ -13,9 +12,9 @@ const Categories = (props) => {
   const [showMsg, setShowMsg] = useState(false);
 
   const get_data = useCallback(async () => {
-    const resp = RESP_CHAE.STATISTICS.GET_STATE_SUCCESS;
-    // const resp = RESP_CHAE.STATISTICS.GET_STATE_FAIL;
-    // const resp = await apis.get_state();
+    const resp = RESP_CHAE.STATISTICS.GET_CATEGORY_SUCCESS;
+    // const resp = RESP_CHAE.STATISTICS.GET_CATEGORY_FAIL;
+    // const resp = await apis.get_category();
 
     const { result, content } = resp.data;
 
@@ -32,15 +31,22 @@ const Categories = (props) => {
     get_data();
   }, [get_data]);
 
-  if (process.env.REACT_APP_DEBUG_ON) {
-    console.log(`[Categories] states: loading, showMsg, data`);
-    console.log(loading);
-    console.log(showMsg);
-    console.log(data);
-  }
+  // if (process.env.REACT_APP_DEBUG_ON) {
+  //   console.log(`[Categories] states: loading, showMsg, data`);
+  //   console.log(loading);
+  //   console.log(showMsg);
+  //   console.log(data);
+  // }
 
-  const labels = ["만료", "임박", "정상"];
-  const percentage = data?.count;
+  const labels = Object.keys(data);
+  const nums = Object.values(data);
+  const diagram = labels?.map((label, i) => (
+    <div key={i}>
+      <div>
+        {label}: {nums[i]}
+      </div>
+    </div>
+  ));
 
   return (
     <SectionLayout>
@@ -53,28 +59,7 @@ const Categories = (props) => {
           path={`/home`}
         />
       ) : null}
-      {!loading && !showMsg ? (
-        <ReactApexChart
-          type='donut'
-          series={percentage}
-          width={window.innerWidth > 500 ? "50%" : "100%"}
-          options={{
-            dataLabels: {
-              enabled: false,
-            },
-            legend: {
-              show: true,
-              position: "bottom",
-            },
-            labels: labels,
-            tooltip: {
-              y: {
-                formatter: (value) => `${value}개`,
-              },
-            },
-          }}
-        />
-      ) : null}
+      {!loading && !showMsg ? diagram : null}
     </SectionLayout>
   );
 };

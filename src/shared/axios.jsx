@@ -1,9 +1,9 @@
 import axios from "axios";
 
-const base = {
-  server_http: "http://15.165.18.108:8080",
-  server_https: "https://sparta-omj.shop",
-};
+// const base = {
+//   server_http: "http://15.165.18.108:8080",
+//   server_https: "https://sparta-omj.shop",
+// };
 
 const api = axios.create({
   baseURL: "http://localhost:3000",

@@ -331,8 +331,8 @@ const RESP_CHAE = {
         result: true,
         content: {
           statistics: {
-            today: { calories: 300, nutrients: [300, 400, 500] },
-            yesterday: { calories: 300, nutrients: [200, 300, 400] },
+            today: { calories: 1800, nutrients: [300, 400, 500] },
+            yesterday: { calories: 2300, nutrients: [200, 300, 400] },
           },
         },
         status: {

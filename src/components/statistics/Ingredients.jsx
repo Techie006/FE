@@ -1,8 +1,8 @@
 import { useState, useCallback, useEffect } from "react";
-import ReactApexChart from "react-apexcharts";
+import Chart from "react-apexcharts";
 
 import RESP_CHAE from "../../server/response_chae";
-import { apis } from "../../shared/axios";
+// import { apis } from "../../shared/axios";
 import SectionLayout from "../common/SectionLayout";
 import Loader from "../common/Loader";
 import HelpMsg from "../common/HelpMsg";
@@ -32,12 +32,12 @@ const Ingredients = (props) => {
     get_data();
   }, [get_data]);
 
-  if (process.env.REACT_APP_DEBUG_ON) {
-    console.log(`[Ingredients] states: loading, showMsg, data`);
-    console.log(loading);
-    console.log(showMsg);
-    console.log(data);
-  }
+  // if (process.env.REACT_APP_DEBUG_ON) {
+  //   console.log(`[Ingredients] states: loading, showMsg, data`);
+  //   console.log(loading);
+  //   console.log(showMsg);
+  //   console.log(data);
+  // }
 
   const labels = ["만료", "임박", "정상"];
   const percentage = data?.count;
@@ -54,7 +54,7 @@ const Ingredients = (props) => {
         />
       ) : null}
       {!loading && !showMsg ? (
-        <ReactApexChart
+        <Chart
           type='donut'
           series={percentage}
           width={window.innerWidth > 500 ? "50%" : "100%"}
