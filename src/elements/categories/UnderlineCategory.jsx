@@ -1,8 +1,19 @@
 import styled from "styled-components";
 
-const UnderlineCategory = ({ title, contents }) => {
+const UnderlineCategory = ({
+  title = "",
+  contents,
+  onClick,
+  disabledCategory = "",
+}) => {
   const categoryItems = contents.map((category, index) => (
-    <StyledCategoryItem key={index}>{category}</StyledCategoryItem>
+    <StyledCategoryItem
+      key={index}
+      onClick={onClick}
+      disabled={category === disabledCategory}
+    >
+      {category}
+    </StyledCategoryItem>
   ));
 
   return (
@@ -31,11 +42,12 @@ const StyledCategory = styled.div`
   padding: 5px;
 `;
 
-const StyledCategoryItem = styled.div`
+const StyledCategoryItem = styled.button`
   font-size: 0.5rem;
   margin: 5px;
   color: ${(props) => props.theme.categoryItemColor};
   text-align: center;
+  border: none;
   &:hover {
     cursor: pointer;
     text-decoration: underline;

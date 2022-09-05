@@ -1,9 +1,9 @@
 import axios from "axios";
 
-const base = {
-  server_http: "http://15.165.18.108:8080",
-  server_https: "https://sparta-omj.shop",
-};
+// const base = {
+//   server_http: "http://15.165.18.108:8080",
+//   server_https: "https://sparta-omj.shop",
+// };
 
 const api = axios.create({
   baseURL: "http://localhost:3000",
@@ -37,8 +37,8 @@ export const apis = {
   get_state: () => axios.get(`/api/statistics/state`),
   get_category: () => axios.get(`/api/statistics/category`),
   get_daily: () => axios.get(`/api/statistics/daily`),
-  get_nutrients_ratio: ({ filter }) =>
-    axios.get(`/api/statistics/ratio/nutrients`, { filter }),
   get_calories_ratio: ({ filter }) =>
     axios.get(`/api/statistics/ratio/calories`, { filter }),
+  get_nutrients_ratio: ({ filter }) =>
+    axios.get(`/api/statistics/ratio/nutrients`, { filter }),
 };

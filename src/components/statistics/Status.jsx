@@ -32,12 +32,12 @@ const Status = (props) => {
     get_data();
   }, [get_data]);
 
-  if (process.env.REACT_APP_DEBUG_ON) {
-    console.log(`[Status] states: loading, showMsg, data`);
-    console.log(loading);
-    console.log(showMsg);
-    console.log(data);
-  }
+  // if (process.env.REACT_APP_DEBUG_ON) {
+  //   console.log(`[Status] states: loading, showMsg, data`);
+  //   console.log(loading);
+  //   console.log(showMsg);
+  //   console.log(data);
+  // }
 
   const labels = ["만료", "임박", "정상"];
   const percentage = data?.count;

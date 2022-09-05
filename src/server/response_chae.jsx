@@ -331,8 +331,8 @@ const RESP_CHAE = {
         result: true,
         content: {
           statistics: {
-            today: { calories: 300, nutrients: [300, 400, 500] },
-            yesterday: { calories: 300, nutrients: [200, 300, 400] },
+            today: { calories: 1800, nutrients: [300, 400, 500] },
+            yesterday: { calories: 2300, nutrients: [200, 300, 400] },
           },
         },
         status: {
@@ -350,7 +350,40 @@ const RESP_CHAE = {
         },
       },
     },
-    // 4. get nutrients (/api/statistics/ratio/nutrients)
+    // 4. get calories (/api/statistics/ratio/calories)
+    GET_CALORIES_SUCCESS: {
+      data: {
+        result: true,
+        content: {
+          statistics: {
+            days: [
+              "2022-03-01",
+              "2022-04-01",
+              "2022-05-01",
+              "2022-06-01",
+              "2022-07-01",
+              "2022-08-01",
+              "2022-09-01",
+            ],
+            calories: [100, 200, 300, 400, 500, 600, 700], //kcal
+          },
+        },
+        status: {
+          code: 200,
+          message: "통계자료 제공에 성공하였습니다.",
+        },
+      },
+    },
+    GET_CALORIES_FAIL: {
+      data: {
+        result: false,
+        status: {
+          code: 400,
+          message: "해당 사용자가 요리한 레시피가 없습니다.",
+        },
+      },
+    },
+    // 5. get nutrients (/api/statistics/ratio/nutrients)
     GET_NUTRIENTS_SUCCESS: {
       data: {
         result: true,
@@ -378,39 +411,6 @@ const RESP_CHAE = {
       },
     },
     GET_NUTRIENTS_FAIL: {
-      data: {
-        result: false,
-        status: {
-          code: 400,
-          message: "해당 사용자가 요리한 레시피가 없습니다.",
-        },
-      },
-    },
-    // 5. get calories (/api/statistics/ratio/calories)
-    GET_CALORIES_SUCCESS: {
-      data: {
-        result: true,
-        content: {
-          statistics: {
-            days: [
-              "2022-03-01",
-              "2022-04-01",
-              "2022-05-01",
-              "2022-06-01",
-              "2022-07-01",
-              "2022-08-01",
-              "2022-09-01",
-            ],
-            calories: [100, 200, 300, 400, 500, 600, 700], //kcal
-          },
-        },
-        status: {
-          code: 200,
-          message: "통계자료 제공에 성공하였습니다.",
-        },
-      },
-    },
-    GET_CALORIES_FAIL: {
       data: {
         result: false,
         status: {

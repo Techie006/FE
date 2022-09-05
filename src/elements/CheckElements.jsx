@@ -10,7 +10,6 @@ import SmallLinkWithHelper from "./links/SmallLinkWithHelper";
 // category
 import UnderlineCategory from "./categories/UnderlineCategory";
 import ButtonCategory from "./categories/ButtonCategory";
-import SelectCategory from "./categories/SelectCategory";
 
 // texts
 import {
@@ -81,13 +80,14 @@ const CheckElements = (props) => {
         <UnderlineCategory
           title='UnderlineCategory'
           contents={["category1", "category2", "category3", "category4"]}
+          onClick={clickHandler}
+          disabledCategory='category1'
         />
-        <ButtonCategory 
-        type='button' 
-        onClick={clickHandler}
-        contents={["category1", "category2", "category3"]}
+        <ButtonCategory
+          type='button'
+          contents={["category1", "category2", "category3"]}
+          onClick={clickHandler}
         />
-        <SelectCategory />
       </StyledContainer>
       <StyledContainer>
         3. Buttons
