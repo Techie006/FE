@@ -1,7 +1,7 @@
 import styled from "styled-components";
 
 const UnderlineCategory = ({
-  title,
+  title = "",
   contents,
   onClick,
   disabledCategory = "",

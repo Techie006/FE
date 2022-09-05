@@ -6,7 +6,7 @@ import RESP_CHAE from "../../server/response_chae";
 import SectionLayout from "../common/SectionLayout";
 import Loader from "../common/Loader";
 import HelpMsg from "../common/HelpMsg";
-import SmallButton from "../../elements/buttons/SmallButton";
+import UnderlineCategory from "../../elements/categories/UnderlineCategory";
 
 const Daily = (props) => {
   const CRITERIAS = ["열량", "성분"];
@@ -90,19 +90,10 @@ const Daily = (props) => {
       ) : null}
       {!loading && !showMsg ? (
         <>
-          <SmallButton
-            type='button'
-            name={CRITERIAS[0]}
-            content={CRITERIAS[0]}
+          <UnderlineCategory
+            contents={CRITERIAS}
             onClick={clickHandler}
-            disabled={criteria === CRITERIAS[0]}
-          />
-          <SmallButton
-            type='button'
-            name={CRITERIAS[1]}
-            content={CRITERIAS[1]}
-            onClick={clickHandler}
-            disabled={criteria === CRITERIAS[1]}
+            disabledCategory={criteria}
           />
           <Chart
             type='bar'
