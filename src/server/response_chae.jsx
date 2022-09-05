@@ -20,6 +20,7 @@ const RESP_CHAE = {
               method: "끓이기",
               category: "후식",
               calorie: 200,
+              is_liked: true,
             },
             {
               id: 2,
@@ -30,6 +31,7 @@ const RESP_CHAE = {
               method: "끓이기",
               category: "밥",
               calorie: 380,
+              is_liked: true,
             },
             {
               id: 3,
@@ -40,6 +42,7 @@ const RESP_CHAE = {
               method: "찌기",
               category: "반찬",
               calorie: 200,
+              is_liked: false,
             },
             {
               id: 4,
@@ -50,6 +53,7 @@ const RESP_CHAE = {
               method: "끓이기",
               category: "밥",
               calorie: 200,
+              is_liked: false,
             },
             {
               id: 5,
@@ -60,6 +64,7 @@ const RESP_CHAE = {
               method: "끓이기",
               category: "밥",
               calorie: 200,
+              is_liked: true,
             },
           ],
         },
@@ -85,6 +90,7 @@ const RESP_CHAE = {
               method: "끓이기",
               category: "국&찌개",
               calorie: 260,
+              is_liked: false,
             },
           ],
         },
@@ -111,6 +117,7 @@ const RESP_CHAE = {
               method: "끓이기",
               category: "후식",
               calorie: 200,
+              is_liked: true,
             },
             {
               id: 2,
@@ -121,6 +128,7 @@ const RESP_CHAE = {
               method: "끓이기",
               category: "밥",
               calorie: 380,
+              is_liked: true,
             },
             {
               id: 3,
@@ -131,6 +139,7 @@ const RESP_CHAE = {
               method: "찌기",
               category: "반찬",
               calorie: 200,
+              is_liked: false,
             },
             {
               id: 4,
@@ -141,6 +150,7 @@ const RESP_CHAE = {
               method: "끓이기",
               category: "밥",
               calorie: 200,
+              is_liked: false,
             },
             {
               id: 5,
@@ -151,6 +161,7 @@ const RESP_CHAE = {
               method: "끓이기",
               category: "밥",
               calorie: 200,
+              is_liked: true,
             },
           ],
         },
@@ -176,6 +187,7 @@ const RESP_CHAE = {
               method: "끓이기",
               category: "국&찌개",
               calorie: 260,
+              is_liked: false,
             },
           ],
         },
@@ -204,6 +216,7 @@ const RESP_CHAE = {
               proteins: 200,
               fats: 150,
               sodium: 30,
+              is_liked: true,
               manual_desc: [
                 "1. 감자, 양파를 잘 익도록 얇게 썬다.",
                 "2. 애느타리버섯은 썰어 달궈진 팬에 굽는다.",
