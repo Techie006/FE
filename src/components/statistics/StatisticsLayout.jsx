@@ -1,7 +1,7 @@
 import Ingredients from "./Ingredients";
 import Categories from "./Categories";
 import Daily from "./Daily";
-// import Calories from "./Calories";
+import Calories from "./Calories";
 // import Nutrients from "./Nutrients";
 
 const StatisticsLayout = () => {
@@ -11,8 +11,8 @@ const StatisticsLayout = () => {
       <Ingredients />
       <Categories />
       <Daily />
-      {/* <Calories />
-      <Nutrients /> */}
+      <Calories />
+      {/* <Nutrients /> */}
     </>
   );
 };

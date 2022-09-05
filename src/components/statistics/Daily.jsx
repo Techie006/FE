@@ -10,6 +10,7 @@ import SmallButton from "../../elements/buttons/SmallButton";
 
 const Daily = (props) => {
   const CRITERIAS = ["열량", "성분"];
+  const CALORIE = "칼로리";
   const NUTRIENTS = ["탄수화물", "단백질", "지방"];
   const LABELS = ["어제", "오늘"];
   const BASES = ["kcal", "g"];
@@ -54,7 +55,7 @@ const Daily = (props) => {
 
   const caloriesSeries = [
     {
-      name: "calories",
+      name: CALORIE,
       data: [data.yesterday?.calories || 0, data.today?.calories || 0],
     },
   ];

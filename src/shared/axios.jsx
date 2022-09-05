@@ -37,8 +37,8 @@ export const apis = {
   get_state: () => axios.get(`/api/statistics/state`),
   get_category: () => axios.get(`/api/statistics/category`),
   get_daily: () => axios.get(`/api/statistics/daily`),
-  get_nutrients_ratio: ({ filter }) =>
-    axios.get(`/api/statistics/ratio/nutrients`, { filter }),
   get_calories_ratio: ({ filter }) =>
     axios.get(`/api/statistics/ratio/calories`, { filter }),
+  get_nutrients_ratio: ({ filter }) =>
+    axios.get(`/api/statistics/ratio/nutrients`, { filter }),
 };

@@ -1,5 +1,5 @@
 import { useState, useCallback, useEffect } from "react";
-import ReactApexChart from "react-apexcharts";
+import Chart from "react-apexcharts";
 
 import RESP_CHAE from "../../server/response_chae";
 // import { apis } from "../../shared/axios";
@@ -8,14 +8,16 @@ import Loader from "../common/Loader";
 import HelpMsg from "../common/HelpMsg";
 
 const Categories = (props) => {
+  const CALORIE = "칼로리";
+
   const [loading, setLoading] = useState(true);
   const [data, setData] = useState({});
   const [showMsg, setShowMsg] = useState(false);
 
   const get_data = useCallback(async () => {
-    const resp = RESP_CHAE.STATISTICS.GET_STATE_SUCCESS;
-    // const resp = RESP_CHAE.STATISTICS.GET_STATE_FAIL;
-    // const resp = await apis.get_state();
+    const resp = RESP_CHAE.STATISTICS.GET_CALORIES_SUCCESS;
+    // const resp = RESP_CHAE.STATISTICS.GET_CALORIES_FAIL;
+    // const resp = await apis.get_calories_ratio();
 
     const { result, content } = resp.data;
 
@@ -25,22 +27,30 @@ const Categories = (props) => {
     }
 
     setLoading(false);
-    setData({ ...content });
+    setData({ ...content.statistics });
   }, []);
 
   useEffect(() => {
     get_data();
   }, [get_data]);
 
-  if (process.env.REACT_APP_DEBUG_ON) {
-    console.log(`[Categories] states: loading, showMsg, data`);
-    console.log(loading);
-    console.log(showMsg);
-    console.log(data);
-  }
+  // if (process.env.REACT_APP_DEBUG_ON) {
+  //   console.log(`[Calories] states: loading, showMsg, data`);
+  //   console.log(loading);
+  //   console.log(showMsg);
+  //   console.log(data);
+  // }
 
-  const labels = ["만료", "임박", "정상"];
-  const percentage = data?.count;
+  console.log(data);
+
+  const caloriesSeries = [
+    {
+      name: CALORIE,
+      data: data?.calories,
+    },
+  ];
+
+  const labels = data.days?.map((day) => new Date(day).toUTCString());
 
   return (
     <SectionLayout>
@@ -54,10 +64,10 @@ const Categories = (props) => {
         />
       ) : null}
       {!loading && !showMsg ? (
-        <ReactApexChart
-          type='donut'
-          series={percentage}
-          width={window.innerWidth > 500 ? "50%" : "100%"}
+        <Chart
+          type='line'
+          series={caloriesSeries}
+          width='100%'
           options={{
             dataLabels: {
               enabled: false,
@@ -67,9 +77,15 @@ const Categories = (props) => {
               position: "bottom",
             },
             labels: labels,
+            xaxis: {
+              type: "datetime",
+              labels: {
+                format: "dd/MM",
+              },
+            },
             tooltip: {
               y: {
-                formatter: (value) => `${value}개`,
+                formatter: (value) => `${value}kcal`,
               },
             },
           }}

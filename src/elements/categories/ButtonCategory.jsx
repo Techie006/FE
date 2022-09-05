@@ -1,46 +1,45 @@
 import styled from "styled-components";
 
-const ButtonCategory = ({ onClick }) => {
-    return (
-        <StyledWrapper onClick={onClick}>
-
-            <StyledButton>전체</StyledButton>
-            <StyledButton>수입</StyledButton>
-            <StyledButton>지출</StyledButton>
-
-        </StyledWrapper>
-    );
+const ButtonCategory = ({ contents, type, onClick }) => {
+  const categoryItems = contents.map((category, index) => (
+    <StyledButton key={index} type={type} onClick={onClick}>
+      {category}
+    </StyledButton>
+  ));
+  return (
+    <StyledWrapper>
+      <StyledCategory>{categoryItems}</StyledCategory>
+    </StyledWrapper>
+  );
 };
 
 export default ButtonCategory;
 
 const StyledWrapper = styled.div`
-    display : flex;
-    flex-direction : row;
-    justify-contents : left;
-    
-    background-color : gray;
-`
+  display: flex;
+  flex-direction: row;
+  justify-content: left;
+  background-color: gray;
+`;
+
+const StyledCategory = styled.div`
+  display: flex;
+  flex-direction: row;
+  justify-content: left;
+`;
 
 const StyledButton = styled.button`
-    border : 2px solid black;
-    border-radius : 20px;
-
-    background-color : white;
-
-    width : 50px;
-    height : 30px;
-
-    padding : 2px;
-    margin : 10px;
-
-    text-align : center;
-    &:hover {
-        cursor: pointer;
-        font-weight : bold;
-
-        color: ${(props) => props.theme.SelectedCategoryItemColor};
-        transition: ${(props) => props.theme.transition};
-        transform: ${(props) => props.theme.transform};
-      }
-`
+  border: 2px solid black;
+  border-radius: 20px;
+  background-color: white;
+  padding: 2px;
+  margin: 10px;
+  color: ${(props) => props.theme.categoryItemColor};
+  text-align: center;
+  &:hover {
+    cursor: pointer;
+    color: ${(props) => props.theme.categoryItemHoverColor};
+    transition: ${(props) => props.theme.transition};
+    transform: ${(props) => props.theme.transform};
+  }
+`;

@@ -39,7 +39,7 @@ const Ingredients = (props) => {
   //   console.log(data);
   // }
 
-  const labels = ["만료", "임박", "정상"];
+  const LABELS = ["만료", "임박", "정상"];
   const percentage = data?.count;
 
   return (
@@ -66,7 +66,7 @@ const Ingredients = (props) => {
               show: true,
               position: "bottom",
             },
-            labels: labels,
+            labels: LABELS,
             tooltip: {
               y: {
                 formatter: (value) => `${value}개`,
