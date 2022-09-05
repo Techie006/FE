@@ -30,6 +30,7 @@ Recipe
 
 - [x] get all recipes
 - [ ] get searched recipes
+- [ ] get detail recipe
 - [ ] recipe like
 - [ ] recipe unlike
 - [ ] recipe done
