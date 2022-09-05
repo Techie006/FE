@@ -32,15 +32,22 @@ const Daily = (props) => {
     get_data();
   }, [get_data]);
 
-  if (process.env.REACT_APP_DEBUG_ON) {
-    console.log(`[Daily] states: loading, showMsg, data`);
-    console.log(loading);
-    console.log(showMsg);
-    console.log(data);
-  }
+  // if (process.env.REACT_APP_DEBUG_ON) {
+  //   console.log(`[Daily] states: loading, showMsg, data`);
+  //   console.log(loading);
+  //   console.log(showMsg);
+  //   console.log(data);
+  // }
 
-  const labels = ["해조류수", "임박", "정상"];
-  const percentage = data?.count;
+  const labels = Object.keys(data);
+  const nums = Object.values(data);
+  const diagram = labels?.map((label, i) => (
+    <div>
+      <div>
+        {label}: {nums[i]}
+      </div>
+    </div>
+  ));
 
   return (
     <SectionLayout>
@@ -53,7 +60,7 @@ const Daily = (props) => {
           path={`/home`}
         />
       ) : null}
-      {!loading && !showMsg ? <div>개수보여주기</div> : null}
+      {!loading && !showMsg ? diagram : null}
     </SectionLayout>
   );
 };
