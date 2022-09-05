@@ -11,14 +11,14 @@ Auth
 
 Home
 
-- 1. Ingredient
+- Ingredient
 - [ ] autocomplete
 - [ ] search
 - [ ] create
-- 2. Storage
+- Storage
 - [ ] get storage
 - [ ] delte ingredient
-- 3. Recommend recipe
+- Recommend recipe
 - [ ] get recommend recipe
 - [ ] get recipe detail
 
@@ -32,10 +32,11 @@ Recipe
 
 Statistics
 
-- [ ] ingredients state
-- [ ] ingredients category
-- [ ] daily statistics
-- [ ] ratio statistics
+- [x] ingredients state
+- [x] ingredients category
+- [x] daily statistics
+- [x] ratio statistics (calories)
+- [x] ratio statistics (nutrients)
 
 Calendar
 
