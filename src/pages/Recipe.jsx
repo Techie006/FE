@@ -5,10 +5,10 @@ import RecipesLayout from "../components/recipes/RecipesLayout";
 const Recipe = (props) => {
   return (
     <>
-      <Header />
       <Layout>
-        <RecipesLayout />
-      </Layout>
+        <Header />
+        <RecipeLayout />
+      </Layout> 
     </>
   );
 };
