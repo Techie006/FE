@@ -21,6 +21,7 @@ const Categories = (props) => {
     if (!result) {
       setLoading(false);
       setShowMsg(true);
+      return;
     }
 
     setLoading(false);
