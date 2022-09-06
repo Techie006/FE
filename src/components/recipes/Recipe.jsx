@@ -1,4 +1,6 @@
 import { useState } from "react";
+import Swal from "sweetalert2";
+import withReactContent from "sweetalert2-react-content";
 import { faBookmark } from "@fortawesome/free-solid-svg-icons";
 import styled from "styled-components";
 
@@ -22,18 +24,29 @@ const Recipe = ({
 
   const ingredientList = ingredients.slice(0, 3).join(" ");
 
-  const clickHandler = async () => {
-    setBookmark((prev) => !prev);
+  const BookmarkSwal = withReactContent(Swal);
 
+  const alertHandler = (active) =>
+    BookmarkSwal.fire({
+      position: "center",
+      icon: "success",
+      title: active
+        ? "해당 레시피를 북마크하였습니다."
+        : "해당 레시피 북마크를 해제하였습니다.",
+      showConfirmButton: false,
+      timer: 1000,
+    });
+
+  const clickHandler = async () => {
     if (!bookmark) {
       // const resp = RESP_CHAE.RECIPES.LIKE_RECIPE_SUCCESS;
-      // const resp = RESP_CHAE.RECIPES.LIKE_RECIPE_FAIL;
       // const resp = await apis.like_recipe({ id });
-      return;
+    } else {
+      // const resp = RESP_CHAE.RECIPES.UNLIKE_RECIPE_SUCCESS;
+      // const resp = await apis.unlike_recipe({ id });
     }
-
-    // const resp = RESP_CHAE.RECIPES.UNLIKE_RECIPE_SUCCESS;
-    // const resp = await apis.unlike_recipe({ id });
+    alertHandler(!bookmark);
+    setBookmark((prev) => !prev);
   };
 
   return (
