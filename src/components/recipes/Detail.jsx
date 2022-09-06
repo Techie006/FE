@@ -1,4 +1,5 @@
 import { useState, useCallback, useEffect } from "react";
+import styled from "styled-components";
 
 // import { apis } from "../../shared/axios";
 import RESP_CHAE from "../../server/response_chae";
@@ -29,15 +30,35 @@ const Detail = ({ id, recipeName }) => {
 
   console.log(recipe);
 
+  const ingredients = recipe.ingredients?.join(" ");
+  const instruction = recipe.manual_desc?.map((desc, idx) => (
+    <div>
+      <div>{desc}</div>
+      {recipe?.manual_imgs[idx] !== "" ? (
+        <img src={recipe?.manual_imgs[idx]} alt={`img${idx}`} />
+      ) : null}
+    </div>
+  ));
+
   return (
     <>
-      <div>
-        {id} {recipeName}
-      </div>
+      <div>{recipeName}</div>
       {loading ? <Loader /> : null}
-      {!loading ? <></> : null}
+      {!loading ? (
+        <StWrapper>
+          <div>{ingredients}</div>
+          <div>
+            <div>조리방법: {recipe.method}</div>
+            <div>카테고리: {recipe.category}</div>
+            <div>열량: {recipe.calorie}</div>
+          </div>
+          {instruction}
+        </StWrapper>
+      ) : null}
     </>
   );
 };
 
 export default Detail;
+
+const StWrapper = styled.div``;

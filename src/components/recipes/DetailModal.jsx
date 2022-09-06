@@ -40,4 +40,5 @@ const ModalContainer = styled.div`
   background: white;
   border-radius: 10px;
   text-align: center;
+  overflow-y: auto;
 `;
