@@ -6,6 +6,7 @@ import styled from "styled-components";
 import RESP_CHAE from "../../server/response_chae";
 import Loader from "../common/Loader";
 import SmallIconButton from "../../elements/buttons/SmallIconButton";
+import SmallButton from "../../elements/buttons/SmallButton";
 
 const Detail = ({ id, recipeName }) => {
   const [loading, setLoading] = useState(true);
@@ -45,6 +46,10 @@ const Detail = ({ id, recipeName }) => {
     // const resp = await apis.unlike_recipe({ id });
   };
 
+  const doneHandler = () => {
+    console.log("clicked");
+  };
+
   const ingredients = recipe.ingredients?.join(" ");
   const instruction = recipe.manual_desc?.map((desc, idx) => (
     <div>
@@ -73,6 +78,11 @@ const Detail = ({ id, recipeName }) => {
             <div>열량: {recipe.calorie}</div>
           </div>
           {instruction}
+          <SmallButton
+            type='button'
+            content='요리 완료'
+            onClick={doneHandler}
+          />
         </StWrapper>
       ) : null}
     </>
