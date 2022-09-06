@@ -38,12 +38,12 @@ const Recipe = ({
 
   return (
     <StWrapper>
-      <div onClick={() => onClick(id)}>{recipe_name}</div>
+      <div onClick={() => onClick({ id, recipe_name })}>{recipe_name}</div>
       <div>{ingredientList}</div>
       <SmallIconButton
         icon={faBookmark}
         onClick={clickHandler}
-        isActive={bookmark}
+        isactive={bookmark}
       />
       <StImg src={final_img} alt={recipe_name} />
       <div>조리방법: {method}</div>

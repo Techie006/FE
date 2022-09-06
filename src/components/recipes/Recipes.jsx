@@ -4,16 +4,17 @@ import styled from "styled-components";
 // import { apis } from "../../shared/axios";
 import RESP_CHAE from "../../server/response_chae";
 import Loader from "../common/Loader";
-import HelpMsg from "../common/HelpMsg";
 import Recipe from "./Recipe";
 import DetailModal from "./DetailModal";
 
 const Recipes = (props) => {
   const [loading, setLoading] = useState(true);
   const [recipes, setRecipes] = useState([]);
-  const [showMsg, setShowMsg] = useState(false);
   const [showModal, setShowModal] = useState(false);
-  const [id, setId] = useState(-1);
+  const [recipe, setRecipe] = useState({
+    id: -1,
+    recipe_name: "",
+  });
 
   const pageNum = useRef(0);
   const hasMore = useRef(true);
@@ -27,7 +28,6 @@ const Recipes = (props) => {
 
     if (!result) {
       setLoading(false);
-      setShowMsg(true);
       return;
     }
 
@@ -41,9 +41,9 @@ const Recipes = (props) => {
     get_data();
   }, [get_data]);
 
-  const clickHandler = (id) => {
+  const clickHandler = (recipe) => {
     setShowModal((prev) => !prev);
-    setId(id);
+    setRecipe({ ...recipe });
   };
 
   const recipesView = recipes.map((recipe) => (
@@ -52,8 +52,15 @@ const Recipes = (props) => {
 
   return (
     <StWrapper>
-      {recipesView}
-      {showModal ? <DetailModal id={id} onClick={clickHandler} /> : null}
+      {loading ? <Loader /> : null}
+      {!loading ? recipesView : null}
+      {!loading && showModal ? (
+        <DetailModal
+          id={recipe.id}
+          recipeName={recipe.recipe_name}
+          onClick={clickHandler}
+        />
+      ) : null}
     </StWrapper>
   );
 };

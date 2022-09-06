@@ -1,11 +1,15 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import styled from "styled-components";
 
-// TODO null visibility: none 차이
-const Button = ({ icon, onClick, disabled = false, isActive = false }) => {
+const Button = ({ icon, onClick, disabled = false, isactive = false }) => {
   return (
     <Wrapper onClick={!disabled ? onClick : null}>
-      <Icon icon={icon} disabled={disabled} size='sm' isActive={isActive} />
+      <Icon
+        icon={icon}
+        disabled={disabled}
+        size='sm'
+        isactive={isactive ? 1 : 0}
+      />
     </Wrapper>
   );
 };
@@ -16,7 +20,7 @@ const Wrapper = styled.div``;
 
 const Icon = styled(FontAwesomeIcon)`
   color: ${(props) =>
-    props.disabled || props.isActive
+    props.disabled || props.isactive
       ? props.theme.hoverIconColor
       : props.theme.iconColor};
   &:hover {

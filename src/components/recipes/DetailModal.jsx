@@ -4,13 +4,13 @@ import styled from "styled-components";
 import SmallIconButton from "../../elements/buttons/SmallIconButton";
 import Detail from "./Detail";
 
-const DetailModal = ({ id, onClick }) => {
+const DetailModal = ({ id, recipeName, onClick }) => {
   return (
     <>
       <Background />
       <ModalContainer>
         <SmallIconButton icon={faX} onClick={onClick} />
-        <Detail id={id} />
+        <Detail id={id} recipeName={recipeName} />
       </ModalContainer>
     </>
   );
@@ -37,7 +37,7 @@ const ModalContainer = styled.div`
   width: 20rem;
   height: 80%;
   padding: 16px;
-  background: rgb(25, 31, 44);
+  background: white;
   border-radius: 10px;
   text-align: center;
 `;
