@@ -1,5 +1,3 @@
-import styled from "styled-components";
-
 import SectionLayout from "../common/SectionLayout";
 import Ingredients from "./Ingredients";
 import Categories from "./Categories";

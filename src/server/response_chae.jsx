@@ -1,7 +1,7 @@
 // MOCK API before connecting real API
 
 const RESP_CHAE = {
-  // statistics: 5 apis
+  // recipes: 5 apis
   RECIPES: {
     // 1. get 5 recipes in certain page (/api/reipes?pageNum={pageNum}*pageLimit=&{pageLimit})
     GET_RECIPES_SUCCESS: {
@@ -244,6 +244,101 @@ const RESP_CHAE = {
         status: {
           code: 200,
           message: "레시피 세부정보 제공에 성공하였습니다.",
+        },
+      },
+    },
+    // 4. get all ingredients (/api/ingredients)
+    GET_INGREDIENTS_SUCCESS: {
+      data: {
+        result: true,
+        content: {
+          ingredients_num: 10,
+          storage: [
+            {
+              id: 1,
+              food_name: "고등어",
+              group_name: "가공식품",
+              in_date: "2022-09-01",
+              d_date: "D-7",
+              category: "frozen",
+            },
+            {
+              id: 2,
+              food_name: "멸치",
+              group_name: "가공식품",
+              in_date: "2022-09-01",
+              d_date: "D-3",
+              category: "room-temp",
+            },
+            {
+              id: 3,
+              food_name: "토마토",
+              group_name: "가공식품",
+              in_date: "2022-09-01",
+              d_date: "D-20",
+              category: "refrigirated",
+            },
+            {
+              id: 4,
+              food_name: "가지",
+              group_name: "가공식품",
+              in_date: "2022-09-01",
+              d_date: "D-20",
+              category: "refrigirated",
+            },
+            {
+              id: 5,
+              food_name: "고추",
+              group_name: "가공식품",
+              in_date: "2022-09-01",
+              d_date: "D-20",
+              category: "refrigirated",
+            },
+            {
+              id: 6,
+              food_name: "갈치",
+              group_name: "가공식품",
+              in_date: "2022-09-01",
+              d_date: "D-20",
+              category: "refrigirated",
+            },
+            {
+              id: 7,
+              food_name: "생밤",
+              group_name: "가공식품",
+              in_date: "2022-09-01",
+              d_date: "D-20",
+              category: "refrigirated",
+            },
+            {
+              id: 8,
+              food_name: "딸기",
+              group_name: "가공식품",
+              in_date: "2022-09-01",
+              d_date: "D-20",
+              category: "refrigirated",
+            },
+            {
+              id: 9,
+              food_name: "돼지목살",
+              group_name: "가공식품",
+              in_date: "2022-09-01",
+              d_date: "D-20",
+              category: "refrigirated",
+            },
+            {
+              id: 10,
+              food_name: "소고기",
+              group_name: "가공식품",
+              in_date: "2022-09-01",
+              d_date: "D-20",
+              category: "refrigirated",
+            },
+          ],
+        },
+        status: {
+          code: 200,
+          message: "냉장고 재료 제공에 성공하였습니다.",
         },
       },
     },

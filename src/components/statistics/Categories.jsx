@@ -2,7 +2,6 @@ import { useState, useCallback, useEffect } from "react";
 
 import RESP_CHAE from "../../server/response_chae";
 // import { apis } from "../../shared/axios";
-import SectionLayout from "../common/SectionLayout";
 import Loader from "../common/Loader";
 import HelpMsg from "../common/HelpMsg";
 

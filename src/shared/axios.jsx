@@ -28,6 +28,7 @@ export const apis = {
   get_searched_recipes: ({ recipe_name }) =>
     axios.get(`/api/recipes/search`, { recipe_name }),
   get_recipe: ({ id }) => axios.get(`/api/recipe/${id}`),
+  get_ingredients: () => axios.get(`/api/ingredients`),
   done_recipe: ({ id, ingredients_id }) =>
     axios.post(`/api/recipe/finish?id=${id}`, { ingredients_id }),
   like_recipe: ({ id }) => axios.post(`/api/recipe/like?id=${id}`),

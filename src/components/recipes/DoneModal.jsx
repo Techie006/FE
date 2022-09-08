@@ -1,44 +1,94 @@
+import { useState, useEffect } from "react";
 import { faX } from "@fortawesome/free-solid-svg-icons";
-import styled from "styled-components";
+import Select from "react-select";
 
+// import { apis } from "../../shared/axios";
+import RESP_CHAE from "../../server/response_chae";
+import Modal from "../common/Modal";
 import SmallIconButton from "../../elements/buttons/SmallIconButton";
-import Done from "./Done";
+import SmallButton from "../../elements/buttons/SmallButton";
 
-const DoneModal = ({ id, onClick }) => {
+const DoneModal = ({ id, onClick, onClickDetail }) => {
+  const [loading, setLoading] = useState(true);
+  const [ingredients, setIngredients] = useState([]);
+  const [selectedIds, setSelectedIds] = useState([]);
+
+  const get_data = async () => {
+    // const resp = await apis.get_ingredients();
+    const resp = RESP_CHAE.RECIPES.GET_INGREDIENTS_SUCCESS;
+    const { result, content } = resp.data;
+
+    if (!result) {
+      alert();
+      return;
+    }
+
+    const { storage } = content;
+    setIngredients([...storage]);
+    setLoading(false);
+  };
+
+  useEffect(() => {
+    get_data();
+  }, []);
+
+  const ingredientOptions = ingredients?.map((ingredient, list) => ({
+    label: `[${ingredient.category}] ${ingredient.food_name}`,
+    value: ingredient.id,
+  }));
+
+  const disabled = selectedIds.length === 0;
+
+  const changedHandler = (data) => {
+    const values = data.map((selected) => selected.value);
+    setSelectedIds([...values]);
+  };
+
+  const send_data = async () => {
+    // const payload = {
+    //   ingredients_id: selectedIds,
+    // };
+    // console.log(payload);
+    const resp = RESP_CHAE.RECIPES.FINISH_RECIPE_SUCCESS;
+    // const resp = await apis.done_recipe({ id, payload });
+    const { result } = resp.data;
+
+    if (!result) {
+      alert("error");
+      return;
+    }
+
+    onClick();
+    onClickDetail();
+  };
+
+  const clickHandler = () => {
+    send_data();
+  };
+
   return (
     <>
-      <Background />
-      <ModalContainer>
+      <Modal>
         <SmallIconButton icon={faX} onClick={onClick} />
-        <Done />
-      </ModalContainer>
+        {!loading ? (
+          <Select
+            className='react-select'
+            isMulti
+            name='ingredients'
+            options={ingredientOptions}
+            placeholder='재료를 검색해주세요.'
+            onChange={changedHandler}
+          />
+        ) : null}
+        <SmallButton
+          type='button'
+          content='해당 재료로 요리 완료 처리하기'
+          onClick={clickHandler}
+          disabled={disabled}
+        />
+      </Modal>
     </>
   );
 };
 
 export default DoneModal;
-
-const Background = styled.div`
-  position: fixed;
-  top: 0;
-  left: 0;
-  bottom: 0;
-  right: 0;
-  background-color: rgba(0, 0, 0, 0.5);
-  z-index: 0;
-`;
-
-const ModalContainer = styled.div`
-  position: fixed;
-  left: 50%;
-  top: 50%;
-  transform: translate(-50%, -50%);
-  max-height: 80%;
-  width: 20rem;
-  height: 80%;
-  padding: 16px;
-  background: white;
-  border-radius: 10px;
-  text-align: center;
-  overflow-y: auto;
-`;
