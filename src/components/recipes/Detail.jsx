@@ -9,6 +9,7 @@ import SmallButton from "../../elements/buttons/SmallButton";
 
 const Detail = ({ id, recipeName }) => {
   const [loading, setLoading] = useState(true);
+  const [showModal, setShowModal] = useState(false);
   const [recipe, setRecipe] = useState({});
 
   const get_data = useCallback(async () => {
@@ -30,8 +31,8 @@ const Detail = ({ id, recipeName }) => {
     get_data();
   }, [get_data]);
 
-  const doneHandler = () => {
-    console.log("clicked");
+  const clickHandler = () => {
+    setShowModal((prev) => !prev);
   };
 
   const ingredients = recipe.ingredients?.join(" ");
@@ -61,7 +62,7 @@ const Detail = ({ id, recipeName }) => {
           <SmallButton
             type='button'
             content='요리 완료'
-            onClick={doneHandler}
+            onClick={clickHandler}
           />
         </StWrapper>
       ) : null}
