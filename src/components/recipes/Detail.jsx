@@ -1,17 +1,15 @@
 import { useState, useCallback, useEffect } from "react";
-import { faBookmark } from "@fortawesome/free-solid-svg-icons";
 import styled from "styled-components";
 
 // import { apis } from "../../shared/axios";
 import RESP_CHAE from "../../server/response_chae";
 import Loader from "../common/Loader";
-import SmallIconButton from "../../elements/buttons/SmallIconButton";
+import BookmarkBtn from "../common/BookmarkBtn";
 import SmallButton from "../../elements/buttons/SmallButton";
 
 const Detail = ({ id, recipeName }) => {
   const [loading, setLoading] = useState(true);
   const [recipe, setRecipe] = useState({});
-  const [bookmark, setBookmark] = useState(recipe.is_liked);
 
   const get_data = useCallback(async () => {
     const resp = RESP_CHAE.RECIPES.GET_RECIPE_SUCCESS;
@@ -31,20 +29,6 @@ const Detail = ({ id, recipeName }) => {
   useEffect(() => {
     get_data();
   }, [get_data]);
-
-  const clickHandler = async () => {
-    setBookmark((prev) => !prev);
-
-    if (!bookmark) {
-      // const resp = RESP_CHAE.RECIPES.LIKE_RECIPE_SUCCESS;
-      // const resp = RESP_CHAE.RECIPES.LIKE_RECIPE_FAIL;
-      // const resp = await apis.like_recipe({ id });
-      return;
-    }
-
-    // const resp = RESP_CHAE.RECIPES.UNLIKE_RECIPE_SUCCESS;
-    // const resp = await apis.unlike_recipe({ id });
-  };
 
   const doneHandler = () => {
     console.log("clicked");
@@ -66,11 +50,7 @@ const Detail = ({ id, recipeName }) => {
       {loading ? <Loader /> : null}
       {!loading ? (
         <StWrapper>
-          <SmallIconButton
-            icon={faBookmark}
-            onClick={clickHandler}
-            isactive={bookmark}
-          />
+          <BookmarkBtn is_liked={recipe.is_liked} />
           <div>{ingredients}</div>
           <div>
             <div>조리방법: {recipe.method}</div>
