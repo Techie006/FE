@@ -47,4 +47,20 @@ export const defaultTheme = {
   // transition and tansform
   transition: "all 0.3s",
   transform: "scale(1,1)",
+
+  // TODO with design!
+  // color
+  firstColor: "#FFDD7C",
+  secondColor: "#FF7528",
+  thirdColor: "#74BDB2",
+  fourthColor: "#8B8B8B",
+
+  // button
+  btnBGColor: "#F5F0E7",
+  btnTxtColor: "#8E7B6D",
+  selectBtnBGColor: "#FFB356",
+  selectBtnTxtColor: "#482647",
+
+  // textbox
+  txtBoxBGColor: "#F5F0E7",
 };

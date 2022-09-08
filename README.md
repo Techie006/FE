@@ -1,5 +1,9 @@
 ### workload
 
+Element
+
+- [x] make element page
+
 Auth
 
 - [ ] signup
@@ -11,14 +15,14 @@ Auth
 
 Home
 
-- 1. Ingredient
+- Ingredient
 - [ ] autocomplete
 - [ ] search
 - [ ] create
-- 2. Storage
+- Storage
 - [ ] get storage
 - [ ] delte ingredient
-- 3. Recommend recipe
+- Recommend recipe
 - [ ] get recommend recipe
 - [ ] get recipe detail
 
@@ -26,16 +30,18 @@ Recipe
 
 - [x] get all recipes
 - [ ] get searched recipes
-- [ ] recipe like
-- [ ] recipe unlike
+- [ ] get detail recipe
+- [x] recipe like
+- [x] recipe unlike
 - [ ] recipe done
 
 Statistics
 
-- [ ] ingredients state
-- [ ] ingredients category
-- [ ] daily statistics
-- [ ] ratio statistics
+- [x] ingredients state
+- [x] ingredients category
+- [x] daily statistics
+- [x] ratio statistics (calories)
+- [x] ratio statistics (nutrients)
 
 Calendar
 

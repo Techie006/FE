@@ -12,7 +12,13 @@ const SmallButton = ({ type, content, onClick, disabled = false }) => {
 
 export default SmallButton;
 
-const StyledWrapper = styled.div``;
+const StyledWrapper = styled.div`
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  padding: 0px;
+  gap: 12px;
+`;
 
 const StyledButton = styled.button.attrs((props) => ({
   type: props.type,

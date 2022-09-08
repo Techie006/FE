@@ -2,7 +2,6 @@ import { useState, useCallback, useEffect } from "react";
 
 import RESP_CHAE from "../../server/response_chae";
 // import { apis } from "../../shared/axios";
-import SectionLayout from "../common/SectionLayout";
 import Loader from "../common/Loader";
 import HelpMsg from "../common/HelpMsg";
 
@@ -21,6 +20,7 @@ const Categories = (props) => {
     if (!result) {
       setLoading(false);
       setShowMsg(true);
+      return;
     }
 
     setLoading(false);
@@ -49,8 +49,7 @@ const Categories = (props) => {
   ));
 
   return (
-    <SectionLayout>
-      <div>Categories</div>
+    <>
       {loading ? <Loader /> : null}
       {!loading && showMsg ? (
         <HelpMsg
@@ -60,7 +59,7 @@ const Categories = (props) => {
         />
       ) : null}
       {!loading && !showMsg ? diagram : null}
-    </SectionLayout>
+    </>
   );
 };
 
