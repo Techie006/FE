@@ -50,8 +50,7 @@ const Categories = (props) => {
   ));
 
   return (
-    <SectionLayout>
-      <div>Categories</div>
+    <>
       {loading ? <Loader /> : null}
       {!loading && showMsg ? (
         <HelpMsg
@@ -61,7 +60,7 @@ const Categories = (props) => {
         />
       ) : null}
       {!loading && !showMsg ? diagram : null}
-    </SectionLayout>
+    </>
   );
 };
 

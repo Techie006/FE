@@ -1,7 +1,7 @@
 import axios from "axios";
 
 // const base = {
-//   server_http: "http://15.165.18.108:8080",
+//   server_http: "http://3.36.56.125:8080",
 //   server_https: "https://sparta-omj.shop",
 // };
 

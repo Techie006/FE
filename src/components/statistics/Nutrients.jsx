@@ -3,7 +3,6 @@ import Chart from "react-apexcharts";
 
 import RESP_CHAE from "../../server/response_chae";
 // import { apis } from "../../shared/axios";
-import SectionLayout from "../common/SectionLayout";
 import Loader from "../common/Loader";
 import HelpMsg from "../common/HelpMsg";
 import UnderlineCategory from "../../elements/categories/UnderlineCategory";
@@ -79,8 +78,7 @@ const Nutrients = (props) => {
   };
 
   return (
-    <SectionLayout>
-      <div>Nutrients</div>
+    <>
       {loading ? <Loader /> : null}
       {!loading && showMsg ? (
         <HelpMsg
@@ -137,7 +135,7 @@ const Nutrients = (props) => {
           />
         </>
       ) : null}
-    </SectionLayout>
+    </>
   );
 };
 

@@ -3,7 +3,6 @@ import Chart from "react-apexcharts";
 
 import RESP_CHAE from "../../server/response_chae";
 // import { apis } from "../../shared/axios";
-import SectionLayout from "../common/SectionLayout";
 import Loader from "../common/Loader";
 import HelpMsg from "../common/HelpMsg";
 
@@ -44,8 +43,7 @@ const Ingredients = (props) => {
   const percentage = data?.count;
 
   return (
-    <SectionLayout>
-      <div>Ingredients</div>
+    <>
       {loading ? <Loader /> : null}
       {!loading && showMsg ? (
         <HelpMsg
@@ -76,7 +74,7 @@ const Ingredients = (props) => {
           }}
         />
       ) : null}
-    </SectionLayout>
+    </>
   );
 };
 
