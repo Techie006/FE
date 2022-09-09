@@ -553,12 +553,14 @@ const RESP_CHAE = {
       },
     },
   },
+
+  // calendar: 6 apis
   // CALENDAR: {
   // 	GET_DIETS_SUCCESS: {
   // 		data: {
   // 			result: true,
   // 			content: {
-  // 			days: [["2022-09-01", "2022-09-01", ... , "2022-09-30"]],
+  // 			days: [["2022-09-01", "2022-09-02", ... , "2022-09-30"]],
   // 				meals: [[{
   // 					id: 1,
   // 					recipe_name: "된장국",
@@ -807,6 +809,8 @@ const RESP_CHAE = {
   // 		}
   // 	},
   // },
+
+  // class
   CLASS: {},
 };
 
