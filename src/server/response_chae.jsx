@@ -556,7 +556,7 @@ const RESP_CHAE = {
 
   // calendar: 6 apis
   CALENDAR: {
-    GET_ALL_SUCCESS: {
+    GET_ALL_DIETS_SUCCESS: {
       data: {
         result: true,
         content: {
@@ -631,7 +631,86 @@ const RESP_CHAE = {
         },
         status: {
           code: 200,
-          message: "성공적으로 레시피 스케줄을 제공하였습니다.",
+          message: "성공적으로 식단을 제공하였습니다.",
+        },
+      },
+    },
+    GET_ALL_WEEKLY_SUCCESS: {
+      data: {
+        result: true,
+        content: {
+          recipes: [
+            {
+              id: 1,
+              start: "2022-09-01",
+              recipe_name: "된장국",
+              time: "아침",
+              liked: true,
+              ingredients: ["가지", "토마토", "고등어"],
+              category: "일품",
+              calorie: 200,
+              method: "끓이기",
+            },
+            {
+              id: 2,
+              start: "2022-09-02",
+              recipe_name: "된장국",
+              time: "아침",
+              liked: true,
+              ingredients: ["가지", "토마토", "고등어"],
+              category: "일품",
+              calorie: 200,
+              method: "끓이기",
+            },
+            {
+              id: 3,
+              start: "2022-09-03",
+              recipe_name: "된장국",
+              time: "아침",
+              liked: true,
+              ingredients: ["가지", "토마토", "고등어"],
+              category: "일품",
+              calorie: 200,
+              method: "끓이기",
+            },
+            {
+              id: 4,
+              start: "2022-09-04",
+              recipe_name: "된장국",
+              time: "아침",
+              liked: true,
+              ingredients: ["가지", "토마토", "고등어"],
+              category: "일품",
+              calorie: 200,
+              method: "끓이기",
+            },
+            {
+              id: 5,
+              start: "2022-09-05",
+              recipe_name: "된장국",
+              time: "아침",
+              liked: true,
+              ingredients: ["가지", "토마토", "고등어"],
+              category: "일품",
+              calorie: 200,
+              method: "끓이기",
+            },
+            {
+              id: 6,
+              start: "2022-09-06",
+              recipe_name: "된장국",
+              time: "아침",
+              liked: true,
+              ingredients: ["가지", "토마토", "고등어"],
+              category: "일품",
+              calorie: 200,
+              method: "끓이기",
+            },
+          ],
+        },
+        status: {
+          code: 200,
+          message: "성공적으로 해당 주의 식단을 제공하였습니다.",
         },
       },
     },
