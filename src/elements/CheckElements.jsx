@@ -9,6 +9,7 @@ import SmallLinkWithHelper from "./links/SmallLinkWithHelper";
 
 // category
 import UnderlineCategory from "./categories/UnderlineCategory";
+import Textbox from "./textboxes/Textbox";
 
 // texts
 import {
@@ -59,6 +60,19 @@ const CheckElements = (props) => {
 
   return (
     <>
+      <StyledContainer>
+        <StElement>A. UnderlineCategory</StElement>
+        <UnderlineCategory
+          contents={["category1", "category2", "category3", "category4"]}
+          onClick={clickHandler}
+          selectedCategory='category1'
+        />
+      </StyledContainer>
+      <StyledContainer>
+        <StElement>B. Textbox</StElement>
+        <Textbox content={"you should put content here!"} />
+      </StyledContainer>
+      <hr />
       <StyledContainer>
         1. Links
         <MediumLink content='MediumLink' link='/elements' />
