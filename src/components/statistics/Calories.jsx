@@ -1,10 +1,12 @@
 import { useState, useCallback, useEffect } from "react";
 import Chart from "react-apexcharts";
+import styled from "styled-components";
 
 import RESP_CHAE from "../../server/response_chae";
 // import { apis } from "../../shared/axios";
 import Loader from "../common/Loader";
 import HelpMsg from "../common/HelpMsg";
+import { StTitle } from "../../elements/texts/pageTexts";
 import UnderlineCategory from "../../elements/categories/UnderlineCategory";
 
 const Calories = (props) => {
@@ -64,13 +66,13 @@ const Calories = (props) => {
     }
     switch (content) {
       case FILTERS.day:
-        setFilter("day");
+        setFilter(FILTERS.day);
         break;
       case FILTERS.week:
-        setFilter("week");
+        setFilter(FILTERS.week);
         break;
       case FILTERS.month:
-        setFilter("month");
+        setFilter(FILTERS.month);
         break;
       default:
         break;
@@ -89,10 +91,14 @@ const Calories = (props) => {
       ) : null}
       {!loading && !showMsg ? (
         <>
-          <UnderlineCategory
-            contents={Object.values(FILTERS)}
-            onClick={clickHandler}
-          />
+          <StHeader>
+            <StTitle>나의 열량 섭취 변화</StTitle>
+            <UnderlineCategory
+              contents={Object.values(FILTERS)}
+              onClick={clickHandler}
+              selectedCategory={filter}
+            />
+          </StHeader>
           <Chart
             type='line'
             series={caloriesSeries}
@@ -140,3 +146,8 @@ const Calories = (props) => {
 };
 
 export default Calories;
+
+const StHeader = styled.div`
+  display: flex;
+  justify-content: space-between;
+`;

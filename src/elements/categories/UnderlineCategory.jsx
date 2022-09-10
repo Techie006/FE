@@ -52,5 +52,6 @@ const StContent = styled.div`
   font-weight: ${(props) => props.theme.btnFontWeight};
   font-size: ${(props) => props.theme.btnFontSize};
   line-height: ${(props) => props.theme.btnLineHeight};
+  background-color: inherit;
   color: inherit;
 `;

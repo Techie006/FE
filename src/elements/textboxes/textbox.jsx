@@ -30,7 +30,7 @@ const StContent = styled.div`
   display: flex;
   align-items: center;
   text-align: center;
-
+  background-color: inherit;
   font-weight: ${(props) => props.theme.txtBoxFontWeight};
   font-size: ${(props) => props.theme.txtBoxFontSize};
   line-height: ${(props) => props.theme.txtBoxLineHeight};
