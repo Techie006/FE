@@ -11,32 +11,56 @@ import UnderlineCategory from "../../elements/categories/UnderlineCategory";
 
 const StatisticsLayout = () => {
   return (
-    <>
-      <StWrapper>
+    <StWrapper>
+      <StSection>
         <StTitle>오늘 우리집 냉장고 상태는?</StTitle>
         <StDivider>
           <Ingredients />
           <Categories />
         </StDivider>
-      </StWrapper>
-      <SectionLayout title='Daily'>
+      </StSection>
+      <StSection>
+        <StTitle>오늘 나의 식단 상태는?</StTitle>
         <Daily />
-      </SectionLayout>
-      <SectionLayout title='Calories'>
+      </StSection>
+      <StSection>
+        <StTitle>나의 열량 섭취 변화</StTitle>
         <Calories />
-      </SectionLayout>
-      <SectionLayout title='Nutrients'>
+      </StSection>
+      <StSection>
+        <StTitle>나의 영양 성분 변화</StTitle>
         <Nutrients />
-      </SectionLayout>
-    </>
+      </StSection>
+    </StWrapper>
   );
 };
 
 export default StatisticsLayout;
 
 const StWrapper = styled.div`
-  width: 622px;
-  height: 349px;
+  display: grid;
+  grid-auto-rows: minmax(349px, auto);
+  padding: 20px 84px;
+  grid-template-columns: repeat(2, 50%);
+  grid-column-gap: 20px;
+  grid-row-gap: 20px;
+  /* tablet */
+  @media all and (max-width: 1024px) {
+    padding: 20px 30px;
+    grid-template-columns: repeat(2, 50%);
+    grid-column-gap: 20px;
+    grid-row-gap: 20px;
+  }
+  /* mobile */
+  @media all and (max-width: 600px) {
+    padding: 16px 16px;
+    grid-template-columns: repeat(1, 100%);
+    grid-column-gap: 16px;
+    grid-row-gap: 16px;
+  }
+`;
+
+const StSection = styled.div`
   padding: 18px 18px;
   background: ${(props) => props.theme.section.layout.background};
   box-shadow: ${(props) => props.theme.section.layout.boxShadow};
@@ -44,16 +68,17 @@ const StWrapper = styled.div`
 `;
 
 const StDivider = styled.div`
-  display: flex;
-  flex-direction: row;
+  display: grid;
+  grid-template-columns: repeat(2, 50%);
+  @media all and (max-width: 600px) {
+    grid-template-columns: repeat(1, 100%);
+  }
 `;
 
 const StTitle = styled.div`
-  font-family: "Noto Sans KR";
-  font-style: normal;
   font-weight: 700;
   font-size: 16px;
   line-height: 23px;
   margin-bottom: 20px;
-  background-color: white;
+  background-color: inherit;
 `;
