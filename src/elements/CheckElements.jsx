@@ -9,7 +9,6 @@ import SmallLinkWithHelper from "./links/SmallLinkWithHelper";
 
 // category
 import UnderlineCategory from "./categories/UnderlineCategory";
-import ButtonCategory from "./categories/ButtonCategory";
 
 // texts
 import {
@@ -76,17 +75,12 @@ const CheckElements = (props) => {
         />
       </StyledContainer>
       <StyledContainer>
-        2. Categories
+        <StElement>2. Categories</StElement>
         <UnderlineCategory
           title='UnderlineCategory'
           contents={["category1", "category2", "category3", "category4"]}
           onClick={clickHandler}
-          disabledCategory='category1'
-        />
-        <ButtonCategory
-          type='button'
-          contents={["category1", "category2", "category3"]}
-          onClick={clickHandler}
+          selectedCategory='category1'
         />
       </StyledContainer>
       <StyledContainer>
@@ -184,6 +178,12 @@ const StyledContainer = styled.div`
   flex-direction: column;
   align-items: flex-start;
   margin-bottom: 30px;
+`;
+
+const StElement = styled.div`
+  margin-bottom: 10px;
+  font-size: ${(props) => props.theme.fontSize};
+  font-weight: ${(props) => props.theme.fontWeight};
 `;
 
 const StyledCompare = styled.div`

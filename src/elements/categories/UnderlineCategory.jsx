@@ -1,58 +1,57 @@
 import styled from "styled-components";
 
-const UnderlineCategory = ({
-  title = "",
-  contents,
-  onClick,
-  disabledCategory = "",
-}) => {
-  const categoryItems = contents.map((category, index) => (
-    <StyledCategoryItem
-      key={index}
-      onClick={onClick}
-      disabled={category === disabledCategory}
-    >
-      {category}
-    </StyledCategoryItem>
+const UnderlineCategory = ({ contents, onClick, selectedCategory = "" }) => {
+  const categoryItems = contents.map((category, idx) => (
+    <StBox key={idx} onClick={onClick} disabled={category === selectedCategory}>
+      <StContent>{category}</StContent>
+    </StBox>
   ));
 
-  return (
-    <StyledWrapper>
-      <StyledTitle>{title}</StyledTitle>
-      <StyledCategory>{categoryItems}</StyledCategory>
-    </StyledWrapper>
-  );
+  return <StWrapper>{categoryItems}</StWrapper>;
 };
 
 export default UnderlineCategory;
 
-const StyledWrapper = styled.div`
-  display: flex;
-  flex-direction: column;
-  text-align: center;
-`;
-
-const StyledTitle = styled.div`
-  font-size: 0.8rem;
-`;
-
-const StyledCategory = styled.div`
+const StWrapper = styled.div`
   display: flex;
   flex-direction: row;
-  padding: 5px;
+  align-items: flex-start;
+  padding: 0px;
+  gap: 12px;
 `;
 
-const StyledCategoryItem = styled.button`
-  font-size: 0.5rem;
-  margin: 5px;
-  color: ${(props) => props.theme.categoryItemColor};
-  text-align: center;
+const StBox = styled.button`
+  display: flex;
+  flex-direction: row;
+  flex: none;
+  flex-grow: 0;
+  align-items: flex-start;
+  padding: 2px 10px;
+  gap: 10px;
   border: none;
+
+  background-color: ${(props) =>
+    !props.disabled ? props.theme.btnBGColor : props.theme.selectBtnBGColor};
+  border-radius: ${(props) => props.theme.btnBorderRadius};
+  color: ${(props) =>
+    !props.disabled ? props.theme.btnTxtColor : props.theme.selectBtnTxtColor};
+
+  // TODO change as design comes out!
   &:hover {
-    cursor: pointer;
-    text-decoration: underline;
-    color: ${(props) => props.theme.categoryItemHoverColor};
+    cursor: ${(props) => (!props.disabled ? "pointer" : "default")};
     transition: ${(props) => props.theme.transition};
     transform: ${(props) => props.theme.transform};
   }
+`;
+
+const StContent = styled.div`
+  display: flex;
+  align-items: center;
+  text-align: center;
+
+  font-style: ${(props) => props.theme.btnFontStyle};
+  font-weight: ${(props) => props.theme.btnFontWeight};
+  font-size: ${(props) => props.theme.btnFontSize};
+  line-height: ${(props) => props.theme.btnLineHeight};
+  color: inherit;
 `;

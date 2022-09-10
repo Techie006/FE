@@ -2,6 +2,8 @@
 export const defaultTheme = {
   // background
   backgroundColor: "#FFFFFF",
+  fontSize: "13px",
+  fontWeight: "700",
 
   // text
   textColor: "#181B2E",
@@ -60,7 +62,14 @@ export const defaultTheme = {
   btnTxtColor: "#8E7B6D",
   selectBtnBGColor: "#FFB356",
   selectBtnTxtColor: "#482647",
+  btnBorderRadius: "30px",
+  btnFontWeight: "500",
+  btnFontSize: "10px",
+  btnFontStyle: "normal",
+  btnLineHeight: "18px",
+  btnTxtSpacing: "-0.6px",
 
   // textbox
   txtBoxBGColor: "#F5F0E7",
+  txtBoxTxtColor: "#282828",
 };
