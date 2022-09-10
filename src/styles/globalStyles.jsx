@@ -122,6 +122,7 @@ export const defaultTheme = {
     sub: {
       purple: "#E9E7EA",
       yellow: "#FFF5BA",
+      orange: "#FFEAD8",
       orange_red: "#FFEAD8",
       mint: "#EBFAF5;",
       brown: "#F0EADC",

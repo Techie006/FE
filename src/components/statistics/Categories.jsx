@@ -3,16 +3,17 @@ import styled from "styled-components";
 
 import RESP_CHAE from "../../server/response_chae";
 // import { apis } from "../../shared/axios";
-import CategoryBox from "../../elements/textboxes/CategoryBox";
 import Loader from "../common/Loader";
 import HelpMsg from "../common/HelpMsg";
 
+// TODO 불필요 한 것 같음...
+// TODO api 변경하기 -> 상위 3개만 가져오도록 처리할지, 아니면 무한 스크롤로 처리할지?
+// TODO label 한국어로 바꾸기 오는 API 형태 배열로 바꾸기.
 const Categories = (props) => {
   const [loading, setLoading] = useState(true);
   const [data, setData] = useState({});
   const [showMsg, setShowMsg] = useState(false);
 
-  // TODO api 변경하기 -> 상위 3개만 가져오도록!
   const get_data = useCallback(async () => {
     const resp = RESP_CHAE.STATISTICS.GET_CATEGORY_SUCCESS;
     // const resp = RESP_CHAE.STATISTICS.GET_CATEGORY_FAIL;
@@ -45,7 +46,7 @@ const Categories = (props) => {
   const labels = Object.keys(data);
   const nums = Object.values(data);
   let diagram = labels?.map((label, i) => (
-    <CategoryBox key={i} label={label} num={nums[i]} />
+    <StCategory key={i}>{`${label} : ${nums[i]}`}</StCategory>
   ));
   diagram = diagram.slice(0, 3);
 
@@ -67,6 +68,26 @@ const Categories = (props) => {
 export default Categories;
 
 const StWrapper = styled.div`
+  display: grid;
+  grid-template-columns: repeat(1, 100%);
+  grid-auto-rows: minmax(56px, auto);
+  grid-row-gap: 10px;
+`;
+
+const StCategory = styled.div`
+  background-color: tomato;
+  /* background-color: ${(props) => props.theme.section.box.background}; */
+  border-radius: ${(props) => props.theme.section.box.borderRadius};
+  box-shadow: ${(props) => props.theme.section.box.boxShadow};
+
   display: flex;
-  flex-direction: column;
+  align-items: center;
+  text-align: center;
+
+  font-weight: ${(props) => props.theme.section.box.fontWeight};
+  font-size: ${(props) => props.theme.section.box.fontWeight};
+  line-height: ${(props) => props.theme.section.box.lineHeight};
+  &:hover {
+    cursor: default;
+  }
 `;

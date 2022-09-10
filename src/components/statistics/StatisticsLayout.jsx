@@ -1,34 +1,23 @@
 import styled from "styled-components";
 
-import SectionLayout from "../common/SectionLayout";
-import Ingredients from "./Ingredients";
-import Categories from "./Categories";
+import Status from "./Status";
 import Daily from "./Daily";
 import Calories from "./Calories";
 import Nutrients from "./Nutrients";
-
-import UnderlineCategory from "../../elements/categories/UnderlineCategory";
 
 const StatisticsLayout = () => {
   return (
     <StWrapper>
       <StSection>
-        <StTitle>오늘 우리집 냉장고 상태는?</StTitle>
-        <StDivider>
-          <Ingredients />
-          <Categories />
-        </StDivider>
+        <Status />
       </StSection>
       <StSection>
-        <StTitle>오늘 나의 식단 상태는?</StTitle>
         <Daily />
       </StSection>
       <StSection>
-        <StTitle>나의 열량 섭취 변화</StTitle>
         <Calories />
       </StSection>
       <StSection>
-        <StTitle>나의 영양 성분 변화</StTitle>
         <Nutrients />
       </StSection>
     </StWrapper>
@@ -65,20 +54,4 @@ const StSection = styled.div`
   background: ${(props) => props.theme.section.layout.background};
   box-shadow: ${(props) => props.theme.section.layout.boxShadow};
   border-radius: ${(props) => props.theme.section.layout.borderRadius};
-`;
-
-const StDivider = styled.div`
-  display: grid;
-  grid-template-columns: repeat(2, 50%);
-  @media all and (max-width: 600px) {
-    grid-template-columns: repeat(1, 100%);
-  }
-`;
-
-const StTitle = styled.div`
-  font-weight: 700;
-  font-size: 16px;
-  line-height: 23px;
-  margin-bottom: 20px;
-  background-color: inherit;
 `;
