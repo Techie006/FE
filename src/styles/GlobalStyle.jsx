@@ -56,10 +56,9 @@ table {
 * {
 	box-sizing: border-box;
 }
-body {
-	font-family: 'Inter', sans-serif;
-	font-family: 'Noto Sans KR', sans-serif;
-	background-color: ${(props) => props.theme.bgColor};
+body, body * {
+	font-family: ${(props) => props.theme.fontFamily}; 
+	background-color: ${(props) => props.theme.colors.background.gray};
 	color: ${(props) => props.theme.textColor};
 }
 a {

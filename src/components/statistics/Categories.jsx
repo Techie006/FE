@@ -1,7 +1,9 @@
 import { useState, useCallback, useEffect } from "react";
+import styled from "styled-components";
 
 import RESP_CHAE from "../../server/response_chae";
 // import { apis } from "../../shared/axios";
+import CategoryBox from "../../elements/textboxes/CategoryBox";
 import Loader from "../common/Loader";
 import HelpMsg from "../common/HelpMsg";
 
@@ -10,6 +12,7 @@ const Categories = (props) => {
   const [data, setData] = useState({});
   const [showMsg, setShowMsg] = useState(false);
 
+  // TODO api 변경하기 -> 상위 3개만 가져오도록!
   const get_data = useCallback(async () => {
     const resp = RESP_CHAE.STATISTICS.GET_CATEGORY_SUCCESS;
     // const resp = RESP_CHAE.STATISTICS.GET_CATEGORY_FAIL;
@@ -24,6 +27,7 @@ const Categories = (props) => {
     }
 
     setLoading(false);
+
     setData({ ...content });
   }, []);
 
@@ -40,13 +44,10 @@ const Categories = (props) => {
 
   const labels = Object.keys(data);
   const nums = Object.values(data);
-  const diagram = labels?.map((label, i) => (
-    <div key={i}>
-      <div>
-        {label}: {nums[i]}
-      </div>
-    </div>
+  let diagram = labels?.map((label, i) => (
+    <CategoryBox key={i} label={label} num={nums[i]} />
   ));
+  diagram = diagram.slice(0, 3);
 
   return (
     <>
@@ -58,9 +59,14 @@ const Categories = (props) => {
           path={`/home`}
         />
       ) : null}
-      {!loading && !showMsg ? diagram : null}
+      {!loading && !showMsg ? <StWrapper>{diagram}</StWrapper> : null}
     </>
   );
 };
 
 export default Categories;
+
+const StWrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+`;

@@ -31,9 +31,7 @@ const StContent = styled.div`
   align-items: center;
   text-align: center;
 
-  font-style: ${(props) => props.theme.txtBoxFontStyle};
   font-weight: ${(props) => props.theme.txtBoxFontWeight};
   font-size: ${(props) => props.theme.txtBoxFontSize};
   line-height: ${(props) => props.theme.txtBoxLineHeight};
-  color: ${(props) => props.theme.txtBoxTxtColor};
 `;

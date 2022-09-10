@@ -48,7 +48,6 @@ const StContent = styled.div`
   display: flex;
   align-items: center;
   text-align: center;
-
   font-style: ${(props) => props.theme.btnFontStyle};
   font-weight: ${(props) => props.theme.btnFontWeight};
   font-size: ${(props) => props.theme.btnFontSize};
