@@ -1,11 +1,12 @@
-import React from 'react';
+import styled from "styled-components";
 
-const Layout = ({children}) => {
-    return (
-        <div>
-            {children}
-        </div>
-    );
+const Layout = (props) => {
+  return <StLayout>{props.children}</StLayout>;
 };
 
 export default Layout;
+
+const StLayout = styled.div`
+  display: flex;
+  flex-direction: column;
+`;

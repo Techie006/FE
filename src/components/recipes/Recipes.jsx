@@ -1,42 +1,73 @@
-import React, { useState ,useEffect } from 'react';
-
-// import { useParams } from "react-router-dom"
-// import { apis } from "../../shared/axios";
-import RESP_WOO from "../../server/response_woo";
-import RecipeDetail from './RecipeDetail';
+import { useState, useRef, useCallback, useEffect } from "react";
 import styled from "styled-components";
 
-const Recipes = () => {
-    const [ recipesData, setRecipesData ] = useState([]);
-    // const id = useParams();
-    
+// import { apis } from "../../shared/axios";
+import RESP_CHAE from "../../server/response_chae";
+import Loader from "../common/Loader";
+import Recipe from "./Recipe";
+import DetailModal from "./DetailModal";
 
-    const getRecipes = async () => {
-    
-    // const resp = await axios.get(`https://localhost:3000/api/recipes?pageNum=${3}&pageLimit=${5}`)
-    const resp = RESP_WOO.RECEPIE.GET_RECIPES_SUCCESS;  
-    const recipes = resp.content.recipes
-    
-    setRecipesData(recipes);
+const Recipes = (props) => {
+  const [loading, setLoading] = useState(true);
+  const [recipes, setRecipes] = useState([]);
+  const [showModal, setShowModal] = useState(false);
+  const [recipe, setRecipe] = useState({
+    id: -1,
+    recipe_name: "",
+  });
+
+  const pageNum = useRef(0);
+  const hasMore = useRef(true);
+  // const PAGELIMIT = 5;
+
+  const get_data = useCallback(async () => {
+    const resp = RESP_CHAE.RECIPES.GET_RECIPES_SUCCESS;
+    // const resp = RESP_CHAE.RECIPES.GET_RECIPE_FAIL;
+    // const resp = await apis.get_recipes({ pageNum.current, PAGELIMIT });
+    const { result, content } = resp.data;
+
+    if (!result) {
+      setLoading(false);
+      return;
     }
-    
-    useEffect(() => {
-        getRecipes()
-      }, []);
 
-    return (
-        <RecipeDetails>
-            {recipesData.map((data,index)=>(
-                <RecipeDetail key={index} data={data} />
-            ))} 
-        </RecipeDetails>
+    setRecipes((prev) => [...prev, ...content.recipes]);
+    pageNum.current = content.current_page_num;
+    hasMore.current = content.current_page_num !== content.total_page_num;
+    setLoading(false);
+  }, []);
+
+  useEffect(() => {
+    get_data();
+  }, [get_data]);
+
+  const clickHandler = (recipe) => {
+    setShowModal((prev) => !prev);
+    setRecipe({ ...recipe });
+  };
+
+  const recipesView = recipes.map((recipe) => (
+    <Recipe key={recipe.id} {...recipe} onClick={clickHandler} />
+  ));
+
+  return (
+    <StWrapper>
+      {loading ? <Loader /> : null}
+      {!loading ? recipesView : null}
+      {!loading && showModal ? (
+        <DetailModal
+          id={recipe.id}
+          recipeName={recipe.recipe_name}
+          onClick={clickHandler}
+        />
+      ) : null}
+    </StWrapper>
   );
 };
-    
 
 export default Recipes;
 
-const RecipeDetails = styled.div`
-    display : flex;
-    flex-direction : row;
-`
+const StWrapper = styled.div`
+  display: flex;
+  flex-wrap: wrap;
+`;

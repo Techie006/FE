@@ -1,17 +1,11 @@
-import React from 'react';
-import Recipes from "./Recipes"
-import styled from "styled-components";
+import Recipes from "./Recipes";
 
-const RecipesLayout = () => {
-    return (
-        <StyledReipesWrapper>
-            <Recipes/>
-        </StyledReipesWrapper>
-    );
+const RecipesLayout = (props) => {
+  return (
+    <>
+      <Recipes />
+    </>
+  );
 };
 
 export default RecipesLayout;
-
-const StyledReipesWrapper = styled.div`
-    width : 95%;
-`

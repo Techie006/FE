@@ -1,11 +1,5 @@
-import React from 'react';
-
 const Helper = () => {
-    return (
-        <div>
-            
-        </div>
-    );
-};
-
-export default Helper;
+    return <div>Helper</div>;
+  };
+  
+  export default Helper;
