@@ -7,7 +7,6 @@ const useInput = (initialValue, validator) => {
       target: { value },
     } = event;
 
-    console.log(value);
 
     let willUpdate = true;
     if (typeof validator === "function") {

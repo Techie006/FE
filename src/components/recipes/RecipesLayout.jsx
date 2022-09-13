@@ -9,3 +9,4 @@ const RecipesLayout = (props) => {
 };
 
 export default RecipesLayout;
+

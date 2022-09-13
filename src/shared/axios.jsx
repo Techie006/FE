@@ -52,4 +52,5 @@ export const apis = {
   edit_diet: ({ id, recipe_name, category, day }) =>
     axios.put(`/api/calendar${id}`, { recipe_name, category, day }),
   delete_diet: ({ id }) => axios.delete(`/api/calendar${id}`),
+
 };

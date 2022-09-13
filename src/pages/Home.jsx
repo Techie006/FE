@@ -1,14 +1,15 @@
-// import Layout from "../componenets/common/Layout";
-// import Header from "../componenets/common/Header";
-// import HomeLayout from "../componenets/post/HomeLayout";
+import Layout from "../components/common/Layout";
+import Header from "../components/common/Header";
+import HomeLayout from "../components/home/HomeLayout";
 
 const Home = (props) => {
   return (
-    <>Home</>
-    // <Layout>
-    //   <Header />
-    //   <HomeLayout />
-    // </Layout>
+    <>Home
+    <Layout>
+      <Header />
+      <HomeLayout />
+    </Layout>
+    </>
   );
 };
 

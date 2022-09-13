@@ -56,3 +56,4 @@ const StLayout = styled.div`
   margin-top: 10px;
   background-color: inherit;
 `;
+
