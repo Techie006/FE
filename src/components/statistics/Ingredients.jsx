@@ -1,5 +1,6 @@
 import { useState, useCallback, useEffect } from "react";
-import Chart from "react-apexcharts";
+import ReactApexChart from "react-apexcharts";
+import styled from "styled-components";
 
 import RESP_CHAE from "../../server/response_chae";
 // import { apis } from "../../shared/axios";
@@ -44,46 +45,6 @@ const Ingredients = (props) => {
   const LABELS = ["만료", "임박", "정상"];
   const CHART_COLORS = ["#FF5C01", "#FFDD7C", "#74BDB2"];
   const COMMENTS = ["아주 바람직한 상태네요!", "노력이 필요해요..."];
-  const options = {
-    title: {
-      text: "우리집 재료 현황",
-      align: "center",
-    },
-    dataLabels: {
-      enabled: false,
-    },
-    legend: {
-      fontSize: "12px",
-      fontWeight: "500",
-      fontFamily: "Noto Sans KR",
-      position: "bottom",
-    },
-    labels: LABELS,
-    colors: CHART_COLORS,
-    responsive: [{ breakpoint: "400px" }],
-    tooltip: {
-      style: {
-        fontSize: "12px",
-        fontWeight: "500",
-        fontFamily: "Noto Sans KR",
-      },
-      y: {
-        formatter: (value) => `${value}개`,
-        title: {
-          formatter: (seriesName) => seriesName,
-        },
-      },
-      fillSeriesColor: false,
-    },
-    plotOptions: {
-      pie: {
-        expandOnClick: false,
-        donut: {
-          size: "50%",
-        },
-      },
-    },
-  };
 
   const percentage = data?.count;
 
@@ -99,13 +60,60 @@ const Ingredients = (props) => {
       ) : null}
 
       {!loading && !showMsg ? (
-        <>
-          <Chart type='donut' series={percentage} options={options} />
+        <StWrapper>
+          <ReactApexChart
+            type='donut'
+            series={percentage}
+            height='80%'
+            options={{
+              title: {
+                text: "우리집 재료 현황",
+                align: "center",
+              },
+              dataLabels: {
+                enabled: false,
+              },
+              legend: {
+                fontSize: "12px",
+                fontWeight: "500",
+                fontFamily: "Noto Sans KR",
+                position: "bottom",
+              },
+              labels: LABELS,
+              colors: CHART_COLORS,
+              tooltip: {
+                style: {
+                  fontSize: "12px",
+                  fontWeight: "500",
+                  fontFamily: "Noto Sans KR",
+                },
+                y: {
+                  formatter: (value) => `${value}개`,
+                  title: {
+                    formatter: (seriesName) => seriesName,
+                  },
+                },
+                fillSeriesColor: false,
+              },
+              plotOptions: {
+                pie: {
+                  expandOnClick: false,
+                  donut: {
+                    size: "50%",
+                  },
+                },
+              },
+            }}
+          />
           <Textbox content={COMMENTS[0]} />
-        </>
+        </StWrapper>
       ) : null}
     </>
   );
 };
 
 export default Ingredients;
+
+const StWrapper = styled.div`
+  height: 300px;
+`;

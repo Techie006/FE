@@ -1,4 +1,5 @@
 import { useState, useCallback, useEffect } from "react";
+import ReactApexChart from "react-apexcharts";
 import styled from "styled-components";
 
 import RESP_CHAE from "../../server/response_chae";
@@ -45,10 +46,10 @@ const Categories = (props) => {
 
   const labels = Object.keys(data);
   const nums = Object.values(data);
-  let diagram = labels?.map((label, i) => (
-    <StCategory key={i}>{`${label} : ${nums[i]}`}</StCategory>
-  ));
-  diagram = diagram.slice(0, 3);
+  // let diagram = labels?.map((label, i) => (
+  //   <StCategory key={i}>{`${label} : ${nums[i]}`}</StCategory>
+  // ));
+  // diagram = diagram.slice(0, 3);
 
   return (
     <>
@@ -60,19 +61,57 @@ const Categories = (props) => {
           path={`/home`}
         />
       ) : null}
-      {!loading && !showMsg ? <StWrapper>{diagram}</StWrapper> : null}
+      {!loading && !showMsg ? (
+        <ReactApexChart
+          type='donut'
+          series={nums}
+          height='80%'
+          options={{
+            title: {
+              text: "우리집 재료 현황",
+              align: "center",
+            },
+            dataLabels: {
+              enabled: false,
+            },
+            legend: {
+              fontSize: "12px",
+              fontWeight: "500",
+              fontFamily: "Noto Sans KR",
+              position: "bottom",
+            },
+            labels: labels,
+            // colors: CHART_COLORS,
+            tooltip: {
+              style: {
+                fontSize: "12px",
+                fontWeight: "500",
+                fontFamily: "Noto Sans KR",
+              },
+              y: {
+                formatter: (value) => `${value}개`,
+                title: {
+                  formatter: (seriesName) => seriesName,
+                },
+              },
+              fillSeriesColor: false,
+            },
+            plotOptions: {
+              pie: {
+                expandOnClick: false,
+                donut: {
+                  size: "50%",
+                },
+              },
+            },
+          }}
+        />
+      ) : null}
     </>
   );
 };
 
 export default Categories;
-
-const StWrapper = styled.div`
-  display: grid;
-  grid-template-columns: repeat(1, 100%);
-  grid-auto-rows: minmax(56px, auto);
-  grid-row-gap: 10px;
-`;
 
 const StCategory = styled.div`
   background-color: tomato;

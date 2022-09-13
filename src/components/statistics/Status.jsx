@@ -8,7 +8,10 @@ const Status = (props) => {
   return (
     <>
       <StTitle>오늘 우리집 냉장고 상태는?</StTitle>
-      <Ingredients />
+      <StDivider>
+        <Ingredients />
+        <Categories />
+      </StDivider>
       {/* <StDivider>
         <Ingredients />
         <Categories />

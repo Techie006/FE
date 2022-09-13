@@ -28,7 +28,7 @@ export default StatisticsLayout;
 
 const StWrapper = styled.div`
   display: grid;
-  grid-auto-rows: minmax(349px, auto);
+  grid-auto-rows: 349px;
   padding: 20px 84px;
   grid-template-columns: repeat(2, 50%);
   grid-column-gap: 20px;
