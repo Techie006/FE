@@ -553,260 +553,227 @@ const RESP_CHAE = {
       },
     },
   },
-  // CALENDAR: {
-  // 	GET_DIETS_SUCCESS: {
-  // 		data: {
-  // 			result: true,
-  // 			content: {
-  // 			days: [["2022-09-01", "2022-09-01", ... , "2022-09-30"]],
-  // 				meals: [[{
-  // 					id: 1,
-  // 					recipe_name: "된장국",
-  // 					time: '아침',
-  // 					is_done: true,
-  // 			}, {
-  // 					id: 2,
-  // 					recipe_name: "된장국",
-  // 					time: '아침',
-  // 					is_done: true,
-  // 			}, {
-  // 					id: 3,
-  // 					recipe_name: "된장국",
-  // 					time: '아침',
-  // 					is_done: true,
-  // 			}], [{
-  // 					id: 4,
-  // 					recipe_name: "된장국",
-  // 					time: '아침',
-  // 					is_done: true,
-  // 			}, {
-  // 					id: 5,
-  // 					recipe_name: "된장국",
-  // 				time: '아침',
-  // 					is_done: true,
-  // 			}, {
-  // 					id: 6,
-  // 					recipe_name: "된장국",
-  // 				time: '아침',
-  // 					is_done: true,
-  // 			}], [], ...]
-  // 			},
-  // 			status: {
-  // 				code: 200,
-  // 				message: '성공적으로 특정 달의 식단을 조회하였습니다.'
-  // 			}
-  // 		}
-  // 	},
-  // 	GET_DIETS_FAIL: {
-  //     data: {
-  //       result: false,
-  //       status: {
-  //         code: 400,
-  //         message: "해당 사용자가 등록한 식단이 없습니다.",
-  //       },
-  //     },
-  // 	},
-  // 	GET_WEEKLY_DIETS_SUCCESS: {
-  // 		data: {
-  // 			result: true,
-  // 			content: {
-  // 				// 월 화 수 목 금 토 일
-  // 			days: [["2022-09-01", "2022-09-02", ... , "2022-09-07"]],
-  // 				meals: [[{
-  // 					id: 1,
-  // 					recipe_name: "된장국",
-  // 					time: '아침',
-  // 					is_done: true,
-  // 					is_liked: true,
-  // 					ingredients: ["가지", "토마토", "고등어"],
-  // 					category: '일품',
-  // 					calorie: 200,
-  // 					method: '끓이기',
 
-  // 			}, {
-  // 					id: 2,
-  // 					recipe_name: "된장국",
-  // 					time: '아침',
-  // 					is_done: true,
-  // 					is_liked: true,
-  // 					ingredients: ["가지", "토마토", "고등어"],
-  // 					category: '일품',
-  // 					calorie: 200,
-  // 					method: '끓이기',
-  // 			}, {
-  // 					id: 3,
-  // 					recipe_name: "된장국",
-  // 					time: '아침',
-  // 					is_done: true,
-  // 					is_liked: true,
-  // 					ingredients: ["가지", "토마토", "고등어"],
-  // 					category: '일품',
-  // 					calorie: 200,
-  // 					method: '끓이기',
-  // 			}], [{
-  // 					id: 4,
-  // 					recipe_name: "된장국",
-  // 				time: '아침',
-  // 				is_done: true,
-  // 				is_liked: true,
-  // 				ingredients: ["가지", "토마토", "고등어"],
-  // 				category: '일품',
-  // 					calorie: 200,
-  // 					method: '끓이기',
-  // 			}, {
-  // 					id: 5,
-  // 					recipe_name: "된장국",
-  // 				time: '아침',
-  // 				is_done: true,
-  // 				is_liked: true,
-  // 				ingredients: ["가지", "토마토", "고등어"],
-  // 					category: '일품',
-  // 					calorie: 200,
-  // 					method: '끓이기',
-  // 			}, {
-  // 					id: 6,
-  // 					recipe_name: "된장국",
-  // 				time: '아침',
-  // 				is_done: true,
-  // 				is_liked: true,
-  // 				ingredients: ["가지", "토마토", "고등어"],
-  // 					category: '일품',
-  // 					calorie: 200,
-  // 					method: '끓이기',
-  // 			}], [], ...]
-  // 			},
-  // 			status: {
-  // 				code: 200,
-  // 				message: '성공적으로 이번 주의 식단을 조회하였습니다.'
-  // 			}
-  // 		}
-  // 	},
-  // 	GET_WEEKLY_DIETS_FAIL: {
-  //     data: {
-  //       result: false,
-  //       status: {
-  //         code: 400,
-  //         message: "해당 사용자가 등록한 식단이 없습니다.",
-  //       },
-  //     },
-  // 	},
-  // 	GET_DAILY_DIETS_SUCCESS: {
-  // 		data: {
-  // 			result: true,
-  // 			content: {
-  // 				// 월 화 수 목 금 토 일
-  // 			day: "2022-09-01",
-  // 			meals: [{
-  // 					id: 1,
-  // 					recipe_name: "된장국",
-  // 					time: '아침'
-  // 					is_done: true,
-  // 					is_liked: true,
-  // 					category: '일품',
-  // 					calorie: 200,
-  // 					method: '끓이기',
-  // 			}, {
-  // 					id: 2,
-  // 					recipe_name: "된장국",
-  // 					time: '아침',
-  // 				is_done: true,
-  // 				is_liked: true,
-  // 					category: '일품',
-  // 					calorie: 200,
-  // 					method: '끓이기',
-  // 			}, {
-  // 					id: 3,
-  // 					recipe_name: "된장국",
-  // 					time: '아침',
-  // 				is_done: true,
-  // 				is_liked: true,
-  // 					category: '일품',
-  // 					calorie: 200,
-  // 					method: '끓이기',
-  // 			}]
-  // 			},
-  // 			status: {
-  // 				code: 200,
-  // 				message: '성공적으로 해당 날짜의 식단을 조회하였습니다.'
-  // 			}
-  // 		}
-  // 	},
-  // 	GET_DAILY_DIETS_FAIL: {
-  //     data: {
-  //       result: false,
-  //       status: {
-  //         code: 400,
-  //         message: "해당 사용자가 등록한 식단이 없습니다.",
-  //       },
-  //     },
-  // 	},
-  // 	CREATE_NEW_DIET: {
-  // 		data: {
-  // 			result: true,
-  // 			content: {
-  // 			day: "2022-09-01",
-  // 			meal: {
-  // 					id: 1,
-  // 					recipe_name: "된장국",
-  // 				time: '아침',
-  // 					is_liked: true,
-  // 					is_done: false,
-  // 					category: '일품',
-  // 					calorie: 200,
-  // 					method: '끓이기',
-  // 			},
-  // 			},
-  // 			status: {
-  // 				code: 200,
-  // 				message: '성공적으로 해당 날짜에 식단을 생성하였습니다.'
-  // 			}
-  // 		}
-  // 	},
-  // 	EDIT_NEW_DIET: {
-  // 		data: {
-  // 			result: true,
-  // 			content: {
-  // 			day: "2022-09-01",
-  // 			meal: {
-  // 					id: 1,
-  // 					recipe_name: "된장국",
-  // 					time: '아침'
-  // 					is_done: false,
-  // 					is_liked: true,
-  // 					category: '일품',
-  // 					calorie: 200,
-  // 					method: '끓이기',
-  // 			},
-  // 			},
-  // 			status: {
-  // 				code: 200,
-  // 				message: '성공적으로 해당 날짜에 식단을 변경하였습니다.'
-  // 			}
-  // 		}
-  // 	},
-  // 	DELETE_NEW_DIET: {
-  // 		data: {
-  // 			result: true,
-  // 			content: {
-  // 			day: "2022-09-01",
-  // 			meal: {
-  // 					id: 1,
-  // 					recipe_name: "된장국",
-  // 					time: '아침'
-  // 					is_done: false,
-  // 					is_liked: true,
-  // 					category: '일품',
-  // 					calorie: 200,
-  // 					method: '끓이기',
-  // 			},
-  // 			},
-  // 			status: {
-  // 				code: 200,
-  // 				message: '성공적으로 해당 날짜에 식단을 삭제하였습니다.'
-  // 			}
-  // 		}
-  // 	},
-  // },
+  // calendar: 6 apis
+  CALENDAR: {
+    GET_ALL_DIETS_SUCCESS: {
+      data: {
+        result: true,
+        content: {
+          recipes: [
+            {
+              id: 1,
+              start: "2022-08-01",
+              recipe_name: "된장국",
+              time: "아침",
+              liked: true,
+              ingredients: ["가지", "토마토", "고등어"],
+              category: "일품",
+              calorie: 200,
+              method: "끓이기",
+            },
+            {
+              id: 2,
+              start: "2022-08-30",
+              recipe_name: "된장국",
+              time: "아침",
+              liked: true,
+              ingredients: ["가지", "토마토", "고등어"],
+              category: "일품",
+              calorie: 200,
+              method: "끓이기",
+            },
+            {
+              id: 3,
+              start: "2022-09-01",
+              recipe_name: "된장국",
+              time: "아침",
+              liked: true,
+              ingredients: ["가지", "토마토", "고등어"],
+              category: "일품",
+              calorie: 200,
+              method: "끓이기",
+            },
+            {
+              id: 4,
+              start: "2022-09-01",
+              recipe_name: "된장국",
+              time: "아침",
+              liked: true,
+              ingredients: ["가지", "토마토", "고등어"],
+              category: "일품",
+              calorie: 200,
+              method: "끓이기",
+            },
+            {
+              id: 5,
+              start: "2022-09-01",
+              recipe_name: "된장국",
+              time: "아침",
+              liked: true,
+              ingredients: ["가지", "토마토", "고등어"],
+              category: "일품",
+              calorie: 200,
+              method: "끓이기",
+            },
+            {
+              id: 6,
+              start: "2022-09-01",
+              recipe_name: "된장국",
+              time: "아침",
+              liked: true,
+              ingredients: ["가지", "토마토", "고등어"],
+              category: "일품",
+              calorie: 200,
+              method: "끓이기",
+            },
+          ],
+        },
+        status: {
+          code: 200,
+          message: "성공적으로 식단을 제공하였습니다.",
+        },
+      },
+    },
+    GET_ALL_WEEKLY_SUCCESS: {
+      data: {
+        result: true,
+        content: {
+          recipes: [
+            {
+              id: 1,
+              start: "2022-09-01",
+              recipe_name: "된장국",
+              time: "아침",
+              liked: true,
+              ingredients: ["가지", "토마토", "고등어"],
+              category: "일품",
+              calorie: 200,
+              method: "끓이기",
+            },
+            {
+              id: 2,
+              start: "2022-09-02",
+              recipe_name: "된장국",
+              time: "아침",
+              liked: true,
+              ingredients: ["가지", "토마토", "고등어"],
+              category: "일품",
+              calorie: 200,
+              method: "끓이기",
+            },
+            {
+              id: 3,
+              start: "2022-09-03",
+              recipe_name: "된장국",
+              time: "아침",
+              liked: true,
+              ingredients: ["가지", "토마토", "고등어"],
+              category: "일품",
+              calorie: 200,
+              method: "끓이기",
+            },
+            {
+              id: 4,
+              start: "2022-09-04",
+              recipe_name: "된장국",
+              time: "아침",
+              liked: true,
+              ingredients: ["가지", "토마토", "고등어"],
+              category: "일품",
+              calorie: 200,
+              method: "끓이기",
+            },
+            {
+              id: 5,
+              start: "2022-09-05",
+              recipe_name: "된장국",
+              time: "아침",
+              liked: true,
+              ingredients: ["가지", "토마토", "고등어"],
+              category: "일품",
+              calorie: 200,
+              method: "끓이기",
+            },
+            {
+              id: 6,
+              start: "2022-09-06",
+              recipe_name: "된장국",
+              time: "아침",
+              liked: true,
+              ingredients: ["가지", "토마토", "고등어"],
+              category: "일품",
+              calorie: 200,
+              method: "끓이기",
+            },
+          ],
+        },
+        status: {
+          code: 200,
+          message: "성공적으로 해당 주의 식단을 제공하였습니다.",
+        },
+      },
+    },
+    CREATE_DIET: {
+      result: true,
+      content: {
+        day: "2022-09-01",
+        meal: {
+          id: 1,
+          recipe_name: "된장국",
+          time: "아침",
+          liked: true,
+          category: "일품",
+          calorie: 200,
+          method: "끓이기",
+        },
+      },
+      status: {
+        code: 200,
+        message: "해당 날짜에 신규 식단을 등록하였습니다.",
+      },
+    },
+    EDIT_DIET: {
+      result: true,
+      content: {
+        day: "2022-09-01",
+        meal: {
+          id: 1,
+          recipe_name: "된장국",
+          time: "아침",
+          liked: true,
+          category: "일품",
+          calorie: 200,
+          method: "끓이기",
+        },
+      },
+      status: {
+        code: 200,
+        message: "해당 날짜에 식단을 변경하였습니다.",
+      },
+    },
+    DELETE_DIET: {
+      result: true,
+      content: {
+        day: "2022-09-01",
+        meal: {
+          id: 1,
+          recipe_name: "된장국",
+          time: "아침",
+          liked: true,
+          category: "일품",
+          calorie: 200,
+          method: "끓이기",
+        },
+      },
+      status: {
+        code: 200,
+        message: "해당 날짜에 식단을 삭제하였습니다.",
+      },
+    },
+  },
+
+  // class
   CLASS: {},
 };
 

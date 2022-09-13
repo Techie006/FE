@@ -1,8 +1,19 @@
 import styled from "styled-components";
 
+export const StTitle = styled.div`
+  font-weight: 700;
+  font-size: 16px;
+  line-height: 23px;
+  margin-bottom: 20px;
+  background-color: inherit;
+`;
+
 export const SectionTitle = styled.div`
-  font-weight: bold;
-  font-size: 1.5rem;
+  font-weight: 700;
+  font-size: 16px;
+  line-height: 23px;
+  margin-bottom: 20px;
+  background-color: inherit;
 `;
 
 export const AccentText = styled.div`

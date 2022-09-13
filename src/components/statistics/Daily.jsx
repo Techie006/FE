@@ -1,11 +1,12 @@
 import { useState, useRef, useCallback, useEffect } from "react";
 import Chart from "react-apexcharts";
+import styled from "styled-components";
 
 import RESP_CHAE from "../../server/response_chae";
 // import { apis } from "../../shared/axios";
-
 import Loader from "../common/Loader";
 import HelpMsg from "../common/HelpMsg";
+import { StTitle } from "../../elements/texts/pageTexts";
 import UnderlineCategory from "../../elements/categories/UnderlineCategory";
 
 const Daily = (props) => {
@@ -62,7 +63,7 @@ const Daily = (props) => {
 
   const nutrientsSeries = data.yesterday?.nutrients.map((nutrient, i) => {
     return {
-      name: NUTRIENTS[i],
+      name: nutrient,
       data: [data.yesterday?.nutrients[i] || 0, data.today?.nutrients[i] || 0],
     };
   });
@@ -89,11 +90,14 @@ const Daily = (props) => {
       ) : null}
       {!loading && !showMsg ? (
         <>
-          <UnderlineCategory
-            contents={CRITERIAS}
-            onClick={clickHandler}
-            disabledCategory={criteria}
-          />
+          <StHeader>
+            <StTitle>오늘 우리 식단은?</StTitle>
+            <UnderlineCategory
+              contents={CRITERIAS}
+              onClick={clickHandler}
+              selectedCategory={criteria}
+            />
+          </StHeader>
           <Chart
             type='bar'
             series={
@@ -136,3 +140,8 @@ const Daily = (props) => {
 };
 
 export default Daily;
+
+const StHeader = styled.div`
+  display: flex;
+  justify-content: space-between;
+`;

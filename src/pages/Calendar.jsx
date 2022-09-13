@@ -1,14 +1,17 @@
-// import Layout from "../componenets/common/Layout";
-// import Header from "../componenets/common/Header";
-// import CalendarLayout from "../componenets/post/CalendarLayout";
+import Layout from "../components/common/Layout";
+import Header from "../components/common/Header";
+import CalendarLayout from "../components/calendar/CalendarLayout";
+import Helper from "../components/common/Helper";
+import Footer from "../components/common/Footer";
 
 const Calendar = (props) => {
   return (
-    <>Calendar</>
-    // <Layout>
-    //   <Header />
-    //   <CalendarLayout />
-    // </Layout>
+    <Layout>
+      <Header />
+      <CalendarLayout />
+      <Helper />
+      <Footer />
+    </Layout>
   );
 };
 

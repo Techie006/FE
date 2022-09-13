@@ -2,7 +2,7 @@ import { useNavigate } from "react-router-dom";
 
 import SmallButton from "../../elements/buttons/SmallButton";
 
-const Loader = ({ msg, goto, path }) => {
+const HelpMsg = ({ msg, content, path }) => {
   const navigate = useNavigate();
 
   const clickHandler = () => {
@@ -12,13 +12,9 @@ const Loader = ({ msg, goto, path }) => {
   return (
     <>
       <div>{msg}</div>
-      <SmallButton
-        type='button'
-        content={`${goto} 가기`}
-        onClick={clickHandler}
-      />
+      <SmallButton type='button' content={content} onClick={clickHandler} />
     </>
   );
 };
 
-export default Loader;
+export default HelpMsg;

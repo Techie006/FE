@@ -3,9 +3,6 @@ import { createGlobalStyle } from "styled-components";
 // reset all html tags with createGlobalStyle
 const GlobalStyle = createGlobalStyle`
 
-// import fonts : 구글 폰트 적용
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@500&family=Noto+Sans+KR:wght@700&display=swap');
-
 // CSS 리셋
 html, body, div, span, applet, object, iframe,
 h1, h2, h3, h4, h5, h6, p, blockquote, pre,
@@ -59,10 +56,9 @@ table {
 * {
 	box-sizing: border-box;
 }
-body {
-	font-family: 'Inter', sans-serif;
-	font-family: 'Noto Sans KR', sans-serif;
-	background-color: ${(props) => props.theme.bgColor};
+body, body * {
+	font-family: ${(props) => props.theme.fontFamily}; 
+	background-color: ${(props) => props.theme.colors.background.gray};
 	color: ${(props) => props.theme.textColor};
 }
 a {
