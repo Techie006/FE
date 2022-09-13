@@ -102,7 +102,7 @@ const Calories = (props) => {
           <Chart
             type='line'
             series={caloriesSeries}
-            width='100%'
+            height='80%'
             options={{
               chart: {
                 toolbar: {

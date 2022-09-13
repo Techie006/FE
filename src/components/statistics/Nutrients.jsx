@@ -101,8 +101,8 @@ const Nutrients = (props) => {
           </StHeader>
           <Chart
             type='line'
+            height='80%'
             series={nutrientsSeries}
-            width='100%'
             options={{
               chart: {
                 toolbar: {
@@ -115,6 +115,11 @@ const Nutrients = (props) => {
               legend: {
                 show: true,
                 position: "bottom",
+                style: {
+                  fontSize: "12px",
+                  fontWeight: "500",
+                  fontFamily: "Noto Sans KR",
+                },
               },
               labels: labels,
               xaxis: {
@@ -130,6 +135,11 @@ const Nutrients = (props) => {
                 },
               },
               tooltip: {
+                style: {
+                  fontSize: "12px",
+                  fontWeight: "500",
+                  fontFamily: "Noto Sans KR",
+                },
                 y: {
                   formatter: (value) => `${value}g`,
                 },

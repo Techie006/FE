@@ -100,10 +100,10 @@ const Daily = (props) => {
           </StHeader>
           <Chart
             type='bar'
+            height='80%'
             series={
               criteria === CRITERIAS[0] ? caloriesSeries : nutrientsSeries
             }
-            width='100%'
             options={{
               chart: {
                 toolbar: {
