@@ -70,4 +70,6 @@ export default Recipes;
 const StWrapper = styled.div`
   display: flex;
   flex-wrap: wrap;
+
 `;
+

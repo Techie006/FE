@@ -9,8 +9,7 @@ import SmallLinkWithHelper from "./links/SmallLinkWithHelper";
 
 // category
 import UnderlineCategory from "./categories/UnderlineCategory";
-import ButtonCategory from "./categories/ButtonCategory";
-import SelectCategory from "./categories/SelectCategory";
+import Textbox from "./textboxes/Textbox";
 
 // texts
 import {
@@ -61,6 +60,19 @@ const CheckElements = (props) => {
   return (
     <>
       <StyledContainer>
+        <StElement>A. UnderlineCategory</StElement>
+        <UnderlineCategory
+          contents={["category1", "category2", "category3", "category4"]}
+          onClick={clickHandler}
+          selectedCategory='category1'
+        />
+      </StyledContainer>
+      <StyledContainer>
+        <StElement>B. Textbox</StElement>
+        <Textbox content={"you should put content here!"} />
+      </StyledContainer>
+      <hr />
+      <StyledContainer>
         1. Links
         <MediumLink content='MediumLink' link='/elements' />
         <MediumLinkWithHelper
@@ -76,17 +88,13 @@ const CheckElements = (props) => {
         />
       </StyledContainer>
       <StyledContainer>
-        2. Categories
+        <StElement>2. Categories</StElement>
         <UnderlineCategory
           title='UnderlineCategory'
           contents={["category1", "category2", "category3", "category4"]}
+          onClick={clickHandler}
+          selectedCategory='category1'
         />
-        <ButtonCategory 
-        type='button' 
-        onClick={clickHandler}
-        contents={["category1", "category2", "category3"]}
-        />
-        <SelectCategory />
       </StyledContainer>
       <StyledContainer>
         3. Buttons
@@ -183,6 +191,12 @@ const StyledContainer = styled.div`
   flex-direction: column;
   align-items: flex-start;
   margin-bottom: 30px;
+`;
+
+const StElement = styled.div`
+  margin-bottom: 10px;
+  font-size: ${(props) => props.theme.fontSize};
+  font-weight: ${(props) => props.theme.fontWeight};
 `;
 
 const StyledCompare = styled.div`

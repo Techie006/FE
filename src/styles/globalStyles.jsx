@@ -1,7 +1,12 @@
 // TODO design 후 변경
 export const defaultTheme = {
   // background
-  backgroundColor: "#FFFFFF",
+  backgroundColor: "#FAFAFA",
+  fontSize: "13px",
+  fontWeight: "700",
+  txtColor: "#282828",
+  fontStyle: "normal",
+  fontFamily: `'Noto Sans KR', sans-serif`,
 
   // text
   textColor: "#181B2E",
@@ -47,4 +52,80 @@ export const defaultTheme = {
   // transition and tansform
   transition: "all 0.3s",
   transform: "scale(1,1)",
+
+  // TODO with design!
+  // color
+  firstColor: "#FFDD7C",
+  secondColor: "#FF7528",
+  thirdColor: "#74BDB2",
+  fourthColor: "#8B8B8B",
+
+  // button
+  btnBGColor: "#F5F0E7",
+  btnTxtColor: "#8E7B6D",
+  selectBtnBGColor: "#FFB356",
+  selectBtnTxtColor: "#482647",
+  btnBorderRadius: "30px",
+  btnFontWeight: "500",
+  btnFontSize: "10px",
+  btnFontStyle: "normal",
+  btnLineHeight: "18px",
+  btnTxtSpacing: "-0.6px",
+
+  // textbox
+  txtBoxBGColor: "#F5F0E7",
+  txtBoxBorderRadius: "30px",
+  txtBoxFontWeight: "700",
+  txtBoxFontSize: "12px",
+  txtBoxLineHeight: "17px",
+
+  // section
+  section: {
+    layout: {
+      background: "#FFFFFF",
+      boxShadow: "0px 3px 13px 1px rgba(0, 0, 0, 0.05)",
+      borderRadius: "10px",
+    },
+    title: {
+      fontWeight: "700",
+      fontSize: "16px",
+      lineHeight: "23px",
+    },
+    box: {
+      background: "#FFFFFF",
+      boxShadow: "0px 2px 11px rgba(0, 0, 0, 0.08)",
+      borderRadius: "8px",
+      fontWeight: "700",
+      fontSize: "14px",
+      lineHeight: "20px",
+    },
+  },
+
+  // colors
+  colors: {
+    background: {
+      white: "#FFFFFF",
+      gray: "#FAFAFA",
+    },
+    text: {
+      gray: "#656565",
+      orange_red: "#FF5C01",
+    },
+    main: {
+      purple: "#482647",
+      orange: "#FC9700",
+      yellow: "#FFDD7C",
+      orange_red: "#FF5C01",
+      mint: "#74BDB2",
+      brown: "#8E7B6D",
+    },
+    sub: {
+      purple: "#E9E7EA",
+      yellow: "#FFF5BA",
+      orange: "#FFEAD8",
+      orange_red: "#FFEAD8",
+      mint: "#EBFAF5;",
+      brown: "#F0EADC",
+    },
+  },
 };
