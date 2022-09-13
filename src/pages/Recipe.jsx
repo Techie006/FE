@@ -5,8 +5,8 @@ import RecipesLayout from "../components/recipes/RecipesLayout";
 const Recipe = (props) => {
   return (
     <>
+      <Header />
       <Layout>
-        <Header />
         <RecipesLayout />
       </Layout>
     </>

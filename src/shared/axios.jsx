@@ -2,12 +2,12 @@ import axios from "axios";
 
 const base = {
   server_http: "http://15.165.18.108:8080",
-  server_https: "https://sparta-omj.shop",
+  server_https: "https://magorosc.shop/",
 };
 
 const api = axios.create({
   // baseURL: "https://sparta-omj.shop",
-  baseURL: base.server_http,
+  baseURL: base.server_https,
   headers: {
     "content-type": "application/json; charset=UTF-8",
     accept: "application/json,",

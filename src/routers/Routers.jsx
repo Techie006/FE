@@ -8,8 +8,9 @@ import Statistics from "../pages/Statistics";
 import Calendar from "../pages/Calendar";
 import Class from "../pages/Class";
 import My from "../pages/My";
-import NotFound from "../pages/NotFound";
-import RecipeDetail from "../components/recipes/RecipeDetail";
+import KakaoLogin from "../pages/My";
+import NotFound from "../components/auth/KakaoLogin";
+
 
 // TODO erase elements
 import Elements from "../pages/Elements";
@@ -30,8 +31,8 @@ const Routers = (props) => {
         <Route path='/class' element={<Class />} />
         <Route path='/my' element={<My />} />
         <Route path='/elements' element={<Elements />} />
+        <Route path='/user/kakao/callback' element={<KakaoLogin />} />
         <Route path='*' element={<NotFound />} />
-        <Route path='/recipe/detail/:id' element={<RecipeDetail />} />
       </Routes>
     </BrowserRouter>
   );

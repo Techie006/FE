@@ -56,7 +56,6 @@ import RecipeSmallLayout from "./layouts/RecipeSmallLayout";
 
 const CheckElements = (props) => {
   const clickHandler = (e) => {
-    console.log("clicked!");
   };
 
   return (
