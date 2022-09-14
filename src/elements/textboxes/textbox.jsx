@@ -17,10 +17,8 @@ const StBox = styled.div`
   align-items: center;
   padding: 6px 16px;
   gap: 10px;
-
   background-color: ${(props) => props.theme.txtBoxBGColor};
   border-radius: ${(props) => props.theme.txtBoxBorderRadius};
-
   &:hover {
     cursor: default;
   }

@@ -15,17 +15,20 @@ const KakaoLogin = () => {
             const resp = await axios.get(`http://magorosc.shop/user/kakao/callback?code=${code}`,{});
     
             localStorage.setItem("Authorization",resp.headers.authorization);
+            localStorage.setItem("Refresh_Token",resp.headers.refresh_token);
             
             Swal.fire(
                 '로그인에 성공하였습니다.',
                 `${resp.data.status.message}`,
                 'success'
               )
-              navigate("/home", { replace: true })
+              console.log("con",resp.data)
+            //   navigate("/home", { replace: true })
+            dispatch(login());
         }
         catch(error) {
         }
-        dispatch(login());
+        
     }
     useEffect(() => {
         kakaoLogin();
