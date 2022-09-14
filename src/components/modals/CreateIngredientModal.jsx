@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import Select from "react-select";
+import Select, { NonceProvider } from "react-select";
 import Calendar from 'react-calendar';
 import moment from "moment";
 import 'react-calendar/dist/Calendar.css';
@@ -29,8 +29,13 @@ const CreateIngredientModal = ({ onClose }) => {
     const onExpShowHandler = () => {
         setExpShow(!expShow)
     } 
-
-    
+    // const selectStyles = {
+    //     option : (provided, state) => ({
+    //         ...provided,
+    //         borderBottom : '1px dotted pink'
+    //     })
+    // }
+    // 스타일 사용해서 select 스타일 최종 정리하기,
     return (
         <StyledModalBackground>
             <StyledContent>
@@ -57,10 +62,27 @@ const CreateIngredientModal = ({ onClose }) => {
                 <StyledSelect
                 styles={{ // 모바일 환경에서도 option 목록이 항상 위로 보이게 zIndex 설정함
                     Storage : provided=> ({...provided, zIndex: 999}),
-                }}
+                    option : (provided, state) => ({
+                        ...provided,
+                        borderBottom : '10px  solid black'
+                    }),
+                    // input : (provided, state)  => ({
+                    //     .react-select-3-input{
+                    //         display : 'none'
+                    //     },
+                    // }),
+                    // input 삭제 어케함? console 찍으면 나옴
+                    singleValue : (provided, state)  => ({
+                        width : '50px',
+                        height : '20px',
+                        fontSize : '20px'
+                    })
+                    }}
                 onChange = {setSelectStorage}
                 placeholder = "선택해주세요!"
                 options={Storage}
+                isSearchable={false}
+                // disabled = {false}
                 />
                 </div>
                 </div>
@@ -78,7 +100,16 @@ const CreateIngredientModal = ({ onClose }) => {
                                 className="entering_calendar"
                                 formatDay={(locale, date) => moment(date).format("DD")}
                                 onChange={onChange} 
-                                value={value}/>}
+                                value={value}
+                                // tileContent={ ({data,navigation}) => {
+                                //     return (
+                                //         <>
+                                //         <div class="react-calendar__navigation"/>
+                                //         </>
+                                //     )
+                                // } }
+                                // react-calendar html 변경하는 법 공부
+                                />}
                 </StyledDateBox>
                 </StyledEnteringDate>
                 
@@ -111,6 +142,7 @@ const StyledModalBackground = styled.div`
     height: 100%;
     width: 100%;
     display: flex;
+    background-color : rgba(0, 0, 0, 0.8);
     align-items: center;
     justify-content: center;
     position: fixed;
@@ -119,7 +151,6 @@ const StyledModalBackground = styled.div`
     text-align: center;
     .calendar_container {
         position:relative;
-        
     }
 `
 const StyledContent = styled.div`
@@ -147,9 +178,12 @@ const StyledHeader = styled.div`
     }
 `
 const StyledTitles = styled.div`
+    margin-bottom : 20px;
+    margin-top : 20px;
 `
 const StyledSelect = styled(Select)`
-    width: 130px;
+    width: 200px;
+    height : 30px;
     position: relative;
     line-height: 14px;
     font-size: 13px;

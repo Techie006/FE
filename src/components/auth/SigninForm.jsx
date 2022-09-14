@@ -8,6 +8,7 @@ import { useDispatch } from 'react-redux';
 import Select from "react-select";
 import { ErrorText, ValidateText } from "../../elements/texts/pageTexts"
 import { login } from "../../modules/redux/auth";
+import { user } from "../../modules/redux/userData";
 // import SmallLinkWithHelper from '../../elements/links/SmallLinkWithHelper';
 import axios from 'axios';
 
@@ -155,7 +156,10 @@ const SigninForm = () => {
                 email : loginUserId,
                 password : watch("login_password"),
             })
+    
             localStorage.setItem("Authorization",resp.headers.authorization);
+            localStorage.setItem("Refresh_Token",resp.headers.refresh_token);
+        
 
             setLoginState(resp.data)
 
@@ -165,8 +169,12 @@ const SigninForm = () => {
                     `${resp.data.status.message}`,
                     'success'
                   )
-                  navigate("/home", { replace: true })
                   dispatch(login());
+                  dispatch(user(resp.data.content));
+                  console.log("content",resp.data.content);
+                  
+                  navigate("/home", { replace: true })
+                  
             }
         }
         // const {
@@ -413,6 +421,7 @@ const StyledGol = styled.span`
 `
 const StyledSelect = styled(Select)`
     width: 130px;
+    border : 0px;
     position: relative;
     line-height: 14px;
     font-size: 13px;
