@@ -6,9 +6,9 @@ Element
 
 Auth
 
-- [ ] signup
-- [ ] signin
-- [ ] kakao
+- [x] signup
+- [x] signin
+- [x] kakao
 - [ ] google
 - [ ] signout
 - [ ] reissue
