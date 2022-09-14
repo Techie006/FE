@@ -18,12 +18,12 @@ export default StatisticsLayout;
 const StWrapper = styled.div`
   display: grid;
   padding: 20px 84px;
-  grid-template-columns: repeat(4, 20%);
+  grid-template-columns: repeat(4, 25%);
   grid-column-gap: 20px;
   /* tablet */
   @media all and (max-width: 1024px) {
     padding: 20px 30px;
-    grid-template-columns: repeat(4, 20%);
+    grid-template-columns: repeat(4, 25%);
     grid-column-gap: 20px;
     grid-row-gap: 20px;
   }
@@ -42,4 +42,8 @@ const StSection = styled.div`
   background: ${(props) => props.theme.section.layout.background};
   box-shadow: ${(props) => props.theme.section.layout.boxShadow};
   border-radius: ${(props) => props.theme.section.layout.borderRadius};
+  /* mobile */
+  @media all and (max-width: 600px) {
+    grid-column: 1;
+  }
 `;

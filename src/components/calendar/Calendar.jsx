@@ -105,13 +105,12 @@ const RecipeCalendar = () => {
 
   return (
     <>
-      Cal
-      <SmallButton type='button' content={view} onClick={clickHandler} />
       <div>
+        <SmallButton type='button' content={view} onClick={clickHandler} />
         <Calendar
           defaultDate={defaultDate}
           events={scheduleList}
-          style={{ height: "500px", width: "80%" }}
+          style={{ height: "500px", width: "90%", margin: "auto" }}
           localizer={localizer}
           components={{
             toolbar: Toolbar,
