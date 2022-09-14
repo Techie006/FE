@@ -58,6 +58,7 @@ const Calories = (props) => {
   ];
 
   const labels = data.days?.map((day) => new Date(day).toUTCString());
+  const CHART_COLORS = ["#FFDD7C", "#FFDD7C", "#74BDB2"];
 
   const clickHandler = (e) => {
     const content = e.target.textContent;
@@ -67,17 +68,19 @@ const Calories = (props) => {
     switch (content) {
       case FILTERS.day:
         setFilter(FILTERS.day);
-        break;
+        return;
       case FILTERS.week:
         setFilter(FILTERS.week);
-        break;
+        return;
       case FILTERS.month:
         setFilter(FILTERS.month);
-        break;
+        return;
       default:
-        break;
+        return;
     }
   };
+
+  console.log(filter);
 
   return (
     <>
@@ -102,11 +105,34 @@ const Calories = (props) => {
           <Chart
             type='line'
             series={caloriesSeries}
-            width='100%'
+            height='70%'
             options={{
               chart: {
+                fontFamily: "Noto Sans KR",
+                fontSize: "12px",
+                fontWeight: "700",
                 toolbar: {
                   show: false,
+                },
+              },
+              xaxis: {
+                type: "datetime",
+                tooltip: {
+                  enabled: false,
+                },
+                labels: {
+                  format: filter !== FILTERS.month ? `MM월 dd일` : `yy년 MM월`,
+                },
+                axisTicks: {
+                  show: false,
+                },
+                axisBorder: {
+                  show: false,
+                },
+              },
+              yaxis: {
+                labels: {
+                  formatter: (value) => `${value}kcal`,
                 },
               },
               dataLabels: {
@@ -117,25 +143,30 @@ const Calories = (props) => {
                 position: "bottom",
               },
               labels: labels,
-              xaxis: {
-                type: "datetime",
-                // labels: {
-                //   format: `yy년 MM월`,
-                // },
-                axisTicks: {
-                  show: false,
-                },
-                axisBorder: {
-                  show: false,
-                },
+              colors: CHART_COLORS,
+              storke: {
+                curve: "smooth",
+                width: 3,
+              },
+              markers: {
+                size: 1,
               },
               tooltip: {
+                x: {
+                  show: false,
+                },
                 y: {
                   formatter: (value) => `${value}kcal`,
                 },
               },
               grid: {
                 show: false,
+                // TODO for apex-chart x-axis trimming error
+                // https://github.com/apexcharts/apexcharts.js/issues/305
+                padding: {
+                  left: 50,
+                  right: 40,
+                },
               },
             }}
           />

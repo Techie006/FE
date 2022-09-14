@@ -7,15 +7,11 @@ import Categories from "./Categories";
 const Status = (props) => {
   return (
     <>
-      <StTitle>오늘 우리집 냉장고 상태는?</StTitle>
+      <StTitle>오늘 우리집 식재료 상태는?</StTitle>
       <StDivider>
         <Ingredients />
         <Categories />
       </StDivider>
-      {/* <StDivider>
-        <Ingredients />
-        <Categories />
-      </StDivider> */}
     </>
   );
 };

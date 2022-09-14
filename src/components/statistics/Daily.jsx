@@ -15,6 +15,7 @@ const Daily = (props) => {
   const NUTRIENTS = ["탄수화물", "단백질", "지방"];
   const LABELS = ["어제", "오늘"];
   const BASES = ["kcal", "g"];
+  const CHART_COLORS = ["#FF5C01", "#FFDD7C", "#74BDB2"];
 
   const [loading, setLoading] = useState(true);
   const [data, setData] = useState({});
@@ -63,7 +64,7 @@ const Daily = (props) => {
 
   const nutrientsSeries = data.yesterday?.nutrients.map((nutrient, i) => {
     return {
-      name: nutrient,
+      name: NUTRIENTS[i],
       data: [data.yesterday?.nutrients[i] || 0, data.today?.nutrients[i] || 0],
     };
   });
@@ -100,36 +101,62 @@ const Daily = (props) => {
           </StHeader>
           <Chart
             type='bar'
+            height='70%'
             series={
               criteria === CRITERIAS[0] ? caloriesSeries : nutrientsSeries
             }
-            width='100%'
             options={{
               chart: {
+                fontFamily: "Noto Sans KR",
+                fontSize: "12px",
+                fontWeight: "700",
                 toolbar: {
                   show: false,
                 },
                 stacked: true,
               },
-              dataLabels: {
-                enabled: false,
-              },
-              labels: LABELS,
-              grid: {
-                show: false,
-                yaxis: {
-                  lines: { show: false },
-                },
-              },
-              tooltip: {
-                y: {
-                  formatter: (value) => `${value}${base.current}`,
-                },
-              },
               plotOptions: {
                 bar: {
                   horizontal: true,
                 },
+              },
+              xaxis: {
+                axisBorder: {
+                  show: false,
+                },
+                axisTick: {
+                  show: false,
+                },
+                labels: {
+                  formatter: (value) => `${value}${base.current}`,
+                },
+              },
+              yaxis: {
+                axisBorder: {
+                  show: false,
+                },
+                axisTick: {
+                  show: false,
+                },
+              },
+              dataLabels: {
+                enabled: false,
+              },
+              labels: LABELS,
+              colors: CHART_COLORS,
+              tooltip: {
+                x: {
+                  show: false,
+                },
+                y: {
+                  formatter: (value) => `${value}${base.current}`,
+                },
+              },
+              legend: {
+                showForSingleSeries: true,
+              },
+              grid: {
+                show: false,
               },
             }}
           />

@@ -16,6 +16,7 @@ const Nutrients = (props) => {
     week: "주별",
     month: "월별",
   };
+  const CHART_COLORS = ["#FF5C01", "#FFDD7C", "#74BDB2"];
 
   const [loading, setLoading] = useState(true);
   const [data, setData] = useState({});
@@ -101,12 +102,36 @@ const Nutrients = (props) => {
           </StHeader>
           <Chart
             type='line'
+            height='80%'
             series={nutrientsSeries}
-            width='100%'
             options={{
               chart: {
+                fontFamily: "Noto Sans KR",
+                fontSize: "12px",
+                fontWeight: "700",
                 toolbar: {
                   show: false,
+                },
+                stacked: true,
+              },
+              xaxis: {
+                type: "datetime",
+                tooltip: {
+                  enabled: false,
+                },
+                labels: {
+                  format: filter !== FILTERS.month ? `MM월 dd일` : `yy년 MM월`,
+                },
+                axisTicks: {
+                  show: false,
+                },
+                axisBorder: {
+                  show: false,
+                },
+              },
+              yaxis: {
+                labels: {
+                  formatter: (value) => `${value}g`,
                 },
               },
               dataLabels: {
@@ -117,25 +142,30 @@ const Nutrients = (props) => {
                 position: "bottom",
               },
               labels: labels,
-              xaxis: {
-                type: "datetime",
-                // labels: {
-                //   format: `yy년 MM월`,
-                // },
-                axisTicks: {
-                  show: false,
-                },
-                axisBorder: {
-                  show: false,
-                },
+              colors: CHART_COLORS,
+              storke: {
+                curve: "smooth",
+                width: 3,
+              },
+              markers: {
+                size: 1,
               },
               tooltip: {
+                x: {
+                  show: false,
+                },
                 y: {
                   formatter: (value) => `${value}g`,
                 },
               },
               grid: {
                 show: false,
+                // TODO for apex-chart x-axis trimming error
+                // https://github.com/apexcharts/apexcharts.js/issues/305
+                padding: {
+                  left: 50,
+                  right: 40,
+                },
               },
             }}
           />

@@ -8,7 +8,7 @@ import Nutrients from "./Nutrients";
 const StatisticsLayout = () => {
   return (
     <StWrapper>
-      <StSection>
+      <StSection isTwo={true}>
         <Status />
       </StSection>
       <StSection>
@@ -28,7 +28,7 @@ export default StatisticsLayout;
 
 const StWrapper = styled.div`
   display: grid;
-  grid-auto-rows: 349px;
+  grid-auto-rows: ${(props) => (props.isTwo ? "349px" : "minmax(349px, auto)")};
   padding: 20px 84px;
   grid-template-columns: repeat(2, 50%);
   grid-column-gap: 20px;
