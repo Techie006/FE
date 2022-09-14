@@ -539,7 +539,7 @@ const RESP_CHAE = {
             carbohydrates: [10, 20, 30, 40, 50, 60, 70], //g
             proteins: [2, 2, 20, 4, 50, 6, 7], //g
             fats: [0, 3, 5, 5, 5, 6, 7], //g
-            sodium: [7, 6, 5, 4, 3, 2, 7], //mg
+            // sodium: [7, 6, 5, 4, 3, 2, 7], //mg
           },
         },
         status: {

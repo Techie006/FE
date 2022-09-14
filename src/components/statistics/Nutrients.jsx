@@ -51,6 +51,7 @@ const Nutrients = (props) => {
   //   console.log(data);
   // }
 
+  // TODO 나트륨 빼기
   const labels = data?.days;
   let nutrientsSeries = [];
   for (let i = 1; i < Object.keys(data).length; i++) {
@@ -114,25 +115,19 @@ const Nutrients = (props) => {
                 },
                 stacked: true,
               },
-              dataLabels: {
-                enabled: false,
-              },
-              legend: {
-                show: true,
-                position: "bottom",
-                style: {
-                  fontSize: "12px",
-                  fontWeight: "500",
-                  fontFamily: "Noto Sans KR",
-                },
-              },
-              labels: labels,
-              colors: CHART_COLORS,
               xaxis: {
                 type: "datetime",
-                // labels: {
-                //   format: `yy년 MM월`,
-                // },
+                tooltip: {
+                  enabled: false,
+                },
+                labels: {
+                  format:
+                    filter === FILTERS.day
+                      ? `dd일`
+                      : filter === FILTERS.week
+                      ? `MM월 dd일`
+                      : `yy년 MM월`,
+                },
                 axisTicks: {
                   show: false,
                 },
@@ -140,18 +135,42 @@ const Nutrients = (props) => {
                   show: false,
                 },
               },
+              yaxis: {
+                labels: {
+                  formatter: (value) => `${value}g`,
+                },
+              },
+              dataLabels: {
+                enabled: false,
+              },
+              legend: {
+                show: true,
+                position: "bottom",
+              },
+              labels: labels,
+              colors: CHART_COLORS,
+              storke: {
+                curve: "smooth",
+                width: 3,
+              },
+              markers: {
+                size: 1,
+              },
               tooltip: {
-                style: {
-                  fontSize: "12px",
-                  fontWeight: "500",
-                  fontFamily: "Noto Sans KR",
+                x: {
+                  show: false,
                 },
                 y: {
                   formatter: (value) => `${value}g`,
                 },
               },
               grid: {
-                show: false,
+                // TODO for apex-chart x-axis trimming error
+                // https://github.com/apexcharts/apexcharts.js/issues/305
+                padding: {
+                  left: 50,
+                  right: 40,
+                },
               },
             }}
           />
