@@ -16,6 +16,7 @@ const Nutrients = (props) => {
     week: "주별",
     month: "월별",
   };
+  const CHART_COLORS = ["#FF5C01", "#FFDD7C", "#74BDB2"];
 
   const [loading, setLoading] = useState(true);
   const [data, setData] = useState({});
@@ -105,9 +106,13 @@ const Nutrients = (props) => {
             series={nutrientsSeries}
             options={{
               chart: {
+                fontFamily: "Noto Sans KR",
+                fontSize: "12px",
+                fontWeight: "700",
                 toolbar: {
                   show: false,
                 },
+                stacked: true,
               },
               dataLabels: {
                 enabled: false,
@@ -122,6 +127,7 @@ const Nutrients = (props) => {
                 },
               },
               labels: labels,
+              colors: CHART_COLORS,
               xaxis: {
                 type: "datetime",
                 // labels: {

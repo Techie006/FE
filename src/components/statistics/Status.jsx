@@ -12,10 +12,6 @@ const Status = (props) => {
         <Ingredients />
         <Categories />
       </StDivider>
-      {/* <StDivider>
-        <Ingredients />
-        <Categories />
-      </StDivider> */}
     </>
   );
 };

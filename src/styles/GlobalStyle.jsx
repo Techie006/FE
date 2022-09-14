@@ -56,10 +56,16 @@ table {
 * {
 	box-sizing: border-box;
 }
-body, body * {
-	font-family: ${(props) => props.theme.fontFamily}; 
+body {
 	background-color: ${(props) => props.theme.colors.background.gray};
+}
+body * {
+	font-family: ${(props) => props.theme.fontFamily}; 
+	background-color: inherit;
 	color: ${(props) => props.theme.textColor};
+}
+body * {
+	
 }
 a {
 	text-decoration: none;

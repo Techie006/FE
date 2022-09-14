@@ -66,6 +66,14 @@ const Ingredients = (props) => {
             series={percentage}
             height='80%'
             options={{
+              chart: {
+                fontFamily: "Noto Sans KR",
+                fontSize: "12px",
+                fontWeight: "500",
+                toolbar: {
+                  show: false,
+                },
+              },
               title: {
                 text: "우리집 재료 현황",
                 align: "center",
@@ -74,19 +82,11 @@ const Ingredients = (props) => {
                 enabled: false,
               },
               legend: {
-                fontSize: "12px",
-                fontWeight: "500",
-                fontFamily: "Noto Sans KR",
                 position: "bottom",
               },
               labels: LABELS,
               colors: CHART_COLORS,
               tooltip: {
-                style: {
-                  fontSize: "12px",
-                  fontWeight: "500",
-                  fontFamily: "Noto Sans KR",
-                },
                 y: {
                   formatter: (value) => `${value}개`,
                   title: {

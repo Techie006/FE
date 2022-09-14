@@ -65,6 +65,14 @@ const Categories = (props) => {
           series={nums}
           height='80%'
           options={{
+            chart: {
+              fontFamily: "Noto Sans KR",
+              fontSize: "12px",
+              fontWeight: "700",
+              toolbar: {
+                show: false,
+              },
+            },
             title: {
               text: "우리집 냉장고 현황",
               align: "center",

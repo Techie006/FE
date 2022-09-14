@@ -15,6 +15,7 @@ const Daily = (props) => {
   const NUTRIENTS = ["탄수화물", "단백질", "지방"];
   const LABELS = ["어제", "오늘"];
   const BASES = ["kcal", "g"];
+  const CHART_COLORS = ["#FF5C01", "#FFDD7C", "#74BDB2"];
 
   const [loading, setLoading] = useState(true);
   const [data, setData] = useState({});
@@ -63,7 +64,7 @@ const Daily = (props) => {
 
   const nutrientsSeries = data.yesterday?.nutrients.map((nutrient, i) => {
     return {
-      name: nutrient,
+      name: NUTRIENTS[i],
       data: [data.yesterday?.nutrients[i] || 0, data.today?.nutrients[i] || 0],
     };
   });
@@ -100,12 +101,15 @@ const Daily = (props) => {
           </StHeader>
           <Chart
             type='bar'
-            height='80%'
+            height='70%'
             series={
               criteria === CRITERIAS[0] ? caloriesSeries : nutrientsSeries
             }
             options={{
               chart: {
+                fontFamily: "Noto Sans KR",
+                fontSize: "12px",
+                fontWeight: "700",
                 toolbar: {
                   show: false,
                 },
@@ -115,6 +119,7 @@ const Daily = (props) => {
                 enabled: false,
               },
               labels: LABELS,
+              colors: CHART_COLORS,
               grid: {
                 show: false,
                 yaxis: {
@@ -125,6 +130,9 @@ const Daily = (props) => {
                 y: {
                   formatter: (value) => `${value}${base.current}`,
                 },
+              },
+              legend: {
+                showForSingleSeries: true,
               },
               plotOptions: {
                 bar: {

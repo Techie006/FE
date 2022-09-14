@@ -74,7 +74,7 @@ export const defaultTheme = {
 
   // textbox
   txtBoxBGColor: "#F5F0E7",
-  txtBoxBorderRadius: "30px",
+  txtBoxBorderRadius: "6px",
   txtBoxFontWeight: "700",
   txtBoxFontSize: "12px",
   txtBoxLineHeight: "17px",

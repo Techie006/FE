@@ -58,6 +58,7 @@ const Calories = (props) => {
   ];
 
   const labels = data.days?.map((day) => new Date(day).toUTCString());
+  const CHART_COLORS = ["#FFDD7C", "#FFDD7C", "#74BDB2"];
 
   const clickHandler = (e) => {
     const content = e.target.textContent;
@@ -102,9 +103,12 @@ const Calories = (props) => {
           <Chart
             type='line'
             series={caloriesSeries}
-            height='80%'
+            height='70%'
             options={{
               chart: {
+                fontFamily: "Noto Sans KR",
+                fontSize: "12px",
+                fontWeight: "700",
                 toolbar: {
                   show: false,
                 },
@@ -117,11 +121,15 @@ const Calories = (props) => {
                 position: "bottom",
               },
               labels: labels,
+              colors: CHART_COLORS,
               xaxis: {
                 type: "datetime",
-                // labels: {
-                //   format: `yy년 MM월`,
-                // },
+                labels: {
+                  format: `MM.dd`,
+                  // style: {
+                  //   fontSize: "9px",
+                  // },
+                },
                 axisTicks: {
                   show: false,
                 },
@@ -129,7 +137,15 @@ const Calories = (props) => {
                   show: false,
                 },
               },
+              yaxis: {
+                labels: {
+                  formatter: (value) => `${value}kcal`,
+                },
+              },
               tooltip: {
+                x: {
+                  show: false,
+                },
                 y: {
                   formatter: (value) => `${value}kcal`,
                 },

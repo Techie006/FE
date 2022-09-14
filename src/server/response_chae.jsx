@@ -399,8 +399,9 @@ const RESP_CHAE = {
         result: true,
         content: {
           // in-hurry, warning, fine
-          percentage: [0.3333, 0.3333, 0.3333],
+          // percentage: [0.3333, 0.3333, 0.3333],
           count: [3, 3, 3],
+          status_messgae: "",
         },
         status: {
           code: 200,
@@ -422,6 +423,10 @@ const RESP_CHAE = {
       data: {
         result: true,
         content: {
+          //
+          // nums: [1, 2, 3, 4, 5],
+          // categories: ["", "", "", "", ""],
+          // status_messge: "",
           starch_num: 3,
           nut_num: 3,
           cereal_num: 3,
@@ -453,7 +458,7 @@ const RESP_CHAE = {
       data: {
         result: false,
         status: {
-          code: 400,
+          code: 400, //로그인 안했을 떄 401 (로그인해야 이용할 수 있는 기능입니다. 로그인 페이지로 이동하세요/)
           message: "해당 사용자가 입력한 식재료가 없습니다.",
         },
       },
