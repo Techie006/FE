@@ -51,7 +51,6 @@ const Nutrients = (props) => {
   //   console.log(data);
   // }
 
-  // TODO 나트륨 빼기
   const labels = data?.days;
   let nutrientsSeries = [];
   for (let i = 1; i < Object.keys(data).length; i++) {
@@ -121,12 +120,7 @@ const Nutrients = (props) => {
                   enabled: false,
                 },
                 labels: {
-                  format:
-                    filter === FILTERS.day
-                      ? `dd일`
-                      : filter === FILTERS.week
-                      ? `MM월 dd일`
-                      : `yy년 MM월`,
+                  format: filter !== FILTERS.month ? `MM월 dd일` : `yy년 MM월`,
                 },
                 axisTicks: {
                   show: false,

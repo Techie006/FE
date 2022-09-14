@@ -121,12 +121,7 @@ const Calories = (props) => {
                   enabled: false,
                 },
                 labels: {
-                  format:
-                    filter === FILTERS.day
-                      ? `dd일`
-                      : filter === FILTERS.week
-                      ? `MM월 dd일`
-                      : `yy년 MM월`,
+                  format: filter !== FILTERS.month ? `MM월 dd일` : `yy년 MM월`,
                 },
                 axisTicks: {
                   show: false,

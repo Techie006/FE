@@ -127,6 +127,9 @@ const Daily = (props) => {
                 axisTick: {
                   show: false,
                 },
+                labels: {
+                  formatter: (value) => `${value}${base.current}`,
+                },
               },
               yaxis: {
                 axisBorder: {

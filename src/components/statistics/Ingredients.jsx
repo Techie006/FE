@@ -75,7 +75,7 @@ const Ingredients = (props) => {
                 },
               },
               title: {
-                text: "우리집 재료 현황",
+                text: "유통기한 현황",
                 align: "center",
               },
               dataLabels: {

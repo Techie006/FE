@@ -74,7 +74,7 @@ const Categories = (props) => {
               },
             },
             title: {
-              text: "우리집 냉장고 현황",
+              text: "식품분류 현황",
               align: "center",
             },
             dataLabels: {
