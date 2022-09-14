@@ -115,18 +115,36 @@ const Daily = (props) => {
                 },
                 stacked: true,
               },
+              plotOptions: {
+                bar: {
+                  horizontal: true,
+                },
+              },
+              xaxis: {
+                axisBorder: {
+                  show: false,
+                },
+                axisTick: {
+                  show: false,
+                },
+              },
+              yaxis: {
+                axisBorder: {
+                  show: false,
+                },
+                axisTick: {
+                  show: false,
+                },
+              },
               dataLabels: {
                 enabled: false,
               },
               labels: LABELS,
               colors: CHART_COLORS,
-              grid: {
-                show: false,
-                yaxis: {
-                  lines: { show: false },
-                },
-              },
               tooltip: {
+                x: {
+                  show: false,
+                },
                 y: {
                   formatter: (value) => `${value}${base.current}`,
                 },
@@ -134,10 +152,8 @@ const Daily = (props) => {
               legend: {
                 showForSingleSeries: true,
               },
-              plotOptions: {
-                bar: {
-                  horizontal: true,
-                },
+              grid: {
+                show: false,
               },
             }}
           />

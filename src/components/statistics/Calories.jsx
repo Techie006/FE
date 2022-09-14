@@ -165,6 +165,7 @@ const Calories = (props) => {
                 },
               },
               grid: {
+                show: false,
                 // TODO for apex-chart x-axis trimming error
                 // https://github.com/apexcharts/apexcharts.js/issues/305
                 padding: {
