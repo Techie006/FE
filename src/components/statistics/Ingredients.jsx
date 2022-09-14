@@ -93,7 +93,7 @@ const Ingredients = (props) => {
                     formatter: (seriesName) => seriesName,
                   },
                 },
-                fillSeriesColor: false,
+                fillSeriesColor: false, // TODO true?
               },
               plotOptions: {
                 pie: {

@@ -68,17 +68,19 @@ const Calories = (props) => {
     switch (content) {
       case FILTERS.day:
         setFilter(FILTERS.day);
-        break;
+        return;
       case FILTERS.week:
         setFilter(FILTERS.week);
-        break;
+        return;
       case FILTERS.month:
         setFilter(FILTERS.month);
-        break;
+        return;
       default:
-        break;
+        return;
     }
   };
+
+  console.log(filter);
 
   return (
     <>
@@ -113,22 +115,18 @@ const Calories = (props) => {
                   show: false,
                 },
               },
-              dataLabels: {
-                enabled: false,
-              },
-              legend: {
-                show: true,
-                position: "bottom",
-              },
-              labels: labels,
-              colors: CHART_COLORS,
               xaxis: {
                 type: "datetime",
+                tooltip: {
+                  enabled: false,
+                },
                 labels: {
-                  format: `MM.dd`,
-                  // style: {
-                  //   fontSize: "9px",
-                  // },
+                  format:
+                    filter === FILTERS.day
+                      ? `dd일`
+                      : filter === FILTERS.week
+                      ? `MM월 dd일`
+                      : `yy년 MM월`,
                 },
                 axisTicks: {
                   show: false,
@@ -142,6 +140,22 @@ const Calories = (props) => {
                   formatter: (value) => `${value}kcal`,
                 },
               },
+              dataLabels: {
+                enabled: false,
+              },
+              legend: {
+                show: true,
+                position: "bottom",
+              },
+              labels: labels,
+              colors: CHART_COLORS,
+              storke: {
+                curve: "smooth",
+                width: 3,
+              },
+              markers: {
+                size: 1,
+              },
               tooltip: {
                 x: {
                   show: false,
@@ -151,7 +165,12 @@ const Calories = (props) => {
                 },
               },
               grid: {
-                show: false,
+                // TODO for apex-chart x-axis trimming error
+                // https://github.com/apexcharts/apexcharts.js/issues/305
+                padding: {
+                  left: 50,
+                  right: 40,
+                },
               },
             }}
           />

@@ -61,7 +61,7 @@ body {
 }
 body * {
 	font-family: ${(props) => props.theme.fontFamily}; 
-	background-color: inherit;
+	background-color: ${(props) => props.theme.colors.background.white};
 	color: ${(props) => props.theme.textColor};
 }
 body * {
