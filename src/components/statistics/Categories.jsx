@@ -7,8 +7,6 @@ import RESP_CHAE from "../../server/response_chae";
 import Loader from "../common/Loader";
 import HelpMsg from "../common/HelpMsg";
 
-// TODO 불필요 한 것 같음...
-// TODO api 변경하기 -> 상위 3개만 가져오도록 처리할지, 아니면 무한 스크롤로 처리할지?
 // TODO label 한국어로 바꾸기 오는 API 형태 배열로 바꾸기.
 const Categories = (props) => {
   const [loading, setLoading] = useState(true);
@@ -67,8 +65,16 @@ const Categories = (props) => {
           series={nums}
           height='80%'
           options={{
+            chart: {
+              fontFamily: "Noto Sans KR",
+              fontSize: "12px",
+              fontWeight: "700",
+              toolbar: {
+                show: false,
+              },
+            },
             title: {
-              text: "우리집 재료 현황",
+              text: "식품분류 현황",
               align: "center",
             },
             dataLabels: {
@@ -112,21 +118,3 @@ const Categories = (props) => {
 };
 
 export default Categories;
-
-const StCategory = styled.div`
-  background-color: tomato;
-  /* background-color: ${(props) => props.theme.section.box.background}; */
-  border-radius: ${(props) => props.theme.section.box.borderRadius};
-  box-shadow: ${(props) => props.theme.section.box.boxShadow};
-
-  display: flex;
-  align-items: center;
-  text-align: center;
-
-  font-weight: ${(props) => props.theme.section.box.fontWeight};
-  font-size: ${(props) => props.theme.section.box.fontWeight};
-  line-height: ${(props) => props.theme.section.box.lineHeight};
-  &:hover {
-    cursor: default;
-  }
-`;
