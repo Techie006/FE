@@ -1,11 +1,16 @@
+import { useSelector } from "react-redux";
 import styled from "styled-components";
 
 import Calendar from "./Calendar";
 import WeekRecipes from "./WeekRecipes";
 
 const StatisticsLayout = () => {
+  const updateOpen = useSelector((state) => state.calendar.updateOpen);
+  const recipeOpen = useSelector((state) => state.calendar.recipeOpen);
+
   return (
     <StWrapper>
+      {/* {updateOpen? } */}
       <StSection isCalendar={true}>
         <Calendar />
       </StSection>

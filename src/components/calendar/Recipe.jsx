@@ -1,9 +1,5 @@
 import { useDispatch } from "react-redux";
-import {
-  openUpdateModal,
-  closeModal,
-  __deleteDiet,
-} from "../../modules/redux/calendar";
+import { openUpdateModal, __deleteDiet } from "../../modules/redux/calendar";
 import { faEllipsisV } from "@fortawesome/free-solid-svg-icons";
 import Swal from "sweetalert2";
 import Menu, { Item } from "rc-menu";
@@ -58,7 +54,6 @@ const Recipe = ({
   };
 
   const onSelect = ({ key }) => {
-    console.log(key);
     if (key === "update") {
       show_update_modal();
       return;
