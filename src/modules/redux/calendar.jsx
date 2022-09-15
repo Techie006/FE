@@ -137,7 +137,7 @@ const calendarSlice = createSlice({
     [__createDiet.fulfilled]: (state, action) => {
       state.isLoading = false;
       state.allDiets = state.allDiets.push(action.meal);
-      if (state.week.find(action.payload.day)) {
+      if (state.week.indexOf(action.payload.day)) {
         const unorderedDiets = state.weeklyDiets.push(action.payload.meal);
         const orderedDiets = unorderedDiets.sort(
           (a, b) => new Date(a.day) - new Date(b.day)
@@ -161,7 +161,7 @@ const calendarSlice = createSlice({
         }
         return diet;
       });
-      if (state.week.find(action.payload.day)) {
+      if (state.week.indexOf(action.payload.day)) {
         state.weeklyDiets = state.weeklyDiets.map((diet) => {
           if (diet.id === action.payload.id) {
             return action.payload.meal;
@@ -183,7 +183,7 @@ const calendarSlice = createSlice({
       state.allDiets = state.allDiets.filter(
         (diet) => diet.id !== action.payload.id
       );
-      if (state.week.find(action.payload.day)) {
+      if (state.week.indexOf(action.payload.day)) {
         state.weeklyDiets = state.weeklyDiets.filter(
           (diet) => diet.id !== action.payload.id
         );

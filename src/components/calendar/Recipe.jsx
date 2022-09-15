@@ -1,5 +1,9 @@
 import { useDispatch } from "react-redux";
-import { openUpdateModal, closeModal } from "../../modules/redux/calendar";
+import {
+  openUpdateModal,
+  closeModal,
+  __deleteDiet,
+} from "../../modules/redux/calendar";
 import { faEllipsisV } from "@fortawesome/free-solid-svg-icons";
 import Swal from "sweetalert2";
 import Menu, { Item } from "rc-menu";
@@ -8,8 +12,10 @@ import "rc-dropdown/assets/index.css";
 import styled from "styled-components";
 
 import SmallIconButton from "../../elements/buttons/SmallIconButton";
+import BookmarkBtn from "../common/BookmarkBtn";
 
 const Recipe = ({
+  id,
   recipe_id,
   recipe_name,
   time,
@@ -21,25 +27,41 @@ const Recipe = ({
 }) => {
   const dispatch = useDispatch();
 
+  const delete_diet = () => {
+    dispatch(__deleteDiet({ id }));
+  };
+
+  const show_update_modal = () => {
+    dispatch(openUpdateModal());
+  };
+
+  const showDeleteConfirm = () =>
+    Swal.fire({
+      title: "해당 날짜의 식단을 삭제하시겠습니까?",
+      text: "",
+      icon: "warning",
+      showCancelButton: true,
+      cancelButtonText: "취소하기",
+      confirmButtonText: "삭제하기",
+      cancelButtonColor: "#d33",
+      confirmButtonColor: "#3085d6",
+    });
+
+  const showSuccessAlert = () => {
+    Swal.fire("식단을 삭제하였습니다!", "", "success");
+  };
+
   const onSelect = ({ key }) => {
     console.log(key);
     if (key === "update") {
-      dispatch(openUpdateModal);
+      show_update_modal();
       return;
     }
     if (key === "delete") {
-      Swal.fire({
-        title: "해당 날짜의 식단을 삭제하시겠습니까?",
-        text: "",
-        icon: "warning",
-        showCancelButton: true,
-        cancelButtonText: "취소하기",
-        confirmButtonText: "삭제하기",
-        cancelButtonColor: "#d33",
-        confirmButtonColor: "#3085d6",
-      }).then((result) => {
+      showDeleteConfirm().then((result) => {
         if (result.isConfirmed) {
-          Swal.fire("식단을 삭제하였습니다!", "", "success");
+          delete_diet();
+          showSuccessAlert();
         }
       });
     }
@@ -56,6 +78,7 @@ const Recipe = ({
     <StWrapper>
       <StHeader>
         <StName>{recipe_name}</StName>
+        <BookmarkBtn is_liked={liked} />
         <Dropdown trigger={["click"]} overlay={overlay} animation='slide-up'>
           <SmallIconButton icon={faEllipsisV} />
         </Dropdown>

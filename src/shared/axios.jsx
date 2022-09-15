@@ -49,6 +49,6 @@ export const apis = {
   create_diet: ({ recipe_name, category, date }) =>
     api.post(`/api/calendar`, { recipe_name, category, date }),
   update_diet: ({ id, recipe_name, category, date }) =>
-    api.put(`/api/calendar${id}`, { recipe_name, category, date }),
-  delete_diet: ({ id }) => api.delete(`/api/calendar${id}`),
+    api.put(`/api/calendar/${id}`, { recipe_name, category, date }),
+  delete_diet: ({ id }) => api.delete(`/api/calendar/${id}`),
 };
