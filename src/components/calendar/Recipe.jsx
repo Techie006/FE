@@ -48,7 +48,13 @@ const Recipe = ({
     });
 
   const showSuccessAlert = () => {
-    Swal.fire("식단을 삭제하였습니다!", "", "success");
+    Swal.fire({
+      position: "center",
+      icon: "success",
+      title: "해당 식단을 삭제하였습니다.",
+      showConfirmButton: false,
+      timer: 1000,
+    });
   };
 
   const onSelect = ({ key }) => {
