@@ -7,19 +7,20 @@ const initialState = {
   isLoading: false,
   error: "",
   allDiets: [],
-  weekDiets: [],
+  weeklyDiets: [],
   week: [],
 };
 
 export const __getAllDiets = createAsyncThunk(
   "calendar/__getAllDiets",
-  async ({ day }, thunkAPI) => {
+  async ({ date }, thunkAPI) => {
     try {
-      const resp = await apis.get_all_diets({ day });
+      const resp = await apis.get_all_diets({ date });
       const {
-        content: { recipes },
+        content: { meals },
       } = resp.data;
-      return thunkAPI.fulfillWithValue(recipes);
+
+      return thunkAPI.fulfillWithValue(meals);
     } catch (e) {
       return thunkAPI.rejectWithValue(e.code);
     }
@@ -28,9 +29,9 @@ export const __getAllDiets = createAsyncThunk(
 
 export const __getWeeklyDiets = createAsyncThunk(
   "calendar/__getWeeklyDiets",
-  async ({ day }, thunkAPI) => {
+  async ({ date }, thunkAPI) => {
     try {
-      const resp = await apis.get_weekly_diets({ day });
+      const resp = await apis.get_weekly_diets({ date });
       const {
         content: { days, recipes },
       } = resp.data;
@@ -49,8 +50,7 @@ export const __createDiet = createAsyncThunk(
       const {
         content: { day, meal },
       } = resp.data;
-      const diet = { day, ...meal };
-      return thunkAPI.fulfillWithValue({ day, diet });
+      return thunkAPI.fulfillWithValue({ day, meal });
     } catch (e) {
       return thunkAPI.rejectWithValue(e.code);
     }
@@ -65,8 +65,7 @@ export const __updateDiet = createAsyncThunk(
       const {
         content: { day, meal },
       } = resp.data;
-      const diet = { day, ...meal };
-      return thunkAPI.fulfillWithValue({ id, day, diet });
+      return thunkAPI.fulfillWithValue({ id, day, meal });
     } catch (e) {
       return thunkAPI.rejectWithValue(e.code);
     }
@@ -81,8 +80,7 @@ export const __deleteDiet = createAsyncThunk(
       const {
         content: { day, meal },
       } = resp.data;
-      const diet = { day, ...meal };
-      return thunkAPI.fulfillWithValue({ id, day, diet });
+      return thunkAPI.fulfillWithValue({ id, day, meal });
     } catch (e) {
       return thunkAPI.rejectWithValue(e.code);
     }
@@ -125,7 +123,7 @@ const calendarSlice = createSlice({
     },
     [__getWeeklyDiets.fulfilled]: (state, action) => {
       state.isLoading = false;
-      state.weekDiets = action.payload.recipes;
+      state.weeklyDiets = action.payload.recipes;
       state.week = action.payload.days;
     },
     [__getWeeklyDiets.rejected]: (state, action) => {
@@ -140,11 +138,11 @@ const calendarSlice = createSlice({
       state.isLoading = false;
       state.allDiets = state.allDiets.push(action.meal);
       if (state.week.find(action.payload.day)) {
-        const unorderedDiets = state.weekDiets.push(action.payload.meal);
+        const unorderedDiets = state.weeklyDiets.push(action.payload.meal);
         const orderedDiets = unorderedDiets.sort(
           (a, b) => new Date(a.day) - new Date(b.day)
         );
-        state.weekDiets = orderedDiets;
+        state.weeklyDiets = orderedDiets;
       }
     },
     [__createDiet.rejected]: (state, action) => {
@@ -164,7 +162,7 @@ const calendarSlice = createSlice({
         return diet;
       });
       if (state.week.find(action.payload.day)) {
-        state.weekDiets = state.weekDiets.map((diet) => {
+        state.weeklyDiets = state.weeklyDiets.map((diet) => {
           if (diet.id === action.payload.id) {
             return action.payload.meal;
           }
@@ -186,7 +184,7 @@ const calendarSlice = createSlice({
         (diet) => diet.id !== action.payload.id
       );
       if (state.week.find(action.payload.day)) {
-        state.weekDiets = state.weekDiets.filter(
+        state.weeklyDiets = state.weeklyDiets.filter(
           (diet) => diet.id !== action.payload.id
         );
       }

@@ -1,13 +1,12 @@
 import axios from "axios";
 
 const base = {
-  server_http: "http://3.36.56.125:8080",
+  server_http: "http://3.36.56.125",
   server_https: "https://magorosc.shop/",
 };
 
 const api = axios.create({
-  // baseURL: "http://localhost:3000",
-  baseURL: base.server_http,
+  baseURL: "http://3.36.56.125",
   headers: {
     "content-type": "application/json; charset=UTF-8",
     accept: "application/json,",
@@ -17,7 +16,7 @@ const api = axios.create({
 // TODO login, signup 에는 안들어가게 처리해야하나?
 // 조건부 분기
 api.interceptors.request.use(function (config) {
-  const auth = localStorage.getItem("AccessToken");
+  const auth = localStorage.getItem("Authorization");
   config.headers.common["Authorization"] = auth;
   return config;
 });
@@ -25,31 +24,31 @@ api.interceptors.request.use(function (config) {
 export const apis = {
   // recipes
   get_recipes: ({ pageNum, pageLimit }) =>
-    axios.get(`/api/recipes?pageNum=${pageNum}&pageLimit=${pageLimit}`),
+    api.get(`/api/recipes?pageNum=${pageNum}&pageLimit=${pageLimit}`),
   get_searched_recipes: ({ recipe_name }) =>
-    axios.get(`/api/recipes/search`, { recipe_name }),
-  get_recipe: ({ id }) => axios.get(`/api/recipe/${id}`),
-  get_ingredients: () => axios.get(`/api/ingredients`),
+    api.get(`/api/recipes/search`, { recipe_name }),
+  get_recipe: ({ id }) => api.get(`/api/recipe/${id}`),
+  get_ingredients: () => api.get(`/api/ingredients`),
   done_recipe: ({ id, ingredients_id }) =>
-    axios.post(`/api/recipe/finish?id=${id}`, { ingredients_id }),
-  like_recipe: ({ id }) => axios.post(`/api/recipe/like?id=${id}`),
-  unlike_recipe: ({ id }) => axios.post(`/api/recipe/unlike?id=${id}`),
+    api.post(`/api/recipe/finish?id=${id}`, { ingredients_id }),
+  like_recipe: ({ id }) => api.post(`/api/recipe/like?id=${id}`),
+  unlike_recipe: ({ id }) => api.post(`/api/recipe/unlike?id=${id}`),
 
   // statistics
-  get_state: () => axios.get(`/api/statistics/state`),
-  get_category: () => axios.get(`/api/statistics/category`),
-  get_daily: () => axios.get(`/api/statistics/daily`),
+  get_state: () => api.get(`/api/statistics/state`),
+  get_category: () => api.get(`/api/statistics/category`),
+  get_daily: () => api.get(`/api/statistics/daily`),
   get_calories_ratio: ({ filter }) =>
-    axios.get(`/api/statistics/ratio/calories`, { filter }),
+    api.get(`/api/statistics/ratio/calories`, { filter }),
   get_nutrients_ratio: ({ filter }) =>
-    axios.get(`/api/statistics/ratio/nutrients`, { filter }),
+    api.get(`/api/statistics/ratio/nutrients`, { filter }),
 
   // calendar
-  get_all_diets: ({ date }) => axios.get(`/api/calendar/month?day=${date}`),
-  get_weekly_diets: ({ date }) => axios.get(`/api/calendar/week?day=${date}`),
+  get_all_diets: ({ date }) => api.get(`/api/calendar/month?day=${date}`),
+  get_weekly_diets: ({ date }) => api.get(`/api/calendar/week?day=${date}`),
   create_diet: ({ recipe_name, category, date }) =>
-    axios.post(`/api/calendar`, { recipe_name, category, date }),
+    api.post(`/api/calendar`, { recipe_name, category, date }),
   update_diet: ({ id, recipe_name, category, date }) =>
-    axios.put(`/api/calendar${id}`, { recipe_name, category, date }),
-  delete_diet: ({ id }) => axios.delete(`/api/calendar${id}`),
+    api.put(`/api/calendar${id}`, { recipe_name, category, date }),
+  delete_diet: ({ id }) => api.delete(`/api/calendar${id}`),
 };

@@ -1,4 +1,5 @@
 import React, { useState, useMemo, useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { Calendar, momentLocalizer } from "react-big-calendar";
 import moment from "moment";
 import "moment/locale/ko";
@@ -10,10 +11,11 @@ import "react-big-calendar/lib/css/react-big-calendar.css";
 import "./style.css";
 import Loader from "../common/Loader";
 import Toolbar from "./Toolbar";
+import { __getAllDiets } from "../../modules/redux/calendar";
 
 const RecipeCalendar = () => {
-  const [loading, setLoading] = useState(true);
-  const [diets, setDiets] = useState([]);
+  // const [loading, setLoading] = useState(true);
+  // const [diets, setDiets] = useState([]);
 
   moment.locale("ko-KR");
   const localizer = momentLocalizer(moment);
@@ -25,41 +27,65 @@ const RecipeCalendar = () => {
     []
   );
 
-  const getData = async () => {
-    const resp = RESP_CHAE.CALENDAR.GET_MONTHLY_DIETS_SUCCESS;
-    // const resp = await apis.get_monthly_diets();
+  // const getData = async () => {
+  //   const resp = RESP_CHAE.CALENDAR.GET_MONTHLY_DIETS_SUCCESS;
+  //   // const resp = await apis.get_monthly_diets();
 
-    const {
-      result,
-      content,
-      status: { message },
-    } = resp.data;
+  //   const {
+  //     result,
+  //     content,
+  //     status: { message },
+  //   } = resp.data;
 
-    if (!result) {
-      alert(message);
-      return;
-    }
+  //   if (!result) {
+  //     alert(message);
+  //     return;
+  //   }
 
-    const diets = content.recipes.map((recipe) => {
-      const startTimeFormat = recipe.day.replace(/-/g, "/");
-      return {
-        id: recipe.id,
-        recipe_id: recipe.recipe_id,
-        title: recipe.recipe_name,
-        allDay: false,
-        start: new Date(startTimeFormat),
-        end: new Date(startTimeFormat),
-        category: recipe.time,
-      };
-    });
+  //   const diets = content.recipes.map((recipe) => {
+  //     const startTimeFormat = recipe.day.replace(/-/g, "/");
+  //     return {
+  //       id: recipe.id,
+  //       recipe_id: recipe.recipe_id,
+  //       title: recipe.recipe_name,
+  //       allDay: false,
+  //       start: new Date(startTimeFormat),
+  //       end: new Date(startTimeFormat),
+  //       category: recipe.time,
+  //     };
+  //   });
 
-    setDiets(diets);
-    setLoading(false);
-  };
+  //   setDiets(diets);
+  //   setLoading(false);
+  // };
+
+  // useEffect(() => {
+  //   getData();
+  // }, []);
+
+  const dispatch = useDispatch();
+
+  const loading = useSelector((state) => state.calendar.isLoading);
+  const allDiets = useSelector((state) => state.calendar.allDiets);
+
+  console.log(allDiets);
+  const diets = allDiets?.map((recipe) => {
+    const startTimeFormat = recipe.day.replace(/-/g, "/");
+    return {
+      id: recipe.id,
+      recipe_id: recipe.recipe_id,
+      title: recipe.recipe_name,
+      allDay: false,
+      start: new Date(startTimeFormat),
+      end: new Date(startTimeFormat),
+      category: recipe.time,
+    };
+  });
 
   useEffect(() => {
-    getData();
-  }, []);
+    const date = new Date().toISOString().slice(0, 7);
+    dispatch(__getAllDiets({ date }));
+  }, [dispatch]);
 
   const clickSlotHandler = (slot) => {
     console.log(slot);

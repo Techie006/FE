@@ -1,5 +1,7 @@
+import { useSelector, useDispatch } from "react-redux";
 import { useState, useEffect } from "react";
 import styled from "styled-components";
+import { __getWeeklyDiets } from "../../modules/redux/calendar";
 
 // import { apis } from "../../shared/axios";
 import RESP_CHAE from "../../server/response_chae";
@@ -32,6 +34,15 @@ const WeekRecipes = (props) => {
   useEffect(() => {
     get_data();
   }, []);
+
+  // const loading = useSelector((state) => state.calendar.isLoading);
+  // const recipes = useSelector((state) => state.calendar.weeklyRecipes);
+
+  // const dispatch = useDispatch();
+
+  // useEffect(() => {
+  //   dispatch(__getWeeklyDiets());
+  // }, [dispatch]);
 
   const weeklyRecipes = recipes.map((recipe) => (
     <Recipe key={recipe.id} {...recipe} />
