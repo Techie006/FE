@@ -34,7 +34,7 @@ const WeekRecipes = (props) => {
   }, []);
 
   const weeklyRecipes = recipes.map((recipe) => (
-    <Recipe key={recipe.recipe_id} {...recipe} />
+    <Recipe key={recipe.id} {...recipe} />
   ));
 
   return (

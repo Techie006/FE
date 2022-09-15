@@ -45,11 +45,11 @@ export const apis = {
     axios.get(`/api/statistics/ratio/nutrients`, { filter }),
 
   // calendar
-  get_monthly_diets: ({ day }) => axios.get(`/api/calendar/month?day=${day}`),
-  get_weekly_diets: ({ day }) => axios.get(`/api/calendar/week?day=${day}`),
-  create_diet: ({ recipe_name, category, day }) =>
-    axios.post(`/api/calendar`, { recipe_name, category, day }),
-  edit_diet: ({ id, recipe_name, category, day }) =>
-    axios.put(`/api/calendar${id}`, { recipe_name, category, day }),
+  get_all_diets: ({ date }) => axios.get(`/api/calendar/month?day=${date}`),
+  get_weekly_diets: ({ date }) => axios.get(`/api/calendar/week?day=${date}`),
+  create_diet: ({ recipe_name, category, date }) =>
+    axios.post(`/api/calendar`, { recipe_name, category, date }),
+  update_diet: ({ id, recipe_name, category, date }) =>
+    axios.put(`/api/calendar${id}`, { recipe_name, category, date }),
   delete_diet: ({ id }) => axios.delete(`/api/calendar${id}`),
 };

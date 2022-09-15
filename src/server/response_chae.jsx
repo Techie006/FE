@@ -581,7 +581,7 @@ const RESP_CHAE = {
               id: 2,
               day: "2022-09-02",
               recipe_name: "된장국",
-              recipe_id: 123,
+              recipe_id: 1,
               time: "아침",
               liked: true,
               category: "일품",
@@ -752,6 +752,7 @@ const RESP_CHAE = {
         meal: {
           id: 1,
           recipe_name: "된장국",
+          recipe_id: 123,
           time: "아침",
           liked: true,
           category: "일품",
@@ -764,13 +765,14 @@ const RESP_CHAE = {
         message: "해당 날짜에 신규 식단을 등록하였습니다.",
       },
     },
-    EDIT_DIET: {
+    UPDATE_DIET: {
       result: true,
       content: {
         day: "2022-09-01",
         meal: {
           id: 1,
           recipe_name: "된장국",
+          recipe_id: 123,
           time: "아침",
           liked: true,
           category: "일품",
@@ -790,6 +792,7 @@ const RESP_CHAE = {
         meal: {
           id: 1,
           recipe_name: "된장국",
+          recipe_id: 123,
           time: "아침",
           liked: true,
           category: "일품",

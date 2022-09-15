@@ -22,6 +22,7 @@ const Recipe = ({
   const dispatch = useDispatch();
 
   const onSelect = ({ key }) => {
+    console.log(key);
     if (key === "update") {
       dispatch(openUpdateModal);
       return;
