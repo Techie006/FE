@@ -1,6 +1,7 @@
 import styled from "styled-components";
 
 import Calendar from "./Calendar";
+import WeekRecipes from "./WeekRecipes";
 
 const StatisticsLayout = () => {
   return (
@@ -8,7 +9,9 @@ const StatisticsLayout = () => {
       <StSection isCalendar={true}>
         <Calendar />
       </StSection>
-      <StSection>weekly recipes</StSection>
+      <StSection>
+        <WeekRecipes />
+      </StSection>
     </StWrapper>
   );
 };

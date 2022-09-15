@@ -1,6 +1,5 @@
 import { useState, useCallback, useEffect } from "react";
 import ReactApexChart from "react-apexcharts";
-import styled from "styled-components";
 
 import RESP_CHAE from "../../server/response_chae";
 // import { apis } from "../../shared/axios";
