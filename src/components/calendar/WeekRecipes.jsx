@@ -1,39 +1,39 @@
 import { useSelector, useDispatch } from "react-redux";
 import { useState, useEffect } from "react";
 import styled from "styled-components";
-import { __getWeeklyDiets } from "../../modules/redux/calendar";
 
 // import { apis } from "../../shared/axios";
-import RESP_CHAE from "../../server/response_chae";
+// import RESP_CHAE from "../../server/response_chae";
 import Loader from "../common/Loader";
 import Recipe from "./Recipe";
+import { __getWeeklyDiets } from "../../modules/redux/calendar";
 
 const WeekRecipes = (props) => {
-  const [loading, setLoading] = useState(true);
-  const [recipes, setRecipes] = useState([]);
+  // const [loading, setLoading] = useState(true);
+  // const [recipes, setRecipes] = useState([]);
 
-  const get_data = async () => {
-    const resp = RESP_CHAE.CALENDAR.GET_WEEKLY_SUCCESS;
-    // const resp = apis.get_weekly_diets();
+  // const get_data = async () => {
+  //   const resp = RESP_CHAE.CALENDAR.GET_WEEKLY_SUCCESS;
+  //   // const resp = apis.get_weekly_diets();
 
-    const {
-      result,
-      content,
-      status: { message },
-    } = resp.data;
+  //   const {
+  //     result,
+  //     content,
+  //     status: { message },
+  //   } = resp.data;
 
-    if (!result) {
-      alert(message);
-      return;
-    }
+  //   if (!result) {
+  //     alert(message);
+  //     return;
+  //   }
 
-    setRecipes([...content.recipes]);
-    setLoading(false);
-  };
+  //   setRecipes([...content.recipes]);
+  //   setLoading(false);
+  // };
 
-  useEffect(() => {
-    get_data();
-  }, []);
+  // useEffect(() => {
+  //   get_data();
+  // }, []);
 
   // const loading = useSelector((state) => state.calendar.isLoading);
   // const recipes = useSelector((state) => state.calendar.weeklyRecipes);
@@ -43,6 +43,16 @@ const WeekRecipes = (props) => {
   // useEffect(() => {
   //   dispatch(__getWeeklyDiets());
   // }, [dispatch]);
+
+  const loading = useSelector((state) => state.calendar.isLoading);
+  const recipes = useSelector((state) => state.calendar.weeklyDiets);
+
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    const date = new Date().toISOString().slice(0, 10);
+    dispatch(__getWeeklyDiets({ date }));
+  }, [dispatch]);
 
   const weeklyRecipes = recipes.map((recipe) => (
     <Recipe key={recipe.id} {...recipe} />

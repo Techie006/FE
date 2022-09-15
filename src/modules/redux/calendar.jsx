@@ -33,9 +33,9 @@ export const __getWeeklyDiets = createAsyncThunk(
     try {
       const resp = await apis.get_weekly_diets({ date });
       const {
-        content: { days, recipes },
+        content: { days, meals },
       } = resp.data;
-      return thunkAPI.fulfillWithValue({ days, recipes });
+      return thunkAPI.fulfillWithValue({ days, meals });
     } catch (e) {
       return thunkAPI.rejectWithValue(e.code);
     }
@@ -123,7 +123,7 @@ const calendarSlice = createSlice({
     },
     [__getWeeklyDiets.fulfilled]: (state, action) => {
       state.isLoading = false;
-      state.weeklyDiets = action.payload.recipes;
+      state.weeklyDiets = action.payload.meals;
       state.week = action.payload.days;
     },
     [__getWeeklyDiets.rejected]: (state, action) => {
