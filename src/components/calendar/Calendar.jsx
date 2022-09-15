@@ -83,6 +83,7 @@
 //     },
 //   ];
 
+<<<<<<< HEAD
 //   const scheduleList = myEventList.map((event, idx) => {
 //     const startTimeFormat = event.start.replace(/-/g, "/");
 //     const endTimeFormat = event.end.replace(/-/g, "/");
@@ -94,6 +95,19 @@
 //       category: event.category,
 //     };
 //   });
+=======
+  const scheduleList = myEventList.map((event, idx) => {
+    const startTimeFormat = event.day.replace(/-/g, "/");
+    // const endTimeFormat = startTimeFormat;
+    return {
+      title: event.title,
+      allDay: false,
+      start: new Date(startTimeFormat),
+      // end: new Date(endTimeFormat),
+      category: event.category,
+    };
+  });
+>>>>>>> feat: responsive layout
 
 //   const clickHandler = () => {
 //     if (view === VIEWS[0]) {
