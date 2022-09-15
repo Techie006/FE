@@ -6,9 +6,9 @@ Element
 
 Auth
 
-- [ ] signup
-- [ ] signin
-- [ ] kakao
+- [x] signup
+- [x] signin
+- [x] kakao
 - [ ] google
 - [ ] signout
 - [ ] reissue
@@ -30,10 +30,10 @@ Recipe
 
 - [x] get all recipes
 - [ ] get searched recipes
-- [ ] get detail recipe
+- [x] get detail recipe
 - [x] recipe like
 - [x] recipe unlike
-- [ ] recipe done
+- [x] recipe done
 
 Statistics
 
@@ -46,9 +46,10 @@ Statistics
 Calendar
 
 - [ ] c
-- [ ] r
+- [x] get weekly diets
+- [x] get monthly diets
 - [ ] u
-- [ ] d
+- [x] delete diet
 
 Class
 My
