@@ -1,11 +1,11 @@
-import React, { useState, useMemo, useEffect } from "react";
+import React, { useMemo, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Calendar, momentLocalizer } from "react-big-calendar";
 import moment from "moment";
 import "moment/locale/ko";
 
 // import { apis } from "../../shared/axios";
-import RESP_CHAE from "../../server/response_chae";
+// import RESP_CHAE from "../../server/response_chae";
 
 import "react-big-calendar/lib/css/react-big-calendar.css";
 import "./style.css";
