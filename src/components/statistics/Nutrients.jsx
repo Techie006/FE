@@ -157,6 +157,7 @@ const Nutrients = (props) => {
                 y: {
                   formatter: (value) => `${value}g`,
                 },
+                fillSeriesColor: true, // TODO true?
               },
               grid: {
                 show: false,

@@ -1,0 +1,43 @@
+.rbc-month-view {
+  border-radius: 5px;
+}
+
+.rbc-header {
+  background-color: orange;
+  font-size: 12px;
+  font-weight: 500;
+  padding: 2px 0px;
+}
+
+.rbc-event.rbc-selected,
+.rbc-day-slot .rbc-selected.rbc-background-event {
+  background-color: red;
+}
+
+.rbc-event {
+  background-color: orange;
+}
+
+.rbc-event-content {
+  color: white;
+  font-size: 12px;
+}
+
+.rbc-button-link {
+  color: black;
+  font-size: 12px;
+}
+.rbc-button-link:hover {
+  color: yellowgreen;
+}
+.rbc-button-link.rbc-show-more {
+  color: black;
+  font-weight: 500;
+}
+.rbc-button-link.rbc-show-more:hover {
+  color: yellowgreen;
+}
+
+.rbc-today {
+  background-color: rgb(242, 242, 216);
+}
