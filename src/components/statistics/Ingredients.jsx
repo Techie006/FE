@@ -37,7 +37,7 @@ const Ingredients = (props) => {
   const LABELS = ["임박", "만료", "정상"];
   const CHART_COLORS = ["#FFDD7C", "#FF5C01", "#74BDB2"];
 
-  const percentage = data?.count;
+  const counts = data?.count;
 
   return (
     <>
@@ -54,7 +54,7 @@ const Ingredients = (props) => {
         <StWrapper>
           <ReactApexChart
             type='donut'
-            series={percentage || [1, 1, 1]}
+            series={counts || [1, 1, 1]}
             height='80%'
             options={{
               chart: {
