@@ -43,13 +43,6 @@ const Calories = (props) => {
     get_data();
   }, [get_data, filter]);
 
-  // if (process.env.REACT_APP_DEBUG_ON) {
-  //   console.log(`[Calories] states: loading, showMsg, data`);
-  //   console.log(loading);
-  //   console.log(showMsg);
-  //   console.log(data);
-  // }
-
   const caloriesSeries = [
     {
       name: CALORIE,

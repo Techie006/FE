@@ -2,20 +2,22 @@ import { useState, useRef, useCallback, useEffect } from "react";
 import Chart from "react-apexcharts";
 import styled from "styled-components";
 
-import RESP_CHAE from "../../server/response_chae";
-// import { apis } from "../../shared/axios";
+// import RESP_CHAE from "../../server/response_chae";
+import "./Chart.css";
+import { apis } from "../../shared/axios";
 import Loader from "../common/Loader";
 import HelpMsg from "../common/HelpMsg";
 import { StTitle } from "../../elements/texts/pageTexts";
 import UnderlineCategory from "../../elements/categories/UnderlineCategory";
 
 const Daily = (props) => {
-  const CRITERIAS = ["열량", "성분"];
+  const CRITERIAS = ["열량", "영양성분"];
   const CALORIE = "칼로리";
   const NUTRIENTS = ["탄수화물", "단백질", "지방"];
   const LABELS = ["어제", "오늘"];
   const BASES = ["kcal", "g"];
-  const CHART_COLORS = ["#FF5C01", "#FFDD7C", "#74BDB2"];
+  const NUTRIENTS_COLORS = ["#FFB356", "#FFDD7C", "#79A6DC"];
+  const CALORIE_COLOR = ["#DFB078"];
 
   const [loading, setLoading] = useState(true);
   const [data, setData] = useState({});
@@ -25,9 +27,9 @@ const Daily = (props) => {
   const base = useRef(BASES[0]);
 
   const get_data = useCallback(async () => {
-    const resp = RESP_CHAE.STATISTICS.GET_DAILY_SUCCESS;
+    // const resp = RESP_CHAE.STATISTICS.GET_DAILY_SUCCESS;
     // const resp = RESP_CHAE.STATISTICS.GET_DAILY_FAIL;
-    // const resp = await apis.get_daily();
+    const resp = await apis.get_daily();
 
     const { result, content } = resp.data;
 
@@ -38,22 +40,12 @@ const Daily = (props) => {
     }
 
     setLoading(false);
-    setData({ ...content.statistics });
+    setData({ ...content });
   }, []);
 
   useEffect(() => {
     get_data();
   }, [get_data]);
-
-  // if (process.env.REACT_APP_DEBUG_ON) {
-  //   console.log(`[Daily] states: loading, showMsg, data, criteria`);
-  //   console.log(loading);
-  //   console.log(showMsg);
-  //   console.log(data);
-  //   console.log(criteria);
-  //   console.log(`[Daily] refs: criteria.current`);
-  //   console.log(criteria.current);
-  // }
 
   const caloriesSeries = [
     {
@@ -124,26 +116,45 @@ const Daily = (props) => {
                 axisBorder: {
                   show: false,
                 },
-                axisTick: {
-                  show: false,
-                },
                 labels: {
-                  formatter: (value) => `${value}${base.current}`,
+                  formatter: (value) => {
+                    let num = Number(value);
+                    if (num % 1 === 0) {
+                      return `${value}${base.current}`;
+                    }
+                    return `${Number(value).toFixed(1)}${base.current}`;
+                  },
+                  style: {
+                    colors: new Array(7).fill("#939393"),
+                    fontSize: "12px",
+                    fontWeight: 500,
+                  },
+                },
+                axisTicks: {
+                  show: false,
                 },
               },
               yaxis: {
                 axisBorder: {
                   show: false,
                 },
-                axisTick: {
+                axisTicks: {
                   show: false,
+                },
+                labels: {
+                  style: {
+                    colors: new Array(2).fill("#939393"),
+                    fontSize: "12px",
+                    fontWeight: 500,
+                  },
                 },
               },
               dataLabels: {
                 enabled: false,
               },
               labels: LABELS,
-              colors: CHART_COLORS,
+              colors:
+                criteria === CRITERIAS[0] ? CALORIE_COLOR : NUTRIENTS_COLORS,
               tooltip: {
                 x: {
                   show: false,
@@ -154,6 +165,9 @@ const Daily = (props) => {
               },
               legend: {
                 showForSingleSeries: true,
+                markers: {
+                  radius: 50,
+                },
               },
               grid: {
                 show: false,

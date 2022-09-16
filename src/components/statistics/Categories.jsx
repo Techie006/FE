@@ -38,7 +38,7 @@ const Categories = (props) => {
   const LABELS = ["농산", "축산", "해산"];
   const CHART_COLORS = ["#FFDD7C", "#FF5C01", "#74BDB2", "#FFDD7C"];
 
-  const counts = data.count.slice(0, 3);
+  const counts = data.count?.slice(0, 3);
 
   return (
     <>
