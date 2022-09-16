@@ -40,11 +40,12 @@ export const apis = {
   get_daily: () => api.get(`/api/statistics/daily`),
   get_calories_ratio: ({ view }) => {
     let filter = view === "일별" ? "day" : view === "주별" ? "week" : "month";
-    return api.get(`/api/statistics/ratio/calories`, { filter });
+    return api.post(`/api/statistics/ratio/calories`, { filter });
   },
   get_nutrients_ratio: ({ view }) => {
     let filter = view === "일별" ? "day" : view === "주별" ? "week" : "month";
-    return api.get(`/api/statistics/ratio/nutrients`, { filter });
+    console.log(filter);
+    return api.post(`/api/statistics/ratio/nutrients`, { filter });
   },
 
   // calendar
