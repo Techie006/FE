@@ -1,34 +1,83 @@
 import React, { useState } from 'react';
+import { useForm } from "react-hook-form";
 import Select, { NonceProvider } from "react-select";
 import Calendar from 'react-calendar';
 import moment from "moment";
+import { ErrorText, ValidateText } from "../../elements/texts/pageTexts"
+import SearchModal from './SearchModal';
+import Potal from "./Potal"
 import 'react-calendar/dist/Calendar.css';
 import { BsFillCalendarCheckFill } from "react-icons/bs";
 import styled from "styled-components";
+import axios from 'axios';
+
 
 
 const CreateIngredientModal = ({ onClose }) => {
     const Storage = [
-        {value : "냉장", label : "냉장"},
-        {value : "냉동", label : "냉동"},
-        {value : "상온", label : "상온"},
+        {value : "refrigerated", label : "냉장"},
+        {value : "freeze", label : "냉동"},
+        {value : "room_temp", label : "상온"},
     ]
     const [selectStorage, setSelectStorage] = useState(Storage[0].value);
-    const [input, setInput] = useState("")
-    const [show, setShow] = useState(true)
-    const [expShow, setExpShow] = useState(true)
+    const [input, setInput] = useState("");
+    const [show, setShow] = useState(true);
+    const [expShow, setExpShow] = useState(true);
     const [value, onChange] = useState(new Date());
     const [expValue, expOnChange] = useState(new Date());
+    const [showSearch, setShowSearch] = useState(false)
+    
 
-    const onChangeHandler = (e) => {
-        setInput(e.target.value)
-    }
-    const onShowHandler = () => {
+    const {
+        register,
+        watch,
+        reset,
+        handleSubmit,
+        formState: { errors },
+      } = useForm({ mode: "submit" });
+
+    console.log("a",moment(value).format("YYYY-MM-DD"))
+    console.log("b",moment(expValue).format("YYYY-MM-DD"))
+    
+    const onShowHandler = (e) => {
+        e.preventDefault()
+        e.stopPropagation()
         setShow(!show)
     } 
-    const onExpShowHandler = () => {
+    const onExpShowHandler = (e) => {
+        e.preventDefault()
+        e.stopPropagation()
         setExpShow(!expShow)
     } 
+    const showSearchHandler = () => {
+        setShowSearch(!showSearch)
+    }
+
+
+    const onSubmitHandler = async () => {
+        let count = 1;
+        let id = count++
+
+     let auth = localStorage.getItem("Authorization")
+
+        try{
+            const resp = await axios.post("http://3.36.56.125/api/ingredient",{
+                id : id,
+                food_name : watch("ingredientName"),
+                storage : selectStorage.value,
+                in_date : moment(value).format("YYYY-MM-DD"),
+                exp_date : moment(value).format("YYYY-MM-DD")
+
+            },{
+                headers :{
+                    "Authorization" : auth,
+                }   
+            })
+        }
+        catch(error){
+            console.log(error)
+        }
+    }
     // const selectStyles = {
     //     option : (provided, state) => ({
     //         ...provided,
@@ -39,6 +88,7 @@ const CreateIngredientModal = ({ onClose }) => {
     return (
         <StyledModalBackground>
             <StyledContent>
+                <form onSubmit = {handleSubmit(onSubmitHandler)}>
                 <StyledHeader>
                     <div><h2>재료를 추가해 볼까요?</h2></div>
                     <div className='x' onClick={onClose}><h2>x</h2></div>
@@ -47,12 +97,34 @@ const CreateIngredientModal = ({ onClose }) => {
                 <StyledTitles>
                     재료명
                 </StyledTitles>
-                <input 
-                className= "ingredients_title"
+                {/* <input 
+                autoFocus
+                className='ingredient_name'
                 type = "text"
-                placeholder='재료명을 입력해 주세요!'
-                onClick = {onChangeHandler}
+                id = "ingredient_name"
+                placeholder="재료명을 입력해주세요!"
+                {...register("ingredientName",{
+                required : "재료명을 한글로 입력해주세요!"
+                })} 
                 />
+                {errors.email ? (
+                <ErrorText>{errors.email.message}</ErrorText>
+                ):
+                (
+                null
+                )} 
+                인풋창 말고 검색창으로 대체
+                */}
+                <SearchWrapper>
+                <StyledSearchBox>
+                    searchbox
+                </StyledSearchBox>
+                <Potal>
+                {showSearch && <SearchModal onClose = {showSearchHandler}/>}
+                </Potal>
+                <StyledSearchButton onClick={showSearchHandler}>검색</StyledSearchButton>
+                </SearchWrapper>
+
                 </div>
                 <div className='storage'>
                 <StyledTitles>
@@ -129,6 +201,8 @@ const CreateIngredientModal = ({ onClose }) => {
                                 value={expValue}/>}
                 </StyledDateBox>
                 </StyledExp>
+                <input type="submit" className="submitButton" value = "등록하기"/>
+                </form>
             </StyledContent>
         </StyledModalBackground>
     );
@@ -180,6 +254,17 @@ const StyledHeader = styled.div`
 const StyledTitles = styled.div`
     margin-bottom : 20px;
     margin-top : 20px;
+`
+const SearchWrapper = styled.div`
+    display : flex;
+    flex-direction : row;
+`
+const StyledSearchBox = styled.div`
+    width : 200px;
+    border : 1px solid black;
+`
+const StyledSearchButton = styled.div`
+    width : 100px;
 `
 const StyledSelect = styled(Select)`
     width: 200px;

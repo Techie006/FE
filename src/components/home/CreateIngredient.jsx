@@ -24,5 +24,7 @@ export default CreateIngredient;
 const StyledWrapper = styled.div`
     border : 1px solid black;
     background-color : yellow;
-    width : 15%;
+    width : 350px;
+    text-align : center;
+    margin-bottom : 20px;
 `
