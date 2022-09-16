@@ -8,7 +8,7 @@ import { apis } from "../../shared/axios";
 import Loader from "../common/Loader";
 import HelpMsg from "../common/HelpMsg";
 import { StTitle } from "../../elements/texts/pageTexts";
-import UnderlineCategory from "../../elements/categories/UnderlineCategory";
+import ButtonCategory from "../../elements/categories/ButtonCategory";
 
 const Daily = (props) => {
   const CRITERIAS = ["열량", "영양성분"];
@@ -85,7 +85,7 @@ const Daily = (props) => {
         <>
           <StHeader>
             <StTitle>오늘 우리 식단은?</StTitle>
-            <UnderlineCategory
+            <ButtonCategory
               contents={CRITERIAS}
               onClick={clickHandler}
               selectedCategory={criteria}

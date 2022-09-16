@@ -2,16 +2,16 @@ import { useState, useCallback, useEffect } from "react";
 import Chart from "react-apexcharts";
 import styled from "styled-components";
 
-import RESP_CHAE from "../../server/response_chae";
-// import { apis } from "../../shared/axios";
+// import RESP_CHAE from "../../server/response_chae";
+import { apis } from "../../shared/axios";
 import Loader from "../common/Loader";
 import HelpMsg from "../common/HelpMsg";
 import { StTitle } from "../../elements/texts/pageTexts";
-import UnderlineCategory from "../../elements/categories/UnderlineCategory";
+import ButtonCategory from "../../elements/categories/ButtonCategory";
 
 const Calories = (props) => {
   const CALORIE = "칼로리";
-  const FILTERS = {
+  const VIEWS = {
     day: "일별",
     week: "주별",
     month: "월별",
@@ -20,12 +20,12 @@ const Calories = (props) => {
   const [loading, setLoading] = useState(true);
   const [data, setData] = useState({});
   const [showMsg, setShowMsg] = useState(false);
-  const [filter, setFilter] = useState(FILTERS.day);
+  const [view, setview] = useState(VIEWS.day);
 
   const get_data = useCallback(async () => {
-    const resp = RESP_CHAE.STATISTICS.GET_CALORIES_SUCCESS;
+    // const resp = RESP_CHAE.STATISTICS.GET_CALORIES_SUCCESS;
     // const resp = RESP_CHAE.STATISTICS.GET_CALORIES_FAIL;
-    // const resp = await apis.get_calories_ratio({filter});
+    const resp = await apis.get_calories_ratio({ view });
 
     const { result, content } = resp.data;
 
@@ -41,7 +41,7 @@ const Calories = (props) => {
 
   useEffect(() => {
     get_data();
-  }, [get_data, filter]);
+  }, [get_data, view]);
 
   const caloriesSeries = [
     {
@@ -55,18 +55,18 @@ const Calories = (props) => {
 
   const clickHandler = (e) => {
     const content = e.target.textContent;
-    if (filter === content) {
+    if (view === content) {
       return;
     }
     switch (content) {
-      case FILTERS.day:
-        setFilter(FILTERS.day);
+      case VIEWS.day:
+        setview(VIEWS.day);
         return;
-      case FILTERS.week:
-        setFilter(FILTERS.week);
+      case VIEWS.week:
+        setview(VIEWS.week);
         return;
-      case FILTERS.month:
-        setFilter(FILTERS.month);
+      case VIEWS.month:
+        setview(VIEWS.month);
         return;
       default:
         return;
@@ -87,10 +87,10 @@ const Calories = (props) => {
         <>
           <StHeader>
             <StTitle>나의 열량 섭취 변화</StTitle>
-            <UnderlineCategory
-              contents={Object.values(FILTERS)}
+            <ButtonCategory
+              contents={Object.values(VIEWS)}
               onClick={clickHandler}
-              selectedCategory={filter}
+              selectedCategory={view}
             />
           </StHeader>
           <Chart
@@ -112,7 +112,7 @@ const Calories = (props) => {
                   enabled: false,
                 },
                 labels: {
-                  format: filter !== FILTERS.month ? `MM월 dd일` : `yy년 MM월`,
+                  format: view !== VIEWS.month ? `MM월 dd일` : `yy년 MM월`,
                 },
                 axisTicks: {
                   show: false,

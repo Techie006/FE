@@ -38,10 +38,14 @@ export const apis = {
   get_state: () => api.get(`/api/statistics/state`),
   get_category: () => api.get(`/api/statistics/category`),
   get_daily: () => api.get(`/api/statistics/daily`),
-  get_calories_ratio: ({ filter }) =>
-    api.get(`/api/statistics/ratio/calories`, { filter }),
-  get_nutrients_ratio: ({ filter }) =>
-    api.get(`/api/statistics/ratio/nutrients`, { filter }),
+  get_calories_ratio: ({ view }) => {
+    let filter = view === "일별" ? "day" : view === "주별" ? "week" : "month";
+    return api.get(`/api/statistics/ratio/calories`, { filter });
+  },
+  get_nutrients_ratio: ({ view }) => {
+    let filter = view === "일별" ? "day" : view === "주별" ? "week" : "month";
+    return api.get(`/api/statistics/ratio/nutrients`, { filter });
+  },
 
   // calendar
   get_all_diets: ({ date }) => api.get(`/api/calendar/month?day=${date}`),

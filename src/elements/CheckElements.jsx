@@ -8,7 +8,7 @@ import MediumLinkWithHelper from "./links/MediumLinkWithHelper";
 import SmallLinkWithHelper from "./links/SmallLinkWithHelper";
 
 // category
-import UnderlineCategory from "./categories/UnderlineCategory";
+import ButtonCategory from "./categories/ButtonCategory";
 import Textbox from "./textboxes/Textbox";
 
 // texts
@@ -54,14 +54,13 @@ import RecipeMediumLayout from "./layouts/RecipeMediumLayout";
 import RecipeSmallLayout from "./layouts/RecipeSmallLayout";
 
 const CheckElements = (props) => {
-  const clickHandler = (e) => {
-  };
+  const clickHandler = (e) => {};
 
   return (
     <>
       <StyledContainer>
-        <StElement>A. UnderlineCategory</StElement>
-        <UnderlineCategory
+        <StElement>A. ButtonCategory</StElement>
+        <ButtonCategory
           contents={["category1", "category2", "category3", "category4"]}
           onClick={clickHandler}
           selectedCategory='category1'
@@ -89,8 +88,8 @@ const CheckElements = (props) => {
       </StyledContainer>
       <StyledContainer>
         <StElement>2. Categories</StElement>
-        <UnderlineCategory
-          title='UnderlineCategory'
+        <ButtonCategory
+          title='ButtonCategory'
           contents={["category1", "category2", "category3", "category4"]}
           onClick={clickHandler}
           selectedCategory='category1'
