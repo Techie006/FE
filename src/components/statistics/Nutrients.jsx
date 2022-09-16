@@ -4,19 +4,20 @@ import styled from "styled-components";
 
 import RESP_CHAE from "../../server/response_chae";
 // import { apis } from "../../shared/axios";
+import "./lineChart.css";
 import Loader from "../common/Loader";
 import HelpMsg from "../common/HelpMsg";
 import { StTitle } from "../../elements/texts/pageTexts";
 import UnderlineCategory from "../../elements/categories/UnderlineCategory";
 
 const Nutrients = (props) => {
-  const NUTRIENTS = ["탄수화물", "단백질", "지방", "나트륨"];
+  const NUTRIENTS = ["탄수화물", "단백질", "지방"];
   const FILTERS = {
     day: "일별",
     week: "주별",
     month: "월별",
   };
-  const CHART_COLORS = ["#FF5C01", "#FFDD7C", "#74BDB2"];
+  const CHART_COLORS = ["#FFB356", "#FFDD7C", "#79A6DC"];
 
   const [loading, setLoading] = useState(true);
   const [data, setData] = useState({});
@@ -108,11 +109,16 @@ const Nutrients = (props) => {
               chart: {
                 fontFamily: "Noto Sans KR",
                 fontSize: "12px",
-                fontWeight: "700",
+                fontWeight: 500,
                 toolbar: {
                   show: false,
+                  tools: {
+                    download: false,
+                    zoom: false,
+                    zoomin: false,
+                    zoomout: false,
+                  },
                 },
-                stacked: true,
               },
               xaxis: {
                 type: "datetime",
@@ -121,6 +127,11 @@ const Nutrients = (props) => {
                 },
                 labels: {
                   format: filter !== FILTERS.month ? `MM월 dd일` : `yy년 MM월`,
+                  style: {
+                    colors: new Array(7).fill("#939393"),
+                    fontSize: "12px",
+                    fontWeight: 500,
+                  },
                 },
                 axisTicks: {
                   show: false,
@@ -132,6 +143,11 @@ const Nutrients = (props) => {
               yaxis: {
                 labels: {
                   formatter: (value) => `${value}g`,
+                  style: {
+                    colors: new Array(7).fill("#939393"),
+                    fontSize: "12px",
+                    fontWeight: 500,
+                  },
                 },
               },
               dataLabels: {
@@ -145,10 +161,7 @@ const Nutrients = (props) => {
               colors: CHART_COLORS,
               storke: {
                 curve: "smooth",
-                width: 3,
-              },
-              markers: {
-                size: 1,
+                width: 4,
               },
               tooltip: {
                 x: {
@@ -157,11 +170,10 @@ const Nutrients = (props) => {
                 y: {
                   formatter: (value) => `${value}g`,
                 },
-                fillSeriesColor: true, // TODO true?
               },
               grid: {
                 show: false,
-                // TODO for apex-chart x-axis trimming error
+                // for apex-chart x-axis trimming error
                 // https://github.com/apexcharts/apexcharts.js/issues/305
                 padding: {
                   left: 50,
