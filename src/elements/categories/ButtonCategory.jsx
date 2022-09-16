@@ -16,7 +16,7 @@ const StWrapper = styled.div`
   display: flex;
   flex-direction: row;
   align-items: flex-start;
-  padding: 0px;
+  padding: 1px;
   gap: 12px;
 `;
 
