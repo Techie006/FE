@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import { StTitle } from "../../elements/texts/pageTexts";
 
 import Ingredients from "./Ingredients";
 import Categories from "./Categories";
@@ -6,6 +7,7 @@ import Categories from "./Categories";
 const Status = (props) => {
   return (
     <>
+      <StTitle>오늘 우리집 식재료 상태는?</StTitle>
       <StDivider>
         <Ingredients />
         <Categories />

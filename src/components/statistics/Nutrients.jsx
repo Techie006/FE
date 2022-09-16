@@ -4,7 +4,7 @@ import styled from "styled-components";
 
 import RESP_CHAE from "../../server/response_chae";
 // import { apis } from "../../shared/axios";
-import "./lineChart.css";
+import "./Chart.css";
 import Loader from "../common/Loader";
 import HelpMsg from "../common/HelpMsg";
 import { StTitle } from "../../elements/texts/pageTexts";
