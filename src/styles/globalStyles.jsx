@@ -128,4 +128,8 @@ export const defaultTheme = {
       brown: "#F0EADC",
     },
   },
+
+  chart: {
+    subColors: ["#FFB356", "#FFDD7C", "#79A6DC"],
+  },
 };

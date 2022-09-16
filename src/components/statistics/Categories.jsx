@@ -1,21 +1,21 @@
 import { useState, useCallback, useEffect } from "react";
 import ReactApexChart from "react-apexcharts";
+import styled from "styled-components";
 
-import RESP_CHAE from "../../server/response_chae";
-// import { apis } from "../../shared/axios";
+// import RESP_CHAE from "../../server/response_chae";
+import { apis } from "../../shared/axios";
 import Loader from "../common/Loader";
 import HelpMsg from "../common/HelpMsg";
 
-// TODO label 한국어로 바꾸기 오는 API 형태 배열로 바꾸기.
 const Categories = (props) => {
   const [loading, setLoading] = useState(true);
   const [data, setData] = useState({});
   const [showMsg, setShowMsg] = useState(false);
 
   const get_data = useCallback(async () => {
-    const resp = RESP_CHAE.STATISTICS.GET_CATEGORY_SUCCESS;
+    // const resp = RESP_CHAE.STATISTICS.GET_CATEGORY_SUCCESS;
     // const resp = RESP_CHAE.STATISTICS.GET_CATEGORY_FAIL;
-    // const resp = await apis.get_category();
+    const resp = await apis.get_category();
 
     const { result, content } = resp.data;
 
@@ -34,19 +34,10 @@ const Categories = (props) => {
     get_data();
   }, [get_data]);
 
-  // if (process.env.REACT_APP_DEBUG_ON) {
-  //   console.log(`[Categories] states: loading, showMsg, data`);
-  //   console.log(loading);
-  //   console.log(showMsg);
-  //   console.log(data);
-  // }
+  const LABELS = ["농산물", "축산물", "해산물", "기타", "음료류"];
+  const CHART_COLORS = ["#FFDD7C", "#FF5C01", "#74BDB2", "#FFDD7C"];
 
-  const labels = Object.keys(data);
-  const nums = Object.values(data);
-  // let diagram = labels?.map((label, i) => (
-  //   <StCategory key={i}>{`${label} : ${nums[i]}`}</StCategory>
-  // ));
-  // diagram = diagram.slice(0, 3);
+  const counts = data.count;
 
   return (
     <>
@@ -59,61 +50,75 @@ const Categories = (props) => {
         />
       ) : null}
       {!loading && !showMsg ? (
-        <ReactApexChart
-          type='donut'
-          series={nums}
-          height='80%'
-          options={{
-            chart: {
-              fontFamily: "Noto Sans KR",
-              fontSize: "12px",
-              fontWeight: "700",
-              toolbar: {
-                show: false,
-              },
-            },
-            title: {
-              text: "식품분류 현황",
-              align: "center",
-            },
-            dataLabels: {
-              enabled: false,
-            },
-            legend: {
-              fontSize: "12px",
-              fontWeight: "500",
-              fontFamily: "Noto Sans KR",
-              position: "bottom",
-            },
-            labels: labels,
-            // colors: CHART_COLORS,
-            tooltip: {
-              style: {
+        <StWrapper>
+          <ReactApexChart
+            type='donut'
+            series={counts}
+            height='85%'
+            options={{
+              chart: {
+                fontFamily: "Noto Sans KR",
                 fontSize: "12px",
                 fontWeight: "500",
-                fontFamily: "Noto Sans KR",
-              },
-              y: {
-                formatter: (value) => `${value}개`,
-                title: {
-                  formatter: (seriesName) => seriesName,
+                toolbar: {
+                  show: false,
                 },
               },
-              fillSeriesColor: false,
-            },
-            plotOptions: {
-              pie: {
-                expandOnClick: false,
-                donut: {
-                  size: "50%",
+              // title: {
+              //   text: "유통기한 현황",
+              //   align: "center",
+              // },
+              dataLabels: {
+                enabled: false,
+              },
+              legend: {
+                position: "bottom",
+              },
+              labels: LABELS,
+              colors: CHART_COLORS,
+              tooltip: {
+                y: {
+                  formatter: (value) => `${value}개`,
+                  title: {
+                    formatter: (seriesName) => seriesName,
+                  },
+                },
+                theme: "light",
+                fillSeriesColor: false,
+              },
+              plotOptions: {
+                pie: {
+                  expandOnClick: false,
+                  donut: {
+                    size: "50%",
+                    labels: {
+                      show: true,
+                      name: {
+                        offsetY: 5,
+                      },
+                      total: {
+                        showAlways: true,
+                        show: true,
+                        label: "식품별",
+                        fontSize: "14px",
+                      },
+                      value: {
+                        show: false,
+                      },
+                    },
+                  },
                 },
               },
-            },
-          }}
-        />
+            }}
+          />
+        </StWrapper>
       ) : null}
     </>
   );
 };
 
 export default Categories;
+
+const StWrapper = styled.div`
+  height: 300px;
+`;

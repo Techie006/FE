@@ -1,6 +1,6 @@
 import styled from "styled-components";
 
-const UnderlineCategory = ({ contents, onClick, selectedCategory = "" }) => {
+const ButtonCategory = ({ contents, onClick, selectedCategory = "" }) => {
   const categoryItems = contents.map((category, idx) => (
     <StBox key={idx} onClick={onClick} disabled={category === selectedCategory}>
       <StContent>{category}</StContent>
@@ -10,7 +10,7 @@ const UnderlineCategory = ({ contents, onClick, selectedCategory = "" }) => {
   return <StWrapper>{categoryItems}</StWrapper>;
 };
 
-export default UnderlineCategory;
+export default ButtonCategory;
 
 const StWrapper = styled.div`
   display: flex;

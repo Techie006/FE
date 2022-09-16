@@ -6,7 +6,7 @@ const base = {
 };
 
 const api = axios.create({
-  baseURL: "http://3.36.56.125",
+  baseURL: base.server_http,
   headers: {
     "content-type": "application/json; charset=UTF-8",
     accept: "application/json,",
@@ -38,10 +38,14 @@ export const apis = {
   get_state: () => api.get(`/api/statistics/state`),
   get_category: () => api.get(`/api/statistics/category`),
   get_daily: () => api.get(`/api/statistics/daily`),
-  get_calories_ratio: ({ filter }) =>
-    api.get(`/api/statistics/ratio/calories`, { filter }),
-  get_nutrients_ratio: ({ filter }) =>
-    api.get(`/api/statistics/ratio/nutrients`, { filter }),
+  get_calories_ratio: ({ view }) => {
+    let filter = view === "일별" ? "day" : view === "주별" ? "week" : "month";
+    return api.post(`/api/statistics/ratio/calories`, { filter });
+  },
+  get_nutrients_ratio: ({ view }) => {
+    let filter = view === "일별" ? "day" : view === "주별" ? "week" : "month";
+    return api.post(`/api/statistics/ratio/nutrients`, { filter });
+  },
 
   // calendar
   get_all_diets: ({ date }) => api.get(`/api/calendar/month?day=${date}`),
