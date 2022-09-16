@@ -80,8 +80,6 @@ const Calories = (props) => {
     }
   };
 
-  console.log(filter);
-
   return (
     <>
       {loading ? <Loader /> : null}

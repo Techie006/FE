@@ -1,7 +1,7 @@
 import styled from "styled-components";
 
-const SmallInput = ({ type, defaultValue, placeholder }) => {
-  return <StyledInput type={type} placeholder={placeholder} />;
+const SmallInput = (props) => {
+  return <StyledInput {...props} />;
 };
 
 export default SmallInput;
