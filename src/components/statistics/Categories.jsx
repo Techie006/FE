@@ -1,5 +1,6 @@
 import { useState, useCallback, useEffect } from "react";
 import ReactApexChart from "react-apexcharts";
+import styled from "styled-components";
 
 // import RESP_CHAE from "../../server/response_chae";
 import { apis } from "../../shared/axios";
@@ -33,7 +34,7 @@ const Categories = (props) => {
     get_data();
   }, [get_data]);
 
-  // TODO 냉장 냉동 상온
+  //  TODO 식품군별?
   const LABELS = ["농산", "축산", "해산"];
   const CHART_COLORS = ["#FFDD7C", "#FF5C01", "#74BDB2", "#FFDD7C"];
 
@@ -50,69 +51,75 @@ const Categories = (props) => {
         />
       ) : null}
       {!loading && !showMsg ? (
-        <ReactApexChart
-          type='donut'
-          series={counts}
-          height='80%'
-          options={{
-            chart: {
-              fontFamily: "Noto Sans KR",
-              fontSize: "12px",
-              fontWeight: "500",
-              toolbar: {
-                show: false,
-              },
-            },
-            // title: {
-            //   text: "유통기한 현황",
-            //   align: "center",
-            // },
-            dataLabels: {
-              enabled: false,
-            },
-            legend: {
-              position: "bottom",
-            },
-            labels: LABELS,
-            colors: CHART_COLORS,
-            tooltip: {
-              y: {
-                formatter: (value) => `${value}개`,
-                title: {
-                  formatter: (seriesName) => seriesName,
+        <StWrapper>
+          <ReactApexChart
+            type='donut'
+            series={counts}
+            height='80%'
+            options={{
+              chart: {
+                fontFamily: "Noto Sans KR",
+                fontSize: "12px",
+                fontWeight: "500",
+                toolbar: {
+                  show: false,
                 },
               },
-              theme: "light",
-              fillSeriesColor: false,
-            },
-            plotOptions: {
-              pie: {
-                expandOnClick: false,
-                donut: {
-                  size: "50%",
-                  labels: {
-                    show: true,
-                    name: {
-                      offsetY: 5,
-                    },
-                    total: {
-                      showAlways: true,
+              // title: {
+              //   text: "유통기한 현황",
+              //   align: "center",
+              // },
+              dataLabels: {
+                enabled: false,
+              },
+              legend: {
+                position: "bottom",
+              },
+              labels: LABELS,
+              colors: CHART_COLORS,
+              tooltip: {
+                y: {
+                  formatter: (value) => `${value}개`,
+                  title: {
+                    formatter: (seriesName) => seriesName,
+                  },
+                },
+                theme: "light",
+                fillSeriesColor: false,
+              },
+              plotOptions: {
+                pie: {
+                  expandOnClick: false,
+                  donut: {
+                    size: "50%",
+                    labels: {
                       show: true,
-                      label: "식품별",
-                      fontSize: "14px",
-                    },
-                    value: {
-                      show: false,
+                      name: {
+                        offsetY: 5,
+                      },
+                      total: {
+                        showAlways: true,
+                        show: true,
+                        label: "식품별",
+                        fontSize: "14px",
+                      },
+                      value: {
+                        show: false,
+                      },
                     },
                   },
                 },
               },
-            },
-          }}
-        />
+            }}
+          />
+        </StWrapper>
       ) : null}
     </>
   );
 };
 
 export default Categories;
+
+const StWrapper = styled.div`
+  height: 300px;
+`;
