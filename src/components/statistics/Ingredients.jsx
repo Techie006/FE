@@ -55,7 +55,7 @@ const Ingredients = (props) => {
           <ReactApexChart
             type='donut'
             series={counts || [1, 1, 1]}
-            height='80%'
+            height='85%'
             options={{
               chart: {
                 fontFamily: "Noto Sans KR",

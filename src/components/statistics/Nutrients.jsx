@@ -17,7 +17,7 @@ const Nutrients = (props) => {
     week: "주별",
     month: "월별",
   };
-  const CHART_COLORS = ["#FFB356", "#FFDD7C", "#79A6DC"];
+  const NUTRIENT_COLORS = ["#FFB356", "#FFDD7C", "#79A6DC"];
 
   const [loading, setLoading] = useState(true);
   const [data, setData] = useState({});
@@ -39,7 +39,7 @@ const Nutrients = (props) => {
     }
 
     setLoading(false);
-    setData({ ...content.statistics });
+    setData({ ...content });
   }, [view]);
 
   useEffect(() => {
@@ -88,7 +88,7 @@ const Nutrients = (props) => {
       {!loading && !showMsg ? (
         <>
           <StHeader>
-            <StTitle>나의 영양 성분 섭취 변화</StTitle>
+            <StTitle>나의 영양성분 섭취 변화</StTitle>
             <ButtonCategory
               contents={Object.values(VIEWS)}
               onClick={clickHandler}
@@ -97,7 +97,7 @@ const Nutrients = (props) => {
           </StHeader>
           <Chart
             type='line'
-            height='80%'
+            height='85%'
             series={nutrientsSeries}
             options={{
               chart: {
@@ -152,7 +152,7 @@ const Nutrients = (props) => {
                 position: "bottom",
               },
               labels: labels,
-              colors: CHART_COLORS,
+              colors: NUTRIENT_COLORS,
               storke: {
                 curve: "smooth",
                 width: 4,

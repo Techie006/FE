@@ -54,7 +54,7 @@ const Categories = (props) => {
           <ReactApexChart
             type='donut'
             series={counts}
-            height='80%'
+            height='85%'
             options={{
               chart: {
                 fontFamily: "Noto Sans KR",

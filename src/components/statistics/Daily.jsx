@@ -93,7 +93,7 @@ const Daily = (props) => {
           </StHeader>
           <Chart
             type='bar'
-            height='70%'
+            height='85%'
             series={
               criteria === CRITERIAS[0] ? caloriesSeries : nutrientsSeries
             }

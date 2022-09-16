@@ -6,7 +6,7 @@ const base = {
 };
 
 const api = axios.create({
-  baseURL: "http://3.36.56.125",
+  baseURL: base.server_http,
   headers: {
     "content-type": "application/json; charset=UTF-8",
     accept: "application/json,",
@@ -44,7 +44,6 @@ export const apis = {
   },
   get_nutrients_ratio: ({ view }) => {
     let filter = view === "일별" ? "day" : view === "주별" ? "week" : "month";
-    console.log(filter);
     return api.post(`/api/statistics/ratio/nutrients`, { filter });
   },
 

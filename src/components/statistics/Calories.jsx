@@ -4,6 +4,7 @@ import styled from "styled-components";
 
 // import RESP_CHAE from "../../server/response_chae";
 import { apis } from "../../shared/axios";
+import "./Chart.css";
 import Loader from "../common/Loader";
 import HelpMsg from "../common/HelpMsg";
 import { StTitle } from "../../elements/texts/pageTexts";
@@ -36,8 +37,8 @@ const Calories = (props) => {
     }
 
     setLoading(false);
-    setData({ ...content.statistics });
-  }, []);
+    setData({ ...content });
+  }, [view]);
 
   useEffect(() => {
     get_data();
@@ -51,7 +52,7 @@ const Calories = (props) => {
   ];
 
   const labels = data.days?.map((day) => new Date(day).toUTCString());
-  const CHART_COLORS = ["#FFDD7C", "#FFDD7C", "#74BDB2"];
+  const CALORIE_COLOR = ["#DFB078"];
 
   const clickHandler = (e) => {
     const content = e.target.textContent;
@@ -96,7 +97,7 @@ const Calories = (props) => {
           <Chart
             type='line'
             series={caloriesSeries}
-            height='70%'
+            height='85%'
             options={{
               chart: {
                 fontFamily: "Noto Sans KR",
@@ -104,6 +105,12 @@ const Calories = (props) => {
                 fontWeight: "700",
                 toolbar: {
                   show: false,
+                },
+                tools: {
+                  download: false,
+                  zoom: false,
+                  zoomin: false,
+                  zoomout: false,
                 },
               },
               xaxis: {
@@ -113,6 +120,11 @@ const Calories = (props) => {
                 },
                 labels: {
                   format: view !== VIEWS.month ? `MM월 dd일` : `yy년 MM월`,
+                  style: {
+                    colors: new Array(7).fill("#939393"),
+                    fontSize: "12px",
+                    fontWeight: 500,
+                  },
                 },
                 axisTicks: {
                   show: false,
@@ -123,7 +135,18 @@ const Calories = (props) => {
               },
               yaxis: {
                 labels: {
-                  formatter: (value) => `${value}kcal`,
+                  formatter: (value) => {
+                    let num = Number(value);
+                    if (num % 1 === 0) {
+                      return `${value}kcal`;
+                    }
+                    return `${Number(value).toFixed(1)}kcal`;
+                  },
+                  style: {
+                    colors: new Array(7).fill("#939393"),
+                    fontSize: "12px",
+                    fontWeight: 500,
+                  },
                 },
               },
               dataLabels: {
@@ -132,15 +155,16 @@ const Calories = (props) => {
               legend: {
                 show: true,
                 position: "bottom",
+                showForSingleSeries: true,
+                markers: {
+                  radius: 50,
+                },
               },
               labels: labels,
-              colors: CHART_COLORS,
+              colors: CALORIE_COLOR,
               storke: {
                 curve: "smooth",
-                width: 3,
-              },
-              markers: {
-                size: 1,
+                width: 4,
               },
               tooltip: {
                 x: {
