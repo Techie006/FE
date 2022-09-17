@@ -2,6 +2,8 @@ import React, { useState, useEffect } from 'react';
 import { useForm } from "react-hook-form";
 import { NavLink } from "react-router-dom";
 import OAuth from "./OAuth"
+import OAuth2 from "./OAuth2"
+// import GoogleLogin from './GoogleLogin';
 // import RESP_WOO from "../../server/response_woo";
 import { useNavigate } from "react-router-dom";
 import { useDispatch } from 'react-redux';
@@ -16,6 +18,7 @@ import { AiFillEyeInvisible } from "react-icons/ai";
 import { AiFillEye } from "react-icons/ai";
 import Swal from "sweetalert2";
 import styled from "styled-components";
+
 
 const SigninForm = () => {
     const [currPage, setCurrPage] = useState(false);
@@ -158,7 +161,7 @@ const SigninForm = () => {
             })
     
             localStorage.setItem("Authorization",resp.headers.authorization);
-            localStorage.setItem("Refresh_Token",resp.headers.refresh_token);
+            
         
 
             setLoginState(resp.data)
@@ -365,6 +368,7 @@ const SigninForm = () => {
                 <div>or</div>
                 <br/>
                 <OAuth/><br/>
+                <OAuth2/><br/>
                 <span>로그인 없이 이용하고 싶으시다면?</span>&nbsp;<NavLink to = "/">둘러보기!</NavLink>
                 <br/>
                 <br/>

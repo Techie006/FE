@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import styled from "styled-components";
 
 const Ingredient = ( {totalIngredient} ) => {
-    console.log("asd",totalIngredient)
+    
     const [ ingredient, setIngredient] = useState("")
 
     return (

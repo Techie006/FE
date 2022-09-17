@@ -1,3 +1,4 @@
+
 import React, { useEffect } from 'react';
 import { useNavigate } from "react-router-dom";
 import { login } from "../../modules/redux/auth";
@@ -5,15 +6,20 @@ import { useDispatch } from 'react-redux';
 import Swal from "sweetalert2";
 import axios from 'axios';
 
-const KakaoLogin = () => {
-    const navigate = useNavigate();
-    const dispatch = useDispatch();
-    const code = new URL(window.location.href).searchParams.get("code")
 
-    const kakaoLogin = async () => {
+
+const GoogleLogin = () => {
+
+    const navigate = useNavigate();
+
+    const dispatch = useDispatch();
+
+    const code = new URL(window.location.href).searchParams.get("code")
+    console.log("code",code)
+
+    const googleLogin = async () => {
         try {
-            console.log("hi")
-            const resp = await axios.get(`http://magorosc.shop/user/kakao/callback?code=${code}`,{});
+            const resp = await axios.get(`http://magorosc.shop/user/google/callback?code=${code}`,{});
     
             localStorage.setItem("Authorization",resp.headers.authorization);
             localStorage.setItem("Refresh_Token",resp.headers.refresh_token);
@@ -24,7 +30,7 @@ const KakaoLogin = () => {
                 'success'
               )
               console.log("con",resp.data)
-            //   navigate("/home", { replace: true })
+              navigate("/home", { replace: true })
             dispatch(login());
         }
         catch(error) {
@@ -33,12 +39,19 @@ const KakaoLogin = () => {
         
     }
     useEffect(() => {
-        kakaoLogin();
+        googleLogin();
     }, []);
     return (
         <div>
         </div>
+        // https://accounts.google.com/o/oauth2/v2/auth?client_id=230675215382-h29811lqdej9iikmiifbv5bk8eg0iass.apps.googleusercontent.com&redirect_uri=
+
+        // http://localhost:8080/user/google/callback
+
+        // &response_type=code&scope=https://www.googleapis.com/auth/userinfo.email https://www.googleapis.com/auth/userinfo.profile
+            
+        
     );
 };
 
-export default KakaoLogin;
+export default GoogleLogin;

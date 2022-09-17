@@ -1,7 +1,14 @@
 import React from 'react';
 import styled from "styled-components";
 
-const HomeIngredientsModal = ({ onClose, ingredients }) => {
+const HomeIngredientsModal = (
+    { onClose, 
+      ingredients, 
+      freezeHandler, 
+      refrigerHandler, 
+      roomTempHandler,  
+      totalHandler
+    }) => {
 
     console.log("aa",ingredients)
 
@@ -13,15 +20,15 @@ const HomeIngredientsModal = ({ onClose, ingredients }) => {
                 <div className='x' onClick={onClose}><h1>x</h1></div>
             </StyledHeader>
             <StyledButtonList>
-                <button>냉동</button>
-                <button>냉장</button>
-                <button>상온</button>
-                <button>전체</button>
+                <button onClick={freezeHandler}>냉동</button>
+                <button onClick={refrigerHandler}>냉장</button>
+                <button onClick={roomTempHandler}>상온</button>
+                <button onClick={totalHandler}>전체</button>
             </StyledButtonList>
             <StyledContainer>
             <StyledWrapper>
-            {ingredients.storage && ingredients.storage.map((data, index) => (
-                <StyledIngredinet>
+            {ingredients.storage.map((data, index) => (
+                <StyledIngredinet key={index}>
                 <div className='food_inDate'>
                     <div>
                     {data.food_name}

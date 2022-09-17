@@ -1,4 +1,6 @@
 import React, { useState ,useEffect } from 'react';
+import { useDispatch } from "react-redux";
+import { storage } from "../../modules/redux/storage";
 import Ingredients from './Ingredients';
 import Potal from '../modals/Potal';
 import styled from "styled-components";
@@ -9,37 +11,53 @@ const HomeIngredients = () => {
     const [showModal, setShowModal] = useState(false);
     const [ingredients, setIngredients] = useState([]);
     const [curr, setCurr] = useState("")
-    // const storagePage = {
-    //     freeze: "freeze",
-    //     refrigerated:refrigerated,
-    //     room_temp:room_temp,
-        
-    // }
+
+    const dispatch = useDispatch();
 
     const showModalHandler = () => {
         setShowModal(!showModal);
     }
     const onFreezeClick = () => {
         setCurr("freeze")
+        console.log("curr",curr)
+        getIngredients()
     }
     const onRefrigeratedClick = () => {
         setCurr("refrigerated")
+        console.log("curr",curr)
+        getIngredients()
     }
     const onRoomTempClick = () => {
         setCurr("room_temp")
+        console.log("curr",curr)
+        getIngredients()
     }
     const onTotalClick = () => {
         setCurr("")
+        console.log("curr",curr)
+        getIngredients()
     }
+
+    // const storagePage = {
+    //     freeze: "freeze",
+    //     refrigerated:"refrigerated",
+    //     room_temp:"room_temp",
+    //     total : ""
+    // }
+    
+    // const payload = {...dispatch(storage(storagePage)).payload}
+    // console.log("pay", payload)
+    
+    
 
     const auth = localStorage.getItem("Authorization")
     const refresh = localStorage.getItem("Refresh_Token");
-    console.log(auth)
-    console.log(refresh)
+
 
     const getIngredients = async () => {
 
         try{
+            console.log("첫번째")
             // var storage = [ "freeze", "refrigerated", "room_temp" ]
 
             // for (let i = 0; i < storage.length; i++) {
@@ -68,6 +86,9 @@ const HomeIngredients = () => {
     useEffect(() => {
         getIngredients();
     }, []);
+    // useEffect(() => {
+    //     onFreezeClick()
+    // }, [setCurr("Freeze")]);
 
     return (
         <StyledInredientsWrapper>
