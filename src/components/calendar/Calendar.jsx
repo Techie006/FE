@@ -68,8 +68,6 @@ const RecipeCalendar = () => {
   const loading = useSelector((state) => state.calendar.isLoading);
   const allDiets = useSelector((state) => state.calendar.allDiets);
 
-  console.log(allDiets);
-
   const diets = allDiets.map((recipe) => {
     const startTimeFormat = recipe.day.replace(/-/g, "/");
     return {
