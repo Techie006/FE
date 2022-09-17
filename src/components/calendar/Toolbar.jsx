@@ -1,3 +1,5 @@
+import { useDispatch } from "react-redux";
+import { openModal } from "../../modules/redux/calendar";
 import {
   faArrowCircleLeft,
   faArrowCircleRight,
@@ -5,20 +7,42 @@ import {
 import styled from "styled-components";
 
 import SmallIconButton from "../../elements/buttons/SmallIconButton";
+import SmallButton from "../../elements/buttons/SmallButton";
 
-const Toolbar = ({ year, month, onClick }) => {
-  const BUTTONS = ["Left", "Right"];
+const Toolbar = (props) => {
+  const dispatch = useDispatch();
+
+  const { date } = props;
+
+  const navigate = (action) => {
+    props.onNavigate(action);
+  };
+
+  const clickHandler = () => {
+    dispatch(openModal({ diet: {}, type: "create" }));
+  };
+
   return (
     <StWrapper>
-      <SmallIconButton
-        icon={faArrowCircleLeft}
-        onClick={() => onClick(BUTTONS[0])}
-      />
-      <StYYMM>{`${year}년 ${month}월`}</StYYMM>
-      <SmallIconButton
-        icon={faArrowCircleRight}
-        onClick={() => onClick(BUTTONS[1])}
-      />
+      <StNavigator>
+        <SmallIconButton
+          icon={faArrowCircleLeft}
+          onClick={navigate.bind(null, "PREV")}
+        />
+        <StYYMM>{`${date.getFullYear()}년 ${date.getMonth() + 1}월`}</StYYMM>
+        <SmallIconButton
+          icon={faArrowCircleRight}
+          onClick={navigate.bind(null, "NEXT")}
+        />
+      </StNavigator>
+      <StButtons>
+        <SmallButton
+          type='button'
+          content='이번달'
+          onClick={navigate.bind(null, "TODAY")}
+        />
+        <SmallButton type='button' content='기록하기' onClick={clickHandler} />
+      </StButtons>
     </StWrapper>
   );
 };
@@ -28,14 +52,23 @@ export default Toolbar;
 const StWrapper = styled.div`
   display: flex;
   flex-direction: row;
-  justify-content: flex-start;
+  justify-content: space-between;
   margin-bottom: 20px;
   align-items: center;
 `;
 
-const StYYMM = styled.span`
-  font-size: 24px;
-  font-weight: 700;
-  margin: 0px 12px;
-  margin-bottom: 4px;
+const StNavigator = styled.div`
+  display: flex;
+  flex-direction: row;
+  gap: 10px;
+`;
+
+const StYYMM = styled.div`
+  font-size: 15px;
+`;
+
+const StButtons = styled.div`
+  display: flex;
+  flex-direction: row;
+  gap: 10px;
 `;

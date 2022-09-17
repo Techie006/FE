@@ -2,22 +2,21 @@ import { useState, useCallback, useEffect } from "react";
 import ReactApexChart from "react-apexcharts";
 import styled from "styled-components";
 
-import RESP_CHAE from "../../server/response_chae";
-// import { apis } from "../../shared/axios";
+// import RESP_CHAE from "../../server/response_chae";
+import { apis } from "../../shared/axios";
+import "./Chart.css";
 import Loader from "../common/Loader";
 import HelpMsg from "../common/HelpMsg";
-import Textbox from "../../elements/textboxes/Textbox";
 
-// TODO API 결과값 받기!!
 const Ingredients = (props) => {
   const [loading, setLoading] = useState(true);
   const [data, setData] = useState({});
   const [showMsg, setShowMsg] = useState(false);
 
   const get_data = useCallback(async () => {
-    const resp = RESP_CHAE.STATISTICS.GET_STATE_SUCCESS;
+    // const resp = RESP_CHAE.STATISTICS.GET_STATE_SUCCESS;
     // const resp = RESP_CHAE.STATISTICS.GET_STATE_FAIL;
-    // const resp = await apis.get_state();
+    const resp = await apis.get_state();
 
     const { result, content } = resp.data;
 
@@ -35,18 +34,10 @@ const Ingredients = (props) => {
     get_data();
   }, [get_data]);
 
-  // if (process.env.REACT_APP_DEBUG_ON) {
-  //   console.log(`[Ingredients] states: loading, showMsg, data`);
-  //   console.log(loading);
-  //   console.log(showMsg);
-  //   console.log(data);
-  // }
+  const LABELS = ["임박", "만료", "정상"];
+  const CHART_COLORS = ["#FFDD7C", "#FF5C01", "#74BDB2"];
 
-  const LABELS = ["만료", "임박", "정상"];
-  const CHART_COLORS = ["#FF5C01", "#FFDD7C", "#74BDB2"];
-  const COMMENTS = ["아주 바람직한 상태네요!", "노력이 필요해요..."];
-
-  const percentage = data?.count;
+  const counts = data?.count;
 
   return (
     <>
@@ -63,8 +54,8 @@ const Ingredients = (props) => {
         <StWrapper>
           <ReactApexChart
             type='donut'
-            series={percentage}
-            height='80%'
+            series={counts || [1, 1, 1]}
+            height='85%'
             options={{
               chart: {
                 fontFamily: "Noto Sans KR",
@@ -74,10 +65,10 @@ const Ingredients = (props) => {
                   show: false,
                 },
               },
-              title: {
-                text: "유통기한 현황",
-                align: "center",
-              },
+              // title: {
+              //   text: "유통기한 현황",
+              //   align: "center",
+              // },
               dataLabels: {
                 enabled: false,
               },
@@ -93,19 +84,34 @@ const Ingredients = (props) => {
                     formatter: (seriesName) => seriesName,
                   },
                 },
-                fillSeriesColor: false, // TODO true?
+                theme: "light",
+                fillSeriesColor: false,
               },
               plotOptions: {
                 pie: {
                   expandOnClick: false,
                   donut: {
                     size: "50%",
+                    labels: {
+                      show: true,
+                      name: {
+                        offsetY: 5,
+                      },
+                      total: {
+                        showAlways: true,
+                        show: true,
+                        label: "기한별",
+                        fontSize: "14px",
+                      },
+                      value: {
+                        show: false,
+                      },
+                    },
                   },
                 },
               },
             }}
           />
-          <Textbox content={COMMENTS[0]} />
         </StWrapper>
       ) : null}
     </>

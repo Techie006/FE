@@ -2,31 +2,33 @@ import { useState, useCallback, useEffect } from "react";
 import Chart from "react-apexcharts";
 import styled from "styled-components";
 
-import RESP_CHAE from "../../server/response_chae";
-// import { apis } from "../../shared/axios";
+// import RESP_CHAE from "../../server/response_chae";
+import { apis } from "../../shared/axios";
+import "./Chart.css";
 import Loader from "../common/Loader";
 import HelpMsg from "../common/HelpMsg";
 import { StTitle } from "../../elements/texts/pageTexts";
-import UnderlineCategory from "../../elements/categories/UnderlineCategory";
+import ButtonCategory from "../../elements/categories/ButtonCategory";
 
 const Nutrients = (props) => {
-  const NUTRIENTS = ["탄수화물", "단백질", "지방", "나트륨"];
-  const FILTERS = {
+  const NUTRIENTS = ["탄수화물", "단백질", "지방"];
+  const VIEWS = {
     day: "일별",
     week: "주별",
     month: "월별",
   };
-  const CHART_COLORS = ["#FF5C01", "#FFDD7C", "#74BDB2"];
+  const NUTRIENT_COLORS = ["#FFB356", "#FFDD7C", "#79A6DC"];
 
   const [loading, setLoading] = useState(true);
   const [data, setData] = useState({});
   const [showMsg, setShowMsg] = useState(false);
-  const [filter, setFilter] = useState(FILTERS.day);
+  const [view, setview] = useState(VIEWS.day);
 
   const get_data = useCallback(async () => {
-    const resp = RESP_CHAE.STATISTICS.GET_NUTRIENTS_SUCCESS;
+    // const resp = RESP_CHAE.STATISTICS.GET_NUTRIENTS_SUCCESS;
     // const resp = RESP_CHAE.STATISTICS.GET_NUTRIENTS_FAIL;
-    // const resp = await apis.get_nutrients_ratio({filter});
+
+    const resp = await apis.get_nutrients_ratio({ view });
 
     const { result, content } = resp.data;
 
@@ -37,19 +39,12 @@ const Nutrients = (props) => {
     }
 
     setLoading(false);
-    setData({ ...content.statistics });
-  }, []);
+    setData({ ...content });
+  }, [view]);
 
   useEffect(() => {
     get_data();
-  }, [get_data, filter]);
-
-  // if (process.env.REACT_APP_DEBUG_ON) {
-  //   console.log(`[Nutrients] states: loading, showMsg, data`);
-  //   console.log(loading);
-  //   console.log(showMsg);
-  //   console.log(data);
-  // }
+  }, [get_data, view]);
 
   const labels = data?.days;
   let nutrientsSeries = [];
@@ -62,18 +57,18 @@ const Nutrients = (props) => {
 
   const clickHandler = (e) => {
     const content = e.target.textContent;
-    if (filter === content) {
+    if (view === content) {
       return;
     }
     switch (content) {
-      case FILTERS.day:
-        setFilter(FILTERS.day);
+      case VIEWS.day:
+        setview(VIEWS.day);
         break;
-      case FILTERS.week:
-        setFilter(FILTERS.week);
+      case VIEWS.week:
+        setview(VIEWS.week);
         break;
-      case FILTERS.month:
-        setFilter(FILTERS.month);
+      case VIEWS.month:
+        setview(VIEWS.month);
         break;
       default:
         break;
@@ -93,26 +88,31 @@ const Nutrients = (props) => {
       {!loading && !showMsg ? (
         <>
           <StHeader>
-            <StTitle>나의 영양 성분 섭취 변화</StTitle>
-            <UnderlineCategory
-              contents={Object.values(FILTERS)}
+            <StTitle>나의 영양성분 섭취 변화</StTitle>
+            <ButtonCategory
+              contents={Object.values(VIEWS)}
               onClick={clickHandler}
-              selectedCategory={filter}
+              selectedCategory={view}
             />
           </StHeader>
           <Chart
             type='line'
-            height='80%'
+            height='85%'
             series={nutrientsSeries}
             options={{
               chart: {
                 fontFamily: "Noto Sans KR",
                 fontSize: "12px",
-                fontWeight: "700",
+                fontWeight: 500,
                 toolbar: {
                   show: false,
+                  tools: {
+                    download: false,
+                    zoom: false,
+                    zoomin: false,
+                    zoomout: false,
+                  },
                 },
-                stacked: true,
               },
               xaxis: {
                 type: "datetime",
@@ -120,7 +120,12 @@ const Nutrients = (props) => {
                   enabled: false,
                 },
                 labels: {
-                  format: filter !== FILTERS.month ? `MM월 dd일` : `yy년 MM월`,
+                  format: view !== VIEWS.month ? `MM월 dd일` : `yy년 MM월`,
+                  style: {
+                    colors: new Array(7).fill("#939393"),
+                    fontSize: "12px",
+                    fontWeight: 500,
+                  },
                 },
                 axisTicks: {
                   show: false,
@@ -132,6 +137,11 @@ const Nutrients = (props) => {
               yaxis: {
                 labels: {
                   formatter: (value) => `${value}g`,
+                  style: {
+                    colors: new Array(7).fill("#939393"),
+                    fontSize: "12px",
+                    fontWeight: 500,
+                  },
                 },
               },
               dataLabels: {
@@ -142,13 +152,10 @@ const Nutrients = (props) => {
                 position: "bottom",
               },
               labels: labels,
-              colors: CHART_COLORS,
+              colors: NUTRIENT_COLORS,
               storke: {
                 curve: "smooth",
-                width: 3,
-              },
-              markers: {
-                size: 1,
+                width: 4,
               },
               tooltip: {
                 x: {
@@ -160,7 +167,7 @@ const Nutrients = (props) => {
               },
               grid: {
                 show: false,
-                // TODO for apex-chart x-axis trimming error
+                // for apex-chart x-axis trimming error
                 // https://github.com/apexcharts/apexcharts.js/issues/305
                 padding: {
                   left: 50,
