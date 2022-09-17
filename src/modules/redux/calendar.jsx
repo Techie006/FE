@@ -3,6 +3,7 @@ import { apis } from "../../shared/axios";
 
 const initialState = {
   modalOpen: false,
+  modalType: "",
   selectedDiet: {},
   isLoading: false,
   error: "",
@@ -48,9 +49,10 @@ export const __createDiet = createAsyncThunk(
     try {
       const resp = await apis.create_diet({ recipe_name, category, date });
       const {
-        content: { day, meal },
+        content: { meals },
       } = resp.data;
-      return thunkAPI.fulfillWithValue({ day, meal });
+      // TODO API 수정
+      return thunkAPI.fulfillWithValue({ day: date, meals });
     } catch (e) {
       return thunkAPI.rejectWithValue(e.code);
     }
@@ -93,10 +95,12 @@ const calendarSlice = createSlice({
   reducers: {
     openModal: (state, action) => {
       state.modalOpen = true;
+      state.modalType = action.payload.type;
       state.selectedDiet = action.payload.diet;
     },
     closeModal: (state, action) => {
       state.modalOpen = false;
+      state.modalType = "";
       state.selectedDiet = {};
     },
   },
@@ -132,10 +136,11 @@ const calendarSlice = createSlice({
     },
     [__createDiet.fulfilled]: (state, action) => {
       state.isLoading = false;
-      state.allDiets = state.allDiets.push(action.payload.meals);
+      state.allDiets.push(action.payload.meals);
+
       if (state.week.indexOf(action.payload.day)) {
-        const unorderedDiets = state.weeklyDiets.push(action.payload.meals);
-        const orderedDiets = unorderedDiets.sort(
+        state.weeklyDiets.push(action.payload.meals);
+        const orderedDiets = state.weeklyDiets.sort(
           (a, b) => new Date(a.day) - new Date(b.day)
         );
         state.weeklyDiets = orderedDiets;

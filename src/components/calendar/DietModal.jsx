@@ -2,18 +2,22 @@ import { useSelector, useDispatch } from "react-redux";
 import { useForm } from "react-hook-form";
 import { faX } from "@fortawesome/free-solid-svg-icons";
 
-import { closeModal, __updateDiet } from "../../modules/redux/calendar";
+import {
+  closeModal,
+  __createDiet,
+  __updateDiet,
+} from "../../modules/redux/calendar";
 import Modal from "../common/Modal";
 import {
   ModalTitle,
   ModalAccentText,
-  ModalNormalText,
   ModalSmallText,
 } from "../../elements/texts/modalTexts";
 import SmallIconButton from "../../elements/buttons/SmallIconButton";
 import ModalSmallButton from "../../elements/buttons/ModalSmallButton";
 
 const DietModal = (props) => {
+  const modalType = useSelector((state) => state.calendar.modalType);
   const diet = useSelector((state) => state.calendar.selectedDiet);
   const { id, recipe_id, recipe_name, time, day } = diet;
 
@@ -25,11 +29,14 @@ const DietModal = (props) => {
     formState: { errors },
   } = useForm({
     mode: "onChange",
-    defaultValues: {
-      recipe: recipe_name,
-      time: time,
-      date: day,
-    },
+    defaultValues:
+      modalType === "create"
+        ? {}
+        : {
+            recipe: recipe_name,
+            time: time,
+            date: day,
+          },
   });
 
   const clickHanlder = () => {
@@ -37,7 +44,14 @@ const DietModal = (props) => {
   };
 
   const submitHandler = ({ recipe, time, date }) => {
-    dispatch(__updateDiet({ id, recipe_name: recipe, category: time, date }));
+    if (modalType === "create") {
+      dispatch(__createDiet({ recipe_name: recipe, category: time, date }));
+    }
+
+    if (modalType === "update") {
+      dispatch(__updateDiet({ id, recipe_name: recipe, category: time, date }));
+    }
+
     clickHanlder();
   };
 

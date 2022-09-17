@@ -30,7 +30,7 @@ const Recipe = (props) => {
   };
 
   const showModal = () => {
-    dispatch(openModal({ diet: props }));
+    dispatch(openModal({ diet: props, type: "update" }));
   };
 
   const showDeleteConfirm = () =>
