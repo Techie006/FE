@@ -6,7 +6,7 @@ import WeekRecipes from "./WeekRecipes";
 import DietModal from "./DietModal";
 
 const StatisticsLayout = () => {
-  const modalOpen = useSelector((state) => state.calendar.modalOpen);
+  const modalOpen = useSelector((state) => state.calendar.modalType);
 
   return (
     <>

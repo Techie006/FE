@@ -1,4 +1,3 @@
-
 import React, { useEffect, useMemo } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Calendar, momentLocalizer } from "react-big-calendar";
@@ -93,12 +92,10 @@ const RecipeCalendar = () => {
 
   const clickEventHandler = (event) => {
     console.log(event);
-
   };
 
   return (
     <>
-
       {loading ? <Loader /> : null}
       {!loading ? (
         <Calendar
@@ -117,7 +114,6 @@ const RecipeCalendar = () => {
           onSelectEvent={clickEventHandler}
         />
       ) : null}
-
     </>
   );
 };
