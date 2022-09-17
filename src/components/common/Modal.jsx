@@ -18,7 +18,7 @@ const Background = styled.div`
   bottom: 0;
   right: 0;
   background-color: rgba(0, 0, 0, 0.5);
-  z-index: 0;
+  z-index: 50;
 `;
 
 const ModalContainer = styled.div`
@@ -34,4 +34,5 @@ const ModalContainer = styled.div`
   border-radius: 10px;
   text-align: center;
   overflow-y: auto;
+  z-index: 100;
 `;

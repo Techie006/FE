@@ -2,8 +2,8 @@ import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import { apis } from "../../shared/axios";
 
 const initialState = {
-  updateOpen: false,
-  recipeOpen: false,
+  modalOpen: false,
+  selectedDiet: {},
   isLoading: false,
   error: "",
   allDiets: [],
@@ -63,9 +63,9 @@ export const __updateDiet = createAsyncThunk(
     try {
       const resp = await apis.update_diet({ id, recipe_name, category, date });
       const {
-        content: { day, meal },
+        content: { day, meals },
       } = resp.data;
-      return thunkAPI.fulfillWithValue({ id, day, meal });
+      return thunkAPI.fulfillWithValue({ id, day, meals });
     } catch (e) {
       return thunkAPI.rejectWithValue(e.code);
     }
@@ -91,17 +91,13 @@ const calendarSlice = createSlice({
   name: "calendar",
   initialState,
   reducers: {
-    openRecipeModal: (state, action) => {
-      state.updateOpen = false;
-      state.recipeOpen = !state.recipeOpen;
-    },
-    openUpdateModal: (state, action) => {
-      state.recipeOpen = false;
-      state.updateOpen = !state.updateOpen;
+    openModal: (state, action) => {
+      state.modalOpen = true;
+      state.selectedDiet = action.payload.diet;
     },
     closeModal: (state, action) => {
-      state.updateOpen = false;
-      state.recipeOpen = false;
+      state.modalOpen = false;
+      state.selectedDiet = {};
     },
   },
   extraReducers: {
@@ -136,9 +132,9 @@ const calendarSlice = createSlice({
     },
     [__createDiet.fulfilled]: (state, action) => {
       state.isLoading = false;
-      state.allDiets = state.allDiets.push(action.meal);
+      state.allDiets = state.allDiets.push(action.payload.meals);
       if (state.week.indexOf(action.payload.day)) {
-        const unorderedDiets = state.weeklyDiets.push(action.payload.meal);
+        const unorderedDiets = state.weeklyDiets.push(action.payload.meals);
         const orderedDiets = unorderedDiets.sort(
           (a, b) => new Date(a.day) - new Date(b.day)
         );
@@ -157,14 +153,14 @@ const calendarSlice = createSlice({
       state.isLoading = false;
       state.allDiets = state.allDiets.map((diet) => {
         if (diet.id === action.payload.id) {
-          return action.payload.meal;
+          return action.payload.meals;
         }
         return diet;
       });
       if (state.week.indexOf(action.payload.day)) {
         state.weeklyDiets = state.weeklyDiets.map((diet) => {
           if (diet.id === action.payload.id) {
-            return action.payload.meal;
+            return action.payload.meals;
           }
           return diet;
         });
@@ -196,6 +192,5 @@ const calendarSlice = createSlice({
   },
 });
 
-export const { openRecipeModal, openUpdateModal, closeModal } =
-  calendarSlice.actions;
+export const { openModal, closeModal } = calendarSlice.actions;
 export default calendarSlice.reducer;
