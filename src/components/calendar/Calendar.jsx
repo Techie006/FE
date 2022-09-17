@@ -68,18 +68,21 @@ const RecipeCalendar = () => {
   const loading = useSelector((state) => state.calendar.isLoading);
   const allDiets = useSelector((state) => state.calendar.allDiets);
 
-  const diets = allDiets.map((recipe) => {
-    const startTimeFormat = recipe.day.replace(/-/g, "/");
-    return {
-      id: recipe.id,
-      recipe_id: recipe.recipe_id,
-      title: recipe.recipe_name,
-      allDay: false,
-      start: new Date(startTimeFormat),
-      end: new Date(startTimeFormat),
-      category: recipe.time,
-    };
-  });
+  const diets =
+    allDiets !== undefined
+      ? allDiets.map((recipe) => {
+          const startTimeFormat = recipe.day.replace(/-/g, "/");
+          return {
+            id: recipe.id,
+            recipe_id: recipe.recipe_id,
+            title: recipe.recipe_name,
+            allDay: false,
+            start: new Date(startTimeFormat),
+            end: new Date(startTimeFormat),
+            category: recipe.time,
+          };
+        })
+      : [];
 
   useEffect(() => {
     const date = new Date().toISOString().slice(0, 7);

@@ -54,9 +54,10 @@ const WeekRecipes = (props) => {
     dispatch(__getWeeklyDiets({ date }));
   }, [dispatch]);
 
-  const weeklyRecipes = recipes.map((recipe) => (
-    <Recipe key={recipe.id} {...recipe} />
-  ));
+  const weeklyRecipes =
+    recipes !== undefined
+      ? recipes.map((recipe) => <Recipe key={recipe.id} {...recipe} />)
+      : null;
 
   return (
     <>
