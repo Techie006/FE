@@ -51,8 +51,8 @@ export const apis = {
   get_all_diets: ({ date }) => api.get(`/api/calendar/month?day=${date}`),
   get_weekly_diets: ({ date }) => api.get(`/api/calendar/week?day=${date}`),
   create_diet: ({ recipe_name, category, date }) =>
-    api.post(`/api/calendar`, { recipe_name, category, date }),
+    api.post(`/api/calendar`, { recipe_name, category, day: date }),
   update_diet: ({ id, recipe_name, category, date }) =>
-    api.put(`/api/calendar/${id}`, { recipe_name, category, date }),
+    api.put(`/api/calendar/${id}`, { recipe_name, category, day: date }),
   delete_diet: ({ id }) => api.delete(`/api/calendar/${id}`),
 };

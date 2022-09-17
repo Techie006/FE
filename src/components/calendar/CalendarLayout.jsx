@@ -3,21 +3,23 @@ import styled from "styled-components";
 
 import Calendar from "./Calendar";
 import WeekRecipes from "./WeekRecipes";
+import DietModal from "./DietModal";
 
 const StatisticsLayout = () => {
-  const updateOpen = useSelector((state) => state.calendar.updateOpen);
-  const recipeOpen = useSelector((state) => state.calendar.recipeOpen);
+  const modalOpen = useSelector((state) => state.calendar.modalOpen);
 
   return (
-    <StWrapper>
-      {/* {updateOpen? } */}
-      <StSection isCalendar={true}>
-        <Calendar />
-      </StSection>
-      <StSection>
-        <WeekRecipes />
-      </StSection>
-    </StWrapper>
+    <>
+      <StWrapper>
+        <StSection isCalendar={true}>
+          <Calendar />
+        </StSection>
+        <StSection>
+          <WeekRecipes />
+        </StSection>
+      </StWrapper>
+      {modalOpen ? <DietModal /> : null}
+    </>
   );
 };
 

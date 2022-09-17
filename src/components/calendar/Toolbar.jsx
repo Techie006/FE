@@ -1,3 +1,5 @@
+import { useDispatch } from "react-redux";
+import { openModal } from "../../modules/redux/calendar";
 import {
   faArrowCircleLeft,
   faArrowCircleRight,
@@ -8,10 +10,16 @@ import SmallIconButton from "../../elements/buttons/SmallIconButton";
 import SmallButton from "../../elements/buttons/SmallButton";
 
 const Toolbar = (props) => {
+  const dispatch = useDispatch();
+
   const { date } = props;
 
   const navigate = (action) => {
     props.onNavigate(action);
+  };
+
+  const clickHandler = () => {
+    dispatch(openModal({ diet: {}, type: "create" }));
   };
 
   return (
@@ -33,12 +41,7 @@ const Toolbar = (props) => {
           content='이번달'
           onClick={navigate.bind(null, "TODAY")}
         />
-        {/* TODO change to  */}
-        <SmallButton
-          type='button'
-          content='기록하기'
-          onClick={navigate.bind(null, "TODAY")}
-        />
+        <SmallButton type='button' content='기록하기' onClick={clickHandler} />
       </StButtons>
     </StWrapper>
   );

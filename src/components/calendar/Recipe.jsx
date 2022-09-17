@@ -1,5 +1,5 @@
 import { useDispatch } from "react-redux";
-import { openUpdateModal, __deleteDiet } from "../../modules/redux/calendar";
+import { openModal, __deleteDiet } from "../../modules/redux/calendar";
 import { faEllipsisV } from "@fortawesome/free-solid-svg-icons";
 import Swal from "sweetalert2";
 import Menu, { Item } from "rc-menu";
@@ -10,25 +10,27 @@ import styled from "styled-components";
 import SmallIconButton from "../../elements/buttons/SmallIconButton";
 import BookmarkBtn from "../common/BookmarkBtn";
 
-const Recipe = ({
-  id,
-  recipe_id,
-  recipe_name,
-  time,
-  liked,
-  ingredients,
-  category,
-  calorie,
-  method,
-}) => {
+const Recipe = (props) => {
+  const {
+    id,
+    recipe_id,
+    recipe_name,
+    time,
+    liked,
+    ingredients,
+    category,
+    calorie,
+    method,
+  } = props;
+
   const dispatch = useDispatch();
 
   const delete_diet = () => {
     dispatch(__deleteDiet({ id }));
   };
 
-  const show_update_modal = () => {
-    dispatch(openUpdateModal());
+  const showModal = () => {
+    dispatch(openModal({ diet: props, type: "update" }));
   };
 
   const showDeleteConfirm = () =>
@@ -55,7 +57,7 @@ const Recipe = ({
 
   const onSelect = ({ key }) => {
     if (key === "update") {
-      show_update_modal();
+      showModal();
       return;
     }
     if (key === "delete") {
