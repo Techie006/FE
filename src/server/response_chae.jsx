@@ -702,7 +702,7 @@ const RESP_CHAE = {
             },
             {
               id: 6,
-              start: "2022-09-06",
+              start: "2022-09-17",
               recipe_name: "된장국",
               time: "아침",
               liked: true,

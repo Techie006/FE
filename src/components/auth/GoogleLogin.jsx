@@ -41,6 +41,7 @@ const GoogleLogin = () => {
     useEffect(() => {
         googleLogin();
     }, []);
+
     return (
         <div>
         </div>
@@ -49,8 +50,6 @@ const GoogleLogin = () => {
         // http://localhost:8080/user/google/callback
 
         // &response_type=code&scope=https://www.googleapis.com/auth/userinfo.email https://www.googleapis.com/auth/userinfo.profile
-            
-        
     );
 };
 

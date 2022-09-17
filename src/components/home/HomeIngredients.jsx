@@ -1,6 +1,6 @@
 import React, { useState ,useEffect } from 'react';
 import { useDispatch } from "react-redux";
-import { storage } from "../../modules/redux/storage";
+
 import Ingredients from './Ingredients';
 import Potal from '../modals/Potal';
 import styled from "styled-components";
@@ -44,15 +44,9 @@ const HomeIngredients = () => {
     //     room_temp:"room_temp",
     //     total : ""
     // }
-    
-    // const payload = {...dispatch(storage(storagePage)).payload}
-    // console.log("pay", payload)
-    
-    
 
     const auth = localStorage.getItem("Authorization")
     const refresh = localStorage.getItem("Refresh_Token");
-
 
     const getIngredients = async () => {
 
@@ -86,9 +80,6 @@ const HomeIngredients = () => {
     useEffect(() => {
         getIngredients();
     }, []);
-    // useEffect(() => {
-    //     onFreezeClick()
-    // }, [setCurr("Freeze")]);
 
     return (
         <StyledInredientsWrapper>

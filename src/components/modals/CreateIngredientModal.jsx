@@ -71,7 +71,7 @@ const CreateIngredientModal = ({ onClose }) => {
             },{
                 headers :{
                     "Authorization" : auth,
-                }   
+                } 
             })
         }
         catch(error){
