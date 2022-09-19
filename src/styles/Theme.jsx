@@ -83,6 +83,9 @@ export const designTheme = {
       lightGray3: "#DADADA",
       lightGray4: "#ECECEC",
     },
+    chart: {
+      status: ["#FFDD7C", "#FF5C01", "#74BDB2"],
+    },
   },
 
   page: {

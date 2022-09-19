@@ -8,17 +8,17 @@ const Status = (props) => {
   return (
     <>
       <StTitle>오늘 우리집 식재료 상태는?</StTitle>
-      <StDivider>
+      <StLayout>
         <Ingredients />
         <Categories />
-      </StDivider>
+      </StLayout>
     </>
   );
 };
 
 export default Status;
 
-const StDivider = styled.div`
+const StLayout = styled.div`
   display: grid;
   justify-items: center;
   justify-content: space-between;

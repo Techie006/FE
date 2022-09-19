@@ -1,9 +1,9 @@
 import styled from "styled-components";
 
 import Status from "./Status";
-import Daily from "./Daily";
-import Calories from "./Calories";
-import Nutrients from "./Nutrients";
+// import Daily from "./Daily";
+// import Calories from "./Calories";
+// import Nutrients from "./Nutrients";
 
 const StatisticsFrame = () => {
   return (
@@ -11,7 +11,7 @@ const StatisticsFrame = () => {
       <StSection isTwo={true}>
         <Status />
       </StSection>
-      <StSection>
+      {/* <StSection>
         <Daily />
       </StSection>
       <StSection>
@@ -19,7 +19,7 @@ const StatisticsFrame = () => {
       </StSection>
       <StSection>
         <Nutrients />
-      </StSection>
+      </StSection> */}
     </StWrapper>
   );
 };

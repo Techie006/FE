@@ -2,7 +2,7 @@ import { useState, useCallback, useEffect } from "react";
 import ReactApexChart from "react-apexcharts";
 import styled from "styled-components";
 
-// import RESP_CHAE from "../../server/response_chae";
+// import RESP from "../../server/response";
 import { apis } from "../../shared/axios";
 import "./Chart.css";
 import Loader from "../common/Loader";
@@ -14,8 +14,8 @@ const Ingredients = (props) => {
   const [showMsg, setShowMsg] = useState(false);
 
   const get_data = useCallback(async () => {
-    // const resp = RESP_CHAE.STATISTICS.GET_STATE_SUCCESS;
-    // const resp = RESP_CHAE.STATISTICS.GET_STATE_FAIL;
+    // const resp = RESP.STATISTICS.GET_STATE_SUCCESS;
+    // const resp = RESP.STATISTICS.GET_STATE_FAIL;
     const resp = await apis.get_state();
 
     const { result, content } = resp.data;
@@ -34,8 +34,9 @@ const Ingredients = (props) => {
     get_data();
   }, [get_data]);
 
+  // TODO API 만료 -> 임박 -> 정상 순서로 받기
   const LABELS = ["임박", "만료", "정상"];
-  const CHART_COLORS = ["#FFDD7C", "#FF5C01", "#74BDB2"];
+  const CHART_COLORS = props.theme.colors.chart.status;
 
   const counts = data?.count;
 
@@ -51,7 +52,7 @@ const Ingredients = (props) => {
       ) : null}
 
       {!loading && !showMsg ? (
-        <StWrapper>
+        <StLayout>
           <ReactApexChart
             type='donut'
             series={counts || [1, 1, 1]}
@@ -112,7 +113,7 @@ const Ingredients = (props) => {
               },
             }}
           />
-        </StWrapper>
+        </StLayout>
       ) : null}
     </>
   );
@@ -120,6 +121,6 @@ const Ingredients = (props) => {
 
 export default Ingredients;
 
-const StWrapper = styled.div`
+const StLayout = styled.div`
   height: 300px;
 `;

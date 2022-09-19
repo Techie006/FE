@@ -1,8 +1,8 @@
 import { useNavigate } from "react-router-dom";
 
-import Button from "../../elements/atoms/Button";
+import Button from "../atoms/Button";
 
-const HelpMsg = ({ msg, content, path }) => {
+const HelpButton = ({ msg, content, path }) => {
   const navigate = useNavigate();
 
   const clickHandler = () => {
@@ -17,4 +17,4 @@ const HelpMsg = ({ msg, content, path }) => {
   );
 };
 
-export default HelpMsg;
+export default HelpButton;
