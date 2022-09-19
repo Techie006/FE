@@ -238,7 +238,6 @@ export const designTheme = {
 
   textbox: {
     layout: {
-      background: colors.background.white,
       borderRadius: "6px",
       borderRoundRadius: "30px",
       boxShadow: "0px 3px 13px 1px rgba(0, 0, 0, 0.05)",
@@ -247,6 +246,9 @@ export const designTheme = {
       fontWeight: "700",
       fontSize: "16px",
       lineHeight: "23px",
+    },
+    colors: {
+      background: colors.background.white,
     },
   },
 
