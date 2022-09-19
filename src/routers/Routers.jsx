@@ -1,8 +1,8 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 
 import Auth from "../pages/Auth";
-import KakaoLogin from "../components/auth/KakaoLogin";
-import GoogleLogin from "../components/auth/GoogleLogin";
+// import KakaoLogin from "../components/auth/KakaoLogin";
+// import GoogleLogin from "../components/auth/GoogleLogin";
 import Home from "../pages/Home";
 import Statistics from "../pages/Statistics";
 import Calendar from "../pages/Calendar";
@@ -21,10 +21,9 @@ const Routers = (props) => {
     <BrowserRouter>
       <Routes>
         <Route path='/auth' element={<Auth />} />
-        <Route path='/kakaoLogin' element={<KakaoLogin />} />
-        <Route path='/googleLogin' element={<GoogleLogin />} />
+        {/* <Route path='/kakaoLogin' element={<KakaoLogin />} />
+        <Route path='/googleLogin' element={<GoogleLogin />} /> */}
         <Route path='/' element={<Home />} />
-        <Route path='/home' element={<Home />} />
         <Route path='/statistics' element={<Statistics />} />
         <Route path='/calendar' element={<Calendar />} />
         <Route path='/classes' element={<Classes />} />

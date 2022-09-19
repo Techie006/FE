@@ -1,14 +1,17 @@
-// import Layout from "../componenets/common/Layout";
-// import Header from "../componenets/common/Header";
-// import NotFoundLayout from "../componenets/post/NotFoundLayout";
+import Layout from "../components/common/Layout";
+import Header from "../components/common/Header";
+// import LiveChatLayout from "../components/NotFound/LiveChatLayout";
+import Helper from "../components/common/Helper";
+import Footer from "../components/common/Footer";
 
 const NotFound = (props) => {
   return (
-    <>NotFound</>
-    // <Layout>
-    //   <Header />
-    //   <NotFoundLayout />
-    // </Layout>
+    <Layout>
+      <Header />
+      {/* <LiveChatLayout /> */}
+      <Helper />
+      <Footer />
+    </Layout>
   );
 };
 
