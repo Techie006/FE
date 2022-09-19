@@ -1,15 +1,17 @@
 import { Link as DOMLink } from "react-router-dom";
 import styled from "styled-components";
 
-const Link = ({ content, link, selected = false }) => {
+const Link = ({ content, link, selected = false, ...props }) => {
   return (
-    <>
+    <div {...props}>
       {!selected ? (
-        <StLink to={link}>{content}</StLink>
+        <StLink to={link}>
+          <StContent>{content}</StContent>
+        </StLink>
       ) : (
         <StText>{content}</StText>
       )}
-    </>
+    </div>
   );
 };
 
@@ -24,13 +26,16 @@ const StLink = styled(DOMLink)`
   }
 `;
 
-const StText = styled.div`
+const StContent = styled.div`
   font-weight: 700;
   font-size: "14px";
   line-height: "20px";
   letter-spacing: "-0.5px";
   color: ${(props) => props.theme.colors.main.orange};
   background-color: inherit;
+`;
+
+const StText = styled(StContent)`
   &:hover {
     cursor: default;
   }

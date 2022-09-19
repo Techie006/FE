@@ -1,9 +1,11 @@
 import styled from "styled-components";
 
-const Textbox = ({ content }) => {
+const Textbox = ({ content, ...props }) => {
   return (
     <StBox>
-      <StContent>{content}</StContent>
+      <StLayout {...props}>
+        <StContent>{content}</StContent>
+      </StLayout>
     </StBox>
   );
 };
@@ -18,16 +20,26 @@ const StBox = styled.div`
   gap: 10px;
 `;
 
-const StContent = styled.div`
+const StLayout = styled.div`
   display: inline;
   padding: 6px 16px;
 
-  background-color: ${(props) => props.theme.txtBoxBGColor};
-  border-radius: ${(props) => props.theme.txtBoxBorderRadius};
+  // layout
+  border-radius: ${(props) => props.theme.textbox.borderRadius};
+  box-shadow: ${(props) => props.theme.textbox.boxShadow};
 
-  font-weight: ${(props) => props.theme.txtBoxFontWeight};
-  font-size: ${(props) => props.theme.txtBoxFontSize};
-  line-height: ${(props) => props.theme.txtBoxLineHeight};
+  // colors
+  background: ${(props) => props.theme.textbox.colors.background};
+`;
+
+const StContent = styled.div`
+  // content
+  font-weight: ${(props) => props.theme.textbox.fontWeight};
+  font-size: ${(props) => props.theme.textbox.fontSize};
+  line-height: ${(props) => props.theme.textbox.lineHeight};
+
+  // colors
+  background: inherit;
 
   &:hover {
     cursor: default;
