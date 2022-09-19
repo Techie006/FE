@@ -54,6 +54,6 @@ const StWrapper = styled.div`
 const StSection = styled.div`
   padding: 18px 18px;
   background: ${(props) => props.theme.section.layout.background};
-  box-shadow: ${(props) => props.theme.section.layout.boxShadow};
   border-radius: ${(props) => props.theme.section.layout.borderRadius};
+  box-shadow: ${(props) => props.theme.section.layout.boxShadow};
 `;
