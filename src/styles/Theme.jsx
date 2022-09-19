@@ -13,6 +13,7 @@ const colors = {
     orange: "#FF8E42",
     yellow: "#FFB356",
     gray: "#FAFAFA",
+    white: "#FFFFFF",
   },
   special: {
     yellow: "#FFDD7C",
@@ -23,14 +24,27 @@ const colors = {
     blue: "#79A6DC",
     purple: "#482647",
   },
+  font: {
+    mainBlack: "#000000",
+    mainWhite: "#FFFFFF",
+    subWhite: "#FAFAFA",
+    // 1(dark) ---> 4(light)
+    gray1: "#282828",
+    gray2: "#4B4B4B",
+    gray3: "#656565",
+    gray4: "#939393",
+    // 1(dark) ---> 4(light)
+    lightGray1: "#A5A5A5",
+    lightGray2: "#C0C0C0",
+    lightGray3: "#DADADA",
+    lightGray4: "#ECECEC",
+  },
 };
 
 export const designTheme = {
   page: {
     layout: {
       background: colors.background.gray,
-      boxShadow: "0px 3px 13px 1px rgba(0, 0, 0, 0.05)",
-      borderRadius: "10px",
     },
     content: {
       fontFamily: `'Noto Sans KR', sans-serif`,
@@ -42,7 +56,7 @@ export const designTheme = {
 
   section: {
     layout: {
-      background: "#FFFFFF",
+      background: colors.background.white,
       boxShadow: "0px 3px 13px 1px rgba(0, 0, 0, 0.05)",
       borderRadius: "10px",
     },
@@ -53,7 +67,7 @@ export const designTheme = {
     },
     // TODO 안쓰는지 확인해보고 안쓰면 지우기
     box: {
-      background: "#FFFFFF",
+      background: colors.background.white,
       boxShadow: "0px 2px 11px rgba(0, 0, 0, 0.08)",
       borderRadius: "8px",
       fontWeight: "700",
@@ -64,7 +78,7 @@ export const designTheme = {
 
   modal: {
     layout: {
-      background: "#FFFFFF",
+      background: colors.font.mainWhite,
       boxShadow: "0px 3px 13px 1px rgba(0, 0, 0, 0.05)",
       borderRadius: "15px",
     },
@@ -72,7 +86,7 @@ export const designTheme = {
 
   button: {
     layout: {
-      background: "#FFFFFF",
+      background: colors.background.white,
       boxShadow: "0px 3px 13px 1px rgba(0, 0, 0, 0.05)",
       borderRadius: "6px",
       borderRoundRadius: "30px",
@@ -102,7 +116,7 @@ export const designTheme = {
       colors: {
         basic: {
           background: colors.main.orange,
-          text: "#FAFAFA",
+          text: colors.font.subWhite,
         },
         special: {
           background: colors.main.mint,
@@ -130,35 +144,18 @@ export const designTheme = {
     recipes: {
       colors: {
         basic: {
-          background: "#FFFFFF",
-          text: "#A5A5A5",
+          background: colors.background.white,
+          text: colors.font.lightGray1,
         },
         selected: {
           background: colors.special.yellow,
-          text: "#282828",
+          text: colors.font.gray1,
         },
       },
       content: {
         fontWeight: "700",
         fontSize: "16px",
         lineHeight: "23px",
-      },
-    },
-    modal: {
-      colors: {
-        basic: {
-          background: "#EFEFEF",
-          text: "#A5A5A5",
-        },
-        selected: {
-          background: colors.special.yellow,
-          text: "#000000",
-        },
-      },
-      content: {
-        fontWeight: "700",
-        fontSize: "14px",
-        lineHeight: "16px",
       },
     },
     calendar: {
@@ -168,7 +165,7 @@ export const designTheme = {
       },
       colors: {
         basic: {
-          background: "#FAFAFA",
+          background: colors.background.gray,
           text: "#5B5B5B",
         },
       },
@@ -178,11 +175,28 @@ export const designTheme = {
         lineHeight: "14px",
       },
     },
+    modal: {
+      colors: {
+        basic: {
+          background: "#EFEFEF",
+          text: colors.font.lightGray1,
+        },
+        selected: {
+          background: colors.special.yellow,
+          text: colors.font.mainBlack,
+        },
+      },
+      content: {
+        fontWeight: "700",
+        fontSize: "14px",
+        lineHeight: "16px",
+      },
+    },
   },
 
   textbox: {
     layout: {
-      background: "#FFFFFF",
+      background: colors.background.white,
       boxShadow: "0px 3px 13px 1px rgba(0, 0, 0, 0.05)",
       borderRadius: "6px",
       borderRoundRadius: "30px",
@@ -196,7 +210,7 @@ export const designTheme = {
 
   iconbox: {
     layout: {
-      background: "#FFFFFF",
+      background: colors.background.white,
       boxShadow: "0px 3px 13px 1px rgba(0, 0, 0, 0.05)",
       borderRadius: "6px",
       borderRoundRadius: "30px",
@@ -207,6 +221,7 @@ export const designTheme = {
       lineHeight: "23px",
     },
     size: {
+      // s1(big) ---> s5(small)
       s1: "24px",
       s2: "22px",
       s3: "20px",
