@@ -31,8 +31,6 @@ const Daily = (props) => {
     // const resp = RESP.STATISTICS.GET_DAILY_FAIL;
     // const resp = await apis.get_daily();
 
-    console.log(resp.data);
-
     const { content } = resp.data;
 
     // 식재료가 하나도 없는 상태 처리
