@@ -2,8 +2,8 @@ import styled from "styled-components";
 
 import Status from "./Status";
 import Daily from "./Daily";
-// import Calories from "./Calories";
-// import Nutrients from "./Nutrients";
+import Calories from "./Calories";
+import Nutrients from "./Nutrients";
 
 const StatisticsFrame = () => {
   return (
@@ -14,12 +14,12 @@ const StatisticsFrame = () => {
       <StSection>
         <Daily />
       </StSection>
-      {/* <StSection>
+      <StSection>
         <Calories />
       </StSection>
       <StSection>
         <Nutrients />
-      </StSection> */}
+      </StSection>
     </StWrapper>
   );
 };

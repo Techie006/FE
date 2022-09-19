@@ -5,10 +5,10 @@ import styled from "styled-components";
 // import RESP_CHAE from "../../server/response_chae";
 import { apis } from "../../shared/axios";
 import "./Chart.css";
-import Loader from "../common/Loader";
-import HelpMsg from "../common/HelpMsg";
-import { StTitle } from "../../elements/texts/pageTexts";
-import ButtonCategory from "../../elements/categories/ButtonCategory";
+import LoadingSpinner from "../../elements/atoms/LoadingSpinner";
+import HelperButton from "../../elements/molecules/HelperButton";
+import { H2 } from "../../styles/Text";
+import Category from "../../elements/molecules/Category";
 
 const Calories = (props) => {
   const CALORIE = "칼로리";
@@ -76,22 +76,24 @@ const Calories = (props) => {
 
   return (
     <>
-      {loading ? <Loader /> : null}
+      {loading ? <LoadingSpinner /> : null}
       {!loading && showMsg ? (
-        <HelpMsg
+        <HelperButton
           msg='아직 입력하신 식재료가 없네요. 홈으로 가서 새로운 식재료를 추가해보세요!'
-          goto='홈으로 '
+          content='홈으로 '
           path={`/home`}
+          page='statistics'
         />
       ) : null}
       {!loading && !showMsg ? (
         <>
           <StHeader>
-            <StTitle>나의 열량 섭취 변화</StTitle>
-            <ButtonCategory
+            <H2>나의 열량 섭취 변화</H2>
+            <Category
               contents={Object.values(VIEWS)}
               onClick={clickHandler}
               selectedCategory={view}
+              page='statistics'
             />
           </StHeader>
           <Chart
