@@ -1,11 +1,18 @@
-// import Layout from "../componenets/common/Layout";
-// import Header from "../componenets/common/Header";
-// import ElementsLayout from "../componenets/post/ElementsLayout";
-
-import CheckElements from "../elements/CheckElements";
+import Layout from "../components/common/Layout";
+import Header from "../components/common/Header";
+// import ClassLayout from "../components/class/ClassLayout";
+import Helper from "../components/common/Helper";
+import Footer from "../components/common/Footer";
 
 const Elements = (props) => {
-  return <CheckElements />;
+  return (
+    <Layout>
+      <Header />
+      {/* <ClassLayout /> */}
+      <Helper />
+      <Footer />
+    </Layout>
+  );
 };
 
 export default Elements;

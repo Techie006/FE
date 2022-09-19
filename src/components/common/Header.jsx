@@ -2,7 +2,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faAppleWhole } from "@fortawesome/free-solid-svg-icons";
 import styled from "styled-components";
 
-import MediumLink from "../../elements/links/MediumLink";
+import Link from "../../elements/atoms/Link";
 
 const Header = () => {
   const NAVIGATORS = [
@@ -13,17 +13,10 @@ const Header = () => {
     "레시피",
     "마이페이지",
   ];
-  const PATHS = [
-    "/home",
-    "/statistics",
-    "/calendar",
-    "/class",
-    "/recipes",
-    "/my",
-  ];
+  const PATHS = ["/", "/statistics", "/calendar", "/class", "/recipes", "/my"];
 
   const navigator = NAVIGATORS.map((nav, idx) => (
-    <MediumLink key={nav} content={nav} link={PATHS[idx]} />
+    <Link key={nav} content={nav} link={PATHS[idx]} />
   ));
 
   return (
