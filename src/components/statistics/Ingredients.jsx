@@ -2,25 +2,28 @@ import { useState, useCallback, useEffect } from "react";
 import ReactApexChart from "react-apexcharts";
 import styled from "styled-components";
 
-// import RESP from "../../server/response";
-import { apis } from "../../shared/axios";
+import RESP from "../../server/response";
+// import { apis } from "../../shared/axios";
+import LoadingSpinner from "../../elements/atoms/LoadingSpinner";
+import HelperButton from "../../elements/molecules/HelperButton";
+import { ChartColors } from "../../styles/Colors";
 import "./Chart.css";
-import Loader from "../common/Loader";
-import HelpMsg from "../common/HelpMsg";
 
 const Ingredients = (props) => {
   const [loading, setLoading] = useState(true);
-  const [data, setData] = useState({});
   const [showMsg, setShowMsg] = useState(false);
+  const [data, setData] = useState({});
 
-  const get_data = useCallback(async () => {
-    // const resp = RESP.STATISTICS.GET_STATE_SUCCESS;
+  const getData = useCallback(async () => {
+    const resp = RESP.STATISTICS.GET_STATE_SUCCESS;
     // const resp = RESP.STATISTICS.GET_STATE_FAIL;
-    const resp = await apis.get_state();
+    // const resp = await apis.get_state();
 
-    const { result, content } = resp.data;
+    const { content } = resp.data;
 
-    if (!result) {
+    // 식재료가 하나도 없는 상태 처리
+    // 배열 비교
+    if (JSON.stringify(content.count) === JSON.stringify([0, 0, 0])) {
       setLoading(false);
       setShowMsg(true);
       return;
@@ -31,23 +34,24 @@ const Ingredients = (props) => {
   }, []);
 
   useEffect(() => {
-    get_data();
-  }, [get_data]);
+    getData();
+  }, [getData]);
 
   // TODO API 만료 -> 임박 -> 정상 순서로 받기
   const LABELS = ["임박", "만료", "정상"];
-  const CHART_COLORS = props.theme.colors.chart.status;
-
-  const counts = data?.count;
+  const CHART_COLORS = ChartColors.ingredients;
+  // TODO isLogin 붙이기
+  const counts = data === undefined ? data.count : [1, 1, 1];
 
   return (
     <>
-      {loading ? <Loader /> : null}
+      {loading ? <LoadingSpinner /> : null}
       {!loading && showMsg ? (
-        <HelpMsg
-          msg='아직 입력하신 식재료가 없네요. 홈으로 가서 새로운 식재료를 추가해보세요!'
-          goto='홈으로 가기'
-          path={`/home`}
+        <HelperButton
+          msg='아직 입력한 식재료가 없네요. 식재료를 추가하고 나만의 통계를 확인해보세요.'
+          content='재료 추가하기'
+          page='statistics'
+          path={`/`}
         />
       ) : null}
 
@@ -55,7 +59,7 @@ const Ingredients = (props) => {
         <StLayout>
           <ReactApexChart
             type='donut'
-            series={counts || [1, 1, 1]}
+            series={counts}
             height='85%'
             options={{
               chart: {
@@ -66,10 +70,10 @@ const Ingredients = (props) => {
                   show: false,
                 },
               },
-              // title: {
-              //   text: "유통기한 현황",
-              //   align: "center",
-              // },
+              title: {
+                text: "유통기한 현황",
+                align: "center",
+              },
               dataLabels: {
                 enabled: false,
               },
@@ -93,21 +97,6 @@ const Ingredients = (props) => {
                   expandOnClick: false,
                   donut: {
                     size: "50%",
-                    labels: {
-                      show: true,
-                      name: {
-                        offsetY: 5,
-                      },
-                      total: {
-                        showAlways: true,
-                        show: true,
-                        label: "기한별",
-                        fontSize: "14px",
-                      },
-                      value: {
-                        show: false,
-                      },
-                    },
                   },
                 },
               },

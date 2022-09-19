@@ -2,7 +2,7 @@ import { useNavigate } from "react-router-dom";
 
 import Button from "../atoms/Button";
 
-const HelpButton = ({ msg, content, path }) => {
+const HelpButton = ({ msg, content, path, page }) => {
   const navigate = useNavigate();
 
   const clickHandler = () => {
@@ -12,7 +12,12 @@ const HelpButton = ({ msg, content, path }) => {
   return (
     <>
       <div>{msg}</div>
-      <Button type='button' content={content} onClick={clickHandler} />
+      <Button
+        type='button'
+        content={content}
+        onClick={clickHandler}
+        page={page}
+      />
     </>
   );
 };

@@ -2,10 +2,11 @@ import { useState, useCallback, useEffect } from "react";
 import ReactApexChart from "react-apexcharts";
 import styled from "styled-components";
 
-// import RESP_CHAE from "../../server/response_chae";
-import { apis } from "../../shared/axios";
-import Loader from "../common/Loader";
-import HelpMsg from "../common/HelpMsg";
+import RESP from "../../server/response";
+// import { apis } from "../../shared/axios";
+import LoadingSpinner from "../../elements/atoms/LoadingSpinner";
+import HelperButton from "../../elements/molecules/HelperButton";
+import { ChartColors } from "../../styles/Colors";
 
 const Categories = (props) => {
   const [loading, setLoading] = useState(true);
@@ -13,13 +14,15 @@ const Categories = (props) => {
   const [showMsg, setShowMsg] = useState(false);
 
   const get_data = useCallback(async () => {
-    // const resp = RESP_CHAE.STATISTICS.GET_CATEGORY_SUCCESS;
-    // const resp = RESP_CHAE.STATISTICS.GET_CATEGORY_FAIL;
-    const resp = await apis.get_category();
+    const resp = RESP.STATISTICS.GET_CATEGORY_SUCCESS;
+    // const resp = RESP.STATISTICS.GET_CATEGORY_FAIL;
+    // const resp = await apis.get_category();
 
-    const { result, content } = resp.data;
+    const { content } = resp.data;
 
-    if (!result) {
+    // 식품군 모두 하나도 없는 상태 처리
+    // 배열 비교
+    if (JSON.stringify(content.count) === JSON.stringify([0, 0, 0, 0, 0])) {
       setLoading(false);
       setShowMsg(true);
       return;
@@ -35,18 +38,19 @@ const Categories = (props) => {
   }, [get_data]);
 
   const LABELS = ["농산물", "축산물", "해산물", "기타", "음료류"];
-  const CHART_COLORS = ["#FFDD7C", "#FF5C01", "#74BDB2", "#FFDD7C"];
-
-  const counts = data.count;
+  const CHART_COLORS = ChartColors.categories;
+  // TODO isLogin 붙이기
+  const counts = data === undefined ? data.count : [1, 1, 1, 1, 1];
 
   return (
     <>
-      {loading ? <Loader /> : null}
+      {loading ? <LoadingSpinner /> : null}
       {!loading && showMsg ? (
-        <HelpMsg
-          msg='아직 입력하신 식재료가 없네요. 홈으로 가서 새로운 식재료를 추가해보세요!'
-          goto='홈으로 '
-          path={`/home`}
+        <HelperButton
+          msg='아직 입력한 식재료가 없네요. 식재료를 추가하고 나만의 통계를 확인해보세요.'
+          content='재료 추가하기'
+          page='statistics'
+          path={`/`}
         />
       ) : null}
       {!loading && !showMsg ? (
@@ -64,10 +68,10 @@ const Categories = (props) => {
                   show: false,
                 },
               },
-              // title: {
-              //   text: "유통기한 현황",
-              //   align: "center",
-              // },
+              title: {
+                text: "제품군 현황",
+                align: "center",
+              },
               dataLabels: {
                 enabled: false,
               },
@@ -91,21 +95,6 @@ const Categories = (props) => {
                   expandOnClick: false,
                   donut: {
                     size: "50%",
-                    labels: {
-                      show: true,
-                      name: {
-                        offsetY: 5,
-                      },
-                      total: {
-                        showAlways: true,
-                        show: true,
-                        label: "식품별",
-                        fontSize: "14px",
-                      },
-                      value: {
-                        show: false,
-                      },
-                    },
                   },
                 },
               },

@@ -399,9 +399,7 @@ const RESP = {
         result: true,
         content: {
           // in-hurry, warning, fine
-          // percentage: [0.3333, 0.3333, 0.3333],
           count: [3, 3, 3],
-          status_messgae: "",
         },
         status: {
           code: 200,
@@ -411,42 +409,24 @@ const RESP = {
     },
     GET_STATE_FAIL: {
       data: {
-        result: false,
+        result: true,
+        content: {
+          // in-hurry, warning, fine
+          count: [0, 0, 0],
+        },
         status: {
-          code: 400,
-          message: "해당 사용자가 입력한 식재료가 없습니다.",
+          code: 200,
+          message: "식재료 상태 제공에 성공하였습니다.",
         },
       },
     },
+
     // 2. get ingredients category (/api/statistics/category)
     GET_CATEGORY_SUCCESS: {
       data: {
         result: true,
         content: {
-          //
-          // nums: [1, 2, 3, 4, 5],
-          // categories: ["", "", "", "", ""],
-          // status_messge: "",
-          starch_num: 3,
-          nut_num: 3,
-          cereal_num: 3,
-          fruit_num: 4,
-          etc_num: 4,
-          nan_num: 4,
-          sugar_num: 4,
-          pulses_num: 5,
-          mushroom_num: 5,
-          fish_num: 5,
-          milkProducts_num: 5,
-          fatAndOils_num: 5,
-          meat_num: 6,
-          drink_num: 6,
-          processedFood_num: 6,
-          seasoning_num: 6,
-          alcohol_num: 6,
-          tea_num: 6,
-          vegetable_num: 7,
-          seaweed_num: 7,
+          nums: [1, 2, 3, 4, 5],
         },
         status: {
           code: 200,
@@ -456,9 +436,12 @@ const RESP = {
     },
     GET_CATEGORY_FAIL: {
       data: {
-        result: false,
+        result: true,
+        content: {
+          nums: [0, 0, 0, 0, 0],
+        },
         status: {
-          code: 400, //로그인 안했을 떄 401 (로그인해야 이용할 수 있는 기능입니다. 로그인 페이지로 이동하세요/)
+          code: 200,
           message: "해당 사용자가 입력한 식재료가 없습니다.",
         },
       },
