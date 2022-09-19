@@ -57,8 +57,8 @@ export const designTheme = {
   section: {
     layout: {
       background: colors.background.white,
-      boxShadow: "0px 3px 13px 1px rgba(0, 0, 0, 0.05)",
       borderRadius: "10px",
+      boxShadow: "0px 3px 13px 1px rgba(0, 0, 0, 0.05)",
     },
     content: {
       fontWeight: "700",
@@ -87,9 +87,10 @@ export const designTheme = {
   button: {
     layout: {
       background: colors.background.white,
-      boxShadow: "0px 3px 13px 1px rgba(0, 0, 0, 0.05)",
+      border: "none",
       borderRadius: "6px",
       borderRoundRadius: "30px",
+      boxShadow: "0px 3px 13px 1px rgba(0, 0, 0, 0.05)",
     },
     content: {
       fontWeight: "700",
@@ -99,7 +100,6 @@ export const designTheme = {
     auth: {
       layout: {
         border: "1px solid #F07401",
-        borderRadius: "6px",
       },
       content: {
         basic: {
@@ -108,9 +108,9 @@ export const designTheme = {
           fontWeight: "700",
         },
         large: {
-          fontSize: "19.1769px",
-          lineHeight: "28px",
+          fontSize: "19px",
           fontWeight: "700",
+          lineHeight: "28px",
         },
       },
       colors: {
@@ -118,7 +118,7 @@ export const designTheme = {
           background: colors.main.orange,
           text: colors.font.subWhite,
         },
-        special: {
+        selected: {
           background: colors.main.mint,
           text: colors.special.purple,
         },
@@ -161,7 +161,6 @@ export const designTheme = {
     calendar: {
       layout: {
         border: "1px solid #ECECEC",
-        borderRadius: "4px",
       },
       colors: {
         basic: {
@@ -197,9 +196,9 @@ export const designTheme = {
   textbox: {
     layout: {
       background: colors.background.white,
-      boxShadow: "0px 3px 13px 1px rgba(0, 0, 0, 0.05)",
       borderRadius: "6px",
       borderRoundRadius: "30px",
+      boxShadow: "0px 3px 13px 1px rgba(0, 0, 0, 0.05)",
     },
     content: {
       fontWeight: "700",
@@ -211,9 +210,9 @@ export const designTheme = {
   iconbox: {
     layout: {
       background: colors.background.white,
-      boxShadow: "0px 3px 13px 1px rgba(0, 0, 0, 0.05)",
       borderRadius: "6px",
       borderRoundRadius: "30px",
+      boxShadow: "0px 3px 13px 1px rgba(0, 0, 0, 0.05)",
     },
     content: {
       fontWeight: "700",
@@ -245,5 +244,10 @@ export const designTheme = {
         text: colors.main.orange,
       },
     },
+  },
+
+  effects: {
+    transition: "all 0.3s",
+    transform: "scale(1,1)",
   },
 };
