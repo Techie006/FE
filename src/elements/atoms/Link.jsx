@@ -16,11 +16,7 @@ const Link = ({ content, link, selected = false }) => {
 export default Link;
 
 const StLink = styled(DOMLink)`
-  font-weight: ${(props) => props.theme.link.content.fontWeight};
-  font-size: ${(props) => props.theme.link.content.fontSize};
-  line-height: ${(props) => props.theme.link.content.lineHeight};
-  letter-spacing: ${(props) => props.theme.link.content.letterSpacing};
-  color: ${(props) => props.theme.link.colors.basic.text};
+  color: ${(props) => props.theme.colors.font.gray2};
   background-color: inherit;
   &:hover {
     cursor: pointer;
@@ -29,11 +25,11 @@ const StLink = styled(DOMLink)`
 `;
 
 const StText = styled.div`
-  font-weight: ${(props) => props.theme.link.content.fontWeight};
-  font-size: ${(props) => props.theme.link.content.fontSize};
-  line-height: ${(props) => props.theme.link.content.lineHeight};
-  letter-spacing: ${(props) => props.theme.link.content.letterSpacing};
-  color: ${(props) => props.theme.link.colors.selected.text};
+  font-weight: 700;
+  font-size: "14px";
+  line-height: "20px";
+  letter-spacing: "-0.5px";
+  color: ${(props) => props.theme.colors.main.orange};
   background-color: inherit;
   &:hover {
     cursor: default;
