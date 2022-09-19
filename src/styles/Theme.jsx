@@ -229,4 +229,21 @@ export const designTheme = {
       s5: "15px",
     },
   },
+
+  link: {
+    content: {
+      fontWeight: "700",
+      fontSize: "14px",
+      lineHeight: "20px",
+      letterSpacing: "-0.5px",
+    },
+    colors: {
+      basic: {
+        text: colors.font.gray2,
+      },
+      selected: {
+        text: colors.main.orange,
+      },
+    },
+  },
 };
