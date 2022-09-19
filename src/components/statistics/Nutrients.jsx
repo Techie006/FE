@@ -2,8 +2,8 @@ import { useState, useCallback, useEffect } from "react";
 import Chart from "react-apexcharts";
 import styled from "styled-components";
 
-// import RESP_CHAE from "../../server/response_chae";
-import { apis } from "../../shared/axios";
+import RESP from "../../server/response";
+// import { apis } from "../../shared/axios";
 import "./Chart.css";
 import LoadingSpinner from "../../elements/atoms/LoadingSpinner";
 import HelperButton from "../../elements/molecules/HelperButton";
@@ -25,10 +25,10 @@ const Nutrients = (props) => {
   const [view, setview] = useState(VIEWS.day);
 
   const get_data = useCallback(async () => {
-    // const resp = RESP_CHAE.STATISTICS.GET_NUTRIENTS_SUCCESS;
-    // const resp = RESP_CHAE.STATISTICS.GET_NUTRIENTS_FAIL;
+    const resp = RESP.STATISTICS.GET_NUTRIENTS_SUCCESS;
+    // const resp = RESP.STATISTICS.GET_NUTRIENTS_FAIL;
 
-    const resp = await apis.get_nutrients_ratio({ view });
+    // const resp = await apis.get_nutrients_ratio({ view });
 
     const { result, content } = resp.data;
 
@@ -81,8 +81,8 @@ const Nutrients = (props) => {
       {!loading && showMsg ? (
         <HelperButton
           msg='아직 입력하신 식재료가 없네요. 홈으로 가서 새로운 식재료를 추가해보세요!'
-          content='홈으로 '
-          path={`/home`}
+          content='재료 추가하기'
+          path={`/`}
           page='statistics'
         />
       ) : null}
