@@ -5,7 +5,7 @@ import Daily from "./Daily";
 import Calories from "./Calories";
 import Nutrients from "./Nutrients";
 
-const StatisticsLayout = () => {
+const StatisticsFrame = () => {
   return (
     <StWrapper>
       <StSection isTwo={true}>
@@ -24,7 +24,7 @@ const StatisticsLayout = () => {
   );
 };
 
-export default StatisticsLayout;
+export default StatisticsFrame;
 
 const StWrapper = styled.div`
   display: grid;
@@ -33,6 +33,7 @@ const StWrapper = styled.div`
   grid-template-columns: repeat(2, 50%);
   grid-column-gap: 20px;
   grid-row-gap: 20px;
+
   /* tablet */
   @media all and (max-width: 1024px) {
     padding: 20px 30px;
@@ -40,6 +41,7 @@ const StWrapper = styled.div`
     grid-column-gap: 20px;
     grid-row-gap: 20px;
   }
+
   /* mobile */
   @media all and (max-width: 600px) {
     padding: 16px 16px;
