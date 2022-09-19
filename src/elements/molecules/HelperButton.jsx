@@ -1,5 +1,6 @@
 import { useNavigate } from "react-router-dom";
 
+import { H3 } from "../../styles/Text";
 import Button from "../atoms/Button";
 
 const HelpButton = ({ msg, content, path, page }) => {
@@ -11,7 +12,7 @@ const HelpButton = ({ msg, content, path, page }) => {
 
   return (
     <>
-      <div>{msg}</div>
+      <H3>{msg}</H3>
       <Button
         type='button'
         content={content}

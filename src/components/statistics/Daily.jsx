@@ -2,13 +2,13 @@ import { useState, useRef, useCallback, useEffect } from "react";
 import Chart from "react-apexcharts";
 import styled from "styled-components";
 
-// import RESP_CHAE from "../../server/response_chae";
+import RESP from "../../server/response";
 import "./Chart.css";
-import { apis } from "../../shared/axios";
-import Loader from "../common/Loader";
-import HelpMsg from "../common/HelpMsg";
-import { StTitle } from "../../elements/texts/pageTexts";
-import ButtonCategory from "../../elements/categories/ButtonCategory";
+// import { apis } from "../../shared/axios";
+import LoadingSpinner from "../../elements/atoms/LoadingSpinner";
+import HelperButton from "../../elements/molecules/HelperButton";
+import { H2 } from "../../styles/Text";
+import Category from "../../elements/molecules/Category";
 
 const Daily = (props) => {
   const CRITERIAS = ["열량", "영양성분"];
@@ -26,14 +26,18 @@ const Daily = (props) => {
 
   const base = useRef(BASES[0]);
 
-  const get_data = useCallback(async () => {
-    // const resp = RESP_CHAE.STATISTICS.GET_DAILY_SUCCESS;
-    // const resp = RESP_CHAE.STATISTICS.GET_DAILY_FAIL;
-    const resp = await apis.get_daily();
+  const getData = useCallback(async () => {
+    const resp = RESP.STATISTICS.GET_DAILY_SUCCESS;
+    // const resp = RESP.STATISTICS.GET_DAILY_FAIL;
+    // const resp = await apis.get_daily();
 
-    const { result, content } = resp.data;
+    console.log(resp.data);
 
-    if (!result) {
+    const { content } = resp.data;
+
+    // 식재료가 하나도 없는 상태 처리
+    // 배열 비교
+    if (JSON.stringify(content.count) === JSON.stringify([0, 0, 0])) {
       setLoading(false);
       setShowMsg(true);
       return;
@@ -44,8 +48,8 @@ const Daily = (props) => {
   }, []);
 
   useEffect(() => {
-    get_data();
-  }, [get_data]);
+    getData();
+  }, [getData]);
 
   const caloriesSeries = [
     {
@@ -73,22 +77,24 @@ const Daily = (props) => {
 
   return (
     <>
-      {loading ? <Loader /> : null}
+      {loading ? <LoadingSpinner /> : null}
       {!loading && showMsg ? (
-        <HelpMsg
+        <HelperButton
           msg='아직 입력하신 식재료가 없네요. 홈으로 가서 새로운 식재료를 추가해보세요!'
-          goto='홈으로 '
+          content='홈으로 '
           path={`/home`}
+          page='statistics'
         />
       ) : null}
       {!loading && !showMsg ? (
         <>
           <StHeader>
-            <StTitle>오늘 우리 식단은?</StTitle>
-            <ButtonCategory
+            <H2>오늘 우리 식단은?</H2>
+            <Category
               contents={CRITERIAS}
               onClick={clickHandler}
               selectedCategory={criteria}
+              page='statistics'
             />
           </StHeader>
           <Chart
