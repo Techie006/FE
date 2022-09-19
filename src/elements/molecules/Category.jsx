@@ -1,17 +1,25 @@
 import styled from "styled-components";
 
-// TODO 수정해 올리기
-const Category = ({ contents, onClick, page, func, selectedCategory = "" }) => {
+import Button from "../atoms/Button";
+
+const Category = ({
+  contents,
+  onClick,
+  page,
+  func,
+  selectedCategory = "",
+  ...props
+}) => {
   const categoryItems = contents.map((category, idx) => (
-    <StBox
+    <Button
       key={idx}
+      content={category}
       onClick={onClick}
       disabled={category === selectedCategory}
       page={page}
       func={func}
-    >
-      <StContent>{category}</StContent>
-    </StBox>
+      {...props}
+    />
   ));
 
   return <StWrapper>{categoryItems}</StWrapper>;
@@ -25,40 +33,4 @@ const StWrapper = styled.div`
   align-items: flex-start;
   padding: 0px;
   gap: 12px;
-`;
-
-const StBox = styled.button`
-  display: flex;
-  flex-direction: row;
-  flex: none;
-  flex-grow: 0;
-  align-items: flex-start;
-  padding: 2px 10px;
-  gap: 10px;
-  border: none;
-
-  background-color: ${(props) =>
-    !props.disabled ? props.theme.btnBGColor : props.theme.selectBtnBGColor};
-  border-radius: ${(props) => props.theme.btnBorderRadius};
-  color: ${(props) =>
-    !props.disabled ? props.theme.btnTxtColor : props.theme.selectBtnTxtColor};
-
-  // TODO change as design comes out!
-  &:hover {
-    cursor: ${(props) => (!props.disabled ? "pointer" : "default")};
-    transition: ${(props) => props.theme.transition};
-    transform: ${(props) => props.theme.transform};
-  }
-`;
-
-const StContent = styled.div`
-  display: flex;
-  align-items: center;
-  text-align: center;
-  font-style: ${(props) => props.theme.btnFontStyle};
-  font-weight: ${(props) => props.theme.btnFontWeight};
-  font-size: ${(props) => props.theme.btnFontSize};
-  line-height: ${(props) => props.theme.btnLineHeight};
-  background-color: inherit;
-  color: inherit;
 `;
