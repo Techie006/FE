@@ -22,7 +22,9 @@ const Classes = (props) => {
     getData();
   }, [getData]);
 
-  const classes = data.map((datum) => <Class {...datum} />);
+  const classes = data.map((datum) => (
+    <Class key={datum.class_id} {...datum} />
+  ));
 
   return (
     <>

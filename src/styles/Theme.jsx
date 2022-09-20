@@ -58,6 +58,9 @@ export const designTheme = {
       fontSize: "16px",
       lineHeight: "23px",
     },
+    colors: {
+      disabled: Colors.background.gray,
+    },
     auth: {
       layout: {
         border: "1px solid #F07401",
@@ -192,6 +195,22 @@ export const designTheme = {
     },
     colors: {
       color: Colors.font.gray2,
+    },
+  },
+
+  input: {
+    layout: {
+      background: Colors.background.gray,
+      borderRadius: "6px",
+      border: "1px solid #DADADA",
+    },
+    content: {
+      fontWeight: "400",
+      fontSize: "14px",
+      lineHeight: "20px",
+    },
+    colors: {
+      text: "#A5A5A5",
     },
   },
 

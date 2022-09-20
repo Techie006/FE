@@ -2,20 +2,21 @@ import { useState } from "react";
 
 import ClassesHeader from "./ClassesHeader";
 import Classes from "./Classes";
-import Modal from "../../elements/templates/Modal";
+import CreateClass from "./CreateClass";
 
 const ClassesFrame = () => {
   const [modalOpen, setModalOpen] = useState(false);
 
-  const clickHandler = (class_id) => {
+  const clickHandler = () => {
+    console.log("clicked");
     setModalOpen((prev) => !prev);
   };
 
   return (
     <>
-      <ClassesHeader />
+      <ClassesHeader onClick={clickHandler} />
       <Classes />
-      {modalOpen ? <Modal onClick={clickHandler}></Modal> : null}
+      {modalOpen ? <CreateClass onClick={clickHandler} /> : null}
     </>
   );
 };

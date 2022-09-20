@@ -1,11 +1,7 @@
 import { H1 } from "../../styles/Text";
 import Button from "../../elements/atoms/Button";
 
-const ClassesHeader = () => {
-  const clickHandler = () => {
-    console.log("clicked");
-  };
-
+const ClassesHeader = ({ onClick }) => {
   return (
     <>
       <H1>쿠킹 클래스</H1>
@@ -14,7 +10,7 @@ const ClassesHeader = () => {
         // TODO 고치기
         page='statistics'
         content='클래스 시작하기'
-        onClick={clickHandler}
+        onClick={onClick}
       />
     </>
   );

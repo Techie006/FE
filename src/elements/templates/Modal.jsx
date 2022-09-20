@@ -3,12 +3,12 @@ import styled from "styled-components";
 
 import Button from "../atoms/Button";
 
-const Modal = ({ clickHandler, ...props }) => {
+const Modal = ({ onClick, ...props }) => {
   return (
     <>
       <StBackground />
       <StModal>
-        <Button isIcon={true} icon={faX} onClick={clickHandler} />
+        <Button isIcon={true} icon={faX} onClick={onClick} />
         {props.children}
       </StModal>
     </>

@@ -56,6 +56,9 @@ const StButton = styled.button.attrs((props) => ({
 }))`
   // layout
   background: ${(props) => {
+    if (props.disabled) {
+      return props.theme.button.colors.disabled;
+    }
     let key = !props.isBasic ? "basic" : "selected";
     return props.theme.button[props.page].colors[key].background;
   }};
@@ -77,7 +80,7 @@ const StButton = styled.button.attrs((props) => ({
   transition: ${(props) => props.theme.effects.transition};
 
   &:hover {
-    cursor: pointer;
+    cursor: ${(props) => (!props.disabled ? "pointer" : "default")};
   }
 `;
 
