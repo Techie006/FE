@@ -1,5 +1,6 @@
 import { useState } from "react";
 
+import ChatTest from "./ChatTest";
 import ClassesHeader from "./ClassesHeader";
 import Classes from "./Classes";
 import CreateClass from "./CreateClass";
@@ -14,6 +15,7 @@ const ClassesFrame = () => {
 
   return (
     <>
+      <ChatTest />
       <ClassesHeader onClick={clickHandler} />
       <Classes />
       {modalOpen ? <CreateClass onClick={clickHandler} /> : null}
