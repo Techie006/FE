@@ -136,7 +136,7 @@ const CreateIngredientModal = ({ onClose }) => {
                     Storage : provided=> ({...provided, zIndex: 999}),
                     option : (provided, state) => ({
                         ...provided,
-                        borderBottom : '10px  solid black'
+                        
                     }),
                     // input : (provided, state)  => ({
                     //     .react-select-3-input{

@@ -174,7 +174,6 @@ const SigninForm = () => {
                   )
                   dispatch(login());
                   dispatch(user(resp.data.content));
-                  console.log("content",resp.data.content);
                   
                   navigate("/home", { replace: true })
                   
@@ -333,6 +332,14 @@ const SigninForm = () => {
                 <StyledSelect
                 styles={{ // 모바일 환경에서도 option 목록이 항상 위로 보이게 zIndex 설정함
                     domain : provided=> ({...provided, zIndex: 999}),
+                    singleValue : (provided, state)  => ({
+                        width :"20px",
+                        height :"20px"
+                    }),
+                    input : (provided, state)  => ({
+                    width :"10px",
+                    height :"1px"
+                    })
                 }}
                 // value = {domain.find(domain => {
                 //     return domain.value === selectDomain
@@ -453,8 +460,6 @@ const StyledEmailGroup = styled.div`
       .email_input {
           width : 110px;
       }
-`
-const StyledGuide = styled.div`
 `
 const StyledSignIn = styled.div`
     display : flex;

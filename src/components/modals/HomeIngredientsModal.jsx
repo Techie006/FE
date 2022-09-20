@@ -2,11 +2,11 @@ import React from 'react';
 import styled from "styled-components";
 
 const HomeIngredientsModal = (
-    { onClose, 
-      ingredients, 
-      freezeHandler, 
-      refrigerHandler, 
-      roomTempHandler,  
+    { onClose,
+      ingredients,
+      freezeHandler,
+      refrigerHandler,
+      roomTempHandler,
       totalHandler
     }) => {
 

@@ -8,6 +8,7 @@ import Statistics from "../pages/Statistics";
 import Calendar from "../pages/Calendar";
 import Class from "../pages/Class";
 import My from "../pages/My";
+import BookMarkRecipe from "../pages/BookMarkRecipe";
 import NotFound from "../pages/NotFound"
 import KakaoLogin from "../components/auth/KakaoLogin";
 import GoogleLogin from "../components/auth/GoogleLogin";
@@ -15,6 +16,8 @@ import GoogleLogin from "../components/auth/GoogleLogin";
 
 // TODO erase elements
 import Elements from "../pages/Elements";
+
+
 
 // TODO protected router for login
 // TODO class search
@@ -31,6 +34,7 @@ const Routers = (props) => {
         <Route path='/calendar' element={<Calendar />} />
         <Route path='/class' element={<Class />} />
         <Route path='/my' element={<My />} />
+        <Route path='/bookmark' element={<BookMarkRecipe />} />
         <Route path='/elements' element={<Elements />} />
         <Route path='/kakaoLogin' element={<KakaoLogin />} />
         <Route path='/googleLogin' element={<GoogleLogin />} />

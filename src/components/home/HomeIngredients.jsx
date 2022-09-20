@@ -20,22 +20,18 @@ const HomeIngredients = () => {
     const onFreezeClick = () => {
         setCurr("freeze")
         console.log("curr",curr)
-        getIngredients()
     }
     const onRefrigeratedClick = () => {
         setCurr("refrigerated")
         console.log("curr",curr)
-        getIngredients()
     }
     const onRoomTempClick = () => {
         setCurr("room_temp")
         console.log("curr",curr)
-        getIngredients()
     }
     const onTotalClick = () => {
         setCurr("")
         console.log("curr",curr)
-        getIngredients()
     }
 
     // const storagePage = {
@@ -51,10 +47,7 @@ const HomeIngredients = () => {
     const getIngredients = async () => {
 
         try{
-            console.log("첫번째")
-            // var storage = [ "freeze", "refrigerated", "room_temp" ]
-
-            // for (let i = 0; i < storage.length; i++) {
+            console.log("hi")
             const resp = await axios.get(`http://3.36.56.125/api/ingredients?storage=${curr}`,{
             // const resp = await axios.get("http://3.36.56.125/api/ingredients?storage=freeze",{
                 headers : {
@@ -63,8 +56,13 @@ const HomeIngredients = () => {
                 }
             }
             )
-            console.log(`ingredient`,resp.data)
             setIngredients(resp.data.content)
+            const dDate = resp.data.content.storage.map((data)=>data.d_date)
+            const sort = dDate.sort((a,b) => a-b )
+            // console.log(sort)
+            // if (dDate === "")
+            
+            
             // if ( storage[0] ){
             //     console.log("free", resp.data.storage)
             // }
@@ -79,7 +77,7 @@ const HomeIngredients = () => {
     }
     useEffect(() => {
         getIngredients();
-    }, []);
+    }, [curr]);
 
     return (
         <StyledInredientsWrapper>

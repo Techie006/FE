@@ -3,42 +3,47 @@ import axios from 'axios';
 import styled from "styled-components";
 
 const SearchModal = ({onClose}) => {
-    // const TIMER = 2000;
+    const TIMER = 2000;
 
-    // const [keyword, setKeyword] = useState("");
-    // const [keyItems, setKeyItems] = useState([]);
-    // const onChangeData = (e) => {
-    //     setKeyword(e.target.value);
-    //   };
-    // const auth = localStorage.getItem("Authorization")  
+    const [keyword, setKeyword] = useState("");
+    const [keyItems, setKeyItems] = useState([]);
 
-    // const updateData = async () => {
+    const onChangeData = (e) => {
+        setKeyword(e.target.value);
+      };
+      console.log("keyword",keyword)
+    
+    const updateData = async () => {
 
-    //     const resp = await axios.get("http://3.36.56.125/api/ingredients/autocomplete",{
-    //             food_name : keyword
-    //         },{
-    //             header : {
-    //                 "Authorization" : auth,
+        const auth = localStorage.getItem("Authorization")  
+
+        const resp = await axios.get("http://3.36.56.125/api/ingredients/autocomplete",{
+                food_name : keyword
+            },{
+                header : {
+                    "Authorization" : auth,
                     
-    //             } 
-    //         })
-    //         let auto = resp.data.auto_complete.filter((list) =>
-    //          list.food_name.includes(keyword) === true).slice(0,5);
-    //          console.log(auto)
-    //          setKeyItems(auto);
-    //     }
-    //     useEffect(() => {
-    //         const trottled = setTimeout(() => {
-    //             if(keyword) updateData();
-    //         },200)
-    //         return () => {
-    //             clearTimeout(trottled)
-    //         }
-    //         },[keyword])
+                } 
+            })
+            let auto = resp.data.auto_complete.filter((list) =>
+             list.food_name.includes(keyword) === true).slice(0,5);
+             console.log(auto)
+             setKeyItems(auto);
+        }
+        useEffect(() => {
+            const trottled = setTimeout(() => {
+                if(keyword) updateData();
+            },200)
+            return () => {
+                clearTimeout(trottled)
+            }
+            },[keyword])
                 
-    // const auth = localStorage.getItem("Authorization")
+    
     // const throttleInputChange = async (e) => {
     //     if(isThrottling) return;
+
+    //     const auth = localStorage.getItem("Authorization")
 
     //     setThrottle(e.target.value);
     //     const resp = await axios.get("http://3.36.56.125/api/ingredients/autocomplete",{
@@ -55,7 +60,6 @@ const SearchModal = ({onClose}) => {
     //     setTimeout(() => setIsThrottling(false),TIMER);
 
     // }
-    
 
     return (
         <SearchModalBackground>
@@ -66,19 +70,19 @@ const SearchModal = ({onClose}) => {
                 </SearchHeader>
                 <input
                 type = "text"
-                // onChange={onChangeData}
-                // value={keyword}
+                onChange={onChangeData}
+                value={keyword}
                 />
-                {/* {keyItems.map((search, index) => ( */}
+                {keyItems.map((search, index) => (
                     <div
-                    // key = {search.food_name}
+                    key = {search.food_name}
                     onClick = { () => {
-                        // setKeyword(search.food_name);
+                        setKeyword(search.food_name);
                     }}
                     >
                     </div>
                 ))
-                {/* } */}
+                }
             </SearchContent>
         </SearchModalBackground>
     );
