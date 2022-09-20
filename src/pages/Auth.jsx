@@ -1,6 +1,6 @@
 import Layout from "../components/common/Layout";
 import Header from "../components/common/Header";
-// import AuthLayout from "../components/auth/AuthLayout";
+import AuthLayout from "../components/auth/AuthLayout";
 import Helper from "../components/common/Helper";
 
 const Auth = (props) => {
@@ -8,7 +8,7 @@ const Auth = (props) => {
     <>
       <Layout>
         <Header />
-        {/* <AuthLayout /> */}
+        <AuthLayout />
         <Helper />
       </Layout>
     </>
