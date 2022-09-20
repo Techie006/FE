@@ -815,7 +815,7 @@ const RESP = {
         },
         status: {
           code: 200,
-          message: "성공적으로 클래스을 가져왔습니다.",
+          message: "성공적으로 클래스를 가져왔습니다.",
         },
       },
     },
