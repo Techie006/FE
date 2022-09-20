@@ -54,4 +54,7 @@ export const apis = {
     api.post(`/api/recipe/finish?id=${id}`, { ingredients_id }),
   like_recipe: ({ id }) => api.post(`/api/recipe/like?id=${id}`),
   unlike_recipe: ({ id }) => api.post(`/api/recipe/unlike?id=${id}`),
+
+  // classes
+  get_classes: () => api.get(`/api/class`),
 };

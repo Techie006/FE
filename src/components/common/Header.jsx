@@ -13,7 +13,14 @@ const Header = () => {
     "레시피",
     "마이페이지",
   ];
-  const PATHS = ["/", "/statistics", "/calendar", "/class", "/recipes", "/my"];
+  const PATHS = [
+    "/",
+    "/statistics",
+    "/calendar",
+    "/classes",
+    "/recipes",
+    "/my",
+  ];
 
   const navigator = NAVIGATORS.map((nav, idx) => (
     <Link key={nav} content={nav} link={PATHS[idx]} />

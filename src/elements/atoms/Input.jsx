@@ -6,13 +6,24 @@ const Input = (props) => {
 
 export default Input;
 
-// TODO 고치기
 const StInput = styled.input`
-  width: 150px;
-  border: 1px solid ${(props) => props.theme.borderColor};
-  border-radius: ${(props) => props.theme.boxRadius};
+  display: block;
+  margin: auto;
+  width: calc(100% - 120px);
+  // layout
+  background: ${(props) => props.theme.input.layout.background};
+  border: ${(props) => props.theme.input.layout.border};
+  border-radius: ${(props) => props.theme.input.layout.borderRadius};
+
+  // content
+  font-size: ${(props) => props.theme.input.content.fontSize};
+  font-weight: ${(props) => props.theme.input.content.fontHeight};
+  line-height: ${(props) => props.theme.input.content.lineHeight};
+
+  // colors
+  color: ${(props) => props.theme.input.colors.text};
+
   &:hover {
     cursor: text;
-    border-color: ${(props) => props.theme.borderHoverColor};
   }
 `;
