@@ -4,7 +4,7 @@ import RESP from "../../server/response";
 import LoadingSpinner from "../../elements/atoms/LoadingSpinner";
 import Class from "./Class";
 
-const Classes = () => {
+const Classes = (props) => {
   const [loading, setLoading] = useState(true);
   const [data, setData] = useState([]);
 
@@ -24,7 +24,12 @@ const Classes = () => {
 
   const classes = data.map((datum) => <Class {...datum} />);
 
-  return <>{classes}</>;
+  return (
+    <>
+      {loading ? <LoadingSpinner /> : null}
+      {!loading ? classes : null}
+    </>
+  );
 };
 
 export default Classes;

@@ -1,12 +1,21 @@
-import Classes from "./Classes";
+import { useState } from "react";
 
-import { H1 } from "../../styles/Text";
+import ClassesHeader from "./ClassesHeader";
+import Classes from "./Classes";
+import Modal from "../../elements/templates/Modal";
 
 const ClassesFrame = () => {
+  const [modalOpen, setModalOpen] = useState(false);
+
+  const clickHandler = (class_id) => {
+    setModalOpen((prev) => !prev);
+  };
+
   return (
     <>
-      <H1>쿠킹 클래스</H1>
+      <ClassesHeader />
       <Classes />
+      {modalOpen ? <Modal onClick={clickHandler}></Modal> : null}
     </>
   );
 };
