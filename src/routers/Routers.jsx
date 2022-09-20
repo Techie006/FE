@@ -1,8 +1,8 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 
 import Auth from "../pages/Auth";
-// import KakaoLogin from "../components/auth/KakaoLogin";
-// import GoogleLogin from "../components/auth/GoogleLogin";
+import KakaoLogin from "../components/auth/KakaoLogin";
+import GoogleLogin from "../components/auth/GoogleLogin";
 import Home from "../pages/Home";
 import Statistics from "../pages/Statistics";
 import Calendar from "../pages/Calendar";
