@@ -21,8 +21,8 @@ const Routers = (props) => {
     <BrowserRouter>
       <Routes>
         <Route path='/auth' element={<Auth />} />
-        {/* <Route path='/kakaoLogin' element={<KakaoLogin />} />
-        <Route path='/googleLogin' element={<GoogleLogin />} /> */}
+        <Route path='/kakaoLogin' element={<KakaoLogin />} />
+        <Route path='/googleLogin' element={<GoogleLogin />} />
         <Route path='/' element={<Home />} />
         <Route path='/statistics' element={<Statistics />} />
         <Route path='/calendar' element={<Calendar />} />
