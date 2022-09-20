@@ -5,7 +5,7 @@ import ClassesHeader from "./ClassesHeader";
 import Classes from "./Classes";
 import CreateClass from "./CreateClass";
 
-const ClassesFrame = () => {
+const ClassesLayout = () => {
   const [modalOpen, setModalOpen] = useState(false);
 
   const clickHandler = () => {
@@ -23,4 +23,4 @@ const ClassesFrame = () => {
   );
 };
 
-export default ClassesFrame;
+export default ClassesLayout;
