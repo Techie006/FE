@@ -57,7 +57,7 @@ const StButton = styled.button.attrs((props) => ({
   // layout
   background: ${(props) => {
     let key = !props.isBasic ? "basic" : "selected";
-    return props.theme.button[props.page][key].background;
+    return props.theme.button[props.page].colors[key].background;
   }};
   border: ${(props) => {
     if (props.page === "auth" || props.page === "calendar") {
@@ -109,7 +109,7 @@ const StContent = styled.div`
   background: inherit;
   color: ${(props) => {
     let key = !props.isBasic ? "basic" : "selected";
-    return props.theme.button[props.page][key].text;
+    return props.theme.button[props.page].colors[key].text;
   }};
 `;
 

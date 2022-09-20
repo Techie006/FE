@@ -1,6 +1,6 @@
 import { useNavigate } from "react-router-dom";
 
-import SmallButton from "../../elements/buttons/SmallButton";
+import Button from "../../elements/atoms/Button";
 
 const HelpMsg = ({ msg, content, path }) => {
   const navigate = useNavigate();
@@ -12,7 +12,7 @@ const HelpMsg = ({ msg, content, path }) => {
   return (
     <>
       <div>{msg}</div>
-      <SmallButton type='button' content={content} onClick={clickHandler} />
+      <Button type='button' content={content} onClick={clickHandler} />
     </>
   );
 };
