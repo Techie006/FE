@@ -17,7 +17,7 @@ const authSlice = createSlice({
       state.isLogin = true;
     },
     saveInfo: (state, action) => {
-      state.userData = { ...action.payload };
+      state.userInfo = { ...state.userInfo, ...action.payload };
     },
     logout: (state, _) => {
       state.isLogin = false;
