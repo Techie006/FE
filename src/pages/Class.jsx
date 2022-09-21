@@ -1,6 +1,6 @@
 import Layout from "../components/common/Layout";
 import Header from "../components/common/Header";
-import ClassDetail from "../components/class/ClassDetail";
+import ClassFrame from "../components/class/ClassFrame";
 import Helper from "../components/common/Helper";
 import Footer from "../components/common/Footer";
 
@@ -8,7 +8,7 @@ const Class = (props) => {
   return (
     <Layout>
       <Header />
-      <ClassDetail />
+      <ClassFrame />
       <Helper />
       <Footer />
     </Layout>

@@ -2,7 +2,7 @@ import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 
-import { __getPrevChats } from "../../modules/redux/class";
+import { __getPrevChats } from "../../modules/redux/cookingClass";
 
 const Class = ({
   class_id,

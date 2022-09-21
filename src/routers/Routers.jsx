@@ -27,7 +27,7 @@ const Routers = (props) => {
         <Route path='/statistics' element={<Statistics />} />
         <Route path='/calendar' element={<Calendar />} />
         <Route path='/classes' element={<Classes />} />
-        <Route path='/class/:roomId' element={<Class />} />
+        <Route path='/class/:redisClassId' element={<Class />} />
         <Route path='/recipes' element={<Recipe />} />
         <Route path='/recipes/:keyword' element={<SearchResult />} />
         <Route path='/elements' element={<Elements />} />

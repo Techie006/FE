@@ -2,14 +2,14 @@ import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import { apis } from "../../shared/axios";
 
 const initialState = {
-  chats: [],
+  prevChats: [],
   viewerNum: 0,
   isLoading: false,
   error: "",
 };
 
 export const __getPrevChats = createAsyncThunk(
-  "class/__getPrevChats",
+  "cookingClass/__getPrevChats",
   async ({ class_id }, thunkAPI) => {
     try {
       const resp = apis.get_prev_chats({ class_id });
@@ -23,17 +23,17 @@ export const __getPrevChats = createAsyncThunk(
   }
 );
 
-const classSlice = createSlice({
-  name: "class",
+const cookingClassSlice = createSlice({
+  name: "cookingClass",
   initialState,
   reducers: {
     enterClass: (state, action) => {
       const { message } = action.payload;
-      state.chats = [...state.chats, message];
+      state.prevChats = [...state.prevChats, message];
     },
     sendMessage: (state, action) => {
       const { message } = action.payload;
-      state.chats = [...state.chats, message];
+      state.prevChats = [...state.prevChats, message];
     },
   },
   extraReducers: {
@@ -43,7 +43,7 @@ const classSlice = createSlice({
     },
     [__getPrevChats.fulfilled]: (state, action) => {
       state.isLoading = false;
-      state.chats = action.payload;
+      state.prevChats = action.payload;
     },
     [__getPrevChats.pending]: (state, action) => {
       state.isLoading = false;
@@ -52,5 +52,5 @@ const classSlice = createSlice({
   },
 });
 
-export const { enterClass, sendMessage } = classSlice.actions;
-export default classSlice.reducer;
+export const { enterClass, sendMessage } = cookingClassSlice.actions;
+export default cookingClassSlice.reducer;
