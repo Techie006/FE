@@ -1,6 +1,6 @@
 import Layout from "../components/common/Layout";
 import Header from "../components/common/Header";
-import ClassDetail from "../components/classes/ClassDetail";
+import ClassDetail from "../components/class/ClassDetail";
 import Helper from "../components/common/Helper";
 import Footer from "../components/common/Footer";
 
