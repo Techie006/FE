@@ -57,4 +57,5 @@ export const apis = {
 
   // classes
   get_classes: () => api.get(`/api/class`),
+  get_prev_chats: ({ class_id }) => api.get(`api/class/enter/${class_id}`),
 };

@@ -840,7 +840,7 @@ const RESP = {
         content: null,
         status: {
           code: 400,
-          message: "썸네일 크기는 0MB를 넘을 수 없습니다.",
+          message: "썸네일 크기는 20MB를 넘을 수 없습니다.",
         },
       },
     },
