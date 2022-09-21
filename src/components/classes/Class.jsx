@@ -1,6 +1,8 @@
+import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
-
 import styled from "styled-components";
+
+import { __getPrevChats } from "../../modules/redux/class";
 
 const Class = ({
   class_id,
@@ -9,10 +11,13 @@ const Class = ({
   class_img,
   viewer_nums,
 }) => {
+  const dispatch = useDispatch();
+
   const navigate = useNavigate();
 
   const clickHandler = () => {
     navigate(`/class/${redis_class_id}`);
+    dispatch(__getPrevChats());
   };
 
   return (
