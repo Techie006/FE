@@ -7,7 +7,6 @@ const TodayRecipe = () => {
 
     const [todayRecipes, setTodayRecipes] = useState([])
     // const [data, setDate] = useState("")
-    const [today, setToday] = useState("")
 
     const auth = localStorage.getItem("Authorization")
     const refresh = localStorage.getItem("Refresh_Token")
@@ -21,9 +20,9 @@ const TodayRecipe = () => {
         const day = ('0' + date.getDate()).slice(-2);
         const dateStr = year + '-' + month + '-' + day;
     
-        setToday(dateStr)
+        console.log("today",dateStr)
 
-        const resp = await axios.get(`http://3.36.56.125/api/calendar/day?day=${today}`,{
+        const resp = await axios.get(`http://3.36.56.125/api/calendar/day?day=${dateStr}`,{
         
             headers : {
                 "Authorization" : auth,

@@ -1,13 +1,17 @@
 import React, { useState } from 'react';
 import { useForm } from "react-hook-form";
 import { AiFillEyeInvisible } from "react-icons/ai";
+import { FcAddImage } from "react-icons/fc";
 import { AiFillEye } from "react-icons/ai";
+import { ErrorText, ValidateText } from "../../elements/texts/pageTexts"
 import axios from 'axios';
 import styled from "styled-components";
 
 const UpdateProfileModal = ({ onClose }) => {
 
     const [show, setShow] = useState(false);
+    const [errorMessage, setErrorMessage] = useState("")
+    const [updateErrorMessage, setUpdateErrorMessage] = useState("")
 
     const {
         register,
@@ -23,6 +27,48 @@ const UpdateProfileModal = ({ onClose }) => {
         setShow((prev) => !prev)
     }
 
+    const uploadUserProfile = async () => {
+        const auth = localStorage.getItem("Authorization")
+        const resp = await axios.put("http://3.36.56.125/api/my/profile",{
+                    
+        image : "file // url아님",
+            },{
+                headers:{
+                    "Authorization" : auth
+                }
+            })
+    }
+
+    const updateProfileHandler = async () => {
+        const auth = localStorage.getItem("Authorization")
+        try{
+            
+        if( watch("updatePw") == watch("updatePwConfirm") ){
+            setUpdateErrorMessage("")
+        const resp = await axios.put("http://3.36.56.125/api/my/password",{
+                
+            present_password : watch("password"),
+            change_password : watch("updatePwConfirm"),
+
+            },{
+                headers:{
+
+                    "Authorization" : auth
+                }
+            })
+                console.log(updateErrorMessage)
+            }else{
+                setUpdateErrorMessage("변경할 비밀번호를 다시 확인해주세요.")
+                console.log("bad")
+            }
+        }
+        catch(error){
+            console.log("password_error",error.response.data.status.message)
+            
+            setErrorMessage(error.response.data.status.message)
+        }
+    }
+
     return (
         <StWrapper>
             <StModalContent>
@@ -31,10 +77,11 @@ const UpdateProfileModal = ({ onClose }) => {
                 <StCloseBox onClick ={onClose}>x</StCloseBox>
             </StProfileHeaderWrapper>
             <StProfileImgWrapper>
-                <StProfileImg/>
+                <StProfileImg></StProfileImg>
+                <FcAddImage/>
             </StProfileImgWrapper>
             <StUpdatePwWrapper>
-                <form onSubmit={handleSubmit()}>
+                <form onSubmit={handleSubmit(updateProfileHandler)}>
                     <StTitle>기존 비밀번호 입력</StTitle>
                     <input
                         autoComplete='on'
@@ -46,6 +93,16 @@ const UpdateProfileModal = ({ onClose }) => {
                         required : "패스워드를 입력해주세요."
                         })}
                     />
+                    {errors.password ? (
+                    <ErrorText>{errors.password.message}</ErrorText>
+                    ):
+                    (
+                    null
+                    )}
+                    {errorMessage !== "" ? 
+                    (<ErrorText>{errorMessage}</ErrorText>)
+                    :
+                    (null)}
                     <StTitle>새로운 비밀번호 입력</StTitle>
                     <input
                         autoComplete='on'
@@ -57,6 +114,10 @@ const UpdateProfileModal = ({ onClose }) => {
                         required : "패스워드를 입력해주세요."
                         })}
                     />
+                    {updateErrorMessage !== "" ? 
+                    (<ErrorText>{updateErrorMessage}</ErrorText>)
+                    :
+                    (null)}
                     <StTitle>비밀번호 확인</StTitle>
                     <input
                         autoComplete='on'
@@ -68,6 +129,12 @@ const UpdateProfileModal = ({ onClose }) => {
                         required : "패스워드를 입력해주세요."
                         })}
                     />
+                    {errors.updatePwConfirm ? (
+                    <ErrorText>{errors.updatePwConfirm.message}</ErrorText>
+                    ):
+                    (
+                    null
+                    )}
                      {!show ? (
                         <button className='show_button' onClick = {onShowHandler}>
                             <AiFillEye className='icon' />

@@ -26,6 +26,7 @@ const Recipes = (props) => {
     // const resp = await apis.get_recipes({ pageNum.current, PAGELIMIT });
     const { result, content } = resp.data;
 
+
     if (!result) {
       setLoading(false);
       return;

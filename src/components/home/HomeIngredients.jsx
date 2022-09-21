@@ -47,7 +47,6 @@ const HomeIngredients = () => {
     const getIngredients = async () => {
 
         try{
-            console.log("hi")
             const resp = await axios.get(`http://3.36.56.125/api/ingredients?storage=${curr}`,{
             // const resp = await axios.get("http://3.36.56.125/api/ingredients?storage=freeze",{
                 headers : {
@@ -58,9 +57,25 @@ const HomeIngredients = () => {
             )
             setIngredients(resp.data.content)
             const dDate = resp.data.content.storage.map((data)=>data.d_date)
-            const sort = dDate.sort((a,b) => a-b )
-            // console.log(sort)
-            // if (dDate === "")
+            const sort = dDate.sort(function(a,b,c) {
+                var x = "유통기한만료"
+                var y = "D-day"
+                var z = "D-"
+
+                if (x < y) return -1
+                if (x < z) return -1
+                if (y < z) return -1
+            });
+            console.log("Ddate",dDate)
+            console.log("sort",sort)
+            console.log("storage",resp.data.content.storage)
+
+            // var list = [
+            //     {x : "유통기한만료"},
+            //     {y : "유통기한만료"},
+            //     {z : "유통기한만료"},
+            // ]
+            // const sort2 = list 
             
             
             // if ( storage[0] ){

@@ -13,14 +13,16 @@ const SearchModal = ({onClose}) => {
       };
       console.log("keyword",keyword)
     
-    const updateData = async () => {
+    const updateData = async (keyword) => {
 
         const auth = localStorage.getItem("Authorization")  
-
-        const resp = await axios.get("http://3.36.56.125/api/ingredients/autocomplete",{
-                food_name : keyword
+        // const resp = await axios.get("http://3.36.56.125/api/ingredients/autocomplete",{
+        const resp = await axios.get(`http://3.36.56.125/api/ingredients/autocomplete?foodname=${keyword}`,{
+        // query
+        // params : {foodname : keyword}
+                // food_name : keyword
             },{
-                header : {
+                headers : {
                     "Authorization" : auth,
                     
                 } 
@@ -31,9 +33,12 @@ const SearchModal = ({onClose}) => {
              setKeyItems(auto);
         }
         useEffect(() => {
+            console.log(keyword)
             const trottled = setTimeout(() => {
-                if(keyword) updateData();
-            },200)
+                if( keyword !== "" ) {
+                    console.log(keyword)
+                updateData(keyword) }
+            }, 1000)
             return () => {
                 clearTimeout(trottled)
             }

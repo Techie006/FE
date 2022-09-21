@@ -19,10 +19,10 @@ export default Ingredients;
 const StyledWrapper = styled.div`
     border : 1px solid black;
     background-color : gray;
-    overflow: auto;
     width : 330px;
     height : 400px;
     margin : 0px auto;
+    overflow: auto;
     &::-webkit-scrollbar {
         width: 8px;
         height: 8px;

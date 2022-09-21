@@ -22,6 +22,7 @@ const RecommendRecipes = () => {
         "http://3.36.56.125/api/recipes/recommend",
         {
           base: buttonValue,
+          // mark_name 드리면됨
           foods: inHurryFoodName,
         },
         {

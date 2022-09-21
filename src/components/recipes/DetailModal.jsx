@@ -1,7 +1,7 @@
 import { useState, useCallback, useEffect } from "react";
 import { faX } from "@fortawesome/free-solid-svg-icons";
 
-// import { apis } from "../../shared/axios";
+import { apis } from "../../shared/axios";
 import RESP_CHAE from "../../server/response_chae";
 import Modal from "../common/Modal";
 import SmallIconButton from "../../elements/buttons/SmallIconButton";
