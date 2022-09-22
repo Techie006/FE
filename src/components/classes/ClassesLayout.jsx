@@ -9,7 +9,6 @@ const ClassesLayout = () => {
   const [modalOpen, setModalOpen] = useState(false);
 
   const clickHandler = () => {
-    console.log("clicked");
     setModalOpen((prev) => !prev);
   };
 

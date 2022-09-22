@@ -799,6 +799,7 @@ const RESP = {
           classes: [
             {
               class_id: 1,
+              redis_class_id: "abcdef",
               class_name: "신나는 요리 클래스",
               viewer_nums: 200,
               class_img:
@@ -806,6 +807,7 @@ const RESP = {
             },
             {
               class_id: 2,
+              redis_class_id: "abcdefg",
               class_name: "엉망진창 요리 클래스",
               viewer_nums: 10,
               class_img:
@@ -816,6 +818,29 @@ const RESP = {
         status: {
           code: 200,
           message: "성공적으로 클래스를 가져왔습니다.",
+        },
+      },
+    },
+    CREATE_CLASS_SUCCESS: {
+      data: {
+        result: true,
+        content: {
+          room_id: "123",
+          redis_room_id: "abcdefgh",
+        },
+        status: {
+          code: 200,
+          message: "성공적으로 클래스를 생성하였습니다.",
+        },
+      },
+    },
+    CREATE_CLASS_FAIL: {
+      data: {
+        result: false,
+        content: null,
+        status: {
+          code: 400,
+          message: "썸네일 크기는 20MB를 넘을 수 없습니다.",
         },
       },
     },

@@ -9,8 +9,7 @@ import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import Select from "react-select";
 import { ErrorText } from "../../styles/Text";
-import { login } from "../../modules/redux/auth";
-import { user } from "../../modules/redux/userData";
+import { login, saveInfo } from "../../modules/redux/auth";
 // import SmallLinkWithHelper from '../../elements/links/SmallLinkWithHelper';
 import axios from "axios";
 
@@ -167,8 +166,7 @@ const SigninForm = () => {
           "success"
         );
         dispatch(login());
-        dispatch(user(resp.data.content));
-        console.log("content", resp.data.content);
+        dispatch(saveInfo(resp.data.content));
 
         navigate("/home", { replace: true });
       }
