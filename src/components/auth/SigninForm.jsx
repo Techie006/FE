@@ -179,15 +179,42 @@ const SigninForm = () => {
                   
             }
         }
-        // const {
-        //     result,
-        //     status: { message },
-        //   } = RESP_WOO.AUTH.SIGN_UP_FAIL;
-        
+
     }
     useEffect(() => {
         reset(signupValue);
     }, [signupValue]);
+
+    const selectStyle = {
+        placeholder: (provided) => ({
+            ...provided,
+            height : '18px',
+            width : '85px',
+        }),
+        Input : (provided) => ({
+            ...provided,
+            height : '18px',
+            width : '80px'
+        }),
+        singleValue : (provided) => ({
+            ...provided,
+            height : '18px',
+            width : '80px'
+        }),
+        control : (provided) => ({
+            ...provided,
+            margin : '0px auto',
+            height : '50px',
+            minHeight : '50px'
+            
+        }),
+        indicatorsContainer : (provided) => ({
+            ...provided,
+            width : '33px',
+            height : '33px',
+            minHeight : '50px'
+        })
+    }
 
     return (
         <div>
@@ -209,9 +236,7 @@ const SigninForm = () => {
                 />
                 <StyledGol>@</StyledGol>
                 <StyledSelect
-                styles={{ // 모바일 환경에서도 option 목록이 항상 위로 보이게 zIndex 설정함
-                    domain : provided=> ({...provided, zIndex: 999}),
-                }}
+                styles={selectStyle}
                 onChange = {setSelectDomain}
                 placeholder = "선택해주세요!"
                 options={domain}
@@ -330,17 +355,7 @@ const SigninForm = () => {
                 />
                 <StyledGol>@</StyledGol>
                 <StyledSelect
-                styles={{ // 모바일 환경에서도 option 목록이 항상 위로 보이게 zIndex 설정함
-                    domain : provided=> ({...provided, zIndex: 999}),
-                    singleValue : (provided, state)  => ({
-                        width :"20px",
-                        height :"20px"
-                    }),
-                    input : (provided, state)  => ({
-                    width :"10px",
-                    height :"1px"
-                    })
-                }}
+                styles={selectStyle}
                 // value = {domain.find(domain => {
                 //     return domain.value === selectDomain
                 // })}
@@ -348,6 +363,7 @@ const SigninForm = () => {
                 placeholder = "선택해주세요!"
                 options={domain}
                 />
+
                 </StyledEmailGroup>
                 {errors.login_email ? (
                     <ErrorText>{errors.login_email.message}</ErrorText>
@@ -376,7 +392,7 @@ const SigninForm = () => {
                 <br/>
                 <OAuth/><br/>
                 <OAuth2/><br/>
-                <span>로그인 없이 이용하고 싶으시다면?</span>&nbsp;<NavLink to = "/">둘러보기!</NavLink>
+                <span>로그인 없이 이용하고 싶으시다면?</span>
                 <br/>
                 <br/>
                 <a href = " https://dust-sulfur-10c.notion.site/2c4cd8fc0c91493abc3ffed858998727" target='_blank'>이용약관</a>
@@ -431,25 +447,25 @@ const StyledGol = styled.span`
     margin : 5px;
 `
 const StyledSelect = styled(Select)`
-    width: 130px;
-    border : 0px;
-    position: relative;
-    line-height: 14px;
-    font-size: 13px;
-    background-color : white;
-    border : 0px;
-    color : #black;
+    width: 129px;
+    // border : 0px;
+    // position: relative;
+    
+    font-size: 14px;
+    // background-color : white;
+    // border : 0px;
+    // color : #black;
 
-    &::placeholder {
-        color: #999999;
-      }
-      &:hover{
+    // &::placeholder {
+    //     color: #999999;
+    //   }
+    //   &:hover{
           
-      }
-      &:focus {
-        outline: none;
-        border: 0px solid #999999;
-      }
+    //   }
+    //   &:focus {
+    //     outline: none;
+    //     border: 0px solid #999999;
+    //   }
 
 `
 const StyledEmailGroup = styled.div`
@@ -480,4 +496,49 @@ const StyledSignIn = styled.div`
         flex-direction : center;
         justify-content : center;
     }
+`
+const StSelect = styled.div`
+position: relative;
+width: 200px;
+padding: 8px;
+border-radius: 12px;
+background-color: #ffffff;
+align-self: center;
+box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+cursor: pointer;
+&::before {
+  content: "⌵";
+  position: absolute;
+  top: 1px;
+  right: 8px;
+  color: #49c181;
+  font-size: 20px;
+}
+`
+const StSelectLabel = styled.label`
+  font-size: 14px;
+  margin-left: 4px;
+  text-align: center;
+`
+const StSelectOptions = styled.ul`
+  position: absolute;
+  list-style: none;
+  top: 18px;
+  left: 0;
+  width: 100%;
+  overflow: hidden;
+  height: 90px;
+  max-height: ${(props) => (props.show ? "none" : "0")};
+  padding: 0;
+  border-radius: 8px;
+  background-color: #222222;
+  color: #fefefe;
+`
+const StSelectOption = styled.li`
+  font-size: 14px;
+  padding: 6px 8px;
+  transition: background-color 0.2s ease-in;
+  &:hover {
+    background-color: #595959;
+  }
 `
