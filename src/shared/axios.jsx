@@ -1,8 +1,10 @@
 import axios from "axios";
+import { encode as base64_encode } from "base-64";
 
 const base = {
   server_http: "http://3.36.56.125",
   server_https: "https://magorosc.shop",
+  openvidu_server: "https://monsterwarrior.shop",
 };
 
 const api = axios.create({
@@ -18,6 +20,15 @@ api.interceptors.request.use(function (config) {
   const auth = localStorage.getItem("Authorization");
   config.headers.common["Authorization"] = auth;
   return config;
+});
+
+const videoApi = axios.create({
+  baseURL: base.openvidu_server,
+  headers: {
+    "Content-Type": "application/json",
+    //	Authorization: Basic EncodeBase64(OPENVIDUAPP:<YOUR_SECRET>)
+    Authorization: `Basic ${base64_encode("OPENVIDUAPP:jack0906")}`,
+  },
 });
 
 export const apis = {
@@ -58,4 +69,39 @@ export const apis = {
   // classes
   get_classes: () => api.get(`/api/class`),
   get_prev_chats: ({ class_id }) => api.get(`api/class/enter/${class_id}`),
+  create_session: () => {
+    const sessionOptions = {
+      mediaMode: "ROUTED",
+      recordingMode: "MANUAL",
+      // OpenVidu 서버가 랜덤한 sessionId 생성해 반환
+      customSessionId: "",
+      allowTranscoding: false,
+      defaultRecordingProperties: {
+        name: "MyRecording",
+        hasAudio: true,
+        hasVideo: true,
+        outputMode: "COMPOSED",
+        recordingLayout: "BEST_FIT",
+        resolution: "1280x720",
+        frameRate: 25,
+        shmSize: 536870912,
+      },
+      mediaNode: {
+        id: "media_i-0c58bcdd26l11d0sd",
+      },
+    };
+    return videoApi.post(`/openvidu/api/sessions`, sessionOptions);
+  },
+  create_token: ({ sessionId }) => {
+    const connectionOption = {
+      type: "WEBRTC",
+      data: "My Server Data",
+      record: true, // TODO set as false
+      role: "PUBLISHER", // "SUBSCRIBER" "MODERATOR"
+    };
+    return videoApi.post(
+      `/openvidu/api/sessions/${sessionId}/connection`,
+      connectionOption
+    );
+  },
 };
