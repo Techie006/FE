@@ -4,7 +4,7 @@ const initialState = {
   isLogin: localStorage.getItem("Authorization") ? true : false,
   userInfo: {
     member_id: 1,
-    nickname: "",
+    username: "",
     profile_img: "",
   },
 };
