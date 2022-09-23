@@ -78,6 +78,8 @@ const ClassVideo = (props) => {
       const mediaStream = media_resp;
 
       let videoTrack = mediaStream.getVideoTracks()[0];
+      // https://www.w3.org/TR/mst-content-hint/#dom-mediastreamtrack-contenthint
+      videoTrack.contentHint = "motion";
 
       const pubOption = {
         audioSource: undefined,
