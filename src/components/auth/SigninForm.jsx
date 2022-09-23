@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useForm } from "react-hook-form";
 import { NavLink } from "react-router-dom";
+import ServiceInfo from './ServiceInfo';
 import OAuth from "./OAuth"
 import OAuth2 from "./OAuth2"
 // import GoogleLogin from './GoogleLogin';
@@ -49,8 +50,8 @@ const SigninForm = () => {
       // error가 발생하면 해당 error의 값들은 formState 객체 안의 errors에 담겨 있다.
       // errors 객체 형식은 아래와 같다.
       // errors."내가 지정한 input name"."내가 지정한 error message"
-    const userId = watch("email") + "@" + selectDomain.value
-    const loginUserId = watch("login_email") + "@" + selectDomain.value
+    const userId = watch("email") + "@" + selectDomain
+    const loginUserId = watch("login_email")
 
     const pwCheck = (pw) => {
         let regExp = /^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{8,}$/;
@@ -217,32 +218,31 @@ const SigninForm = () => {
     }
 
     return (
-        <div>
+        <StWrapper>
             {currPage === true ?(
-            <StyledSignUp>
-            <form onSubmit = {handleSubmit(onSubmitHadler)}>
-                <div>
-                <InputTitle>이메일</InputTitle>
-                <StyledEmailGroup>
+            <StSignUpWrapper>
+            <StSignInTitle>Frigo</StSignInTitle>
+            <form onSubmit = {handleSubmit(onSubmitHadler)}>    
+            <StEmailWrapper>
+                <div className='email_label'>이메일</div>
+                <StEmailGroup>
                 <input
                 autoFocus
                 className='email_input'
                 type = "text"
-                id = "email"
                 placeholder="email"
                 {...register("email",{
                 required : "이메일을 입력해주세요."
                 })}
                 />
-                <StyledGol>@</StyledGol>
+                <StGol>@</StGol>
                 <StyledSelect
                 styles={selectStyle}
                 onChange = {setSelectDomain}
                 placeholder = "선택해주세요!"
                 options={domain}
                 />
-                </StyledEmailGroup>
-                </div>
+                </StEmailGroup>
                 {errors.email ? (
                 <ErrorText>{errors.email.message}</ErrorText>
                 ):
@@ -255,6 +255,7 @@ const SigninForm = () => {
                 (
                 null
                 )}
+                </StEmailWrapper>
                 <div>
                 <InputTitle>유저네임</InputTitle>
                 <input
@@ -338,12 +339,16 @@ const SigninForm = () => {
                 target='_blank' <- 새창열기  */}
                 <div onClick={pageChangeHandler}>로그인하기</div>
             </form>
-            </StyledSignUp>
+            </StSignUpWrapper>
             ):
-            (<StyledSignIn>
+            (<StSigninLayout>
+                <ServiceInfo/>
+                <StSignInWrapper>
                 <form onSubmit = {handleSubmit(onSubmitHadler)}>
-                <InputTitle>이메일</InputTitle>
-                <StyledEmailGroup>
+                <StSignInTitle>Frigo</StSignInTitle>
+                <StInputWrapper>
+                <div className='email_wrapper'>
+                <UserIcon className='user' src="Layer 97.png" />
                 <input
                 autoFocus
                 type = "text"
@@ -353,31 +358,23 @@ const SigninForm = () => {
                 required : "이메일을 입력해주세요."
                 })}
                 />
-                <StyledGol>@</StyledGol>
-                <StyledSelect
-                styles={selectStyle}
-                // value = {domain.find(domain => {
-                //     return domain.value === selectDomain
-                // })}
-                onChange = {setSelectDomain}
-                placeholder = "선택해주세요!"
-                options={domain}
-                />
-
-                </StyledEmailGroup>
+                </div>
                 {errors.login_email ? (
                     <ErrorText>{errors.login_email.message}</ErrorText>
                 ):
                 (
                 null
                 )}
-                <InputTitle>비밀번호</InputTitle>
+                </StInputWrapper>
+                <StInputWrapper>
+                <div className='pw_wrapper'>
+                <UserIcon className='pw' src="Vector.png" />
                 <input
                 type = "password"
                 id = "password"
-                placeholder="password"
+                placeholder="비밀번호"
                 {...register("login_password",{
-                    required : "패스워드를 입력해주세요."
+                    required : "비밀번호를 입력해주세요."
                 })}
                 />
                 {loginState.result === false ? (
@@ -386,33 +383,69 @@ const SigninForm = () => {
                 (
                 null
                 )}
-                <input type="submit" className="submitButton" value = "로그인하기"/>
-                <br/>
-                <div>or</div>
-                <br/>
-                <OAuth/><br/>
-                <OAuth2/><br/>
-                <span>로그인 없이 이용하고 싶으시다면?</span>
-                <br/>
-                <br/>
-                <a href = " https://dust-sulfur-10c.notion.site/2c4cd8fc0c91493abc3ffed858998727" target='_blank'>이용약관</a>
-                <a href = " https://dust-sulfur-10c.notion.site/2c4cd8fc0c91493abc3ffed858998727" target='_blank'>개인정보취급방침</a>
-                <div onClick={pageChangeHandler}>회원가입하기</div>
+                </div>
+                </StInputWrapper>
+                <StInputButton className = 'submit_button'>
+                <input type="submit" className="submitButton" value = "로그인"/> 
+                <div className='signup_find_box'>
+                    <div className='go_signup' onClick={pageChangeHandler}>회원가입하기</div>               
+                    <div className='go_findPw'>비밀번호 찾기</div>
+                </div>
+                </StInputButton>
+                <div className='middle_wrapper'>
+                <div className='middle_border'/>
+                <div className='middle_border'/>
+                <div className='middle_textbox'>또는</div>
+                </div>
+                <OAuth/>
+                <OAuth2/>
+                <a className='helper' href = " https://dust-sulfur-10c.notion.site/2c4cd8fc0c91493abc3ffed858998727" target='_blank'>이용약관</a>
+                <a className='helper' href = " https://dust-sulfur-10c.notion.site/2c4cd8fc0c91493abc3ffed858998727" target='_blank'>개인정보취급방침</a>
+                
                 </form>
-                </StyledSignIn>
+                </StSignInWrapper>
+                </StSigninLayout>
                 
             )}
-            </div>
+            </StWrapper>
         
     );
 };
 
 export default SigninForm;
 
-const StyledSignUp = styled.div`
+const StWrapper = styled.div`
+    letter-spacing: -0.5px;
+`
+const StEmailWrapper = styled.div`
     display : flex;
     flex-direction : column;
+    margin : auto 37px;
+    .email_label {
+        margin-top : 18px;
+        text-align : left;
+        margin-bottom : 6px;
+    }
+    .email_input {
+        width : 163px;
+        height : 50px;
+        margin : 0px;
+        padding : 16px 14px;
+        font-size : 14px;
+        border : 0px;
+    }
+`
+
+const StSignUpWrapper = styled.div`
+    display : flex;
+    flex-direction : column;
+    text-align : center;
+    width : 406px;
+    height : 646px;
+    background : #F5F5F5;
+    border : 1px solid #ECECEC;
     margin : 10px 0px;
+
     input {
         width : 260px;
         height : 35px;
@@ -438,107 +471,171 @@ const StyledSignUp = styled.div`
         width : 20px;
         height : 20px;
     }
+
 `
 const InputTitle = styled.div`
-    margin-bottom : 10px;
+    margin-top : 26px;
+    font-size : 14px;
+    color : #282828;
 `
-const StyledGol = styled.span`
-    font-size : 20px;
-    margin : 5px;
+
+const StGol = styled.span`
+    font-size : 16px;
+    margin-right : 11px;
+    margin-left : 11px;
 `
 const StyledSelect = styled(Select)`
     width: 129px;
-    // border : 0px;
-    // position: relative;
-    
     font-size: 14px;
-    // background-color : white;
-    // border : 0px;
-    // color : #black;
-
-    // &::placeholder {
-    //     color: #999999;
-    //   }
-    //   &:hover{
-          
-    //   }
-    //   &:focus {
-    //     outline: none;
-    //     border: 0px solid #999999;
-    //   }
 
 `
-const StyledEmailGroup = styled.div`
+const StEmailGroup = styled.div`
       display : flex;
-      align-items:center;
-      margin : 0px;
-
-      .email_input {
-          width : 110px;
-      }
+      flex-direction : row;
+      justify-content : center;
+      text-align : center;
+      align-items: center;
+      margin : 0px auto;
 `
-const StyledSignIn = styled.div`
+
+/////////////////////////////////////////////////
+//sign in 
+
+const StSigninLayout = styled.div`
+    display: flex;
+    flex-direction : row;
+    justify-content : center;
+    flex-wrap : wrap;
+    
+`
+
+const StSignInTitle = styled.div`
+    font-family : Noto Sans KR;
+    color : #282828;
+    font-size : 40px;
+    font-weight : bold;
+    letter-spacing: 1px;
+    margin-top : 32px;
+`
+
+const StSignInWrapper = styled.div`
     display : flex;
     flex-direction : column;
-    margin : 10px 0px;
+    text-align : center;
+    border : 1px solid #ECECEC;
+    width : 433px;
+    height : 597px;
+    margin : 25px auto;
     input {
-        width : 160px;
-        height : 30px;
-        margin-bottom : 10px;
-
+        width : 250px;
+        display : flex;
+        border : 0px;
+        text-align : left;
         &:hover {
-            border-color : red;
-            
+            // border-color : red;
         }
     }
-    .submitButton {
-        display : flex;
-        flex-direction : center;
-        justify-content : center;
+    input:focus { 
+        outline: none;
     }
+    .email_wrapper {
+        display : flex;
+        margin : 13px 25px 13px;
+    }
+    .pw_wrapper {
+        display : flex;
+        margin : 13px 25px 13px;
+    }
+    .submitButton {
+        padding : 0px;
+        margin : 11px auto;
+        justify-content : center;
+        color : #FAFAFA;
+        font-size : 20px;
+        font-weight : 700;
+    }
+    .go_signup {
+        width : 131px;
+        border-bottom : 1px solid #D3D3D3;
+        text-align : left;
+    }
+    .go_findPw {
+        width : 131px;
+        border-bottom : 1px solid #D3D3D3;
+        text-align : right;
+    }
+    .signup_find_box {
+        font-size : 12px;
+        color : #656565;
+        height : 64px;
+        padding-top : 10px;
+        display : flex;
+        flex-direction : row;
+        justify-content : space-between;
+    }
+    .middle_wrapper {
+        display : flex;
+        
+        justify-content : space-between;
+    }
+    .middle_border {
+        padding-bottom : 38px;
+        border-bottom : 1px solid #D3D3D3;
+    }
+    .middle_textbox {
+        width : 67px;
+        margin : 0px auto;
+        margin-top : 30px;
+        margin-bottom : 16px;
+        font-size : 14px;
+        color : #A5A5A5;
+    }
+    .helper {
+        margin : 5px;
+        font-size : 14px;
+        color : #A5A5A5;
+    }
+
 `
-const StSelect = styled.div`
-position: relative;
-width: 200px;
-padding: 8px;
-border-radius: 12px;
-background-color: #ffffff;
-align-self: center;
-box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
-cursor: pointer;
-&::before {
-  content: "⌵";
-  position: absolute;
-  top: 1px;
-  right: 8px;
-  color: #49c181;
-  font-size: 20px;
-}
+const StInputWrapper = styled.div`
+    width : 329px;
+    height : 50px;
+    margin : 28px auto;
+    border : 1.2px solid #DADADA;
+    border-radius : 6px;
+    background-color : #FAFAFA;
 `
-const StSelectLabel = styled.label`
-  font-size: 14px;
-  margin-left: 4px;
-  text-align: center;
+const StInputButton =styled.div`
+    width : 329px;
+    height : 50px;
+    margin : 28px auto;
+    border : 1.2px solid #DADADA;
+    background-color : #FC9700;
+    border : 1px solid #F07401;
+    border-radius : 6px;
+    
 `
-const StSelectOptions = styled.ul`
-  position: absolute;
-  list-style: none;
-  top: 18px;
-  left: 0;
-  width: 100%;
-  overflow: hidden;
-  height: 90px;
-  max-height: ${(props) => (props.show ? "none" : "0")};
-  padding: 0;
-  border-radius: 8px;
-  background-color: #222222;
-  color: #fefefe;
+const UserIcon = styled.img`
+    width : 14px;
+    height : 18px;
+    margin-right : 10px;
 `
-const StSelectOption = styled.li`
-  font-size: 14px;
-  padding: 6px 8px;
-  transition: background-color 0.2s ease-in;
-  &:hover {
-    background-color: #595959;
-  }
-`
+
+// const StSelect = styled.div`
+// position: relative;
+// width: 200px;
+// padding: 8px;
+// border-radius: 12px;
+// background-color: #ffffff;
+// align-self: center;
+// box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+// cursor: pointer;
+// &::before {
+//   content: "⌵";
+//   position: absolute;
+//   top: 1px;
+//   right: 8px;
+//   color: #49c181;
+//   font-size: 20px;
+// }
+// `

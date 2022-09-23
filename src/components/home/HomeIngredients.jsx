@@ -6,11 +6,13 @@ import Potal from '../modals/Potal';
 import styled from "styled-components";
 import HomeIngredientsModal from '../modals/HomeIngredientsModal';
 import axios from 'axios';
+import { recommend } from '../../modules/redux/searchData';
 
 const HomeIngredients = () => {
     const [showModal, setShowModal] = useState(false);
     const [ingredients, setIngredients] = useState([]);
     const [curr, setCurr] = useState("")
+    const [filterData, setFilterData] = useState([])
 
     const dispatch = useDispatch();
 
@@ -33,6 +35,7 @@ const HomeIngredients = () => {
         setCurr("")
         console.log("curr",curr)
     }
+    
 
     // const storagePage = {
     //     freeze: "freeze",
@@ -56,6 +59,10 @@ const HomeIngredients = () => {
             }
             )
             setIngredients(resp.data.content)
+            const filterExpDone = resp.data.content.storage.filter((data) => data.d_date !== "유통기간만료" )
+            console.log("whta",filterExpDone)
+            setFilterData(filterExpDone)
+            
             const dDate = resp.data.content.storage.map((data)=>data.d_date)
             const sort = dDate.sort(function(a,b,c) {
                 var x = "유통기한만료"
@@ -93,7 +100,10 @@ const HomeIngredients = () => {
     useEffect(() => {
         getIngredients();
     }, [curr]);
-
+    useEffect(() => {
+        console.log("fiter",filterData)
+        dispatch(recommend(filterData))
+    },[ingredients])
     return (
         <StyledInredientsWrapper>
             <StyledIngredientsHeader>

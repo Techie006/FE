@@ -1,13 +1,17 @@
 import React, { useState } from 'react';
+import { useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import { AiFillEyeInvisible } from "react-icons/ai";
 import { FcAddImage } from "react-icons/fc";
 import { AiFillEye } from "react-icons/ai";
 import { ErrorText, ValidateText } from "../../elements/texts/pageTexts"
 import axios from 'axios';
+import Swal from "sweetalert2";
 import styled from "styled-components";
 
 const UpdateProfileModal = ({ onClose }) => {
+
+    const navigate = useNavigate();
 
     const [show, setShow] = useState(false);
     const [errorMessage, setErrorMessage] = useState("")
@@ -56,7 +60,17 @@ const UpdateProfileModal = ({ onClose }) => {
                     "Authorization" : auth
                 }
             })
-                console.log(updateErrorMessage)
+            Swal.fire(
+                '비밀번호 변경을 성공하였습니다!',
+                '다시 로그인해 주시기 바랍니다.',
+                'success'
+              )
+            localStorage.removeItem("Authorization")
+            localStorage.removeItem("Refresh_Token")
+            
+            navigate("/auth")
+
+        
             }else{
                 setUpdateErrorMessage("변경할 비밀번호를 다시 확인해주세요.")
                 console.log("bad")
@@ -102,7 +116,9 @@ const UpdateProfileModal = ({ onClose }) => {
                     {errorMessage !== "" ? 
                     (<ErrorText>{errorMessage}</ErrorText>)
                     :
-                    (null)}
+                    (
+                    <StBlank></StBlank>    
+                    )}
                     <StTitle>새로운 비밀번호 입력</StTitle>
                     <input
                         autoComplete='on'
@@ -117,7 +133,9 @@ const UpdateProfileModal = ({ onClose }) => {
                     {updateErrorMessage !== "" ? 
                     (<ErrorText>{updateErrorMessage}</ErrorText>)
                     :
-                    (null)}
+                    (
+                    <StBlank></StBlank>
+                    )}
                     <StTitle>비밀번호 확인</StTitle>
                     <input
                         autoComplete='on'
@@ -133,7 +151,7 @@ const UpdateProfileModal = ({ onClose }) => {
                     <ErrorText>{errors.updatePwConfirm.message}</ErrorText>
                     ):
                     (
-                    null
+                    <StBlank></StBlank>
                     )}
                      {!show ? (
                         <button className='show_button' onClick = {onShowHandler}>
@@ -161,6 +179,7 @@ const StWrapper = styled.div`
     background-color : rgba(0, 0, 0, 0.8);
     align-items: center;
     justify-content: center;
+    z-index : 990;
     position: fixed;
     left: 0;
     top: 0;
@@ -194,6 +213,10 @@ const StTitle = styled.div``
 const StProfileHeaderWrapper = styled.div``
 const StProfileHeader = styled.div``
 const StCloseBox = styled.div``
+const StBlank = styled.div`
+    width : 200px;
+    height: 0.7rem;
+`
 
 
 

@@ -1,5 +1,4 @@
 import React from 'react';
-
 import styled from "styled-components";
 
 const OAuth = () => {
@@ -12,7 +11,7 @@ const OAuth = () => {
         <StyledOAuthWrapper>
             <StyledKakaoLogin>
                 <a href={KAKAO_AUTH_URL}>
-                    <img src ="kakao_login_medium_narrow.png"/>
+                    <img src ="kakao_login_large_narrow.png"/>
                 </a>
             </StyledKakaoLogin>
         </StyledOAuthWrapper>
@@ -25,4 +24,8 @@ export default OAuth;
 const StyledOAuthWrapper = styled.div`
 `
 const StyledKakaoLogin = styled.div`
+    img {
+        width : 329px;
+        height : 50px;
+    }
 `

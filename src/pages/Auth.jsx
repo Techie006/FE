@@ -7,7 +7,6 @@ const Auth = (props) => {
   return (
     <>
       <Layout>
-        <Header />
         <AuthLayout />
         <Helper/>
       </Layout>

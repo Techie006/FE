@@ -39,8 +39,9 @@ const Header = () => {
     setOpen(!open)
   }
   const showModalHandler = () => {
-    setShowModal(!showModal)
     setOpen(false)
+    setShowModal((prev) => !prev )
+    
 }
   const linkBookMark = () => {
     navigate("/bookmark")
@@ -112,12 +113,12 @@ const Header = () => {
             <li onClick = {linkBookMark}>북마크한 레시피</li>
             <li onClick={signoutHandler}>로그아웃</li>
           </ul>
-            <Potal>
-              {showModal && <UpdateProfileModal onClose = {showModalHandler}/>}
-            </Potal>
           </div>)
           :
           (null)}
+           <Potal>
+              {showModal && <UpdateProfileModal onClose = {showModalHandler}/>}
+            </Potal>
         </StMypageMenu>
         </div>
         </StMypageWrapper>
@@ -162,7 +163,7 @@ const StMypage = styled.button`
 `
 const StMypageMenu = styled.div`
   position : absolute;
-  z-index : 999;
+  z-index : 900;
 `
 const StMypageWrapper = styled.div`
   li {

@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-
+import { useSelector } from "react-redux";
 import Recipes from "./Recipes";
 import axios from "axios";
 import styled from "styled-components";
@@ -65,9 +65,9 @@ const RecommendRecipes = () => {
             <StyledButtonScroll key={index}>
               <StyledIngredientButton
                 onClick={onClickHandler}
-                value={data.food_name}
+                value={data.mark_name}
               >
-                {data.food_name}
+                {data.mark_name}
               </StyledIngredientButton>
             </StyledButtonScroll>
           ))}

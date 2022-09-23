@@ -8,6 +8,7 @@ const TodayRecipe = () => {
     const [todayRecipes, setTodayRecipes] = useState([])
     // const [data, setDate] = useState("")
 
+
     const auth = localStorage.getItem("Authorization")
     const refresh = localStorage.getItem("Refresh_Token")
 
@@ -51,7 +52,7 @@ const TodayRecipe = () => {
             </StyledHeader>
             
         <StyledRecipeWrapper>
-            {todayRecipes.map((data, index) => (
+            {todayRecipes && todayRecipes.map((data, index) => (
                 <StyledTodayrecipe key={index}>
                     <StyledTitle>
                         <div>

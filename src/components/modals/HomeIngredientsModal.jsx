@@ -1,16 +1,61 @@
-import React from 'react';
+import React, { useState,useEffect } from 'react';
+import axios from 'axios';
 import styled from "styled-components";
 
-const HomeIngredientsModal = (
-    { onClose,
-      ingredients,
-      freezeHandler,
-      refrigerHandler,
-      roomTempHandler,
-      totalHandler
-    }) => {
+const HomeIngredientsModal = ({ onClose }) => {
 
-    console.log("aa",ingredients)
+    const [ curr, setCurr ] = useState("")
+    const [ ingredients, setIngredients ] = useState([])
+
+    const onProduceClick = () => {
+        setCurr("produce")
+    }
+    const onLivestockClick = () => {
+        setCurr("livestock")
+    }
+    const onMarineClick = () => {
+        setCurr("marine")
+    }
+    const onDrinkClick = () => {
+        setCurr("drink")
+    }
+    const onEtcClick = () => {
+        setCurr("etc")
+    }
+    const onFreezeClick = () => {
+        setCurr("freeze")
+        console.log("curr",curr)
+    }
+    const onRefrigeratedClick = () => {
+        setCurr("refrigerated")
+        console.log("curr",curr)
+    }
+    const onRoomTempClick = () => {
+        setCurr("room_temp")
+        console.log("curr",curr)
+    }
+    const onTotalClick = () => {
+        setCurr("")
+    }
+
+    const getIngredients = async () => {
+
+        const auth = localStorage.getItem("Authorization")
+
+        const resp = await axios.get(`http://3.36.56.125/api/ingredients/detail?category=${curr}`,{
+            headers :{
+                "Authorization" : auth,
+            } 
+        })
+        console.log("hoem",resp.data)
+        const getAllIngredients = resp.data.content.category
+        setIngredients(getAllIngredients)
+    }
+    useEffect(() => {
+        getIngredients()
+    },[curr])
+
+    
 
     return (
         <StyledModalBackground>
@@ -20,14 +65,19 @@ const HomeIngredientsModal = (
                 <div className='x' onClick={onClose}><h1>x</h1></div>
             </StyledHeader>
             <StyledButtonList>
-                <button onClick={freezeHandler}>냉동</button>
-                <button onClick={refrigerHandler}>냉장</button>
-                <button onClick={roomTempHandler}>상온</button>
-                <button onClick={totalHandler}>전체</button>
+                <button onClick={onFreezeClick}>냉동</button>
+                <button onClick={onRefrigeratedClick}>냉장</button>
+                <button onClick={onRoomTempClick}>상온</button>
+                <button onClick={onProduceClick}>농산물</button>
+                <button onClick={onLivestockClick}>축산물</button>
+                <button onClick={onMarineClick}>수산물</button>
+                <button onClick={onDrinkClick}>음료수</button>
+                <button onClick={onEtcClick}>기타</button>
+                <button onClick={onTotalClick}>전체</button>
             </StyledButtonList>
             <StyledContainer>
             <StyledWrapper>
-            {ingredients.storage.map((data, index) => (
+            {ingredients.map((data, index) => (
                 <StyledIngredinet key={index}>
                 <div className='food_inDate'>
                     <div>

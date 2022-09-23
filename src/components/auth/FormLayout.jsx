@@ -1,15 +1,16 @@
 import React from 'react';
-import ServiceInfo from './ServiceInfo';
 import SigninForm from './SigninForm';
+import styled from "styled-components";
 
 
 const FormLayout = () => {
     return (
-        <div>
-            <ServiceInfo/>
+        <StWrapper>
             <SigninForm/>
-        </div>
+        </StWrapper>
     );
 };
 
 export default FormLayout;
+
+const StWrapper = styled.div``

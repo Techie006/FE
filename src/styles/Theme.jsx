@@ -1,49 +1,11 @@
-const colors = {
-  main: {
-    orange_red: "#FF5C01",
-    orange: "#FC9700",
-    mint: "#74BDB2",
-  },
-  sub: {
-    brown: "#8E7B6D",
-    mint: "#EBFAF5",
-    orange_red: "#FFEAD8",
-  },
-  background: {
-    orange: "#FF8E42",
-    yellow: "#FFB356",
-    gray: "#FAFAFA",
-  },
-  special: {
-    yellow: "#FFDD7C",
-    ivory: "#FFF8CF",
-    brown: "#4F2F00",
-    brownBeige: "#DFB078",
-    whiteGray: "#F0EADC",
-    blue: "#79A6DC",
-    purple: "#482647",
-  },
-  font: {
-    mainBlack: "#000000",
-    mainWhite: "#FFFFFF",
-    subWhite: "#FAFAFA",
-    // 1(dark) ---> 4(light)
-    gray1: "#282828",
-    gray2: "#4B4B4B",
-    gray3: "#656565",
-    gray4: "#939393",
-    // 1(dark) ---> 4(light)
-    lightGray1: "#A5A5A5",
-    lightGray2: "#C0C0C0",
-    lightGray3: "#DADADA",
-    lightGray4: "#ECECEC",
-  },
-};
+import Colors from "./Colors";
 
 export const designTheme = {
+  colors: Colors,
+
   page: {
     layout: {
-      background: colors.background.gray,
+      background: Colors.background.gray,
     },
     content: {
       fontFamily: `'Noto Sans KR', sans-serif`,
@@ -55,9 +17,9 @@ export const designTheme = {
 
   section: {
     layout: {
-      background: colors.font.mainWhite,
-      boxShadow: "0px 3px 13px 1px rgba(0, 0, 0, 0.05)",
+      background: Colors.background.white,
       borderRadius: "10px",
+      boxShadow: "0px 3px 13px 1px rgba(0, 0, 0, 0.05)",
     },
     content: {
       fontWeight: "700",
@@ -66,7 +28,7 @@ export const designTheme = {
     },
     // TODO 안쓰는지 확인해보고 안쓰면 지우기
     box: {
-      background: colors.font.mainWhite,
+      background: Colors.background.white,
       boxShadow: "0px 2px 11px rgba(0, 0, 0, 0.08)",
       borderRadius: "8px",
       fontWeight: "700",
@@ -77,7 +39,7 @@ export const designTheme = {
 
   modal: {
     layout: {
-      background: colors.font.mainWhite,
+      background: Colors.font.mainWhite,
       boxShadow: "0px 3px 13px 1px rgba(0, 0, 0, 0.05)",
       borderRadius: "15px",
     },
@@ -85,20 +47,23 @@ export const designTheme = {
 
   button: {
     layout: {
-      background: colors.font.mainWhite,
-      boxShadow: "0px 3px 13px 1px rgba(0, 0, 0, 0.05)",
+      background: Colors.background.white,
+      border: "none",
       borderRadius: "6px",
       borderRoundRadius: "30px",
+      boxShadow: "0px 3px 13px 1px rgba(0, 0, 0, 0.05)",
     },
     content: {
       fontWeight: "700",
       fontSize: "16px",
       lineHeight: "23px",
     },
+    colors: {
+      disabled: Colors.background.gray,
+    },
     auth: {
       layout: {
         border: "1px solid #F07401",
-        borderRadius: "6px",
       },
       content: {
         basic: {
@@ -107,31 +72,31 @@ export const designTheme = {
           fontWeight: "700",
         },
         large: {
-          fontSize: "19.1769px",
-          lineHeight: "28px",
+          fontSize: "19px",
           fontWeight: "700",
+          lineHeight: "28px",
         },
       },
       colors: {
         basic: {
-          background: colors.main.orange,
-          text: colors.font.subWhite,
+          background: Colors.main.orange,
+          text: Colors.font.subWhite,
         },
-        special: {
-          background: colors.main.mint,
-          text: colors.special.purple,
+        selected: {
+          background: Colors.main.mint,
+          text: Colors.special.purple,
         },
       },
     },
     statistics: {
       colors: {
         basic: {
-          background: colors.special.whiteGray,
-          text: colors.sub.brown,
+          background: Colors.special.whiteGray,
+          text: Colors.sub.brown,
         },
         selected: {
-          background: colors.background.yellow,
-          text: colors.special.purple,
+          background: Colors.background.yellow,
+          text: Colors.special.purple,
         },
       },
       content: {
@@ -143,12 +108,12 @@ export const designTheme = {
     recipes: {
       colors: {
         basic: {
-          background: colors.font.mainWhite,
-          text: colors.font.lightgray1,
+          background: Colors.background.white,
+          text: Colors.font.lightGray1,
         },
         selected: {
-          background: colors.special.yellow,
-          text: colors.font.gray1,
+          background: Colors.special.yellow,
+          text: Colors.font.gray1,
         },
       },
       content: {
@@ -160,11 +125,10 @@ export const designTheme = {
     calendar: {
       layout: {
         border: "1px solid #ECECEC",
-        borderRadius: "4px",
       },
       colors: {
         basic: {
-          background: colors.font.subWhite,
+          background: Colors.background.gray,
           text: "#5B5B5B",
         },
       },
@@ -178,11 +142,11 @@ export const designTheme = {
       colors: {
         basic: {
           background: "#EFEFEF",
-          text: colors.font.lightgray1,
+          text: Colors.font.lightGray1,
         },
         selected: {
-          background: colors.special.yellow,
-          text: colors.font.mainBlack,
+          background: Colors.special.yellow,
+          text: Colors.font.mainBlack,
         },
       },
       content: {
@@ -195,24 +159,26 @@ export const designTheme = {
 
   textbox: {
     layout: {
-      background: colors.font.mainWhite,
-      boxShadow: "0px 3px 13px 1px rgba(0, 0, 0, 0.05)",
       borderRadius: "6px",
       borderRoundRadius: "30px",
+      boxShadow: "0px 3px 13px 1px rgba(0, 0, 0, 0.05)",
     },
     content: {
       fontWeight: "700",
       fontSize: "16px",
       lineHeight: "23px",
     },
+    colors: {
+      background: Colors.background.white,
+    },
   },
 
   iconbox: {
     layout: {
-      background: colors.font.mainWhite,
-      boxShadow: "0px 3px 13px 1px rgba(0, 0, 0, 0.05)",
+      background: Colors.background.white,
       borderRadius: "6px",
       borderRoundRadius: "30px",
+      boxShadow: "0px 3px 13px 1px rgba(0, 0, 0, 0.05)",
     },
     content: {
       fontWeight: "700",
@@ -220,11 +186,36 @@ export const designTheme = {
       lineHeight: "23px",
     },
     size: {
+      // s1(big) ---> s5(small)
       s1: "24px",
       s2: "22px",
       s3: "20px",
       s4: "18px",
       s5: "15px",
     },
+    colors: {
+      color: Colors.font.gray2,
+    },
+  },
+
+  input: {
+    layout: {
+      background: Colors.background.gray,
+      borderRadius: "6px",
+      border: "1.2px solid #DADADA",
+    },
+    content: {
+      fontWeight: "400",
+      fontSize: "14px",
+      lineHeight: "20px",
+    },
+    colors: {
+      text: "#A5A5A5",
+    },
+  },
+
+  effects: {
+    transition: "all 0.3s",
+    transform: "scale(1,1)",
   },
 };
