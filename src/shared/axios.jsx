@@ -68,6 +68,18 @@ export const apis = {
 
   // classes
   get_classes: () => api.get(`/api/class`),
+  create_class: ({ recipe_id, class_name, file }) => {
+    const body = {
+      RoomRequestDto: {
+        recipe_id,
+        class_name,
+      },
+      MultiPart: {
+        file,
+      },
+    };
+    return api.post(`/api/class`, body);
+  },
   get_prev_chats: ({ class_id }) => api.get(`api/class/enter/${class_id}`),
   create_session: () => {
     const sessionOptions = {
