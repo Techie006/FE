@@ -1,8 +1,10 @@
 import { useState } from "react";
 import { useForm } from "react-hook-form";
+import { useNavigate } from "react-router-dom";
 import { faX } from "@fortawesome/free-solid-svg-icons";
 import styled from "styled-components";
 
+import { apis } from "../../shared/axios";
 import Modal from "../../elements/templates/Modal";
 import { H3, ErrorText } from "../../styles/Text";
 import Button from "../../elements/atoms/Button";
@@ -20,8 +22,11 @@ const CreateClass = ({ onClick }) => {
     resetField,
   } = useForm({ mode: "onChange" });
 
+  const navigate = useNavigate();
+
   const changeImgHandler = async (e) => {
     const files = e.target.files;
+
     const fileList = Array.from(files);
 
     // 선택된 파일 없으면 보여주지 않음.
@@ -39,12 +44,25 @@ const CreateClass = ({ onClick }) => {
   const clickHandler = () => {
     setImgUrl([defaultImgUrl]);
     setShowImg(false);
-    resetField("classImg");
+    resetField("classImgs");
   };
 
-  // TODO 모달 닫고 페이지 이동!
-  const submitHandler = (data) => {
-    console.log(data);
+  const submitHandler = async ({ className, classImgs, recipeId }) => {
+    const resp = await apis.create_class({
+      recipe_id: recipeId,
+      class_name: className,
+      files: classImgs,
+    });
+    const {
+      content,
+      status: { code, message },
+    } = resp.data;
+    if (code === 400) {
+      alert(message);
+      return;
+    }
+    const { redis_class_id } = content;
+    navigate(`/class/${redis_class_id}/publisher`);
   };
 
   return (
@@ -65,21 +83,21 @@ const CreateClass = ({ onClick }) => {
           {errors.className ? (
             <ErrorText>{errors.className.message}</ErrorText>
           ) : null}
-          <H3 as='label' htmlFor='classImg'>
+          <H3 as='label' htmlFor='classImgs'>
             클래스 썸네일
           </H3>
           <StInput
             type='file'
             accept='image/jpg, image/png, image/jpeg'
-            id='classImg'
+            id='classImgs'
             placeholder='이미지 파일 선택'
-            {...register("classImg", {
+            {...register("classImgs", {
               required: "신규 클래스 생성을 위해서 썸네일을 입력해주세요.",
               onChange: (e) => changeImgHandler(e),
             })}
           />
-          {errors.classImg ? (
-            <ErrorText>{errors.classImg.message}</ErrorText>
+          {errors.classImgs ? (
+            <ErrorText>{errors.classImgs.message}</ErrorText>
           ) : null}
           <StImgWrapper>
             <StImg src={imgUrl[0]} alt='img' />

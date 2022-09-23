@@ -68,17 +68,16 @@ export const apis = {
 
   // classes
   get_classes: () => api.get(`/api/class`),
-  create_class: ({ recipe_id, class_name, file }) => {
-    const body = {
-      RoomRequestDto: {
-        recipe_id,
-        class_name,
-      },
-      MultiPart: {
-        file,
-      },
-    };
-    return api.post(`/api/class`, body);
+  create_class: ({ recipe_id, class_name, files }) => {
+    const formData = new FormData();
+    formData.append("recipe_id", recipe_id);
+    formData.append("class_name", class_name);
+    formData.append("file", files[0]);
+    // for multi files
+    // for (let i = 0; i < files.length; i++) {
+    //   formData.append("Multipart", files[i]);
+    // }
+    return api.post(`/api/class`, formData);
   },
   get_prev_chats: ({ class_id }) => api.get(`api/class/enter/${class_id}`),
   create_session: () => {
