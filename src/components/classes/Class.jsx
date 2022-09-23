@@ -17,7 +17,7 @@ const Class = ({
 
   const clickHandler = () => {
     dispatch(__getPrevChats({ class_id }));
-    navigate(`/class/${redis_class_id}`);
+    navigate(`/class/${redis_class_id}/subscriber`);
   };
 
   return (

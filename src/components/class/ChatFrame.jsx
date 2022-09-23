@@ -14,7 +14,7 @@ const ChatFrame = (props) => {
 
   const [chats, setChats] = useState(prevChats);
 
-  // console.log(chats);
+  console.log(chats);
   // 리렌더링이 되더라도 값을 유지
   const stompClient = useRef({});
 
