@@ -1,5 +1,6 @@
 import styled from "styled-components";
 
+import WebSocket from "./WebSocket";
 import { H3, Text } from "../../styles/Text";
 import Chats from "./Chats";
 import CreateChat from "./CreateChat";
@@ -12,12 +13,15 @@ const ChatFrame = (props) => {
         <H3>실시간 채팅</H3>
         <Text>시청자 수 : </Text>
       </StHeader>
-      <StChatsPart>
-        <Chats />
-      </StChatsPart>
-      <StCreatePart>
-        <CreateChat />
-      </StCreatePart>
+      <main>
+        <WebSocket />
+        <StChatsPart>
+          <Chats />
+        </StChatsPart>
+        <StCreatePart>
+          <CreateChat />
+        </StCreatePart>
+      </main>
     </>
   );
 };

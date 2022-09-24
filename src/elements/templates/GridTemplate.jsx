@@ -28,7 +28,7 @@ export default GridTemplate;
 
 const StWrapper = styled.div`
   display: grid;
-  grid-auto-rows: "621px";
+  grid-auto-rows: 621px;
   // 콘텐츠 영역 확인하려면 아래 주석 활성화하세요!
   /* background: black;
   background-clip: content-box; */

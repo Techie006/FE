@@ -8,19 +8,21 @@ const initialState = {
   viewerNum: 0,
   isLoading: false,
   error: "",
+  stompClient: {},
 };
 
-export const __getPrevChats = createAsyncThunk(
-  "cookingClass/__getPrevChats",
-  async ({ class_id }, thunkAPI) => {
+export const __getClassInfo = createAsyncThunk(
+  "cookingClass/__getClassInfo",
+  async ({ classId }, thunkAPI) => {
     try {
-      const resp = apis.get_class_info({ class_id });
+      const resp = await apis.get_class_info({ classId });
       const {
         content: { session_id, token, chats },
       } = resp.data;
+
       return thunkAPI.fulfillWithValue({ session_id, token, chats });
     } catch (e) {
-      return thunkAPI.fulfillWithValue(e.code);
+      return thunkAPI.rejectWithValue(e.code);
     }
   }
 );
@@ -37,20 +39,23 @@ const cookingClassSlice = createSlice({
       const { message } = action.payload;
       state.prevChats = [...state.prevChats, message];
     },
+    saveStompClient: (state, action) => {
+      const { stompClient } = action.payload;
+      state.stompClient = stompClient;
+    },
   },
   extraReducers: {
-    //getPrevChats
-    [__getPrevChats.pending]: (state, action) => {
+    [__getClassInfo.pending]: (state, action) => {
       state.isLoading = true;
     },
-    [__getPrevChats.fulfilled]: (state, action) => {
+    [__getClassInfo.fulfilled]: (state, action) => {
       state.isLoading = false;
       const { session_id, token, chats } = action.payload;
       state.prevChats = chats;
       state.sessionId = session_id;
       state.token = token;
     },
-    [__getPrevChats.pending]: (state, action) => {
+    [__getClassInfo.rejected]: (state, action) => {
       state.isLoading = false;
       state.error = action.payload;
     },
