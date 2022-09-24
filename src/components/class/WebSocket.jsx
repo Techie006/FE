@@ -1,14 +1,18 @@
 import { useParams } from "react-router-dom";
 import { useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { useRef, useCallback, useEffect } from "react";
 import webstomp from "webstomp-client";
 import SockJs from "sockjs-client";
+import { saveStompClient } from "../../modules/redux/cookingClass";
 
 const WebSocket = (props) => {
   const { redisClassId } = useParams();
 
   const isLogin = useSelector((state) => state.auth.isLogin);
   const userInfo = useSelector((state) => state.auth.userInfo);
+
+  const dispatch = useDispatch();
 
   // 리렌더링이 되더라도 값을 유지
   const stompClient = useRef({});
@@ -97,6 +101,10 @@ const WebSocket = (props) => {
     connectSocket();
     return () => disconnectSocket();
   }, [connectSocket, disconnectSocket]);
+
+  useEffect(() => {
+    dispatch(saveStompClient({ stompClient: stompClient.current }));
+  }, [stompClient]);
 
   return <></>;
 };

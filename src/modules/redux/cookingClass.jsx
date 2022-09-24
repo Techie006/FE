@@ -62,5 +62,6 @@ const cookingClassSlice = createSlice({
   },
 });
 
-export const { enterClass, sendMessage } = cookingClassSlice.actions;
+export const { enterClass, sendMessage, saveStompClient } =
+  cookingClassSlice.actions;
 export default cookingClassSlice.reducer;
