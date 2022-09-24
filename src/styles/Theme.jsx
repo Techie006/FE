@@ -3,12 +3,16 @@ import Colors from "./Colors";
 export const designTheme = {
   colors: Colors,
 
+  font: {
+    fontFamily: `Noto Sans KR', 'Happiness-Sans-Bold', sans-serif`,
+  },
+
   page: {
     layout: {
       background: Colors.background.gray,
     },
     content: {
-      fontFamily: `'Noto Sans KR', sans-serif`,
+      fontFamily: `Noto Sans KR', 'Happiness-Sans-Bold', sans-serif`,
       fontWeight: "700",
       fontSize: "16px",
       lineHeight: "23px",

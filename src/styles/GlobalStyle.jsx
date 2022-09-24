@@ -58,8 +58,9 @@ body {
 	background-color: ${(props) => props.theme.page.layout.background};
 }
 body * {
-	font-family: ${(props) => props.theme.page.content.fontFamily}; 
+	font-family: ${(props) => props.theme.font.fontFamily}; 
 	background-color: transparent;
+	letter-spacing: -0.5px;
 }
 a {
 	text-decoration: none;
