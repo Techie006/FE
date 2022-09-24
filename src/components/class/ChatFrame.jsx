@@ -3,9 +3,6 @@ import { useParams } from "react-router-dom";
 import { useState, useRef, useCallback, useEffect } from "react";
 import webstomp from "webstomp-client";
 import SockJs from "sockjs-client";
-import styled from "styled-components";
-
-import GridTemplate from "../../elements/templates/GridTemplate";
 
 // TODO change v4 -> v5
 const ChatFrame = (props) => {
@@ -111,33 +108,13 @@ const ChatFrame = (props) => {
   };
 
   return (
-    <GridTemplate>
-      {/* <StSection>1</StSection>
-      <StSection>2</StSection>
-      <StSection>3</StSection>
-      <StSection>4</StSection>
-      <StSection>5</StSection>
-      <StSection>6</StSection>
-      <StSection>7</StSection>
-      <StSection>8</StSection>
-      <StSection>9</StSection>
-      <StSection>10</StSection>
-      <StSection>11</StSection>
-      <StSection>12</StSection> */}
+    <>
       {/* <form onSubmit={submitHandler}>
         <input type='text' placeholder='chat message' />
         <button type='submit'>제출</button>
       </form> */}
-    </GridTemplate>
+    </>
   );
 };
 
 export default ChatFrame;
-
-const StSection = styled.div`
-  /* padding: 0px 18px; */
-  background: ${(props) => props.theme.section.layout.background};
-  background: tomato;
-  border-radius: ${(props) => props.theme.section.layout.borderRadius};
-  box-shadow: ${(props) => props.theme.section.layout.boxShadow};
-`;
