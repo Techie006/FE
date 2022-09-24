@@ -9,10 +9,10 @@ const ClassFrame = () => {
     <GridTemplate>
       <StClassSection>
         <div>classSection</div>
+        {/* <VideoFrame /> */}
       </StClassSection>
       <StChatSection>
         <ChatFrame />
-        {/* <VideoFrame /> */}
       </StChatSection>
     </GridTemplate>
   );

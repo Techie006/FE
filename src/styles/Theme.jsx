@@ -26,9 +26,8 @@ export const designTheme = {
       fontSize: "16px",
       lineHeight: "23px",
     },
-    // TODO 안쓰는지 확인해보고 안쓰면 지우기
     box: {
-      background: Colors.background.white,
+      background: Colors.background.gray,
       boxShadow: "0px 2px 11px rgba(0, 0, 0, 0.08)",
       borderRadius: "8px",
       fontWeight: "700",

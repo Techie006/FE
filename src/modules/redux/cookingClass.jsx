@@ -3,6 +3,8 @@ import { apis } from "../../shared/axios";
 
 const initialState = {
   prevChats: [],
+  sessionId: "",
+  token: "",
   viewerNum: 0,
   isLoading: false,
   error: "",
@@ -12,11 +14,11 @@ export const __getPrevChats = createAsyncThunk(
   "cookingClass/__getPrevChats",
   async ({ class_id }, thunkAPI) => {
     try {
-      const resp = apis.get_prev_chats({ class_id });
+      const resp = apis.get_class_info({ class_id });
       const {
-        content: { chats },
+        content: { session_id, token, chats },
       } = resp.data;
-      return thunkAPI.fulfillWithValue(chats);
+      return thunkAPI.fulfillWithValue({ session_id, token, chats });
     } catch (e) {
       return thunkAPI.fulfillWithValue(e.code);
     }
@@ -43,7 +45,10 @@ const cookingClassSlice = createSlice({
     },
     [__getPrevChats.fulfilled]: (state, action) => {
       state.isLoading = false;
-      state.prevChats = action.payload;
+      const { session_id, token, chats } = action.payload;
+      state.prevChats = chats;
+      state.sessionId = session_id;
+      state.token = token;
     },
     [__getPrevChats.pending]: (state, action) => {
       state.isLoading = false;

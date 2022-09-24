@@ -79,7 +79,7 @@ export const apis = {
     // }
     return api.post(`/api/class`, formData);
   },
-  get_prev_chats: ({ class_id }) => api.get(`api/class/enter/${class_id}`),
+  get_class_info: ({ class_id }) => api.get(`api/class/enter/${class_id}`),
   create_session: () => {
     const sessionOptions = {
       mediaMode: "ROUTED",
