@@ -5,8 +5,9 @@ import webstomp from "webstomp-client";
 import SockJs from "sockjs-client";
 import styled from "styled-components";
 
-// TODO change v4 -> v5
+import GridTemplate from "../../elements/templates/GridTemplate";
 
+// TODO change v4 -> v5
 const ChatFrame = (props) => {
   const prevChats = useSelector((state) => state.cookingClass.prevChats);
   const isLogin = useSelector((state) => state.auth.isLogin);
@@ -110,8 +111,8 @@ const ChatFrame = (props) => {
   };
 
   return (
-    <StWrapper>
-      <StSection>1</StSection>
+    <GridTemplate>
+      {/* <StSection>1</StSection>
       <StSection>2</StSection>
       <StSection>3</StSection>
       <StSection>4</StSection>
@@ -122,48 +123,19 @@ const ChatFrame = (props) => {
       <StSection>9</StSection>
       <StSection>10</StSection>
       <StSection>11</StSection>
-      <StSection>12</StSection>
+      <StSection>12</StSection> */}
       {/* <form onSubmit={submitHandler}>
         <input type='text' placeholder='chat message' />
         <button type='submit'>제출</button>
       </form> */}
-    </StWrapper>
+    </GridTemplate>
   );
 };
 
 export default ChatFrame;
 
-const StWrapper = styled.div`
-  display: grid;
-  grid-auto-rows: "621px";
-  background: black;
-  margin: 20px 84px;
-  grid-template-columns: repeat(
-    12,
-    calc((100% - (2 * 84px) - (10 * 24px)) / 12)
-  );
-  grid-column-gap: 24px;
-  /* grid-row-gap: 20px; */
-
-  /* tablet */
-  /* @media all and (max-width: 1024px) {
-    margin: 20px 30px;
-    grid-template-columns: repeat(12, calc((100%- 2 * 40px) / 12));
-    grid-column-gap: 28px;
-    grid-row-gap: 20px;
-  } */
-
-  /* mobile */
-  /* @media all and (max-width: 600px) {
-    padding: 16px 16px;
-    grid-template-columns: repeat(1, 100%);
-    grid-column-gap: 16px;
-    grid-row-gap: 16px;
-  } */
-`;
-
 const StSection = styled.div`
-  padding: 18px 18px;
+  /* padding: 0px 18px; */
   background: ${(props) => props.theme.section.layout.background};
   background: tomato;
   border-radius: ${(props) => props.theme.section.layout.borderRadius};
