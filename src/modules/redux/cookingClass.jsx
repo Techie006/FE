@@ -8,7 +8,12 @@ const initialState = {
   viewerNum: 0,
   isLoading: false,
   error: "",
-  stompClient: {},
+  stomp: {
+    stompClient: {},
+    getData: () => {},
+    creatData: () => {},
+    sendData: () => {},
+  },
 };
 
 export const __getClassInfo = createAsyncThunk(
@@ -40,8 +45,13 @@ const cookingClassSlice = createSlice({
       state.prevChats = [...state.prevChats, message];
     },
     saveStompClient: (state, action) => {
-      const { stompClient } = action.payload;
-      state.stompClient = stompClient;
+      const { stompClient, getHeader, createData, sendEvent } = action.payload;
+      state.stomp = {
+        stompClient,
+        getHeader,
+        createData,
+        sendEvent,
+      };
     },
   },
   extraReducers: {

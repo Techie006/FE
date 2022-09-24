@@ -103,7 +103,14 @@ const WebSocket = (props) => {
   }, [connectSocket, disconnectSocket]);
 
   useEffect(() => {
-    dispatch(saveStompClient({ stompClient: stompClient.current }));
+    dispatch(
+      saveStompClient({
+        stompClient: stompClient.current,
+        getHeader,
+        createData,
+        sendEvent,
+      })
+    );
   }, [stompClient]);
 
   return <></>;
