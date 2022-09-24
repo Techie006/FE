@@ -55,26 +55,26 @@ const StWrapper = styled.div`
   }
 `;
 
-const StGrid = styled.div`
-  background: ${(props) => props.theme.section.layout.background};
-  border-radius: ${(props) => props.theme.section.layout.borderRadius};
-  border-radius: ${(props) => props.theme.section.layout.boxShadow};
-`;
+// const StGrid = styled.div`
+//   background: ${(props) => props.theme.section.layout.background};
+//   border-radius: ${(props) => props.theme.section.layout.borderRadius};
+//   box-shadow: ${(props) => props.theme.section.layout.boxShadow};
+// `;
 
-const StBigSection = styled(StGrid)`
-  grid-column: 1 / span 9;
+// const StBigSection = styled(StGrid)`
+//   grid-column: 1 / span 9;
 
-  /* mobile */
-  @media all and (max-width: 600px) {
-    grid-column: 1 / span 4;
-  }
-`;
+//   /* mobile */
+//   @media all and (max-width: 600px) {
+//     grid-column: 1 / span 4;
+//   }
+// `;
 
-const StSmallSection = styled(StGrid)`
-  grid-column: 10 / span 3;
+// const StSmallSection = styled(StGrid)`
+//   grid-column: 10 / span 3;
 
-  /* mobile */
-  @media all and (max-width: 600px) {
-    grid-column: 1 / span 4;
-  }
-`;
+//   /* mobile */
+//   @media all and (max-width: 600px) {
+//     grid-column: 1 / span 4;
+//   }
+// `;

@@ -30,7 +30,8 @@ export default StatisticsFrame;
 const StGrid = styled.div`
   background: ${(props) => props.theme.section.layout.background};
   border-radius: ${(props) => props.theme.section.layout.borderRadius};
-  border-radius: ${(props) => props.theme.section.layout.boxShadow};
+  box-shadow: ${(props) => props.theme.section.layout.boxShadow};
+  padding: 16px 18px;
 `;
 
 const StLeftSection = styled(StGrid)`
