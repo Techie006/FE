@@ -31,7 +31,7 @@ const Button = ({
         ) : null}
         {isIcon ? (
           <StLayout>
-            <StIcon icon={icon} size={size} />
+            <StIcon icon={icon} size='sm' />
           </StLayout>
         ) : null}
       </StWrapper>

@@ -50,6 +50,24 @@ const WebSocket = (props) => {
     [getHeader, createData]
   );
 
+  const receiveEvent = useCallback((frame) => {
+    const resp = JSON.parse(frame.body);
+    const { type } = resp;
+    switch (type) {
+      case "ENTER":
+        console.log("enter");
+        return;
+      case "MESSAGE":
+        console.log("message");
+        return;
+      case "LEAVE":
+        console.log("leave");
+        return;
+      default:
+        return;
+    }
+  }, []);
+
   const connectSocket = useCallback(() => {
     // 1. webSocket 클라이언트 생성
     const sock = new SockJs("http://3.36.56.125/ws");
@@ -61,28 +79,11 @@ const WebSocket = (props) => {
 
       subscription.current = stompClient.current.subscribe(
         `/sub/chat/${redisClassId}`,
-        (frame) => {
-          console.log(frame);
-          const resp = JSON.parse(frame.body);
-          const { type } = resp;
-          switch (type) {
-            case "ENTER":
-              console.log("enter");
-              return;
-            case "MESSAGE":
-              console.log("message");
-              return;
-            case "LEAVE":
-              console.log("leave");
-              return;
-            default:
-              return;
-          }
-        },
+        (frame) => receiveEvent(frame),
         getHeader()
       );
     });
-  }, [getHeader, sendEvent, redisClassId]);
+  }, [sendEvent, redisClassId, receiveEvent, getHeader]);
 
   const disconnectSocket = useCallback(() => {
     // 1. webSocket 연결 해지 전 Leave 이벤트 전달
@@ -111,7 +112,7 @@ const WebSocket = (props) => {
         sendEvent,
       })
     );
-  }, [stompClient]);
+  }, [dispatch, stompClient, getHeader, createData, sendEvent]);
 
   return <></>;
 };

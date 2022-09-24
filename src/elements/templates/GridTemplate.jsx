@@ -28,7 +28,7 @@ export default GridTemplate;
 
 const StWrapper = styled.div`
   display: grid;
-  grid-auto-rows: 621px;
+  grid-auto-rows: ${(props) => (!props.height ? "621px" : `${props.height}px`)};
   // 콘텐츠 영역 확인하려면 아래 주석 활성화하세요!
   /* background: black;
   background-clip: content-box; */
@@ -56,10 +56,9 @@ const StWrapper = styled.div`
 `;
 
 const StGrid = styled.div`
-  background: gray;
-  color: white;
-  text-align: center;
+  background: ${(props) => props.theme.section.layout.background};
   border-radius: ${(props) => props.theme.section.layout.borderRadius};
+  border-radius: ${(props) => props.theme.section.layout.boxShadow};
 `;
 
 const StBigSection = styled(StGrid)`

@@ -32,7 +32,11 @@ const StHeader = styled.div`
   padding: 18px 18px;
 `;
 
-const StChatsPart = styled.div``;
+const StChatsPart = styled.div`
+  height: 300px;
+  overflow-y: scroll;
+  background-color: #eeeaea;
+`;
 
 const StCreatePart = styled.div`
   border-top: 1px solid #ececec;

@@ -1,3 +1,4 @@
+import GridTemplate from "../../elements/templates/GridTemplate";
 import styled from "styled-components";
 
 import Status from "./Status";
@@ -7,53 +8,45 @@ import Nutrients from "./Nutrients";
 
 const StatisticsFrame = () => {
   return (
-    <StWrapper>
-      <StSection isTwo={true}>
+    <GridTemplate height='minmax(349px, auto)'>
+      <StLeftSection>
         <Status />
-      </StSection>
-      <StSection>
+      </StLeftSection>
+      <StRightSection>
         <Daily />
-      </StSection>
-      <StSection>
+      </StRightSection>
+      <StLeftSection>
         <Calories />
-      </StSection>
-      <StSection>
+      </StLeftSection>
+      <StRightSection>
         <Nutrients />
-      </StSection>
-    </StWrapper>
+      </StRightSection>
+    </GridTemplate>
   );
 };
 
 export default StatisticsFrame;
 
-const StWrapper = styled.div`
-  display: grid;
-  grid-auto-rows: ${(props) => (props.isTwo ? "349px" : "minmax(349px, auto)")};
-  padding: 20px 84px;
-  grid-template-columns: repeat(2, 50%);
-  grid-column-gap: 20px;
-  grid-row-gap: 20px;
+const StGrid = styled.div`
+  background: ${(props) => props.theme.section.layout.background};
+  border-radius: ${(props) => props.theme.section.layout.borderRadius};
+  border-radius: ${(props) => props.theme.section.layout.boxShadow};
+`;
 
-  /* tablet */
-  @media all and (max-width: 1024px) {
-    padding: 20px 30px;
-    grid-template-columns: repeat(2, 50%);
-    grid-column-gap: 20px;
-    grid-row-gap: 20px;
-  }
+const StLeftSection = styled(StGrid)`
+  grid-column: 1 / span 6;
 
   /* mobile */
   @media all and (max-width: 600px) {
-    padding: 16px 16px;
-    grid-template-columns: repeat(1, 100%);
-    grid-column-gap: 16px;
-    grid-row-gap: 16px;
+    grid-column: 1 / span 4;
   }
 `;
 
-const StSection = styled.div`
-  padding: 18px 18px;
-  background: ${(props) => props.theme.section.layout.background};
-  border-radius: ${(props) => props.theme.section.layout.borderRadius};
-  box-shadow: ${(props) => props.theme.section.layout.boxShadow};
+const StRightSection = styled(StGrid)`
+  grid-column: 7 / span 6;
+
+  /* mobile */
+  @media all and (max-width: 600px) {
+    grid-column: 1 / span 4;
+  }
 `;

@@ -137,6 +137,26 @@ export const designTheme = {
         lineHeight: "14px",
       },
     },
+    class: {
+      layout: {
+        border: "1px solid #ECECEC",
+      },
+      colors: {
+        basic: {
+          background: Colors.background.yellow,
+          text: Colors.font.mainWhite,
+        },
+        hover: {
+          background: Colors.background.orange,
+          text: Colors.special.purple,
+        },
+      },
+      content: {
+        fontWeight: "700",
+        fontSize: "14px",
+        lineHeight: "16px",
+      },
+    },
     modal: {
       colors: {
         basic: {
