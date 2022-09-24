@@ -1,11 +1,13 @@
 import { useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
-import { useState, useRef, useMemo, useEffect } from "react";
+import { useState, useRef, useCallback, useEffect } from "react";
 import webstomp from "webstomp-client";
 import SockJs from "sockjs-client";
+import styled from "styled-components";
+
+import GridTemplate from "../../elements/templates/GridTemplate";
 
 // TODO change v4 -> v5
-
 const ChatFrame = (props) => {
   const prevChats = useSelector((state) => state.cookingClass.prevChats);
   const isLogin = useSelector((state) => state.auth.isLogin);
@@ -14,49 +16,52 @@ const ChatFrame = (props) => {
 
   const [chats, setChats] = useState(prevChats);
 
-  console.log(chats);
   // 리렌더링이 되더라도 값을 유지
   const stompClient = useRef({});
+  const subscription = useRef({});
 
-  const { createData, getHeader } = useMemo(
-    () => ({
-      createData: (eventType, message = "") => {
-        return {
-          type: eventType,
-          redis_class_id: redisClassId,
-          member_id: userInfo.member_id,
-          nickname: userInfo.username,
-          profile_img: userInfo.profile_img,
-          message: message,
-          viewer_num: 0,
-        };
-      },
-      getHeader: () => {
-        if (isLogin)
-          return {
-            Authorization: localStorage.getItem("Authorization"),
-          };
-        else return {};
-      },
+  const getHeader = useCallback(() => {
+    if (isLogin)
+      return {
+        Authorization: localStorage.getItem("Authorization"),
+      };
+    else return {};
+  }, [isLogin]);
+
+  const createData = useCallback(
+    (eventType, message = "") => ({
+      type: eventType,
+      redis_class_id: redisClassId,
+      member_id: userInfo.member_id,
+      nickname: userInfo.username,
+      profile_img: userInfo.profile_img,
+      message: message,
+      viewer_num: 0,
     }),
-    [redisClassId, userInfo, isLogin]
+    [redisClassId, userInfo]
   );
 
-  useEffect(() => {
+  const sendEvent = useCallback(
+    (event, message) => {
+      stompClient.current.send(
+        `/pub/chat`,
+        JSON.stringify(createData(event, message)),
+        getHeader()
+      );
+    },
+    [getHeader, createData]
+  );
+
+  const connectSocket = useCallback(() => {
     // 1. webSocket 클라이언트 생성
     const sock = new SockJs("http://3.36.56.125/ws");
     stompClient.current = webstomp.over(sock);
-    let subscription;
 
     // 2. webSocket 연결
     stompClient.current.connect(getHeader(), () => {
-      stompClient.current.send(
-        `/pub/chat`,
-        JSON.stringify(createData("ENTER")),
-        getHeader()
-      );
+      sendEvent("ENTER");
 
-      subscription = stompClient.current.subscribe(
+      subscription.current = stompClient.current.subscribe(
         `/sub/chat/${redisClassId}`,
         (frame) => {
           console.log(frame);
@@ -79,38 +84,60 @@ const ChatFrame = (props) => {
         getHeader()
       );
     });
+  }, [getHeader, sendEvent, redisClassId]);
 
-    // 3. webSocket 연결 해지
-    return () => {
-      stompClient.current.send(
-        `/pub/chat`,
-        JSON.stringify(createData("LEAVE")),
-        getHeader()
-      );
+  const disconnectSocket = useCallback(() => {
+    // 1. webSocket 연결 해지 전 Leave 이벤트 전달
+    stompClient.current.send(
+      `/pub/chat`,
+      JSON.stringify(createData("LEAVE")),
+      getHeader()
+    );
 
-      subscription.current.unsubscribe();
-      stompClient.current.disconnect();
-    };
-  }, [redisClassId, getHeader, createData]);
+    // 2. webSocket 연결 해지
+    subscription.current.unsubscribe();
+    stompClient.current.disconnect();
+  }, [createData, getHeader]);
+
+  useEffect(() => {
+    connectSocket();
+    return () => disconnectSocket();
+  }, [connectSocket, disconnectSocket]);
 
   const submitHandler = (e) => {
     e.preventDefault();
     const message = e.target.querySelector("input").value;
-    stompClient.current.send(
-      `/pub/chat`,
-      JSON.stringify(createData("MESSAGE", message)),
-      getHeader()
-    );
+    sendEvent("MESSAGE", message);
   };
 
   return (
-    <>
-      <form onSubmit={submitHandler}>
+    <GridTemplate>
+      {/* <StSection>1</StSection>
+      <StSection>2</StSection>
+      <StSection>3</StSection>
+      <StSection>4</StSection>
+      <StSection>5</StSection>
+      <StSection>6</StSection>
+      <StSection>7</StSection>
+      <StSection>8</StSection>
+      <StSection>9</StSection>
+      <StSection>10</StSection>
+      <StSection>11</StSection>
+      <StSection>12</StSection> */}
+      {/* <form onSubmit={submitHandler}>
         <input type='text' placeholder='chat message' />
         <button type='submit'>제출</button>
-      </form>
-    </>
+      </form> */}
+    </GridTemplate>
   );
 };
 
 export default ChatFrame;
+
+const StSection = styled.div`
+  /* padding: 0px 18px; */
+  background: ${(props) => props.theme.section.layout.background};
+  background: tomato;
+  border-radius: ${(props) => props.theme.section.layout.borderRadius};
+  box-shadow: ${(props) => props.theme.section.layout.boxShadow};
+`;

@@ -103,6 +103,15 @@ export const apis = {
     };
     return videoApi.post(`/openvidu/api/sessions`, sessionOptions);
   },
+  get_session_id: ({ sessionId }) => {
+    const connectOptions = {
+      type: "WEBRTC",
+      data: "My Server Data",
+      record: false,
+      role: "SUBSCRIBER",
+    };
+    return videoApi.post(`/openvidu/api/sessions/connection`, connectOptions);
+  },
   create_token: ({ sessionId }) => {
     const connectionOption = {
       type: "WEBRTC",

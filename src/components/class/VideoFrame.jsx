@@ -1,238 +1,163 @@
-import { useParams } from "react-router-dom";
-import { useState, useEffect } from "react";
-import { OpenVidu } from "openvidu-browser";
-import styled from "styled-components";
+// import { useState, useEffect } from "react";
+// import { OpenVidu } from "openvidu-browser";
+// import styled from "styled-components";
 
-import { apis } from "../../shared/axios";
-import ClassVideo from "./ClassVideo";
+// import { apis } from "../../shared/axios";
+// import ClassVideo from "./ClassVideo";
 
-const VideoFrame = (props) => {
-  const { status, redisClassId } = useParams();
+// const VideoFrame = (props) => {
+//   const [OVState, setOVState] = useState({
+//     mySessionId: "SessionA",
+//     myUserName: "Participant" + Math.floor(Math.random() * 100),
+//     session: undefined,
+//     mainStreamManager: undefined, // Main video of the page. Will be the 'publisher' or one of the 'subscribers'
+//     publisher: undefined,
+//     subscribers: [],
+//   });
 
-  // const [loading, setLoading] = useState(true);
-  const [isPublisher, setIsPublisher] = useState(status === "publisher");
-  const [OV, setOV] = useState();
-  const [session, setSession] = useState();
-  const [username, setUsername] = useState();
-  // 방 번호
-  const [sessionId, setSessionId] = useState();
-  const [token, setToken] = useState();
-  // 각 연결 번호
-  const [connectionId, setConnectionId] = useState();
+//   // 세션 생성하고 토큰 발급받음 -> 서버단에서 수행하도록 변경
+//   const getToken = async () => {
+//     // createSession: session 생성하고 sessionId 받아 저장
+//     const session_resp = await apis.create_session();
 
-  const [publisher, setPublisher] = useState();
-  const [subscribers, setSubscribers] = useState();
+//     const { status: session_status } = session_resp;
+//     // 연결 실패
+//     if (session_status === 409) {
+//       // sweetAlert으로 변경하기
+//       console.log("Such session with given sessionID already exists!");
+//       return;
+//     }
 
-  const [destroyedStream, setDestroyedStream] = useState("");
-  const [checkMyScreen, setCheckMyScreen] = useState("");
+//     const { id: session_id } = session_resp.data;
 
-  const getToken = async () => {
-    // createSession: session 생성하고 sessionId 받아 저장
-    const session_resp = await apis.create_session();
+//     const connect_resp = await apis.get_session;
 
-    const { status: session_status } = session_resp;
-    // 연결 실패
-    if (session_status === 409) {
-      // sweetAlert으로 변경하기
-      console.log("Such session with given sessionID already exists!");
-      return;
-    }
+//     // createToken: session 생성하고 sessionId 받아 저장
+//     const token_resp = await apis.create_token({ sessionId: session_id });
 
-    const { id: session_id } = session_resp.data;
+//     const { status: token_status } = token_resp;
 
-    // createToken: session 생성하고 sessionId 받아 저장
-    const token_resp = await apis.create_token({ sessionId: session_id });
+//     // 이미 종료된 세션이기 때문에 연결 실패
+//     if (token_status === 400) {
+//       // sweetAlert으로 변경하기
+//       console.log("이미 종료된 세션에 접근하셨습니다.");
+//       return;
+//     }
 
-    const { status: token_status } = token_resp;
+//     const { token } = token_resp.data;
+//     return token;
+//   };
 
-    // 이미 종료된 세션이기 때문에 연결 실패
-    if (token_status === 400) {
-      // sweetAlert으로 변경하기
-      console.log("이미 종료된 세션에 접근하셨습니다.");
-      return;
-    }
+//   //
+//   const joinSession = async () => {
+//     const newOV = new OpenVidu();
 
-    const { token: token_id } = token_resp.data;
+//     const newSession = newOV.initSession();
 
-    setSessionId(session_id);
-    setToken(token_id);
-    return token_id;
-  };
+//     // On every new Stream received...
+//     newSession.on("streamCreated", (event) => {
+//       console.log("Stream Created******");
+//       // Subscribe to the Stream to receive it. Second parameter is undefined
+//       // so OpenVidu doesn't create an HTML video by its own
+//       const newSubscriber = newSession.subscribe(event.stream, undefined);
 
-  const deleteSubscriber = (streamManager, id) => {
-    console.log("체크1", streamManager);
-    console.log("체크2", id);
-    const prevSubscribers = subscribers;
-    let index = prevSubscribers.indexOf(streamManager, 0);
-    try {
-      console.log("지우기");
-      setSubscribers((current) =>
-        current.filter((sub) => {
-          return sub.stream.session.options.sessionId !== id;
-        })
-      );
-    } catch (error) {
-      console.log(error);
-    }
-    // if (index > -1) {
-    //   console.log("지우기")
-    //   prevSubscribers.splice(index, 1);
-    //   setSubscribers(current=>current.filter(sub=>{
-    //     return sub.stream.session.options.sessionId !== id
-    //   }));
-    // }
-  };
+//       let newSubscribers = OVState.subscribers.push(newSubscriber);
 
-  // publish
-  const joinSession = async () => {
-    console.log("**********join session");
+//       // Update the state with the new subscribers
 
-    // 1. OpenVidu 객체 생성하고 세션 시작, 저장
-    let _OV = new OpenVidu();
-    _OV.enableProdMode();
-    let _session = _OV.initSession();
+//       setOVState((prev) => ({ ...prev, subscribers: newSubscribers }));
+//     });
 
-    // 2. 세션에서 이벤트가 발생할 때의 작업 지정
-    // 2-1 session에 참여한 사용자 추가
-    _session.on("connectionCreated", (event) => {
-      console.log("**********connection_created");
-      let _subscriber = _session.subscribe(
-        event.stream,
-        JSON.parse(event.stream.connection.data).clientData // undefined
-      );
+//     // // On every Stream destroyed...
+//     newSession.on("streamDestroyed", (event) => {
+//       // Remove the stream from 'subscribers' array
+//       console.log("***Delete stream");
+//     });
 
-      const _subscribers = subscribers.push(_subscriber);
+//     // // On every asynchronous exception...
+//     newSession.on("exception", (exception) => {
+//       console.warn(exception);
+//     });
 
-      setSubscribers([..._subscribers]);
-    });
+//     setOVState((prev) => ({ ...prev, session: newSession }));
 
-    // 2-2 session에서 disconnect한 사용자 삭제
-    _session.on("streamDestroyed", (event) => {
-      console.log("**********sessionDisconnected!!!");
-      if (event.stream.typeOfVideo === "CUSTOM") {
-        deleteSubscriber(
-          event.stream.streamManager,
-          event.stream.session.options.sessionId
-        );
-      } else {
-        setDestroyedStream(event.stream.streamManager);
-        setCheckMyScreen(true);
-      }
-    });
+//     // --- 4) Connect to the session with a valid user token ---
 
-    // 2-3 예외처리
-    _session.on("exception", (exception) => {
-      console.log("**********exception!!!");
-      console.warn(exception);
-    });
+//     // Get a token from the OpenVidu deployment
+//     const token = await getToken();
 
-    console.log(_session);
-    console.log(sessionId);
-    console.log(token);
+//     // First param is the token got from the OpenVidu deployment. Second param can be retrieved by every user on event
+//     // 'streamCreated' (property Stream.connection.data), and will be appended to DOM as the user's nickname
+//     newSession.connect(token, { clientData: OVState.myUserName });
 
-    // // 2. 저장
-    // setOV(_OV);
-    // setSession(_session);
+//     // --- 5) Get your own camera stream ---
 
-    // 3. OpenVidu 세션 연결
-    // token 생성
-    const token_id = await getToken();
-    const sendData = { clientData: username };
+//     // Init a publisher passing undefined as targetElement (we don't want OpenVidu to insert a video
+//     // element: we will manage it on our own) and with the desired properties
+//     let publisher = await newOV.initPublisherAsync(undefined, {
+//       audioSource: undefined, // The source of audio. If undefined default microphone
+//       videoSource: undefined, // The source of video. If undefined default webcam
+//       publishAudio: true, // Whether you want to start publishing with your audio unmuted or not
+//       publishVideo: true, // Whether you want to start publishing with your video enabled or not
+//       resolution: "640x480", // The resolution of your video
+//       frameRate: 30, // The frame rate of your video
+//       insertMode: "APPEND", // How the video is inserted in the target element 'video-container'
+//       mirror: false, // Whether to mirror your local video or not
+//     });
 
-    await _session.connect(token_id, sendData);
+//     // --- 6) Publish your stream ---
 
-    console.log("Connected to server!! ***");
+//     newSession.publish(publisher);
 
-    // // 3-A. publish
-    const connectPub = async () => {
-      const sendOption = {
-        audioSource: false,
-        videoSource: undefined,
-        resolution: "1280x720",
-        frameRate: 10,
-      };
+//     // Obtain the current video device in use
+//     var devices = await newOV.getDevices();
+//     var videoDevices = devices.filter((device) => device.kind === "videoinput");
+//     var currentVideoDeviceId = publisher.stream
+//       .getMediaStream()
+//       .getVideoTracks()[0]
+//       .getSettings().deviceId;
+//     var currentVideoDevice = videoDevices.find(
+//       (device) => device.deviceId === currentVideoDeviceId
+//     );
 
-      // user media 객체 생성 : 사용자에게 권한 허용 여부 물어야 하기 때문
-      const media_resp = await _OV.getUserMedia(sendOption);
-      const _mediaStream = media_resp;
+//     // Set the main video in the page to display our webcam and store our Publisher
+//     setOVState((prev) => ({
+//       ...prev,
+//       session: newSession,
+//       currentVideoDevice,
+//       mainStreamManager: publisher,
+//       publisher,
+//     }));
+//   };
 
-      let videoTrack = _mediaStream.getVideoTracks()[0];
-      // https://www.w3.org/TR/mst-content-hint/#dom-mediastreamtrack-contenthint
-      videoTrack.contentHint = "motion";
+//   useEffect(() => {
+//     joinSession();
+//   }, []);
 
-      const pubOption = {
-        audioSource: undefined,
-        videoSource: videoTrack,
-        publishAudio: true,
-        publishVideo: true,
-        // resolution: '1280x720',
-        // frameRate: 10,
-        insertMode: "APPEND",
-        mirror: true,
-      };
+//   useEffect(() => {
+//     console.log(OVState);
+//   }, [OVState]);
 
-      const publisher = _OV.initPublisher(username, pubOption);
+//   return (
+//     <>
+//       {OVState.mainStreamManager !== undefined ? (
+//         <ClassVideo streamManager={OVState.mainStreamManager} />
+//       ) : (
+//         <div>null</div>
+//       )}
+//       {OVState.subscribers !== [] ? (
+//         OVState.subscribers.map((sub, i) => (
+//           <ClassVideo streamManager={sub} key={i} />
+//         ))
+//       ) : (
+//         <div>null</div>
+//       )}
+//     </>
+//   );
+// };
 
-      publisher.once("accessAllowed", () => {
-        _session.publish(publisher);
-        setPublisher(publisher);
-      });
-    };
+// export default VideoFrame;
 
-    connectPub();
-
-    console.log(subscribers);
-    console.log(_session);
-    // connectPub();
-  };
-
-  const leaveSession = () => {
-    if (session) {
-      session.disconnect();
-    }
-
-    setOV(null);
-  };
-
-  useEffect(() => {
-    joinSession();
-    return leaveSession();
-  }, []);
-
-  useEffect(() => {
-    console.log(publisher);
-  }, [publisher]);
-
-  useEffect(() => {
-    console.log(subscribers);
-  }, [subscribers]);
-
-  const subscriberVideos =
-    subscribers !== undefined ? (
-      subscribers.map((subscriber, idx) => (
-        <ClassVideo
-          key={idx}
-          streamManager={subscriber}
-          hidden={false}
-          muted={false}
-        />
-      ))
-    ) : (
-      <div>no</div>
-    );
-
-  return (
-    <>
-      {publisher !== undefined ? (
-        <ClassVideo streamManager={publisher} hidden={false} muted={false} />
-      ) : null}
-      {subscriberVideos}
-    </>
-  );
-};
-
-export default VideoFrame;
-
-const StVideo = styled.video`
-  background: 1px solid black;
-`;
+// const StVideo = styled.video`
+//   background: 1px solid black;
+// `;
