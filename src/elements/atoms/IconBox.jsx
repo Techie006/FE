@@ -29,6 +29,7 @@ const IconBox = ({ isCircle, onClick, page, func, ...props }) => {
           background = "#FAFAFA";
           viewBoxWidth = "24px";
           viewBoxHeight = "24px";
+        } else {
         }
 
         break;
