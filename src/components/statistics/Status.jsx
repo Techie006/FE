@@ -19,7 +19,7 @@ const Status = (props) => {
 
   const LABELS = {
     due: ["임박", "만료", "정상"],
-    donut: ["농산물", "축산물", "해산물", "기타", "음료류"],
+    category: ["농산물", "축산물", "해산물", "음료류", "기타"],
   };
 
   const CHART_COLORS = {
@@ -96,7 +96,7 @@ const Status = (props) => {
             padding='28px 0px 0px 0px'
             series={data.category}
             title='식재료 식품분류 현황'
-            labels={LABELS.donut}
+            labels={LABELS.category}
             colors={CHART_COLORS.category}
           />
         </StLayout>
