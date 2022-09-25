@@ -1,7 +1,7 @@
 import { useState, useCallback, useEffect } from "react";
 import styled from "styled-components";
 
-import RESP from "../../server/response";
+// import RESP from "../../server/response";
 import { apis } from "../../shared/axios";
 import { ST3 } from "../../styles/Text";
 import { ChartColors } from "../../styles/Colors";
@@ -33,17 +33,17 @@ const Status = (props) => {
     if (type === "due") {
       // MOCK API
       // resp = RESP.STATISTICS.GET_STATE_SUCCESS;
-      resp = RESP.STATISTICS.GET_STATE_FAIL;
+      // resp = RESP.STATISTICS.GET_STATE_FAIL;
 
-      // resp = await apis.get_state();
+      resp = await apis.get_state();
       empty = [0, 0, 0];
     }
     if (type === "category") {
       // MOCK API
       // resp = RESP.STATISTICS.GET_CATEGORY_SUCCESS;
-      resp = RESP.STATISTICS.GET_CATEGORY_FAIL;
+      // resp = RESP.STATISTICS.GET_CATEGORY_FAIL;
 
-      // resp = await apis.get_category();
+      resp = await apis.get_category();
       empty = [0, 0, 0, 0, 0];
     }
 
