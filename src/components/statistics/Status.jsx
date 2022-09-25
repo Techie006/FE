@@ -1,6 +1,7 @@
 import { useState, useCallback, useEffect } from "react";
 import styled from "styled-components";
 
+import "./Chart.css";
 // import RESP from "../../server/response";
 import { apis } from "../../shared/axios";
 import { ST3 } from "../../styles/Text";
@@ -17,14 +18,15 @@ const Status = (props) => {
     category: [],
   });
 
-  const LABELS = {
-    due: ["임박", "만료", "정상"],
-    category: ["농산물", "축산물", "해산물", "음료류", "기타"],
-  };
-
-  const CHART_COLORS = {
-    due: ChartColors.due,
-    category: ChartColors.category,
+  const ChartInfo = {
+    LABELS: {
+      due: ["임박", "만료", "정상"],
+      category: ["농산물", "축산물", "해산물", "음료류", "기타"],
+    },
+    CHART_COLORS: {
+      due: ChartColors.due,
+      category: ChartColors.category,
+    },
   };
 
   const getData = useCallback(async (type) => {
@@ -87,8 +89,8 @@ const Status = (props) => {
             padding='28px 0px 0px 0px'
             series={data.due}
             title='식재료 유통기한 현황'
-            labels={LABELS.due}
-            colors={CHART_COLORS.due}
+            labels={ChartInfo.LABELS.due}
+            colors={ChartInfo.CHART_COLORS.due}
           />
           {/* Category Status */}
           <DonutChart
@@ -96,8 +98,8 @@ const Status = (props) => {
             padding='28px 0px 0px 0px'
             series={data.category}
             title='식재료 식품분류 현황'
-            labels={LABELS.category}
-            colors={CHART_COLORS.category}
+            labels={ChartInfo.LABELS.category}
+            colors={ChartInfo.CHART_COLORS.category}
           />
         </StLayout>
       ) : null}
