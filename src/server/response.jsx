@@ -391,7 +391,10 @@ const RESP = {
       },
     },
   },
+
   // statistics: 5 apis
+  // [x] all checked
+  // [ ] all connected
   STATISTICS: {
     // 1. get ingredients state (/api/statistics/state)
     GET_STATE_SUCCESS: {
@@ -543,8 +546,10 @@ const RESP = {
   },
 
   // calendar: 6 apis
+  // [x] all checked
+  // [ ] all connected
   CALENDAR: {
-    GET_MONTHLY_DIETS_SUCCESS: {
+    GET_ALL_DIETS_SUCCESS: {
       data: {
         result: true,
         content: {
@@ -634,7 +639,7 @@ const RESP = {
         },
       },
     },
-    GET_WEEKLY_SUCCESS: {
+    GET_WEEKLY_DIETS_SUCCESS: {
       data: {
         result: true,
         content: {
