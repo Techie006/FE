@@ -42,6 +42,7 @@ const Colors = {
 };
 
 export const ChartColors = {
+  font: Colors.font.gray3,
   due: [Colors.special.yellow, Colors.main.orange_red, Colors.main.mint],
   category: [
     Colors.special.yellow,
@@ -50,7 +51,8 @@ export const ChartColors = {
     Colors.main.orange,
     Colors.font.gray4,
   ],
-  font: Colors.font.gray3,
+  calorie: [Colors.special.brownBeige],
+  nutrients: [Colors.special.yellow, Colors.main.orange_red, Colors.main.mint],
 };
 
 export default Colors;

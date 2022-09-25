@@ -4,61 +4,95 @@ import styled from "styled-components";
 
 // import RESP from "../../server/response";
 import { apis } from "../../shared/axios";
-import "./Chart.css";
 import { ST3 } from "../../styles/Text";
 import Category from "../../elements/molecules/Category";
 import LoadingSpinner from "../../elements/atoms/LoadingSpinner";
 import HelperButton from "../../elements/molecules/HelperButton";
+import { ChartColors } from "../../styles/Colors";
 import LineChart from "./LineChart";
 
-const Calories = (props) => {
+const Changes = ({ type }) => {
   const [loading, setLoading] = useState(true);
   const [data, setData] = useState({});
   const [showMsg, setShowMsg] = useState(false);
   const [view, setView] = useState("day");
   const [viewKor, setViewKor] = useState("일별");
 
-  const get_data = useCallback(async (view) => {
-    // const resp = RESP.STATISTICS.GET_CALORIES_SUCCESS;
-    // const resp = RESP.STATISTICS.GET_CALORIES_FAIL;
-    const resp = await apis.get_calories_ratio({ view });
+  const get_data = useCallback(
+    async (filter) => {
+      let resp = {};
+      if (type === "calorie") {
+        // resp = RESP.STATISTICS.GET_CALORIES_SUCCESS;
+        // resp = RESP.STATISTICS.GET_CALORIES_FAIL;
+        resp = await apis.get_calories_ratio({ filter });
+      }
+      if (type === "nutrients") {
+        // resp = RESP.STATISTICS.GET_NUTRIENTS_SUCCESS;
+        // resp = RESP.STATISTICS.GET_NUTRIENTS_FAIL;
 
-    // const { result } = resp.data;
-    const { result, content: statistics } = resp.data;
+        resp = await apis.get_nutrients_ratio({ filter });
+      }
 
-    // 	사용자가 요리한 데이터 내역이 없는 경우 처리
-    if (!result) {
+      // const { result } = resp.data;
+      const { result, content: statistics } = resp.data;
+
+      // 	사용자가 요리한 데이터 내역이 없는 경우 처리
+      if (!result) {
+        setLoading(false);
+        setShowMsg(true);
+        return;
+      }
+
+      // const { content: {statistics} } = resp.data;
+
       setLoading(false);
-      setShowMsg(true);
-      return;
-    }
-
-    // const { content: {statistics} } = resp.data;
-
-    setLoading(false);
-    setData(statistics);
-  }, []);
+      setData(statistics);
+    },
+    [type]
+  );
 
   useEffect(() => {
-    get_data(view);
+    get_data({ filter: view });
   }, [get_data, view]);
 
-  // 칼로리 series 추출
-  const calorieSeries = [
-    {
-      name: "칼로리",
-      data: data?.calories,
-    },
-  ];
+  let calorieSeries = [];
+  let nutrientsSeries = [];
+  let labels = [];
 
-  // 날짜 label 추출
-  const labels = data.days?.map((day) => new Date(day).toUTCString());
+  // 칼로리 section 이라면 칼로리 관련 정보 추출
+  if (type === "calorie") {
+    // 칼로리 series 추출
+    calorieSeries = [
+      {
+        name: "칼로리",
+        data: data?.calories,
+      },
+    ];
+
+    // 날짜 label 추출
+    labels = data.days?.map((day) => new Date(day).toUTCString());
+  }
+
+  // 영양성분 section 이라면 칼로리 관련 정보 추출
+  if (type === "nutrients") {
+    // 영양성분 series 추출
+    const NUTRIENTS = ["탄수화물", "단백질", "지방"];
+    for (let i = 1; i < Object.keys(data).length; i++) {
+      nutrientsSeries.push({
+        name: NUTRIENTS[i - 1],
+        data: data?.[Object.keys(data)[i]],
+      });
+    }
+
+    // 날짜 label 추출
+    labels = data?.days;
+  }
 
   const chartInfo = {
-    series: calorieSeries,
+    series: type === "calorie" ? calorieSeries : nutrientsSeries,
     labels: labels,
-    base: "kcal",
-    colors: ["#DFB078"],
+    base: type === "calorie" ? "kcal" : "g",
+    colors: type === "calorie" ? ChartColors.calorie : ChartColors.nutrients,
   };
 
   const clickHandler = (e) => {
@@ -114,7 +148,7 @@ const Calories = (props) => {
   );
 };
 
-export default Calories;
+export default Changes;
 
 const StHeader = styled.div`
   display: flex;

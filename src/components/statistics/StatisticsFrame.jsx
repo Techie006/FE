@@ -3,8 +3,7 @@ import styled from "styled-components";
 
 import Ingredients from "./Ingredients";
 import Daily from "./Daily";
-import Calories from "./Calories";
-import Nutrients from "./Nutrients";
+import Changes from "./Changes";
 
 const StatisticsFrame = () => {
   return (
@@ -16,9 +15,11 @@ const StatisticsFrame = () => {
         <Daily />
       </StRightSection>
       <StLeftSection>
-        <Calories />
+        <Changes type='calorie' />
       </StLeftSection>
-      <StRightSection>{/* <Nutrients /> */}</StRightSection>
+      <StRightSection>
+        <Changes type='nutrients' />
+      </StRightSection>
     </GridTemplate>
   );
 };

@@ -1,5 +1,7 @@
 import ReactApexChart from "react-apexcharts";
 
+import "./Chart.css";
+
 const LineChart = ({ view, chartInfo, ...props }) => {
   const { series, labels, base, colors } = chartInfo;
 
@@ -12,7 +14,7 @@ const LineChart = ({ view, chartInfo, ...props }) => {
       <ReactApexChart
         type='line'
         series={series}
-        height='85%'
+        height='100%'
         options={{
           chart: {
             fontFamily: "Noto Sans KR",
@@ -53,7 +55,7 @@ const LineChart = ({ view, chartInfo, ...props }) => {
               formatter: (value) => {
                 let num = Number(value);
                 if (num % 1 === 0) {
-                  return `${value}kcal`;
+                  return `${value}${base}`;
                 }
                 return `${Number(value).toFixed(1)}${base}`;
               },
@@ -86,7 +88,7 @@ const LineChart = ({ view, chartInfo, ...props }) => {
               show: false,
             },
             y: {
-              formatter: (value) => `${value}kcal`,
+              formatter: (value) => `${value}${base}`,
             },
           },
           grid: {
