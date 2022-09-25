@@ -467,7 +467,7 @@ const RESP = {
         result: false,
         status: {
           code: 400,
-          message: "해당 사용자가 요리한 레시피가 없습니다.",
+          message: "해당 사용자가 요리한 레시피 내역이 없습니다.",
         },
       },
     },

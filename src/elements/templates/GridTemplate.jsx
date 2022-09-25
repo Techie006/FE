@@ -17,8 +17,9 @@ const GridTemplate = ({ children, ...props }) => {
       <StGrid>10</StGrid>
       <StGrid>11</StGrid>
       <StGrid>12</StGrid> */}
-      <StBigSection>BigSection</StBigSection>
-      <StSmallSection>SmallSection</StSmallSection>
+      {/* 아래 코드처럼 섹션을 생성해서 각 컴포넌트에서 사용하시면 됩니다. */}
+      {/* <StBigSection>BigSection</StBigSection>
+      <StSmallSection>SmallSection</StSmallSection> */}
     </StWrapper>
   );
 };
@@ -27,10 +28,10 @@ export default GridTemplate;
 
 const StWrapper = styled.div`
   display: grid;
-  grid-auto-rows: "621px";
+  grid-auto-rows: ${(props) => (!props.height ? "621px" : `${props.height}px`)};
   // 콘텐츠 영역 확인하려면 아래 주석 활성화하세요!
-  background: black;
-  background-clip: content-box;
+  /* background: black;
+  background-clip: content-box; */
   padding: 20px 84px; // navbar 대비 거리, margin @Figma
   /* grid-template-columns: repeat(12, calc((100% - (11 * 28px)) / 12)); */
   grid-template-columns: repeat(12, 12fr);
@@ -54,27 +55,26 @@ const StWrapper = styled.div`
   }
 `;
 
-const StGrid = styled.div`
-  background: gray;
-  color: white;
-  text-align: center;
-  border-radius: ${(props) => props.theme.section.layout.borderRadius};
-`;
+// const StGrid = styled.div`
+//   background: ${(props) => props.theme.section.layout.background};
+//   border-radius: ${(props) => props.theme.section.layout.borderRadius};
+//   box-shadow: ${(props) => props.theme.section.layout.boxShadow};
+// `;
 
-const StBigSection = styled(StGrid)`
-  grid-column: 1 / span 9;
+// const StBigSection = styled(StGrid)`
+//   grid-column: 1 / span 9;
 
-  /* mobile */
-  @media all and (max-width: 600px) {
-    grid-column: 1 / span 4;
-  }
-`;
+//   /* mobile */
+//   @media all and (max-width: 600px) {
+//     grid-column: 1 / span 4;
+//   }
+// `;
 
-const StSmallSection = styled(StGrid)`
-  grid-column: 10 / span 3;
+// const StSmallSection = styled(StGrid)`
+//   grid-column: 10 / span 3;
 
-  /* mobile */
-  @media all and (max-width: 600px) {
-    grid-column: 1 / span 4;
-  }
-`;
+//   /* mobile */
+//   @media all and (max-width: 600px) {
+//     grid-column: 1 / span 4;
+//   }
+// `;

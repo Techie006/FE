@@ -1,26 +1,43 @@
 import { useNavigate } from "react-router-dom";
+import styled from "styled-components";
 
-import { H3 } from "../../styles/Text";
+import { T1 } from "../../styles/Text";
 import Button from "../atoms/Button";
 
-const HelpButton = ({ msg, content, path, page }) => {
+const HelpButton = ({ msg, content, path, page, ...props }) => {
   const navigate = useNavigate();
 
   const clickHandler = () => {
     navigate(`${path}`);
   };
 
+  const messages = msg
+    .split(".")
+    .map((message, idx) => <T1 key={idx}>{message}</T1>);
+
   return (
-    <>
-      <H3>{msg}</H3>
-      <Button
-        type='button'
-        content={content}
-        onClick={clickHandler}
-        page={page}
-      />
-    </>
+    <div style={{ ...props }}>
+      <StWrapper>
+        {messages}
+        <Button
+          type='button'
+          content={content}
+          onClick={clickHandler}
+          page={page}
+          padding='10px 15px'
+          marginTop={"58px"}
+        />
+      </StWrapper>
+    </div>
   );
 };
 
 export default HelpButton;
+
+const StWrapper = styled.div`
+  margin-top: 56px;
+  margin-bottom: 110px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+`;

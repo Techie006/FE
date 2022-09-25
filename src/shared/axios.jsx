@@ -36,13 +36,11 @@ export const apis = {
   get_state: () => api.get(`/api/statistics/state`),
   get_category: () => api.get(`/api/statistics/category`),
   get_daily: () => api.get(`/api/statistics/daily`),
-  get_calories_ratio: ({ view }) => {
-    let filter = view === "일별" ? "day" : view === "주별" ? "week" : "month";
-    return api.post(`/api/statistics/ratio/calories`, { filter });
+  get_calories_ratio: ({ filter }) => {
+    return api.post(`/api/statistics/ratio/calories`, filter);
   },
-  get_nutrients_ratio: ({ view }) => {
-    let filter = view === "일별" ? "day" : view === "주별" ? "week" : "month";
-    return api.post(`/api/statistics/ratio/nutrients`, { filter });
+  get_nutrients_ratio: ({ filter }) => {
+    return api.post(`/api/statistics/ratio/nutrients`, filter);
   },
 
   // calendar page
@@ -79,7 +77,7 @@ export const apis = {
     // }
     return api.post(`/api/class`, formData);
   },
-  get_prev_chats: ({ class_id }) => api.get(`api/class/enter/${class_id}`),
+  get_class_info: ({ classId }) => api.get(`api/class/enter/${classId}`),
   create_session: () => {
     const sessionOptions = {
       mediaMode: "ROUTED",

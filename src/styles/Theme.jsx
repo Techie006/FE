@@ -3,12 +3,16 @@ import Colors from "./Colors";
 export const designTheme = {
   colors: Colors,
 
+  font: {
+    fontFamily: `Noto Sans KR', 'Happiness-Sans-Bold', sans-serif`,
+  },
+
   page: {
     layout: {
       background: Colors.background.gray,
     },
     content: {
-      fontFamily: `'Noto Sans KR', sans-serif`,
+      fontFamily: `Noto Sans KR', 'Happiness-Sans-Bold', sans-serif`,
       fontWeight: "700",
       fontSize: "16px",
       lineHeight: "23px",
@@ -26,9 +30,8 @@ export const designTheme = {
       fontSize: "16px",
       lineHeight: "23px",
     },
-    // TODO 안쓰는지 확인해보고 안쓰면 지우기
     box: {
-      background: Colors.background.white,
+      background: Colors.background.gray,
       boxShadow: "0px 2px 11px rgba(0, 0, 0, 0.08)",
       borderRadius: "8px",
       fontWeight: "700",
@@ -98,6 +101,10 @@ export const designTheme = {
           background: Colors.background.yellow,
           text: Colors.special.purple,
         },
+        hover: {
+          background: Colors.special.whiteGray,
+          text: Colors.sub.brown,
+        },
       },
       content: {
         fontWeight: "500",
@@ -138,6 +145,26 @@ export const designTheme = {
         lineHeight: "14px",
       },
     },
+    class: {
+      layout: {
+        border: "1px solid #ECECEC",
+      },
+      colors: {
+        basic: {
+          background: Colors.background.yellow,
+          text: Colors.font.mainWhite,
+        },
+        hover: {
+          background: Colors.background.orange,
+          text: Colors.special.purple,
+        },
+      },
+      content: {
+        fontWeight: "700",
+        fontSize: "14px",
+        lineHeight: "16px",
+      },
+    },
     modal: {
       colors: {
         basic: {
@@ -153,6 +180,23 @@ export const designTheme = {
         fontWeight: "700",
         fontSize: "14px",
         lineHeight: "16px",
+      },
+    },
+    section: {
+      colors: {
+        basic: {
+          background: Colors.background.yellow,
+          text: Colors.font.mainWhite,
+        },
+        hover: {
+          background: Colors.background.orange,
+          text: Colors.special.purple,
+        },
+      },
+      content: {
+        fontWeight: "700",
+        fontSize: "16px",
+        lineHeight: "23px",
       },
     },
   },
