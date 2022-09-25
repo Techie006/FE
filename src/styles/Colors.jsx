@@ -42,18 +42,15 @@ const Colors = {
 };
 
 export const ChartColors = {
-  ingredients: [
-    Colors.special.yellow,
-    Colors.main.orange_red,
-    Colors.main.mint,
-  ],
-  categories: [
+  due: [Colors.special.yellow, Colors.main.orange_red, Colors.main.mint],
+  category: [
     Colors.special.yellow,
     Colors.main.orange_red,
     Colors.main.mint,
     Colors.main.orange,
     Colors.special.purple,
   ],
+  font: Colors.font.gray3,
 };
 
 export default Colors;

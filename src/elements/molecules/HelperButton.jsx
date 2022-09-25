@@ -1,9 +1,9 @@
 import { useNavigate } from "react-router-dom";
 
-import { H3 } from "../../styles/Text";
+import { T1 } from "../../styles/Text";
 import Button from "../atoms/Button";
 
-const HelpButton = ({ msg, content, path, page }) => {
+const HelpButton = ({ msg, content, path, page, ...props }) => {
   const navigate = useNavigate();
 
   const clickHandler = () => {
@@ -11,15 +11,15 @@ const HelpButton = ({ msg, content, path, page }) => {
   };
 
   return (
-    <>
-      <H3>{msg}</H3>
+    <div style={{ ...props }}>
+      <T1>{msg}</T1>
       <Button
         type='button'
         content={content}
         onClick={clickHandler}
         page={page}
       />
-    </>
+    </div>
   );
 };
 
