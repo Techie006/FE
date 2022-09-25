@@ -12,15 +12,9 @@ const StatisticsFrame = () => {
       <StLeftSection>
         <Status />
       </StLeftSection>
-      <StRightSection>
-        <Daily />
-      </StRightSection>
-      <StLeftSection>
-        <Calories />
-      </StLeftSection>
-      <StRightSection>
-        <Nutrients />
-      </StRightSection>
+      <StRightSection>{/* <Daily /> */}</StRightSection>
+      <StLeftSection>{/* <Calories /> */}</StLeftSection>
+      <StRightSection>{/* <Nutrients /> */}</StRightSection>
     </GridTemplate>
   );
 };

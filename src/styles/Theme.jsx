@@ -178,6 +178,23 @@ export const designTheme = {
         lineHeight: "16px",
       },
     },
+    section: {
+      colors: {
+        basic: {
+          background: Colors.background.yellow,
+          text: Colors.font.mainWhite,
+        },
+        hover: {
+          background: Colors.background.orange,
+          text: Colors.special.purple,
+        },
+      },
+      content: {
+        fontWeight: "700",
+        fontSize: "16px",
+        lineHeight: "23px",
+      },
+    },
   },
 
   textbox: {

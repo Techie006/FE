@@ -48,7 +48,7 @@ export const ChartColors = {
     Colors.main.orange_red,
     Colors.main.mint,
     Colors.main.orange,
-    Colors.special.purple,
+    Colors.font.gray4,
   ],
   font: Colors.font.gray3,
 };

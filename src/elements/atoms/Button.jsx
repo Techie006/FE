@@ -12,17 +12,19 @@ const Button = ({
   content,
   onClick,
   disabled = false,
+  padding,
   ...props
 }) => {
   return (
-    <div {...props}>
-      <StWrapper onClick={onClick}>
+    <div style={{ ...props }}>
+      <StClickLayout onClick={onClick}>
         {!isIcon ? (
           <StButton
             type={type}
             page={page}
             isBasic={isBasic}
             disabled={disabled}
+            style={{ padding }}
           >
             <StContent page={page} isBasic={isBasic}>
               {content}
@@ -34,14 +36,14 @@ const Button = ({
             <StIcon icon={icon} size='sm' />
           </StLayout>
         ) : null}
-      </StWrapper>
+      </StClickLayout>
     </div>
   );
 };
 
 export default Button;
 
-const StWrapper = styled.div`
+const StClickLayout = styled.div`
   display: flex;
   flex-direction: row;
   align-items: flex-start;
@@ -59,7 +61,7 @@ const StButton = styled.button.attrs((props) => ({
     if (props.disabled) {
       return props.theme.button.colors.disabled;
     }
-    let key = !props.isBasic ? "basic" : "selected";
+    let key = props.isBasic ? "basic" : "selected";
     return props.theme.button[props.page].colors[key].background;
   }};
   border: ${(props) => {
@@ -81,6 +83,8 @@ const StButton = styled.button.attrs((props) => ({
 
   &:hover {
     cursor: ${(props) => (!props.disabled ? "pointer" : "default")};
+    background: ${(props) =>
+      props.theme.button[props.page].colors.hover.background};
   }
 `;
 
@@ -111,9 +115,13 @@ const StContent = styled.div`
   // colors
   background: inherit;
   color: ${(props) => {
-    let key = !props.isBasic ? "basic" : "selected";
+    let key = props.isBasic ? "basic" : "selected";
     return props.theme.button[props.page].colors[key].text;
   }};
+
+  &:hover {
+    color: ${(props) => props.theme.button[props.page].colors.hover.text};
+  }
 `;
 
 const StLayout = styled.div`
