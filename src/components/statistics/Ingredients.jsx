@@ -1,14 +1,13 @@
 import { useState, useCallback, useEffect } from "react";
 import styled from "styled-components";
 
-import "./Chart.css";
 // import RESP from "../../server/response";
 import { apis } from "../../shared/axios";
 import { ST3 } from "../../styles/Text";
 import { ChartColors } from "../../styles/Colors";
 import LoadingSpinner from "../../elements/atoms/LoadingSpinner";
 import HelperButton from "../../elements/molecules/HelperButton";
-import DonutChart from "./DonutChart";
+import DonutChart from "./ApexCharts/DonutChart";
 
 const Ingredients = (props) => {
   const [loading, setLoading] = useState(true);

@@ -1,7 +1,7 @@
 import ReactApexChart from "react-apexcharts";
 
 import "./Chart.css";
-import { ChartColors } from "../../styles/Colors";
+import { ChartColors } from "../../../styles/Colors";
 
 const BarChart = ({ criteria, base, series, chartInfo, ...props }) => {
   const { calorieSeries, nutrientsSeries } = series;

@@ -1,6 +1,7 @@
 import ReactApexChart from "react-apexcharts";
 
-import { ChartColors } from "../../styles/Colors";
+import "./Chart.css";
+import { ChartColors } from "../../../styles/Colors";
 
 const DonutChart = ({ series, title, labels, colors, ...props }) => {
   return (

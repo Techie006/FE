@@ -8,7 +8,7 @@ import LoadingSpinner from "../../elements/atoms/LoadingSpinner";
 import HelperButton from "../../elements/molecules/HelperButton";
 
 import Category from "../../elements/molecules/Category";
-import BarChart from "./BarChart";
+import BarChart from "./ApexCharts/BarChart";
 
 const Daily = (props) => {
   const chartInfo = {

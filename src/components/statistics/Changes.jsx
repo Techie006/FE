@@ -9,7 +9,7 @@ import Category from "../../elements/molecules/Category";
 import LoadingSpinner from "../../elements/atoms/LoadingSpinner";
 import HelperButton from "../../elements/molecules/HelperButton";
 import { ChartColors } from "../../styles/Colors";
-import LineChart from "./LineChart";
+import LineChart from "./ApexCharts/LineChart";
 
 const Changes = ({ type }) => {
   const [loading, setLoading] = useState(true);
