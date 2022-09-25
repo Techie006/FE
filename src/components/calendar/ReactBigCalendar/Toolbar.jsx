@@ -1,13 +1,13 @@
 import { useDispatch } from "react-redux";
 import { ReactComponent as ArrowLeft } from "../../../assets/icons/arrowLeft.svg";
 import { ReactComponent as ArrowRight } from "../../../assets/icons/arrowRight.svg";
+import { ReactComponent as Create } from "../../../assets/icons/create.svg";
 import styled from "styled-components";
 
 import { openModal } from "../../../modules/redux/calendar";
 import IconBox from "../../../elements/atoms/IconBox";
+import { BT2 } from "../../../styles/Text";
 import Button from "../../../elements/atoms/Button";
-// import SmallIconButton from "../../elements/buttons/SmallIconButton";
-// import SmallButton from "../../elements/buttons/SmallButton";
 
 const Toolbar = (props) => {
   const dispatch = useDispatch();
@@ -33,7 +33,7 @@ const Toolbar = (props) => {
         >
           <ArrowLeft fill='#656565' />
         </IconBox>
-        <StYYMM>{`${date.getFullYear()}년 ${date.getMonth() + 1}월`}</StYYMM>
+        <BT2>{`${date.getFullYear()}년 ${date.getMonth() + 1}월`}</BT2>
         <IconBox
           isCircle={true}
           page='calendar'
@@ -42,15 +42,17 @@ const Toolbar = (props) => {
         >
           <ArrowRight fill='#656565' />
         </IconBox>
-      </StNavigator>
-      <StButtons>
-        {/* <SmallButton
+        <Button
           type='button'
-          content='이번달'
+          content='이번달 보기'
+          page='calendar'
           onClick={navigate.bind(null, "TODAY")}
-        /> */}
-        {/* <SmallButton type='button' content='기록하기' onClick={clickHandler} /> */}
-      </StButtons>
+          padding='5px 6px'
+        />
+      </StNavigator>
+      <IconBox page='calendar' func='edit' onClick={clickHandler}>
+        <Create fill='#5B5B5B' />
+      </IconBox>
     </StWrapper>
   );
 };
@@ -68,11 +70,8 @@ const StWrapper = styled.div`
 const StNavigator = styled.div`
   display: flex;
   flex-direction: row;
-  gap: 10px;
-`;
-
-const StYYMM = styled.div`
-  font-size: 15px;
+  align-items: center;
+  gap: 14px;
 `;
 
 const StButtons = styled.div`

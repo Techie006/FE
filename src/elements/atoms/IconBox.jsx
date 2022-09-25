@@ -8,16 +8,29 @@ const IconBox = ({ isCircle, onClick, page, func, ...props }) => {
   let height = "";
   let border = "";
   let background = "";
+  let viewBoxWidth = "";
+  let viewBoxHeight = "";
+  let padding = "";
 
   const createStyle = () => {
     switch (page) {
       case "calendar":
         if (func === "prev" || func === "next") {
-          width = 28;
-          height = 28;
+          width = "28px";
+          height = "28px";
           border = "1px solid #ECECEC";
           background = "#FAFAFA";
+          viewBoxWidth = "18px";
+          viewBoxHeight = "18px";
+        } else if (func === "edit") {
+          width = "36px";
+          height = "36px";
+          border = "1px solid #ECECEC";
+          background = "#FAFAFA";
+          viewBoxWidth = "24px";
+          viewBoxHeight = "24px";
         }
+
         break;
       default:
         return;
@@ -36,7 +49,9 @@ const IconBox = ({ isCircle, onClick, page, func, ...props }) => {
         isCircle={isCircle}
         onClick={onClick}
       >
-        <StViewBox>{props.children}</StViewBox>
+        <StViewBox width={viewBoxWidth} height={viewBoxHeight}>
+          {props.children}
+        </StViewBox>
       </StLayout>
     </div>
   );
@@ -45,7 +60,11 @@ const IconBox = ({ isCircle, onClick, page, func, ...props }) => {
 export default IconBox;
 
 const StLayout = styled.div`
+  display: flex;
+  justify-content: center;
   align-items: center;
+  width: ${(props) => props.width};
+  height: ${(props) => props.height};
   border: ${(props) => props.border};
   background: ${(props) => props.background};
   border-radius: ${(props) => (props.isCircle ? R0 : R4)};
@@ -55,8 +74,8 @@ const StLayout = styled.div`
   }
 `;
 
-// SVG는 뷰박스 크기에 맞춰 꽉 채워짐
+// SVG는 ViewBox에 꽉 채워짐
 const StViewBox = styled.div`
-  width: 18px;
-  height: 18px;
+  width: ${(props) => props.width};
+  height: ${(props) => props.height};
 `;
