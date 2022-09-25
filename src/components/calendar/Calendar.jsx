@@ -5,7 +5,7 @@ import moment from "moment";
 import "moment/locale/ko";
 
 // import { apis } from "../../shared/axios";
-// import RESP_CHAE from "../../server/response_chae";
+// import RESP from "../../server/response";
 
 import "react-big-calendar/lib/css/react-big-calendar.css";
 import "./style.css";
@@ -28,7 +28,7 @@ const RecipeCalendar = () => {
   );
 
   // const getData = async () => {
-  //   const resp = RESP_CHAE.CALENDAR.GET_MONTHLY_DIETS_SUCCESS;
+  //   const resp = RESP.CALENDAR.GET_MONTHLY_DIETS_SUCCESS;
   //   // const resp = await apis.get_monthly_diets();
 
   //   const {
