@@ -1,43 +1,94 @@
+/* calendar 전체 뷰 스타일 정의 */
 .rbc-month-view {
-  border-radius: 5px;
+  border-radius: 6px 6px 0px 0px;
+  border: none;
 }
 
+/* calendar 헤더 스타일 정의 */
 .rbc-header {
-  background-color: orange;
-  font-size: 12px;
-  font-weight: 500;
+  border-radius: 0px;
+  background-color: #ffdd7c;
+  font-family: "Noto Sans KR";
+  font-style: normal;
+  font-weight: 700;
+  font-size: 14px;
+  line-height: 20px;
   padding: 2px 0px;
+  border: #efeeea;
+  border-top: none;
+  color: #785106;
+}
+.rbc-header:first-child {
+  border-radius: 6px 0px 0px 0px;
+  border-left: none;
+}
+.rbc-header:last-child {
+  border-radius: 0px 6px 0px 0px;
+  border-right: none;
 }
 
-.rbc-event.rbc-selected,
-.rbc-day-slot .rbc-selected.rbc-background-event {
-  background-color: red;
-}
-
-.rbc-event {
-  background-color: orange;
-}
-
-.rbc-event-content {
-  color: white;
-  font-size: 12px;
-}
-
-.rbc-button-link {
-  color: black;
-  font-size: 12px;
-}
-.rbc-button-link:hover {
-  color: yellowgreen;
-}
-.rbc-button-link.rbc-show-more {
-  color: black;
-  font-weight: 500;
-}
-.rbc-button-link.rbc-show-more:hover {
-  color: yellowgreen;
+/* calendar 셀 스타일 정의 */
+/* 이전 달 이후 달 스타일 정의 */
+.rbc-off-range-bg {
+  background-color: #faf8f3;
 }
 
 .rbc-today {
-  background-color: rgb(242, 242, 216);
+  background-color: #ffe8ba;
+}
+
+/* calendar 헤더 스타일 정의 */
+.rbc-event.rbc-selected,
+.rbc-day-slot .rbc-selected.rbc-background-event {
+  background-color: #ffffff;
+}
+
+/* calendar 이벤트 스타일 정의 */
+/* 기본 이벤트 */
+.rbc-event {
+  background-color: #fff8cf;
+  margin: auto;
+  width: 95%;
+  height: 22px;
+  border-radius: 4px;
+}
+/* 이벤트 내용 */
+.rbc-event-content {
+  color: #4f2f00;
+  font-family: "Noto Sans KR";
+  font-style: normal;
+  font-weight: 400;
+  font-size: 12px;
+  line-height: 17px;
+}
+/* 선택된 이벤트 */
+.rbc-event.rbc-selected {
+  background: #ffdd7c;
+}
+
+.rbc-button-link {
+  color: #958271;
+  font-family: "Noto Sans KR";
+  font-style: normal;
+  font-weight: 500;
+  font-size: 13px;
+  line-height: 19px;
+}
+
+.rbc-show-more {
+  color: #958271;
+  font-family: "Noto Sans KR";
+  font-style: normal;
+  font-weight: 500;
+  font-size: 14px;
+  line-height: 20px;
+}
+
+.rbc-overlay-header {
+  color: #282828;
+  font-family: "Noto Sans KR";
+  font-style: normal;
+  font-weight: 700;
+  font-size: 18px;
+  line-height: 26px;
 }
