@@ -101,6 +101,10 @@ export const designTheme = {
           background: Colors.background.yellow,
           text: Colors.special.purple,
         },
+        hover: {
+          background: Colors.special.whiteGray,
+          text: Colors.sub.brown,
+        },
       },
       content: {
         fontWeight: "500",

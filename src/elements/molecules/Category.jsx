@@ -15,6 +15,7 @@ const Category = ({
       key={idx}
       content={category}
       onClick={onClick}
+      isBasic={category !== selectedCategory}
       disabled={category === selectedCategory}
       page={page}
       func={func}

@@ -73,6 +73,8 @@ const Daily = (props) => {
     base.current = BASES[0];
   };
 
+  console.log(criteria);
+
   return (
     <>
       {loading ? <LoadingSpinner /> : null}
@@ -81,7 +83,7 @@ const Daily = (props) => {
           msg='아직 입력하신 식재료가 없네요. 홈으로 가서 새로운 식재료를 추가해보세요!'
           content='홈으로 '
           path={`/home`}
-          page='statistics'
+          page='sesction'
         />
       ) : null}
       {!loading && !showMsg ? (
