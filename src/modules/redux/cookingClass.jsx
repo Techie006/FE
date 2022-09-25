@@ -10,9 +10,9 @@ const initialState = {
   error: "",
   stomp: {
     stompClient: {},
-    getData: () => {},
-    creatData: () => {},
-    sendData: () => {},
+    // getData: () => {},
+    // creatData: () => {},
+    // sendData: () => {},
   },
 };
 

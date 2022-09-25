@@ -135,6 +135,10 @@ export const designTheme = {
       },
       colors: {
         basic: {
+          background: "#FAFAFA",
+          text: "#5B5B5B",
+        },
+        hover: {
           background: Colors.background.gray,
           text: "#5B5B5B",
         },
