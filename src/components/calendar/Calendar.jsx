@@ -7,7 +7,7 @@ import moment from "moment";
 import "moment/locale/ko";
 
 import "react-big-calendar/lib/css/react-big-calendar.css";
-import "./style.css";
+import "./ReactBigCalendar/style.css";
 import LoadingSpinner from "../../elements/atoms/LoadingSpinner";
 import Toolbar from "./ReactBigCalendar/Toolbar";
 import { __getAllDiets } from "../../modules/redux/calendar";

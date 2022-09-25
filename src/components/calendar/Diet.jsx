@@ -10,7 +10,7 @@ import styled from "styled-components";
 import SmallIconButton from "../../elements/buttons/SmallIconButton";
 import BookmarkBtn from "../common/BookmarkBtn";
 
-const Recipe = (props) => {
+const Diet = (props) => {
   const {
     id,
     recipe_id,
@@ -93,7 +93,7 @@ const Recipe = (props) => {
   );
 };
 
-export default Recipe;
+export default Diet;
 
 const StWrapper = styled.div`
   width: 90%;

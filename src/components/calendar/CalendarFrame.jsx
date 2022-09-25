@@ -4,7 +4,7 @@ import styled from "styled-components";
 import GridTemplate from "../../elements/templates/GridTemplate";
 
 import Calendar from "./Calendar";
-// import WeekRecipes from "./WeekRecipes";
+import WeekDiets from "./WeekDiets";
 // import DietModal from "./DietModal";
 
 const CalendarFrame = () => {
@@ -17,8 +17,7 @@ const CalendarFrame = () => {
           <Calendar />
         </StCalendarSection>
         <StWeekSection>
-          week
-          {/* <WeekRecipes /> */}
+          <WeekDiets />
         </StWeekSection>
       </GridTemplate>
       {/* {modalOpen ? <DietModal /> : null} */}
