@@ -37,10 +37,7 @@ const Daily = (props) => {
     // const resp = RESP.STATISTICS.GET_DAILY_FAIL;
     // const resp = await apis.get_daily();
 
-    const {
-      result,
-      content: { statistics },
-    } = resp.data;
+    const { result } = resp.data;
 
     // 사용자가 요리 완료한 레시피 내역이 없는 상태 처리
     if (!result) {
@@ -48,6 +45,10 @@ const Daily = (props) => {
       setShowMsg(true);
       return;
     }
+
+    const {
+      content: { statistics },
+    } = resp.data;
 
     setLoading(false);
     setData(statistics);
@@ -101,8 +102,8 @@ const Daily = (props) => {
       {loading ? <LoadingSpinner /> : null}
       {!loading && showMsg ? (
         <HelperButton
-          msg='아직 입력한 식재료가 없어요. 재료를 추가하고 나만의 통계를 확인해보세요!'
-          content='재료 추가하기'
+          msg='최근 요리한 내역이 없어요. 냉장고 속 재료로 뚝딱 만들 수 있는 레시피를 확인해보세요!'
+          content='추천 레시피 확인하기'
           page='section'
           path={`/`}
         />
