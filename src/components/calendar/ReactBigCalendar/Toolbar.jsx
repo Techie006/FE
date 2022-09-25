@@ -1,11 +1,11 @@
 import { useDispatch } from "react-redux";
-import {
-  faArrowCircleLeft,
-  faArrowCircleRight,
-} from "@fortawesome/free-solid-svg-icons";
+import { ReactComponent as ArrowLeft } from "../../../assets/icons/arrowLeft.svg";
+import { ReactComponent as ArrowRight } from "../../../assets/icons/arrowRight.svg";
 import styled from "styled-components";
 
 import { openModal } from "../../../modules/redux/calendar";
+import IconBox from "../../../elements/atoms/IconBox";
+import Button from "../../../elements/atoms/Button";
 // import SmallIconButton from "../../elements/buttons/SmallIconButton";
 // import SmallButton from "../../elements/buttons/SmallButton";
 
@@ -25,15 +25,23 @@ const Toolbar = (props) => {
   return (
     <StWrapper>
       <StNavigator>
-        {/* <SmallIconButton
-          icon={faArrowCircleLeft}
+        <IconBox
+          isCircle={true}
+          page='calendar'
+          func='prev'
           onClick={navigate.bind(null, "PREV")}
-        />
+        >
+          <ArrowLeft fill='#656565' />
+        </IconBox>
         <StYYMM>{`${date.getFullYear()}년 ${date.getMonth() + 1}월`}</StYYMM>
-        <SmallIconButton
-          icon={faArrowCircleRight}
+        <IconBox
+          isCircle={true}
+          page='calendar'
+          func='next'
           onClick={navigate.bind(null, "NEXT")}
-        /> */}
+        >
+          <ArrowRight fill='#656565' />
+        </IconBox>
       </StNavigator>
       <StButtons>
         {/* <SmallButton
