@@ -23,7 +23,7 @@ const Calories = (props) => {
     // const resp = RESP.STATISTICS.GET_CALORIES_FAIL;
     const resp = await apis.get_calories_ratio({ view });
 
-    // const { result, content: { statistics } } = resp.data;
+    // const { result } = resp.data;
     const { result, content: statistics } = resp.data;
 
     // 	사용자가 요리한 데이터 내역이 없는 경우 처리
@@ -32,6 +32,8 @@ const Calories = (props) => {
       setShowMsg(true);
       return;
     }
+
+    // const { content: {statistics} } = resp.data;
 
     setLoading(false);
     setData(statistics);
@@ -48,8 +50,6 @@ const Calories = (props) => {
       data: data?.calories,
     },
   ];
-
-  console.log(view, data);
 
   // 날짜 label 추출
   const labels = data.days?.map((day) => new Date(day).toUTCString());
@@ -85,8 +85,6 @@ const Calories = (props) => {
     }
   };
 
-  console.log(view);
-
   return (
     <>
       <StHeader>
@@ -104,7 +102,7 @@ const Calories = (props) => {
           msg='아직 입력하신 식재료가 없네요. 홈으로 가서 새로운 식재료를 추가해보세요!'
           content='재료 추가하기'
           path={`/`}
-          page='statistics'
+          page='section'
         />
       ) : null}
       {!loading && !showMsg ? (
