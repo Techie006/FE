@@ -10,7 +10,7 @@ import LoadingSpinner from "../../elements/atoms/LoadingSpinner";
 import HelperButton from "../../elements/molecules/HelperButton";
 import DonutChart from "./DonutChart";
 
-const Status = (props) => {
+const Ingredients = (props) => {
   const [loading, setLoading] = useState(true);
   const [showMsg, setShowMsg] = useState(false);
   const [data, setData] = useState({
@@ -107,7 +107,7 @@ const Status = (props) => {
   );
 };
 
-export default Status;
+export default Ingredients;
 
 // Section 내부 분할
 const StLayout = styled.div`

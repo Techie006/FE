@@ -1,7 +1,7 @@
 import GridTemplate from "../../elements/templates/GridTemplate";
 import styled from "styled-components";
 
-import Status from "./Status";
+import Ingredients from "./Ingredients";
 import Daily from "./Daily";
 import Calories from "./Calories";
 import Nutrients from "./Nutrients";
@@ -10,12 +10,14 @@ const StatisticsFrame = () => {
   return (
     <GridTemplate height='minmax(349px, auto)'>
       <StLeftSection>
-        <Status />
+        <Ingredients />
       </StLeftSection>
       <StRightSection>
         <Daily />
       </StRightSection>
-      <StLeftSection>{/* <Calories /> */}</StLeftSection>
+      <StLeftSection>
+        <Calories />
+      </StLeftSection>
       <StRightSection>{/* <Nutrients /> */}</StRightSection>
     </GridTemplate>
   );

@@ -37,8 +37,7 @@ export const apis = {
   get_category: () => api.get(`/api/statistics/category`),
   get_daily: () => api.get(`/api/statistics/daily`),
   get_calories_ratio: ({ view }) => {
-    let filter = view === "일별" ? "day" : view === "주별" ? "week" : "month";
-    return api.post(`/api/statistics/ratio/calories`, { filter });
+    return api.post(`/api/statistics/ratio/calories`, { filter: view });
   },
   get_nutrients_ratio: ({ view }) => {
     let filter = view === "일별" ? "day" : view === "주별" ? "week" : "month";

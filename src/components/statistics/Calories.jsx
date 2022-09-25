@@ -1,35 +1,32 @@
 import { useState, useCallback, useEffect } from "react";
-import Chart from "react-apexcharts";
+
 import styled from "styled-components";
 
-import RESP from "../../server/response";
-// import { apis } from "../../shared/axios";
+// import RESP from "../../server/response";
+import { apis } from "../../shared/axios";
 import "./Chart.css";
+import { ST3 } from "../../styles/Text";
+import Category from "../../elements/molecules/Category";
 import LoadingSpinner from "../../elements/atoms/LoadingSpinner";
 import HelperButton from "../../elements/molecules/HelperButton";
-import { H2 } from "../../styles/Text";
-import Category from "../../elements/molecules/Category";
+import LineChart from "./LineChart";
 
 const Calories = (props) => {
-  const CALORIE = "칼로리";
-  const VIEWS = {
-    day: "일별",
-    week: "주별",
-    month: "월별",
-  };
-
   const [loading, setLoading] = useState(true);
   const [data, setData] = useState({});
   const [showMsg, setShowMsg] = useState(false);
-  const [view, setview] = useState(VIEWS.day);
+  const [view, setView] = useState("day");
+  const [viewKor, setViewKor] = useState("일별");
 
-  const get_data = useCallback(async () => {
-    const resp = RESP.STATISTICS.GET_CALORIES_SUCCESS;
+  const get_data = useCallback(async (view) => {
+    // const resp = RESP.STATISTICS.GET_CALORIES_SUCCESS;
     // const resp = RESP.STATISTICS.GET_CALORIES_FAIL;
-    // const resp = await apis.get_calories_ratio({ view });
+    const resp = await apis.get_calories_ratio({ view });
 
-    const { result, content } = resp.data;
+    // const { result, content: { statistics } } = resp.data;
+    const { result, content: statistics } = resp.data;
 
+    // 	사용자가 요리한 데이터 내역이 없는 경우 처리
     if (!result) {
       setLoading(false);
       setShowMsg(true);
@@ -37,45 +34,70 @@ const Calories = (props) => {
     }
 
     setLoading(false);
-    setData({ ...content });
-  }, [view]);
+    setData(statistics);
+  }, []);
 
   useEffect(() => {
-    get_data();
+    get_data(view);
   }, [get_data, view]);
 
-  const caloriesSeries = [
+  // 칼로리 series 추출
+  const calorieSeries = [
     {
-      name: CALORIE,
+      name: "칼로리",
       data: data?.calories,
     },
   ];
 
+  console.log(view, data);
+
+  // 날짜 label 추출
   const labels = data.days?.map((day) => new Date(day).toUTCString());
-  const CALORIE_COLOR = ["#DFB078"];
+
+  const chartInfo = {
+    series: calorieSeries,
+    labels: labels,
+    base: "kcal",
+    colors: ["#DFB078"],
+  };
 
   const clickHandler = (e) => {
     const content = e.target.textContent;
-    if (view === content) {
+    // 이미 선택된 뷰라면 클릭 처리하지 않음
+    if (content === view) {
       return;
     }
+    // 뷰 전환
+    // setView(content);
+    setViewKor(content);
     switch (content) {
-      case VIEWS.day:
-        setview(VIEWS.day);
-        return;
-      case VIEWS.week:
-        setview(VIEWS.week);
-        return;
-      case VIEWS.month:
-        setview(VIEWS.month);
-        return;
+      case "일별":
+        setView("day");
+        break;
+      case "주별":
+        setView("week");
+        break;
+      case "월별":
+        setView("month");
+        break;
       default:
-        return;
+        break;
     }
   };
 
+  console.log(view);
+
   return (
     <>
+      <StHeader>
+        <ST3>나의 열량 섭취 변화</ST3>
+        <Category
+          contents={["일별", "주별", "월별"]}
+          onClick={clickHandler}
+          selectedCategory={viewKor}
+          page='statistics'
+        />
+      </StHeader>
       {loading ? <LoadingSpinner /> : null}
       {!loading && showMsg ? (
         <HelperButton
@@ -87,106 +109,7 @@ const Calories = (props) => {
       ) : null}
       {!loading && !showMsg ? (
         <>
-          <StHeader>
-            <H2>나의 열량 섭취 변화</H2>
-            <Category
-              contents={Object.values(VIEWS)}
-              onClick={clickHandler}
-              selectedCategory={view}
-              page='statistics'
-            />
-          </StHeader>
-          <Chart
-            type='line'
-            series={caloriesSeries}
-            height='85%'
-            options={{
-              chart: {
-                fontFamily: "Noto Sans KR",
-                fontSize: "12px",
-                fontWeight: "700",
-                toolbar: {
-                  show: false,
-                },
-                tools: {
-                  download: false,
-                  zoom: false,
-                  zoomin: false,
-                  zoomout: false,
-                },
-              },
-              xaxis: {
-                type: "datetime",
-                tooltip: {
-                  enabled: false,
-                },
-                labels: {
-                  format: view !== VIEWS.month ? `MM월 dd일` : `yy년 MM월`,
-                  style: {
-                    colors: new Array(7).fill("#939393"),
-                    fontSize: "12px",
-                    fontWeight: 500,
-                  },
-                },
-                axisTicks: {
-                  show: false,
-                },
-                axisBorder: {
-                  show: false,
-                },
-              },
-              yaxis: {
-                labels: {
-                  formatter: (value) => {
-                    let num = Number(value);
-                    if (num % 1 === 0) {
-                      return `${value}kcal`;
-                    }
-                    return `${Number(value).toFixed(1)}kcal`;
-                  },
-                  style: {
-                    colors: new Array(7).fill("#939393"),
-                    fontSize: "12px",
-                    fontWeight: 500,
-                  },
-                },
-              },
-              dataLabels: {
-                enabled: false,
-              },
-              legend: {
-                show: true,
-                position: "bottom",
-                showForSingleSeries: true,
-                markers: {
-                  radius: 50,
-                },
-              },
-              labels: labels,
-              colors: CALORIE_COLOR,
-              storke: {
-                curve: "smooth",
-                width: 4,
-              },
-              tooltip: {
-                x: {
-                  show: false,
-                },
-                y: {
-                  formatter: (value) => `${value}kcal`,
-                },
-              },
-              grid: {
-                show: false,
-                // TODO for apex-chart x-axis trimming error
-                // https://github.com/apexcharts/apexcharts.js/issues/305
-                padding: {
-                  left: 50,
-                  right: 40,
-                },
-              },
-            }}
-          />
+          <LineChart height='300px' view={view} chartInfo={chartInfo} />
         </>
       ) : null}
     </>
