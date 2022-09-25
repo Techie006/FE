@@ -28,11 +28,12 @@ const BarChart = ({ criteria, base, series, chartInfo, ...props }) => {
               horizontal: true,
             },
           },
+          // TODO overlapping issue 해결하기!
           xaxis: {
-            axisBorder: {
-              show: false,
-            },
+            type: "category",
             labels: {
+              show: true,
+              hideOverlappingLabels: true,
               formatter: (value) => {
                 let num = Number(value);
                 if (num % 1 === 0) {
@@ -41,10 +42,13 @@ const BarChart = ({ criteria, base, series, chartInfo, ...props }) => {
                 return `${Number(value).toFixed(1)}${base}`;
               },
               style: {
-                colors: new Array(7).fill("#939393"),
-                fontSize: "12px",
+                colors: COLORS,
                 fontWeight: 500,
+                fontSize: "12px",
               },
+            },
+            axisBorder: {
+              show: false,
             },
             axisTicks: {
               show: false,
