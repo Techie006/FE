@@ -6,8 +6,9 @@ import styled from "styled-components";
 
 import "rc-dropdown/assets/index.css";
 import { openModal, __deleteDiet } from "../../modules/redux/calendar";
+import BookmarkBtn from "../common/BookmarkBtn";
+import IconBox from "../../elements/atoms/IconBox";
 import { ReactComponent as Edit } from "../../assets/icons/edit.svg";
-// import BookmarkBtn from "../common/BookmarkBtn";
 
 const Diet = (props) => {
   const {
@@ -32,42 +33,41 @@ const Diet = (props) => {
     dispatch(openModal({ diet: props, type: "update" }));
   };
 
-  // const showDeleteConfirm = () =>
-  //   Swal.fire({
-  //     title: "해당 날짜의 식단을 삭제하시겠습니까?",
-  //     text: "",
-  //     icon: "warning",
-  //     showCancelButton: true,
-  //     cancelButtonText: "취소하기",
-  //     confirmButtonText: "삭제하기",
-  //     cancelButtonColor: "#d33",
-  //     confirmButtonColor: "#3085d6",
-  //   });
+  const showDeleteConfirm = () =>
+    Swal.fire({
+      title: "해당 날짜의 식단을 삭제하시겠습니까?",
+      text: "",
+      icon: "warning",
+      showCancelButton: true,
+      cancelButtonText: "취소하기",
+      confirmButtonText: "삭제하기",
+      cancelButtonColor: "#d33",
+      confirmButtonColor: "#3085d6",
+    });
 
-  // const showSuccessAlert = () => {
-  //   Swal.fire({
-  //     position: "center",
-  //     icon: "success",
-  //     title: "해당 식단을 삭제하였습니다.",
-  //     showConfirmButton: false,
-  //     timer: 1000,
-  //   });
-  // };
+  const showSuccessAlert = () => {
+    Swal.fire({
+      position: "center",
+      icon: "success",
+      title: "해당 식단을 삭제하였습니다.",
+      showConfirmButton: false,
+      timer: 1000,
+    });
+  };
 
   const onSelect = ({ key }) => {
-    console.log(key);
-    // if (key === "update") {
-    //   showModal();
-    //   return;
-    // }
-    // if (key === "delete") {
-    //   showDeleteConfirm().then((result) => {
-    //     if (result.isConfirmed) {
-    //       delete_diet();
-    //       showSuccessAlert();
-    //     }
-    //   });
-    // }
+    if (key === "update") {
+      showModal();
+      return;
+    }
+    if (key === "delete") {
+      showDeleteConfirm().then((result) => {
+        if (result.isConfirmed) {
+          delete_diet();
+          showSuccessAlert();
+        }
+      });
+    }
   };
 
   const overlay = () => (
@@ -81,9 +81,9 @@ const Diet = (props) => {
     <StWrapper>
       <StHeader>
         <StName>{recipe_name}</StName>
-        {/* <BookmarkBtn is_liked={liked} /> */}
+        <BookmarkBtn recipe_id={recipe_id} is_liked={liked} />
         {/* <Dropdown trigger={["click"]} overlay={overlay} animation='slide-up'>
-          
+          <IconBox 
         </Dropdown> */}
       </StHeader>
       <div>{time}</div>
@@ -96,12 +96,9 @@ const Diet = (props) => {
 export default Diet;
 
 const StWrapper = styled.div`
-  width: 90%;
-  margin: auto;
-  margin-bottom: 10px;
-  height: 90px;
+  height: 105px;
+  background-color: tomato;
   box-shadow: ${(props) => props.theme.boxShadow};
-  padding: 10px;
 `;
 
 const StHeader = styled.div`

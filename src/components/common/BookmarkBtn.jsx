@@ -5,6 +5,7 @@ import withReactContent from "sweetalert2-react-content";
 // import RESP from "../../server/response;
 import { apis } from "../../shared/axios";
 import { ReactComponent as Bookmark } from "../../assets/icons/bookmark.svg";
+import { ReactComponent as Bookmarked } from "../../assets/icons/bookmarked.svg";
 import IconBox from "../../elements/atoms/IconBox";
 
 const BookmarkBtn = ({ recipe_id, is_liked }) => {
@@ -43,7 +44,11 @@ const BookmarkBtn = ({ recipe_id, is_liked }) => {
   return (
     <>
       <IconBox page='calendar' func='bookmark' onClick={clickHandler}>
-        <Bookmark fill='#A5A5A5' />
+        {!bookmark ? (
+          <Bookmark fill='#A5A5A5' />
+        ) : (
+          <Bookmarked fill='#FFB356' />
+        )}
       </IconBox>
     </>
   );
