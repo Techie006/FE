@@ -1,12 +1,12 @@
 import { useDispatch } from "react-redux";
-import { openModal, __deleteDiet } from "../../modules/redux/calendar";
-import { faEllipsisV } from "@fortawesome/free-solid-svg-icons";
 import Swal from "sweetalert2";
-import Menu, { Item } from "rc-menu";
 import Dropdown from "rc-dropdown";
-import "rc-dropdown/assets/index.css";
+import Menu, { Item } from "rc-menu";
 import styled from "styled-components";
 
+import "rc-dropdown/assets/index.css";
+import { openModal, __deleteDiet } from "../../modules/redux/calendar";
+import { ReactComponent as Edit } from "../../assets/icons/edit.svg";
 // import BookmarkBtn from "../common/BookmarkBtn";
 
 const Diet = (props) => {
@@ -81,9 +81,9 @@ const Diet = (props) => {
     <StWrapper>
       <StHeader>
         <StName>{recipe_name}</StName>
-        {/* <BookmarkBtn is_liked={liked} />
-        <Dropdown trigger={["click"]} overlay={overlay} animation='slide-up'>
-          <SmallIconButton icon={faEllipsisV} />
+        {/* <BookmarkBtn is_liked={liked} /> */}
+        {/* <Dropdown trigger={["click"]} overlay={overlay} animation='slide-up'>
+          
         </Dropdown> */}
       </StHeader>
       <div>{time}</div>
