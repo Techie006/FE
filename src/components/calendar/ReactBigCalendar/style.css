@@ -28,11 +28,16 @@
 }
 
 /* calendar 셀 스타일 정의 */
+.rbc-day-bg:hover {
+  cursor: pointer;
+}
+
 /* 이전 달 이후 달 스타일 정의 */
 .rbc-off-range-bg {
   background-color: #faf8f3;
 }
 
+/* 오늘 스타일 정의 */
 .rbc-today {
   background-color: #ffe8ba;
 }
@@ -66,6 +71,7 @@
   background: #ffdd7c;
 }
 
+/* 날짜 요소 스타일 정의 */
 .rbc-button-link {
   color: #958271;
   font-family: "Noto Sans KR";
@@ -74,7 +80,11 @@
   font-size: 13px;
   line-height: 19px;
 }
+.rbc-button-link:hover {
+  cursor: default;
+}
 
+/* 이벤트 더보기 스타일 정의 */
 .rbc-show-more {
   color: #958271;
   font-family: "Noto Sans KR";
@@ -83,11 +93,11 @@
   font-size: 14px;
   line-height: 20px;
 }
-
 .rbc-show-more:hover {
   color: #958271;
 }
 
+/* 더보기 시 헤더 스타일 정의 */
 .rbc-overlay-header {
   color: #282828;
   font-family: "Noto Sans KR";

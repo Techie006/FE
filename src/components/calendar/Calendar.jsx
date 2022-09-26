@@ -70,6 +70,7 @@ const RecipeCalendar = () => {
             components={{
               toolbar: Toolbar,
             }}
+            views={["month"]}
             localizer={localizer}
             culture='ko'
             defaultDate={defaultDate}
