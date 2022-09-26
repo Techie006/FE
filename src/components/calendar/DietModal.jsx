@@ -8,12 +8,14 @@ import {
   __updateDiet,
 } from "../../modules/redux/calendar";
 import Modal from "../common/Modal";
-import { ST3 } from "../../styles/Text";
+import { ST3, ET1 } from "../../styles/Text";
 
 const DietModal = (props) => {
   const modalType = useSelector((state) => state.calendar.modalType);
-  const diet = useSelector((state) => state.calendar.selectedDiet);
-  const { id, recipe_id, recipe_name, time, day } = diet;
+  const selectedDiet = useSelector((state) => state.calendar.selectedDiet);
+  const selectedDate = useSelector((state) => state.calendar.selectedDate);
+
+  const { id, recipe_id, recipe_name, time, day } = selectedDiet;
 
   const dispatch = useDispatch();
 
@@ -25,8 +27,12 @@ const DietModal = (props) => {
     mode: "onChange",
     defaultValues:
       modalType === "create"
-        ? {}
+        ? {
+            // 캘린더 칸을 클릭한 경우 해당 칸의 일자를 기본값으로, 식단 추가하기 버튼을 클릭한 경우 오늘 일자를 기본값으로 제공
+            date: selectedDate,
+          }
         : {
+            // 기존 식단을 수정하는 경우, 식단 정보들을 기본값으로 제공
             recipe: recipe_name,
             time: time,
             date: day,
@@ -62,7 +68,7 @@ const DietModal = (props) => {
             required: "레시피명을 입력해주셔야 식단 입력이 가능해요.",
           })}
         />
-        <ST3>{errors.recipe ? errors.recipe.message : ""}</ST3>
+        <ET1>{errors.recipe ? errors.recipe.message : ""}</ET1>
         <fieldset>
           <ST3>언제 드실지 정해볼까요?</ST3>
           <div>
@@ -88,7 +94,7 @@ const DietModal = (props) => {
             <label htmlFor='점심'>점심</label>
           </div>
           <div>
-            <input
+            <StRadio
               type='radio'
               id='저녁'
               value='저녁'
@@ -109,7 +115,7 @@ const DietModal = (props) => {
             />
             <label htmlFor='간식'>간식</label>
           </div>
-          <ST3>{errors.time ? errors.time.message : ""}</ST3>
+          <ET1>{errors.time ? errors.time.message : ""}</ET1>
         </fieldset>
         <ST3>드실 날짜를 정해볼까요?</ST3>
         <input
@@ -120,7 +126,7 @@ const DietModal = (props) => {
             required: "드실 날짜를 입력해주셔야 식단 입력이 가능해요.",
           })}
         />
-        <ST3>{errors.date ? errors.date.message : ""}</ST3>
+        <ET1>{errors.date ? errors.date.message : ""}</ET1>
         {/* <ModalSmallButton
           type='submit'
           content='식단 저장하기'
@@ -142,8 +148,14 @@ const StInput = styled.input`
   border: 0.6px solid #dadada;
   border-radius: 6px;
   width: 285px;
-  padding: 11px 14px;
-  background-image: url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' width='20' height='25' viewBox='0 0 25 25' fill-rule='evenodd'><path d='M16.036 18.455l2.404-2.405 5.586 5.587-2.404 2.404zM8.5 2C12.1 2 15 4.9 15 8.5S12.1 15 8.5 15 2 12.1 2 8.5 4.9 2 8.5 2zm0-2C3.8 0 0 3.8 0 8.5S3.8 17 8.5 17 17 13.2 17 8.5 13.2 0 8.5 0zM15 16a1 1 0 1 1 2 0 1 1 0 1 1-2 0'></path></svg>");
-  background-size: contain;
+  padding: 11px 48px 11px 14px;
+  background-image: url("https://raw.githubusercontent.com/Techie006/FE/21142e4530a912b50a49fc500325a0d78f2fd272/src/assets/icons/search.svg");
+  background-position: 250px center;
   background-repeat: no-repeat;
+`;
+
+const StRadio = styled.input`
+  background: #fafafa;
+  border: 0.6px solid #dadada;
+  border-radius: 30px;
 `;

@@ -19,7 +19,8 @@ const Toolbar = (props) => {
   };
 
   const clickHandler = () => {
-    dispatch(openModal({ diet: {}, type: "create" }));
+    const date = new Date().toISOString().slice(0, 10);
+    dispatch(openModal({ diet: {}, type: "create", date }));
   };
 
   return (
