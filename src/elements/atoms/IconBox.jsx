@@ -1,9 +1,15 @@
-import { useEffect, useCallback } from "react";
 import styled from "styled-components";
 
 import { R0, R4 } from "../../styles/Radius";
 
-const IconBox = ({ isCircle, onClick, page, func, ...props }) => {
+const IconBox = ({
+  isBox = true,
+  isCircle = false,
+  onClick,
+  page,
+  func,
+  ...props
+}) => {
   let width = "";
   let height = "";
   let border = "";
@@ -22,16 +28,31 @@ const IconBox = ({ isCircle, onClick, page, func, ...props }) => {
           background = "#FAFAFA";
           viewBoxWidth = "18px";
           viewBoxHeight = "18px";
-        } else if (func === "edit") {
+        } else if (func === "create") {
           width = "36px";
           height = "36px";
           border = "1px solid #ECECEC";
           background = "#FAFAFA";
           viewBoxWidth = "24px";
           viewBoxHeight = "24px";
-        } else {
+        } else if (func === "bookmark" || func === "edit") {
+          width = "24px";
+          height = "24px";
+          border = "";
+          background = "";
+          viewBoxWidth = "22px";
+          viewBoxHeight = "22px";
         }
-
+        break;
+      case "modal":
+        if (func === "close") {
+          width = "22px";
+          height = "22px";
+          border = "1px solid #DFDFE6";
+          background = "#FFFFF";
+          viewBoxWidth = "7px";
+          viewBoxHeight = "7px";
+        }
         break;
       default:
         return;
@@ -48,6 +69,7 @@ const IconBox = ({ isCircle, onClick, page, func, ...props }) => {
         border={border}
         background={background}
         isCircle={isCircle}
+        isBox={isBox}
         onClick={onClick}
       >
         <StViewBox width={viewBoxWidth} height={viewBoxHeight}>
@@ -72,6 +94,10 @@ const StLayout = styled.div`
 
   &:hover {
     cursor: pointer;
+    background: ${(props) => (props.isBox ? "#DEDEDE" : props.background)};
+    svg {
+      fill: ${(props) => (props.isBox ? "#656565" : "#ff8e42")};
+    }
   }
 `;
 

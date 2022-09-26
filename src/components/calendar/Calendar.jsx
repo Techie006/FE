@@ -44,7 +44,7 @@ const RecipeCalendar = () => {
       allDay: false,
       start: new Date(startTimeFormat),
       end: new Date(startTimeFormat),
-      category: recipe.time,
+      category: time,
     };
   });
 
