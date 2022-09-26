@@ -74,7 +74,7 @@ const DietModal = (props) => {
                 required: "시간을 알려주셔야 식단 입력이 가능해요.",
               })}
             />
-            <label for='아침'>아침</label>
+            <label htmlFor='아침'>아침</label>
           </div>
           <div>
             <input
@@ -85,7 +85,7 @@ const DietModal = (props) => {
                 required: "시간을 알려주셔야 식단 입력이 가능해요.",
               })}
             />
-            <label for='점심'>점심</label>
+            <label htmlFor='점심'>점심</label>
           </div>
           <div>
             <input
@@ -96,7 +96,7 @@ const DietModal = (props) => {
                 required: "시간을 알려주셔야 식단 입력이 가능해요.",
               })}
             />
-            <label for='저녁'>저녁</label>
+            <label htmlFor='저녁'>저녁</label>
           </div>
           <div>
             <input
@@ -107,7 +107,7 @@ const DietModal = (props) => {
                 required: "시간을 알려주셔야 식단 입력이 가능해요.",
               })}
             />
-            <label for='간식'>간식</label>
+            <label htmlFor='간식'>간식</label>
           </div>
           <ST3>{errors.time ? errors.time.message : ""}</ST3>
         </fieldset>
@@ -143,5 +143,7 @@ const StInput = styled.input`
   border-radius: 6px;
   width: 285px;
   padding: 11px 14px;
-  background: url();
+  background-image: url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' width='20' height='25' viewBox='0 0 25 25' fill-rule='evenodd'><path d='M16.036 18.455l2.404-2.405 5.586 5.587-2.404 2.404zM8.5 2C12.1 2 15 4.9 15 8.5S12.1 15 8.5 15 2 12.1 2 8.5 4.9 2 8.5 2zm0-2C3.8 0 0 3.8 0 8.5S3.8 17 8.5 17 17 13.2 17 8.5 13.2 0 8.5 0zM15 16a1 1 0 1 1 2 0 1 1 0 1 1-2 0'></path></svg>");
+  background-size: contain;
+  background-repeat: no-repeat;
 `;
