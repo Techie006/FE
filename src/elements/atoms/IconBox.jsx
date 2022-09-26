@@ -1,9 +1,15 @@
-import { useEffect, useCallback } from "react";
 import styled from "styled-components";
 
 import { R0, R4 } from "../../styles/Radius";
 
-const IconBox = ({ isCircle, onClick, page, func, ...props }) => {
+const IconBox = ({
+  isBox = true,
+  isCircle = false,
+  onClick,
+  page,
+  func,
+  ...props
+}) => {
   let width = "";
   let height = "";
   let border = "";
@@ -54,6 +60,7 @@ const IconBox = ({ isCircle, onClick, page, func, ...props }) => {
         border={border}
         background={background}
         isCircle={isCircle}
+        isBox={isBox}
         onClick={onClick}
       >
         <StViewBox width={viewBoxWidth} height={viewBoxHeight}>
@@ -78,6 +85,10 @@ const StLayout = styled.div`
 
   &:hover {
     cursor: pointer;
+    background: ${(props) => (props.isBox ? "#DEDEDE" : props.background)};
+    svg {
+      fill: ${(props) => (props.isBox ? "#656565" : "#ff8e42")};
+    }
   }
 `;
 

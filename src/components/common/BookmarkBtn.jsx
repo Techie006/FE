@@ -8,7 +8,7 @@ import { ReactComponent as Bookmark } from "../../assets/icons/bookmark.svg";
 import { ReactComponent as Bookmarked } from "../../assets/icons/bookmarked.svg";
 import IconBox from "../../elements/atoms/IconBox";
 
-const BookmarkBtn = ({ recipe_id, is_liked }) => {
+const BookmarkBtn = ({ recipe_id, is_liked, isBox }) => {
   const [bookmark, setBookmark] = useState(is_liked);
 
   const BookmarkSwal = withReactContent(Swal);
@@ -43,7 +43,12 @@ const BookmarkBtn = ({ recipe_id, is_liked }) => {
 
   return (
     <>
-      <IconBox page='calendar' func='bookmark' onClick={clickHandler}>
+      <IconBox
+        page='calendar'
+        func='bookmark'
+        onClick={clickHandler}
+        isBox={isBox}
+      >
         {!bookmark ? (
           <Bookmark fill='#A5A5A5' />
         ) : (

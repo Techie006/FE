@@ -99,9 +99,9 @@ const Diet = (props) => {
           <Textbox content={time} />
         </StName>
         <StButtons>
-          <BookmarkBtn recipe_id={recipe_id} is_liked={liked} />
+          <BookmarkBtn recipe_id={recipe_id} is_liked={liked} isBox={false} />
           <Dropdown trigger={["click"]} overlay={overlay} animation='slide-up'>
-            <IconBox page='calendar' func='edit'>
+            <IconBox page='calendar' func='edit' isBox={false}>
               <Edit fill='#A5A5A5' />
             </IconBox>
           </Dropdown>
