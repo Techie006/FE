@@ -13,8 +13,9 @@ const Textbox = ({ content, ...props }) => {
 export default Textbox;
 
 const StLayout = styled.div`
-  display: inline;
-  padding: 4px 9px;
+  width: 44px;
+  height: 24px;
+  padding: 2px 9px;
 
   // layout
   border-radius: 6px;
