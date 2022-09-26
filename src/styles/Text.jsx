@@ -105,6 +105,14 @@ export const T5 = styled(T1)`
   color: #8e7b6d;
 `;
 
+// usage : 식단 내 날짜
+export const T6 = styled(T1)`
+  font-weight: 500;
+  font-size: 12px;
+  line-height: 17px;
+  color: #5b5b5b;
+`;
+
 // 그 외 텍스트
 
 export const H1 = styled.div``;

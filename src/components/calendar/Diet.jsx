@@ -1,15 +1,16 @@
 import { useDispatch } from "react-redux";
 import Swal from "sweetalert2";
 import Dropdown from "rc-dropdown";
-import Menu, { Item } from "rc-menu";
+import Menu, { Item, Divider } from "rc-menu";
 import styled from "styled-components";
 
 import "rc-dropdown/assets/index.css";
+import "./rc-dropdown/style.css";
 import { openModal, __deleteDiet } from "../../modules/redux/calendar";
 import BookmarkBtn from "../common/BookmarkBtn";
 import IconBox from "../../elements/atoms/IconBox";
 import { ReactComponent as Edit } from "../../assets/icons/edit.svg";
-import { T3, T5 } from "../../styles/Text";
+import { T3, T5, T6 } from "../../styles/Text";
 import Textbox from "../../elements/atoms/Textbox";
 
 const Diet = (props) => {
@@ -74,12 +75,21 @@ const Diet = (props) => {
     }
   };
 
+  // rc-menu로 드롭다운 생성
   const overlay = () => (
     <Menu onSelect={onSelect}>
       <Item key='update'>수정하기</Item>
       <Item key='delete'>삭제하기</Item>
     </Menu>
   );
+
+  // 날짜 포맷팅
+  const getDate = (day) => {
+    const dateFormat = day.replace(/-/g, "/");
+    const mm = new Date(dateFormat).getMonth() + 1;
+    const dd = new Date(dateFormat).getDay();
+    return `${mm}월 ${dd}일`;
+  };
 
   return (
     <StLayout>
@@ -98,7 +108,9 @@ const Diet = (props) => {
         </StButtons>
       </StHeader>
       <T5>{`${method} | ${category} | ${calorie}kcal`}</T5>
-      <T5>{`${day}`}</T5>
+      <StDate>
+        <T6>{`${getDate(day)}`}</T6>
+      </StDate>
     </StLayout>
   );
 };
@@ -133,4 +145,8 @@ const StButtons = styled.div`
   flex-direction: row;
   flex-wrap: wrap;
   gap: 10px;
+`;
+
+const StDate = styled.div`
+  margin-top: 23px;
 `;
