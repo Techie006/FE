@@ -80,6 +80,23 @@ export const T2 = styled(T1)`
   color: #a5a5a5;
 `;
 
+// usage: 캘린더 식단명
+export const T3 = styled(T1)`
+  font-weight: 700;
+  font-size: 18px;
+  line-height: 26px;
+  background-color: inherit;
+  color: #282828;
+`;
+
+// usage: 식단 시간
+export const T4 = styled(T1)`
+  font-weight: 500;
+  font-size: 14px;
+  line-height: 20px;
+  color: #8e7b6d;
+`;
+
 // 그 외 텍스트
 
 export const H1 = styled.div``;
@@ -89,13 +106,6 @@ export const H2 = styled.div`
   font-size: 16px;
   line-height: 23px;
   margin-bottom: 20px;
-  background-color: inherit;
-`;
-
-export const H3 = styled.div`
-  font-weight: 700;
-  font-size: 18px;
-  line-height: 26px;
   background-color: inherit;
 `;
 

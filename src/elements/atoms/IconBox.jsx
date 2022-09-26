@@ -13,6 +13,7 @@ const IconBox = ({ isCircle, onClick, page, func, ...props }) => {
   let padding = "";
 
   const createStyle = () => {
+    console.log(page, func);
     switch (page) {
       case "calendar":
         if (func === "prev" || func === "next") {
@@ -22,18 +23,19 @@ const IconBox = ({ isCircle, onClick, page, func, ...props }) => {
           background = "#FAFAFA";
           viewBoxWidth = "18px";
           viewBoxHeight = "18px";
-        } else if (func === "edit") {
+        } else if (func === "create") {
           width = "36px";
           height = "36px";
           border = "1px solid #ECECEC";
           background = "#FAFAFA";
           viewBoxWidth = "24px";
           viewBoxHeight = "24px";
-        } else if (func === "bookmark") {
+        } else if (func === "bookmark" || func === "edit") {
+          console.log(func);
           width = "24px";
           height = "24px";
           border = "";
-          background = "#FAFAFA";
+          background = "";
           viewBoxWidth = "22px";
           viewBoxHeight = "22px";
         }

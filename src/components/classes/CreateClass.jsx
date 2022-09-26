@@ -6,7 +6,7 @@ import styled from "styled-components";
 
 import { apis } from "../../shared/axios";
 import Modal from "../../elements/templates/Modal";
-import { H3, ErrorText } from "../../styles/Text";
+import { T3, ErrorText } from "../../styles/Text";
 import Button from "../../elements/atoms/Button";
 
 const CreateClass = ({ onClick }) => {
@@ -69,9 +69,9 @@ const CreateClass = ({ onClick }) => {
     <>
       <Modal onClick={onClick}>
         <form onSubmit={handleSubmit(submitHandler)}>
-          <H3 as='label' htmlFor='className'>
+          <T3 as='label' htmlFor='className'>
             클래스명
-          </H3>
+          </T3>
           <StInput
             type='text'
             id='className'
@@ -83,9 +83,9 @@ const CreateClass = ({ onClick }) => {
           {errors.className ? (
             <ErrorText>{errors.className.message}</ErrorText>
           ) : null}
-          <H3 as='label' htmlFor='classImgs'>
+          <T3 as='label' htmlFor='classImgs'>
             클래스 썸네일
-          </H3>
+          </T3>
           <StInput
             type='file'
             accept='image/jpg, image/png, image/jpeg'
@@ -110,9 +110,9 @@ const CreateClass = ({ onClick }) => {
               />
             ) : null}
           </StImgWrapper>
-          <H3 as='label' htmlFor='recipeId'>
+          <T3 as='label' htmlFor='recipeId'>
             레시피번호
-          </H3>
+          </T3>
           <StInput
             type='number'
             id='recipeId'

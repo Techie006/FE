@@ -9,6 +9,8 @@ import { openModal, __deleteDiet } from "../../modules/redux/calendar";
 import BookmarkBtn from "../common/BookmarkBtn";
 import IconBox from "../../elements/atoms/IconBox";
 import { ReactComponent as Edit } from "../../assets/icons/edit.svg";
+import { T3 } from "../../styles/Text";
+import Textbox from "../../elements/atoms/Textbox";
 
 const Diet = (props) => {
   const {
@@ -80,13 +82,16 @@ const Diet = (props) => {
   return (
     <StWrapper>
       <StHeader>
-        <StName>{recipe_name}</StName>
+        <T3>{recipe_name}</T3>
+        <Textbox content={time} />
         <BookmarkBtn recipe_id={recipe_id} is_liked={liked} />
-        {/* <Dropdown trigger={["click"]} overlay={overlay} animation='slide-up'>
-          <IconBox 
-        </Dropdown> */}
+        <Dropdown trigger={["click"]} overlay={overlay} animation='slide-up'>
+          <IconBox page='calendar' func='edit'>
+            <Edit fill='#A5A5A5' />
+          </IconBox>
+        </Dropdown>
       </StHeader>
-      <div>{time}</div>
+
       <div>{ingredients}</div>
       <div>{`${calorie} | ${category} | ${method}`}</div>
     </StWrapper>

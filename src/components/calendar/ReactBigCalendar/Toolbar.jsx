@@ -50,7 +50,7 @@ const Toolbar = (props) => {
           padding='5px 6px'
         />
       </StNavigator>
-      <IconBox page='calendar' func='edit' onClick={clickHandler}>
+      <IconBox page='calendar' func='create' onClick={clickHandler}>
         <Create fill='#5B5B5B' />
       </IconBox>
     </StWrapper>

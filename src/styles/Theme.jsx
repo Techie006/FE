@@ -1,4 +1,5 @@
 import Colors from "./Colors";
+import { R4 } from "./Radius";
 
 export const designTheme = {
   colors: Colors,
@@ -202,47 +203,6 @@ export const designTheme = {
         fontSize: "16px",
         lineHeight: "23px",
       },
-    },
-  },
-
-  textbox: {
-    layout: {
-      borderRadius: "6px",
-      borderRoundRadius: "30px",
-      boxShadow: "0px 3px 13px 1px rgba(0, 0, 0, 0.05)",
-    },
-    content: {
-      fontWeight: "700",
-      fontSize: "16px",
-      lineHeight: "23px",
-    },
-    colors: {
-      background: Colors.background.white,
-    },
-  },
-
-  iconbox: {
-    layout: {
-      background: Colors.background.white,
-      borderRadius: "6px",
-      borderRoundRadius: "30px",
-      boxShadow: "0px 3px 13px 1px rgba(0, 0, 0, 0.05)",
-    },
-    content: {
-      fontWeight: "700",
-      fontSize: "16px",
-      lineHeight: "23px",
-    },
-    size: {
-      // s1(big) ---> s5(small)
-      s1: "24px",
-      s2: "22px",
-      s3: "20px",
-      s4: "18px",
-      s5: "15px",
-    },
-    colors: {
-      color: Colors.font.gray2,
     },
   },
 
