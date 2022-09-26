@@ -43,7 +43,16 @@ const IconBox = ({
           viewBoxWidth = "22px";
           viewBoxHeight = "22px";
         }
-
+        break;
+      case "modal":
+        if (func === "close") {
+          width = "22px";
+          height = "22px";
+          border = "1px solid #DFDFE6";
+          background = "#FFFFF";
+          viewBoxWidth = "7px";
+          viewBoxHeight = "7px";
+        }
         break;
       default:
         return;

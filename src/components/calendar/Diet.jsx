@@ -1,7 +1,7 @@
 import { useDispatch } from "react-redux";
 import Swal from "sweetalert2";
 import Dropdown from "rc-dropdown";
-import Menu, { Item, Divider } from "rc-menu";
+import Menu, { Item } from "rc-menu";
 import styled from "styled-components";
 
 import "rc-dropdown/assets/index.css";

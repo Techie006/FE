@@ -83,10 +83,6 @@ const StButton = styled.button.attrs((props) => ({
 
   &:hover {
     cursor: ${(props) => (!props.disabled ? "pointer" : "default")};
-    background: ${(props) =>
-      props.isBasic
-        ? props.theme.button[props.page].colors.hover.background
-        : props.theme.button[props.page].colors.selected.background};
   }
 `;
 
@@ -126,6 +122,7 @@ const StContent = styled.div`
       props.isBasic
         ? props.theme.button[props.page].colors.hover.text
         : props.theme.button[props.page].colors.selected.text};
+    background: ${(props) => props.is};
   }
 `;
 
