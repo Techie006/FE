@@ -97,6 +97,14 @@ export const T4 = styled(T1)`
   color: #8e7b6d;
 `;
 
+// usage: 식단 정보
+export const T5 = styled(T1)`
+  font-weight: 400;
+  font-size: 12px;
+  line-height: 17px;
+  color: #8e7b6d;
+`;
+
 // 그 외 텍스트
 
 export const H1 = styled.div``;

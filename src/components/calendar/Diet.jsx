@@ -9,7 +9,7 @@ import { openModal, __deleteDiet } from "../../modules/redux/calendar";
 import BookmarkBtn from "../common/BookmarkBtn";
 import IconBox from "../../elements/atoms/IconBox";
 import { ReactComponent as Edit } from "../../assets/icons/edit.svg";
-import { T3 } from "../../styles/Text";
+import { T3, T5 } from "../../styles/Text";
 import Textbox from "../../elements/atoms/Textbox";
 
 const Diet = (props) => {
@@ -19,10 +19,10 @@ const Diet = (props) => {
     recipe_name,
     time,
     liked,
-    ingredients,
     category,
     calorie,
     method,
+    day,
   } = props;
 
   const dispatch = useDispatch();
@@ -35,6 +35,7 @@ const Diet = (props) => {
     dispatch(openModal({ diet: props, type: "update" }));
   };
 
+  // 식단 삭제 시 컨펌창 띄우기
   const showDeleteConfirm = () =>
     Swal.fire({
       title: "해당 날짜의 식단을 삭제하시겠습니까?",
@@ -47,6 +48,7 @@ const Diet = (props) => {
       confirmButtonColor: "#3085d6",
     });
 
+  // 식단 삭제 완료 후 알랏창 띄우기
   const showSuccessAlert = () => {
     Swal.fire({
       position: "center",
@@ -80,36 +82,55 @@ const Diet = (props) => {
   );
 
   return (
-    <StWrapper>
+    <StLayout>
       <StHeader>
-        <T3>{recipe_name}</T3>
-        <Textbox content={time} />
-        <BookmarkBtn recipe_id={recipe_id} is_liked={liked} />
-        <Dropdown trigger={["click"]} overlay={overlay} animation='slide-up'>
-          <IconBox page='calendar' func='edit'>
-            <Edit fill='#A5A5A5' />
-          </IconBox>
-        </Dropdown>
+        <StName>
+          <T3>{recipe_name}</T3>
+          <Textbox content={time} />
+        </StName>
+        <StButtons>
+          <BookmarkBtn recipe_id={recipe_id} is_liked={liked} />
+          <Dropdown trigger={["click"]} overlay={overlay} animation='slide-up'>
+            <IconBox page='calendar' func='edit'>
+              <Edit fill='#A5A5A5' />
+            </IconBox>
+          </Dropdown>
+        </StButtons>
       </StHeader>
-
-      <div>{ingredients}</div>
-      <div>{`${calorie} | ${category} | ${method}`}</div>
-    </StWrapper>
+      <T5>{`${method} | ${category} | ${calorie}kcal`}</T5>
+      <T5>{`${day}`}</T5>
+    </StLayout>
   );
 };
 
 export default Diet;
 
-const StWrapper = styled.div`
-  height: 105px;
-  background-color: tomato;
+const StLayout = styled.div`
+  height: minmax(105px, auto);
+  border: 1px solid #ececec;
+  border-left: none;
+  border-right: none;
   box-shadow: ${(props) => props.theme.boxShadow};
+  padding: 16px;
 `;
 
 const StHeader = styled.div`
   display: flex;
   flex-direction: row;
   justify-content: space-between;
+  align-items: center;
 `;
 
-const StName = styled.div``;
+const StName = styled.div`
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  gap: 8px;
+`;
+
+const StButtons = styled.div`
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  gap: 10px;
+`;

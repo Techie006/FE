@@ -13,7 +13,6 @@ const IconBox = ({ isCircle, onClick, page, func, ...props }) => {
   let padding = "";
 
   const createStyle = () => {
-    console.log(page, func);
     switch (page) {
       case "calendar":
         if (func === "prev" || func === "next") {
@@ -31,7 +30,6 @@ const IconBox = ({ isCircle, onClick, page, func, ...props }) => {
           viewBoxWidth = "24px";
           viewBoxHeight = "24px";
         } else if (func === "bookmark" || func === "edit") {
-          console.log(func);
           width = "24px";
           height = "24px";
           border = "";
