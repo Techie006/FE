@@ -20,11 +20,10 @@ const Category = ({
       func={func}
       disabled={category === selectedCategory}
       isSelected={category === selectedCategory}
-      {...props}
     />
   ));
 
-  return <StWrapper>{categoryItems}</StWrapper>;
+  return <StWrapper style={{ ...props }}>{categoryItems}</StWrapper>;
 };
 
 export default Category;
@@ -33,6 +32,5 @@ const StWrapper = styled.div`
   display: flex;
   flex-direction: row;
   align-items: flex-start;
-  padding: 0px;
   gap: 12px;
 `;

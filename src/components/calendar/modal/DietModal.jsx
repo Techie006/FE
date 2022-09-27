@@ -62,23 +62,29 @@ const DietModal = (props) => {
   return (
     <Modal header='식단 기록하기' onClick={closeHandler} depth={1}>
       <StForm onSubmit={() => console.log("hello")}>
-        <ST3>어떤 요리를 하실건가요?</ST3>
-        <StInput
-          type='text'
-          placeholder='레시피명 검색'
-          onFocus={focusHandler}
-          value={selectedRecipe?.recipe_name}
-        />
-        <ST3>언제 드실지 정해볼까요?</ST3>
-        <Category
-          contents={["아침", "점심", "저녁", "간식"]}
-          onClick={clickHandler}
-          page='modal'
-          func='time'
-          selectedCategory={selectedTime}
-        />
-        <ST3>드실 날짜를 정해볼까요?</ST3>
-        {/* <input
+        <StRecipePart>
+          <ST3>어떤 요리를 하실건가요?</ST3>
+          <StInput
+            type='text'
+            placeholder='레시피명 검색'
+            onFocus={focusHandler}
+            value={selectedRecipe?.recipe_name}
+          />
+        </StRecipePart>
+        <StTimePart>
+          <ST3>언제 드실지 정해볼까요?</ST3>
+          <Category
+            padding='10px 0px 0px 0px'
+            contents={["아침", "점심", "저녁", "간식"]}
+            onClick={clickHandler}
+            page='modal'
+            func='time'
+            selectedCategory={selectedTime}
+          />
+        </StTimePart>
+        <StDatePart>
+          <ST3>드실 날짜를 정해볼까요?</ST3>
+          {/* <input
           type='date'
           id='due'
           placeholder='날짜 입력'
@@ -87,11 +93,12 @@ const DietModal = (props) => {
           })}
         />
         <ET1>{errors.date ? errors.date.message : ""}</ET1> */}
-        {/* <ModalSmallButton
+          {/* <ModalSmallButton
           type='submit'
           content='식단 저장하기'
           disabled={disable}
         /> */}
+        </StDatePart>
       </StForm>
     </Modal>
   );
@@ -108,18 +115,21 @@ const StInput = styled.input`
   border: 0.6px solid #dadada;
   border-radius: 6px;
   width: 285px;
+  margin-top: 10px;
   padding: 11px 48px 11px 14px;
   background-image: url("https://raw.githubusercontent.com/Techie006/FE/21142e4530a912b50a49fc500325a0d78f2fd272/src/assets/icons/search.svg");
   background-position: 250px center;
   background-repeat: no-repeat;
 `;
 
-const StRadio = styled.input`
-  appearance: none;
-  background: #fafafa;
-  border: 0.6px solid #dadada;
-  border-radius: 30px;
-  padding: 10px 7px;
-  width: 52px;
-  height: 40px;
+const StRecipePart = styled.div`
+  margin-top: 26px;
+`;
+
+const StTimePart = styled.div`
+  margin-top: 26px;
+`;
+
+const StDatePart = styled.div`
+  margin-top: 26px;
 `;
