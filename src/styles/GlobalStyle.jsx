@@ -56,6 +56,7 @@ table {
 }
 body {
 	background-color: ${(props) => props.theme.page.layout.background};
+
 }
 body * {
 	font-family: ${(props) => props.theme.font.fontFamily}; 
@@ -66,6 +67,9 @@ a {
 	text-decoration: none;
   color: inherit;
 }
+
+
+
 `;
 
 export default GlobalStyle;

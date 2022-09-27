@@ -114,7 +114,7 @@ const calendarSlice = createSlice({
     },
     closeSearchModal: (state, action) => {
       state.searchModalOpen = false;
-      state.selectedRecipe = action.payload.recipe;
+      state.selectedRecipe = action.payload;
     },
   },
   extraReducers: {

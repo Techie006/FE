@@ -394,7 +394,7 @@ const RESP = {
 
   // statistics: 5 apis
   // [x] all checked
-  // [ ] all connected
+  // [x] all connected
   STATISTICS: {
     // 1. get ingredients state (/api/statistics/state)
     GET_STATE_SUCCESS: {
@@ -809,6 +809,73 @@ const RESP = {
       status: {
         code: 200,
         message: "해당 날짜에 식단을 삭제하였습니다.",
+      },
+    },
+    GET_AUTOCOMPLETE_SUCCESS: {
+      data: {
+        result: true,
+        content: {
+          empty: false,
+          recipes: [
+            {
+              id: 1,
+              recipe_name: "된장국",
+            },
+            {
+              id: 2,
+              recipe_name: "된장라면",
+            },
+            {
+              id: 3,
+              recipe_name: "된장찌개",
+            },
+            {
+              id: 4,
+              recipe_name: "된장제육볶음",
+            },
+            {
+              id: 5,
+              recipe_name: "된장 베이스로 절인 돼지고기",
+            },
+            {
+              id: 6,
+              recipe_name: "된장국",
+            },
+            {
+              id: 7,
+              recipe_name: "된장라면",
+            },
+            {
+              id: 8,
+              recipe_name: "된장찌개",
+            },
+            {
+              id: 9,
+              recipe_name: "된장제육볶음",
+            },
+            {
+              id: 10,
+              recipe_name: "된장 베이스로 절인 돼지고기",
+            },
+          ],
+        },
+        status: {
+          code: 200,
+          message: "키워드와 일치하는 결과를 제공하였습니다.",
+        },
+      },
+    },
+    GET_AUTOCOMPLETE_EMPTY: {
+      data: {
+        result: true,
+        content: {
+          empty: true,
+          recipes: null,
+        },
+        status: {
+          code: 200,
+          message: "검색어와 일치하는 데이터가 없습니다.",
+        },
       },
     },
   },

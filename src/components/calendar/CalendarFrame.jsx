@@ -5,8 +5,8 @@ import GridTemplate from "../../elements/templates/GridTemplate";
 
 import Calendar from "./Calendar";
 import WeekDiets from "./WeekDiets";
-import DietModal from "./DietModal";
-import SearchModal from "./SearchModal";
+import DietModal from "./modal/DietModal";
+import SearchModal from "./modal/SearchModal";
 
 const CalendarFrame = () => {
   const dietModalOpen = useSelector((state) => state.calendar.dietModalOpen);

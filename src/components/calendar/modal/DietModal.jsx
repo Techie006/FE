@@ -8,10 +8,10 @@ import {
   openSearchModal,
   __createDiet,
   __updateDiet,
-} from "../../modules/redux/calendar";
-import Modal from "../../elements/templates/Modal";
-import { ST3, ET1 } from "../../styles/Text";
-import Category from "../../elements/molecules/Category";
+} from "../../../modules/redux/calendar";
+import Modal from "../../../elements/templates/Modal";
+import { ST3, ET1 } from "../../../styles/Text";
+import Category from "../../../elements/molecules/Category";
 
 const DietModal = (props) => {
   const modalType = useSelector((state) => state.calendar.modalType);
