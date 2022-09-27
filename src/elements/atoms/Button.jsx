@@ -24,7 +24,7 @@ const Button = ({
     let border = "";
     let borderRadius = "";
     let padding = "";
-    let hoverBackgroundColor = "";
+    let hoverBackground = "";
 
     // content
     let fontWeight = "";
@@ -47,14 +47,27 @@ const Button = ({
           if (!isSelected) {
             background = "#F0EADC";
             color = "#8E7B6D";
-            hoverBackgroundColor = "#F0EADC";
+            hoverBackground = "#F0EADC";
             hoverColor = "#8E7B6D";
           } else {
             background = "#FFB356";
             color = "#482647";
-            hoverBackgroundColor = "#FFB356";
+            hoverBackground = "#FFB356";
             hoverColor = "#482647";
           }
+        }
+        if (func === "helper") {
+          border = "none";
+          borderRadius = "6px";
+          background = "#FFB356";
+          hoverBackground = "#FFB356";
+          padding = "10px 15px";
+
+          fontWeight = "700";
+          fontSize = "16px";
+          lineHeight = "23px";
+          color = "#FFFFFF";
+          hoverColor = "#FFFFFF";
         }
         break;
       case "modal":
@@ -75,7 +88,7 @@ const Button = ({
       border,
       borderRadius,
       padding,
-      hoverBackgroundColor,
+      hoverBackground,
     };
     contentStyle = { fontWeight, fontSize, lineHeight, color, hoverColor };
   };
@@ -111,13 +124,14 @@ const StButton = styled.button.attrs((props) => ({
   background: ${(props) => props.background};
   border: ${(props) => props.border};
   border-radius: ${(props) => props.borderRadius};
+  padding: ${(props) => props.padding};
 
   // effects
   transition: ${(props) => props.theme.effects.transition};
 
   &:hover {
     cursor: ${(props) => (!props.disabled ? "pointer" : "default")};
-    background: ${(props) => props.hoverBackgroundColor};
+    background: ${(props) => props.hoverBackground};
   }
 `;
 

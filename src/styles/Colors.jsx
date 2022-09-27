@@ -46,7 +46,7 @@ export const ChartColors = {
   due: ["#FF5C01", "#FC9700", "#74BDB2"],
   // TODO 카테고리 색상 뽑아달라고 요청 @Design
   category: ["#FFDD7C", "#FF5C01", "#74BDB2", "#FF8E42", "#FAFAFA"],
-  calorie: "#DFB078",
+  calorie: ["#DFB078"],
   nutrients: ["#FF5C01", "#FFDD7C", "#74BDB2"],
 };
 

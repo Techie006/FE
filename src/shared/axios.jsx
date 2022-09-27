@@ -36,11 +36,11 @@ export const apis = {
   get_state: () => api.get(`/api/statistics/state`),
   get_category: () => api.get(`/api/statistics/category`),
   get_daily: () => api.get(`/api/statistics/daily`),
-  get_calories_ratio: ({ filter }) => {
-    return api.post(`/api/statistics/ratio/calories`, filter);
+  get_calories_ratio: (view) => {
+    return api.post(`/api/statistics/ratio/calories`, { filter: view });
   },
-  get_nutrients_ratio: ({ filter }) => {
-    return api.post(`/api/statistics/ratio/nutrients`, filter);
+  get_nutrients_ratio: (view) => {
+    return api.post(`/api/statistics/ratio/nutrients`, { filter: view });
   },
 
   // calendar page

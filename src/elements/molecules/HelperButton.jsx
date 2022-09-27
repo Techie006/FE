@@ -24,7 +24,7 @@ const HelpButton = ({ msg, content, path, page, ...props }) => {
           content={content}
           onClick={clickHandler}
           page={page}
-          padding='10px 15px'
+          func='helper'
           marginTop={"58px"}
         />
       </StWrapper>

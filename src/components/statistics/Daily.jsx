@@ -1,8 +1,8 @@
 import { useState, useRef, useCallback, useEffect } from "react";
 import styled from "styled-components";
 
-import RESP from "../../server/response";
-// import { apis } from "../../shared/axios";
+// import RESP from "../../server/response";
+import { apis } from "../../shared/axios";
 import { ST3 } from "../../styles/Text";
 import LoadingSpinner from "../../elements/atoms/LoadingSpinner";
 import HelperButton from "../../elements/molecules/HelperButton";
@@ -33,23 +33,22 @@ const Daily = (props) => {
   const base = useRef("kcal");
 
   const getData = useCallback(async () => {
-    const resp = RESP.STATISTICS.GET_DAILY_SUCCESS;
+    // const resp = RESP.STATISTICS.GET_DAILY_SUCCESS;
     // const resp = RESP.STATISTICS.GET_DAILY_FAIL;
-    // const resp = await apis.get_daily();
+    const resp = await apis.get_daily();
 
-    const { result } = resp.data;
+    const {
+      content: { empty, statistics },
+    } = resp.data;
 
-    // 사용자가 요리 완료한 레시피 내역이 없는 상태 처리
-    if (!result) {
+    // 사용자가 요리 완료한 레시피 내역이 없는 상태
+    if (empty) {
       setLoading(false);
       setShowMsg(true);
       return;
     }
 
-    const {
-      content: { statistics },
-    } = resp.data;
-
+    // 사용자 요리 내역이 있는 상태
     setLoading(false);
     setData(statistics);
   }, []);
@@ -105,7 +104,7 @@ const Daily = (props) => {
         <HelperButton
           msg='최근 요리한 내역이 없어요. 냉장고 속 재료로 뚝딱 만들 수 있는 레시피를 확인해보세요!'
           content='추천 레시피 확인하기'
-          page='section'
+          page='statistics'
           path={`/`}
         />
       ) : null}

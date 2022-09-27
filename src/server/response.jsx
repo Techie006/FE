@@ -453,8 +453,8 @@ const RESP = {
     GET_DAILY_SUCCESS: {
       data: {
         result: true,
-				content: {
-					empty: false,
+        content: {
+          empty: false,
           statistics: {
             today: { calories: 1800, nutrients: [300, 400, 500] },
             yesterday: { calories: 2300, nutrients: [200, 300, 400] },
@@ -469,8 +469,8 @@ const RESP = {
     GET_DAILY_FAIL: {
       data: {
         result: true,
-				content: {
-					empty: true,
+        content: {
+          empty: true,
           statistics: {
             today: { calories: 0, nutrients: [0, 0, 0] },
             yesterday: { calories: 0, nutrients: [0, 0, 0] },
@@ -486,8 +486,8 @@ const RESP = {
     GET_CALORIES_SUCCESS: {
       data: {
         result: true,
-				content: {
-					empty: false,
+        content: {
+          empty: false,
           statistics: {
             days: [
               "2022-03-01",
@@ -510,21 +510,22 @@ const RESP = {
     GET_CALORIES_FAIL: {
       data: {
         result: true,
-				content: {
-					empty: true,
+        content: {
+          empty: true,
           statistics: null,
         },
         status: {
           code: 200,
           message: "통계자료 제공에 성공하였습니다.",
         },
+      },
     },
     // 5. get nutrients (/api/statistics/ratio/nutrients)
     GET_NUTRIENTS_SUCCESS: {
       data: {
         result: true,
-				content: {
-					empty: false,
+        content: {
+          empty: false,
           statistics: {
             days: [
               "2022-03-01",
@@ -550,14 +551,15 @@ const RESP = {
     GET_NUTRIENTS_FAIL: {
       data: {
         result: true,
-				content: {
-					empty: true,
+        content: {
+          empty: true,
           statistics: null,
         },
         status: {
           code: 200,
           message: "통계자료 제공에 성공하였습니다.",
         },
+      },
     },
   },
 
