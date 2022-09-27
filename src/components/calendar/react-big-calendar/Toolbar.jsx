@@ -14,10 +14,12 @@ const Toolbar = (props) => {
 
   const { date } = props;
 
+  // react-big-calendar 기본 제공 기능 바인딩
   const navigate = (action) => {
     props.onNavigate(action);
   };
 
+  // 캘린더 각 칸 클릭 시 해당 날짜에 신규 식단 추가 가능
   const clickHandler = () => {
     const date = new Date().toISOString().slice(0, 10);
     dispatch(openModal({ diet: {}, type: "create", date }));
@@ -47,8 +49,8 @@ const Toolbar = (props) => {
           type='button'
           content='이번달 보기'
           page='calendar'
+          func='view'
           onClick={navigate.bind(null, "TODAY")}
-          padding='5px 6px'
         />
       </StNavigator>
       <IconBox page='calendar' func='create' onClick={clickHandler}>
@@ -73,10 +75,4 @@ const StNavigator = styled.div`
   flex-direction: row;
   align-items: center;
   gap: 14px;
-`;
-
-const StButtons = styled.div`
-  display: flex;
-  flex-direction: row;
-  gap: 10px;
 `;

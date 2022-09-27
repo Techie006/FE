@@ -70,6 +70,21 @@ const Button = ({
           hoverColor = "#FFFFFF";
         }
         break;
+      case "calendar":
+        if (func === "view") {
+          border = "1px solid #ECECEC";
+          borderRadius = "4px";
+          padding = "5px 6px";
+          background = "#FAFAFA";
+          hoverBackground = "#DEDEDE";
+
+          fontWeight = "500";
+          fontSize = "10px";
+          lineHeight = "14px";
+          color = "#5B5B5B";
+          hoverColor = "#5B5B5B";
+        }
+        break;
       case "modal":
         if (func === "time") {
           // width = "52px";
