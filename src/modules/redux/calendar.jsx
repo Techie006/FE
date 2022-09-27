@@ -2,8 +2,10 @@ import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import { apis } from "../../shared/axios";
 
 const initialState = {
-  modalOpen: false,
+  dietModalOpen: false,
   modalType: "",
+  searchModalOpen: false,
+  selectedRecipe: {},
   selectedDate: {},
   selectedDiet: {},
   isLoading: false,
@@ -94,22 +96,30 @@ const calendarSlice = createSlice({
   name: "calendar",
   initialState,
   reducers: {
-    openModal: (state, action) => {
-      state.modalOpen = true;
+    openDietModal: (state, action) => {
+      state.dietModalOpen = true;
       state.modalType = action.payload.type;
       state.selectedDiet = action.payload.diet;
       state.selectedDate = action.payload.date;
     },
-    closeModal: (state, action) => {
-      state.modalOpen = false;
+    closeDietModal: (state, _) => {
+      state.dietModalOpen = false;
       state.modalType = "";
       state.selectedDiet = {};
       state.selectedDate = "";
     },
+    openSearchModal: (state, _) => {
+      state.searchModalOpen = true;
+      state.selectedRecipe = {};
+    },
+    closeSearchModal: (state, action) => {
+      state.searchModalOpen = false;
+      state.selectedRecipe = action.payload.recipe;
+    },
   },
   extraReducers: {
     // getAllDiets
-    [__getAllDiets.pending]: (state, action) => {
+    [__getAllDiets.pending]: (state, _) => {
       state.isLoading = true;
     },
     [__getAllDiets.fulfilled]: (state, action) => {
@@ -121,7 +131,7 @@ const calendarSlice = createSlice({
       state.error = action.payload;
     },
     // getWeeklyDiets
-    [__getWeeklyDiets.pending]: (state, action) => {
+    [__getWeeklyDiets.pending]: (state, _) => {
       state.isLoading = true;
     },
     [__getWeeklyDiets.fulfilled]: (state, action) => {
@@ -134,13 +144,15 @@ const calendarSlice = createSlice({
       state.error = action.payload;
     },
     // create Diet
-    [__createDiet.pending]: (state, action) => {
+    [__createDiet.pending]: (state, _) => {
       state.isLoading = true;
     },
     [__createDiet.fulfilled]: (state, action) => {
       state.isLoading = false;
+      // 신규 생성한 식단을 캘린더에 추가
       state.allDiets.push(action.payload.meals);
 
+      // 신규 생성한 식단 요리 날짜가 이번주 내인 경우, weekDiets에 추가하고 정렬
       if (state.week.indexOf(action.payload.day)) {
         state.weeklyDiets.push(action.payload.meals);
         const orderedDiets = state.weeklyDiets.sort(
@@ -154,17 +166,20 @@ const calendarSlice = createSlice({
       state.error = action.payload;
     },
     // update Diet
-    [__updateDiet.pending]: (state, action) => {
+    [__updateDiet.pending]: (state, _) => {
       state.isLoading = true;
     },
     [__updateDiet.fulfilled]: (state, action) => {
       state.isLoading = false;
+      // 변경한 식단을 캘린더에 반영
       state.allDiets = state.allDiets.map((diet) => {
         if (diet.id === action.payload.id) {
           return action.payload.meals;
         }
         return diet;
       });
+
+      // 변경한 식단 요리 날짜가 이번주 내인 경우, weekDiets를 변경
       if (state.week.indexOf(action.payload.day)) {
         state.weeklyDiets = state.weeklyDiets.map((diet) => {
           if (diet.id === action.payload.id) {
@@ -179,14 +194,17 @@ const calendarSlice = createSlice({
       state.error = action.payload;
     },
     // delete Diet
-    [__deleteDiet.pending]: (state, action) => {
+    [__deleteDiet.pending]: (state, _) => {
       state.isLoading = true;
     },
     [__deleteDiet.fulfilled]: (state, action) => {
       state.isLoading = false;
+      // 삭제한 식단을 캘린더에 반영
       state.allDiets = state.allDiets.filter(
         (diet) => diet.id !== action.payload.id
       );
+
+      // 삭제한 식단 요리 날짜가 이번주 내인 경우, weekDiets를 변경
       if (state.week.indexOf(action.payload.day)) {
         state.weeklyDiets = state.weeklyDiets.filter(
           (diet) => diet.id !== action.payload.id
@@ -200,5 +218,10 @@ const calendarSlice = createSlice({
   },
 });
 
-export const { openModal, closeModal } = calendarSlice.actions;
+export const {
+  openDietModal,
+  closeDietModal,
+  openSearchModal,
+  closeSearchModal,
+} = calendarSlice.actions;
 export default calendarSlice.reducer;

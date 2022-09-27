@@ -2,7 +2,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faAppleWhole } from "@fortawesome/free-solid-svg-icons";
 import styled from "styled-components";
 
-import Link from "../../elements/atoms/Link";
+import Link from "../atoms/Link";
 
 const Header = () => {
   const NAVIGATORS = [

@@ -6,9 +6,13 @@ import GridTemplate from "../../elements/templates/GridTemplate";
 import Calendar from "./Calendar";
 import WeekDiets from "./WeekDiets";
 import DietModal from "./DietModal";
+import SearchModal from "./SearchModal";
 
 const CalendarFrame = () => {
-  const modalOpen = useSelector((state) => state.calendar.modalType);
+  const dietModalOpen = useSelector((state) => state.calendar.dietModalOpen);
+  const searchModalOpen = useSelector(
+    (state) => state.calendar.searchModalOpen
+  );
 
   return (
     <>
@@ -20,7 +24,8 @@ const CalendarFrame = () => {
           <WeekDiets />
         </StWeekSection>
       </GridTemplate>
-      {modalOpen ? <DietModal /> : null}
+      {dietModalOpen ? <DietModal /> : null}
+      {searchModalOpen ? <SearchModal /> : null}
     </>
   );
 };

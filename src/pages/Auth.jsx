@@ -1,7 +1,6 @@
-import Layout from "../components/common/Layout";
-import Header from "../components/common/Header";
+import Layout from "../elements/templates/Layout";
+import Header from "../elements/organisms/Header";
 import AuthLayout from "../components/auth/AuthLayout";
-import Helper from "../components/common/Helper";
 
 const Auth = (props) => {
   return (
@@ -9,7 +8,6 @@ const Auth = (props) => {
       <Layout>
         <Header />
         <AuthLayout />
-        <Helper />
       </Layout>
     </>
   );

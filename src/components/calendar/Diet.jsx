@@ -6,8 +6,8 @@ import styled from "styled-components";
 
 import "rc-dropdown/assets/index.css";
 import "./rc-dropdown/style.css";
-import { openModal, __deleteDiet } from "../../modules/redux/calendar";
-import BookmarkBtn from "../common/BookmarkBtn";
+import { openDietModal, __deleteDiet } from "../../modules/redux/calendar";
+import BookmarkBtn from "../../elements/molecules/BookmarkBtn";
 import IconBox from "../../elements/atoms/IconBox";
 import { ReactComponent as Edit } from "../../assets/icons/edit.svg";
 import { T3, T5, T6 } from "../../styles/Text";
@@ -33,7 +33,7 @@ const Diet = (props) => {
   };
 
   const showModal = () => {
-    dispatch(openModal({ diet: props, type: "update" }));
+    dispatch(openDietModal({ diet: props, type: "update" }));
   };
 
   // 식단 삭제 시 컨펌창 띄우기

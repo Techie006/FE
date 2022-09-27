@@ -6,7 +6,7 @@ import withReactContent from "sweetalert2-react-content";
 import { apis } from "../../shared/axios";
 import { ReactComponent as Bookmark } from "../../assets/icons/bookmark.svg";
 import { ReactComponent as Bookmarked } from "../../assets/icons/bookmarked.svg";
-import IconBox from "../../elements/atoms/IconBox";
+import IconBox from "../atoms/IconBox";
 
 const BookmarkBtn = ({ recipe_id, is_liked, isBox }) => {
   const [bookmark, setBookmark] = useState(is_liked);
