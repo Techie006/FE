@@ -7,10 +7,10 @@ import moment from "moment";
 import "moment/locale/ko";
 
 import "react-big-calendar/lib/css/react-big-calendar.css";
-import "./ReactBigCalendar/style.css";
+import "./react-big-calendar/style.css";
 import LoadingSpinner from "../../elements/atoms/LoadingSpinner";
-import Toolbar from "./ReactBigCalendar/Toolbar";
-import { __getAllDiets } from "../../modules/redux/calendar";
+import Toolbar from "./react-big-calendar/Toolbar";
+import { __getAllDiets, openModal } from "../../modules/redux/calendar";
 
 const RecipeCalendar = () => {
   const dispatch = useDispatch();
@@ -49,10 +49,14 @@ const RecipeCalendar = () => {
   });
 
   const clickSlotHandler = (slot) => {
-    console.log(slot);
+    const { start } = slot;
+    const date = start.toISOString().slice(0, 10);
+    dispatch(openModal({ diet: {}, type: "create", date }));
   };
 
   const clickEventHandler = (event) => {
+    const { recipe_id } = event;
+    console.log(recipe_id);
     console.log(event);
   };
 
@@ -66,15 +70,16 @@ const RecipeCalendar = () => {
             components={{
               toolbar: Toolbar,
             }}
+            views={["month"]}
             localizer={localizer}
             culture='ko'
             defaultDate={defaultDate}
             defaultView='month'
             events={diets}
             popup // 하루에 3개 이상 식단이 있으면 팝업으로 처리
-            selectable // calendar 각 칸 선택시 추가 기록 가능
-            onSelectSlot={clickSlotHandler}
-            onSelectEvent={clickEventHandler}
+            selectable
+            onSelectSlot={clickSlotHandler} // calendar 각 칸 선택시 추가 기록 가능
+            onSelectEvent={clickEventHandler} // calendar 각 식단 선택시 레시피 모달 확인 가능
           />
         </StLayout>
       ) : null}

@@ -15,36 +15,38 @@ const Changes = ({ type }) => {
   const [loading, setLoading] = useState(true);
   const [data, setData] = useState({});
   const [showMsg, setShowMsg] = useState(false);
-  const [view, setView] = useState("day");
-  const [viewKor, setViewKor] = useState("일별");
+  const [view, setView] = useState("일별");
 
   const get_data = useCallback(
-    async (filter) => {
+    async (view) => {
       let resp = {};
       if (type === "calorie") {
+        // MOCK APIs
         // resp = RESP.STATISTICS.GET_CALORIES_SUCCESS;
         // resp = RESP.STATISTICS.GET_CALORIES_FAIL;
-        resp = await apis.get_calories_ratio({ filter });
+
+        resp = await apis.get_calories_ratio(view);
       }
       if (type === "nutrients") {
+        // MOCK APIs
         // resp = RESP.STATISTICS.GET_NUTRIENTS_SUCCESS;
         // resp = RESP.STATISTICS.GET_NUTRIENTS_FAIL;
 
-        resp = await apis.get_nutrients_ratio({ filter });
+        resp = await apis.get_nutrients_ratio(view);
       }
 
-      // const { result } = resp.data;
-      const { result, content: statistics } = resp.data;
+      const {
+        content: { empty, statistics },
+      } = resp.data;
 
-      // 	사용자가 요리한 데이터 내역이 없는 경우 처리
-      if (!result) {
+      // 	사용자가 요리한 레시피 내역이 없는 경우 처리
+      if (empty) {
         setLoading(false);
         setShowMsg(true);
         return;
       }
 
-      // const { content: {statistics} } = resp.data;
-
+      // 사용자가 요리한 레시피 내역이 있는 경우 처리
       setLoading(false);
       setData(statistics);
     },
@@ -52,7 +54,7 @@ const Changes = ({ type }) => {
   );
 
   useEffect(() => {
-    get_data({ filter: view });
+    get_data(view);
   }, [get_data, view]);
 
   let calorieSeries = [];
@@ -102,21 +104,7 @@ const Changes = ({ type }) => {
       return;
     }
     // 뷰 전환
-    // setView(content);
-    setViewKor(content);
-    switch (content) {
-      case "일별":
-        setView("day");
-        break;
-      case "주별":
-        setView("week");
-        break;
-      case "월별":
-        setView("month");
-        break;
-      default:
-        break;
-    }
+    setView(content);
   };
 
   return (
@@ -126,8 +114,9 @@ const Changes = ({ type }) => {
         <Category
           contents={["일별", "주별", "월별"]}
           onClick={clickHandler}
-          selectedCategory={viewKor}
+          selectedCategory={view}
           page='statistics'
+          func='filter'
         />
       </StHeader>
       {loading ? <LoadingSpinner /> : null}
@@ -136,7 +125,8 @@ const Changes = ({ type }) => {
           msg='아직 입력하신 식재료가 없네요. 홈으로 가서 새로운 식재료를 추가해보세요!'
           content='재료 추가하기'
           path={`/`}
-          page='section'
+          page='statistics'
+          func='filter'
         />
       ) : null}
       {!loading && !showMsg ? (

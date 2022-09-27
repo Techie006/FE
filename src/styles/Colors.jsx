@@ -43,16 +43,11 @@ const Colors = {
 
 export const ChartColors = {
   font: Colors.font.gray3,
-  due: [Colors.special.yellow, Colors.main.orange_red, Colors.main.mint],
-  category: [
-    Colors.special.yellow,
-    Colors.main.orange_red,
-    Colors.main.mint,
-    Colors.main.orange,
-    Colors.font.gray4,
-  ],
-  calorie: [Colors.special.brownBeige],
-  nutrients: [Colors.special.yellow, Colors.main.orange_red, Colors.main.mint],
+  due: ["#FF5C01", "#FC9700", "#74BDB2"],
+  // TODO 카테고리 색상 뽑아달라고 요청 @Design
+  category: ["#FFDD7C", "#FF5C01", "#74BDB2", "#FF8E42", "#FAFAFA"],
+  calorie: ["#DFB078"],
+  nutrients: ["#FF5C01", "#FFDD7C", "#74BDB2"],
 };
 
 export default Colors;

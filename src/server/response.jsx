@@ -419,7 +419,7 @@ const RESP = {
         },
         status: {
           code: 200,
-          message: "식재료 상태 제공에 성공하였습니다.",
+          message: "식재료 상태 제공에 실패하였습니다.",
         },
       },
     },
@@ -454,6 +454,7 @@ const RESP = {
       data: {
         result: true,
         content: {
+          empty: false,
           statistics: {
             today: { calories: 1800, nutrients: [300, 400, 500] },
             yesterday: { calories: 2300, nutrients: [200, 300, 400] },
@@ -467,10 +468,17 @@ const RESP = {
     },
     GET_DAILY_FAIL: {
       data: {
-        result: false,
+        result: true,
+        content: {
+          empty: true,
+          statistics: {
+            today: { calories: 0, nutrients: [0, 0, 0] },
+            yesterday: { calories: 0, nutrients: [0, 0, 0] },
+          },
+        },
         status: {
-          code: 400,
-          message: "해당 사용자가 요리한 레시피 내역이 없습니다.",
+          code: 200,
+          message: "통계자료 제공에 성공하였습니다.",
         },
       },
     },
@@ -479,6 +487,7 @@ const RESP = {
       data: {
         result: true,
         content: {
+          empty: false,
           statistics: {
             days: [
               "2022-03-01",
@@ -500,10 +509,14 @@ const RESP = {
     },
     GET_CALORIES_FAIL: {
       data: {
-        result: false,
+        result: true,
+        content: {
+          empty: true,
+          statistics: null,
+        },
         status: {
-          code: 400,
-          message: "해당 사용자가 요리한 레시피가 없습니다.",
+          code: 200,
+          message: "통계자료 제공에 성공하였습니다.",
         },
       },
     },
@@ -512,6 +525,7 @@ const RESP = {
       data: {
         result: true,
         content: {
+          empty: false,
           statistics: {
             days: [
               "2022-03-01",
@@ -536,10 +550,14 @@ const RESP = {
     },
     GET_NUTRIENTS_FAIL: {
       data: {
-        result: false,
+        result: true,
+        content: {
+          empty: true,
+          statistics: null,
+        },
         status: {
-          code: 400,
-          message: "해당 사용자가 요리한 레시피가 없습니다.",
+          code: 200,
+          message: "통계자료 제공에 성공하였습니다.",
         },
       },
     },

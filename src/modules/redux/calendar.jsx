@@ -4,6 +4,7 @@ import { apis } from "../../shared/axios";
 const initialState = {
   modalOpen: false,
   modalType: "",
+  selectedDate: {},
   selectedDiet: {},
   isLoading: false,
   error: "",
@@ -97,11 +98,13 @@ const calendarSlice = createSlice({
       state.modalOpen = true;
       state.modalType = action.payload.type;
       state.selectedDiet = action.payload.diet;
+      state.selectedDate = action.payload.date;
     },
     closeModal: (state, action) => {
       state.modalOpen = false;
       state.modalType = "";
       state.selectedDiet = {};
+      state.selectedDate = "";
     },
   },
   extraReducers: {
