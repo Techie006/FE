@@ -107,6 +107,7 @@ const calendarSlice = createSlice({
       state.modalType = "";
       state.selectedDiet = {};
       state.selectedDate = "";
+      // state.selectedRecipe = {};
     },
     openSearchModal: (state, _) => {
       state.searchModalOpen = true;

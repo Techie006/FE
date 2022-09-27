@@ -87,11 +87,24 @@ const Button = ({
         break;
       case "modal":
         if (func === "time") {
-          // width = "52px";
-          // height = "40px";
           border = "0.6px solid #DADADA";
-          background = "#FAFAFA";
           borderRadius = "30px";
+          width = "52px";
+          height = "40px";
+
+          if (!isSelected) {
+            border = "0.6px solid #DADADA";
+            background = "#FAFAFA";
+            color = "#A5A5A5";
+            hoverBackground = "#FAFAFA";
+            hoverColor = "#A5A5A5";
+          } else {
+            border = "0.6px solid #FFA842";
+            background = "#FFB356";
+            color = "#482647";
+            hoverBackground = "#FFB356";
+            hoverColor = "#482647";
+          }
         }
         break;
       default:
@@ -99,6 +112,8 @@ const Button = ({
     }
 
     layoutStyle = {
+      width,
+      height,
       background,
       border,
       borderRadius,
@@ -136,6 +151,8 @@ const StButton = styled.button.attrs((props) => ({
   disabled: props.disabled,
 }))`
   // layout
+  width: ${(props) => props.width};
+  height: ${(props) => props.height};
   background: ${(props) => props.background};
   border: ${(props) => props.border};
   border-radius: ${(props) => props.borderRadius};
