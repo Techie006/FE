@@ -19,7 +19,7 @@ const Ingredients = (props) => {
 
   const ChartInfo = {
     LABELS: {
-      due: ["임박", "만료", "정상"],
+      due: ["만료", "임박", "정상"],
       category: ["농산물", "축산물", "해산물", "음료류", "기타"],
     },
     CHART_COLORS: {
