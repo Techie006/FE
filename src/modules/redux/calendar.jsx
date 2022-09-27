@@ -17,9 +17,9 @@ const initialState = {
 
 export const __getAllDiets = createAsyncThunk(
   "calendar/__getAllDiets",
-  async ({ date }, thunkAPI) => {
+  async (_, thunkAPI) => {
     try {
-      const resp = await apis.get_all_diets({ date });
+      const resp = await apis.get_all_diets();
       const {
         content: { meals },
       } = resp.data;

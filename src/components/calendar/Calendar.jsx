@@ -19,8 +19,7 @@ const RecipeCalendar = () => {
   const allDiets = useSelector((state) => state.calendar.allDiets);
 
   useEffect(() => {
-    const date = new Date().toISOString().slice(0, 7);
-    dispatch(__getAllDiets({ date }));
+    dispatch(__getAllDiets());
   }, [dispatch]);
 
   // react-big-calendar 라이브러리 지역화

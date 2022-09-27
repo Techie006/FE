@@ -44,7 +44,7 @@ export const apis = {
   },
 
   // calendar page
-  get_all_diets: ({ date }) => api.get(`/api/calendar/month?day=${date}`),
+  get_all_diets: () => api.get(`/api/calendar/all`),
   get_weekly_diets: ({ date }) => api.get(`/api/calendar/week?day=${date}`),
   create_diet: ({ recipe_name, category, date }) =>
     api.post(`/api/calendar`, { recipe_name, category, day: date }),

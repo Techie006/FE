@@ -17,6 +17,7 @@ const DietModal = (props) => {
   const modalType = useSelector((state) => state.calendar.modalType);
   const selectedDiet = useSelector((state) => state.calendar.selectedDiet);
   const selectedDate = useSelector((state) => state.calendar.selectedDate);
+  const selectedRecipe = useSelector((state) => state.calendar.selectedRecipe);
 
   const { id, recipe_id, recipe_name, time, day } = selectedDiet;
 
@@ -35,10 +36,11 @@ const DietModal = (props) => {
         ? {
             // 캘린더 칸을 클릭한 경우 해당 칸의 일자를 기본값으로, 식단 추가하기 버튼을 클릭한 경우 오늘 일자를 기본값으로 제공
             date: selectedDate,
+            recipe: selectedRecipe.name,
           }
         : {
             // 기존 식단을 수정하는 경우, 식단 정보들을 기본값으로 제공
-            recipe: recipe_name,
+            recipe: selectedRecipe.name || recipe_name,
             time: time,
             date: day,
           },
