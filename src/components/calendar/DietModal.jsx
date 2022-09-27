@@ -1,4 +1,5 @@
 import { useSelector, useDispatch } from "react-redux";
+import { useState } from "react";
 import { useForm } from "react-hook-form";
 import styled from "styled-components";
 
@@ -9,6 +10,7 @@ import {
 } from "../../modules/redux/calendar";
 import Modal from "../common/Modal";
 import { ST3, ET1 } from "../../styles/Text";
+import Category from "../../elements/molecules/Category";
 
 const DietModal = (props) => {
   const modalType = useSelector((state) => state.calendar.modalType);
@@ -18,6 +20,8 @@ const DietModal = (props) => {
   const { id, recipe_id, recipe_name, time, day } = selectedDiet;
 
   const dispatch = useDispatch();
+
+  const [selectedTime, setSelectedTime] = useState("");
 
   const {
     register,
@@ -39,8 +43,20 @@ const DietModal = (props) => {
           },
   });
 
-  const clickHandler = () => {
+  const closeHandler = () => {
     dispatch(closeModal());
+  };
+
+  const clickHandler = (e) => {
+    const value = e.target.innerHTML;
+
+    // 이미 선택된 시간대라면 중복 처리하지 않음
+    if (selectedTime === value) {
+      return;
+    }
+
+    // 식단 시간대를 변경
+    setSelectedTime(value);
   };
 
   const submitHandler = ({ recipe, time, date }) => {
@@ -52,13 +68,13 @@ const DietModal = (props) => {
       dispatch(__updateDiet({ id, recipe_name: recipe, category: time, date }));
     }
 
-    clickHandler();
+    closeHandler();
   };
 
   let disable = errors.recipe || errors.time || errors.date;
 
   return (
-    <Modal header='식단 기록하기' onClick={clickHandler}>
+    <Modal header='식단 기록하기' onClick={closeHandler}>
       <StForm onSubmit={handleSubmit(submitHandler)}>
         <ST3>어떤 요리를 하실건가요?</ST3>
         <StInput
@@ -67,12 +83,20 @@ const DietModal = (props) => {
           {...register("recipe", {
             required: "레시피명을 입력해주셔야 식단 입력이 가능해요.",
           })}
+          onFocus={() => console.log("focused!")}
         />
         <ET1>{errors.recipe ? errors.recipe.message : ""}</ET1>
         <fieldset>
           <ST3>언제 드실지 정해볼까요?</ST3>
-          <div>
-            <input
+          {/* <Category
+            contents={["아침", "점심", "저녁", "간식"]}
+            onClick={clickHandler}
+            page='modal'
+            func='time'
+            selectedCategory={selectedTime}
+          /> */}
+          {/* <div>
+            <StRadio
               type='radio'
               id='아침'
               value='아침'
@@ -83,7 +107,7 @@ const DietModal = (props) => {
             <label htmlFor='아침'>아침</label>
           </div>
           <div>
-            <input
+            <StRadio
               type='radio'
               id='점심'
               value='점심'
@@ -105,7 +129,7 @@ const DietModal = (props) => {
             <label htmlFor='저녁'>저녁</label>
           </div>
           <div>
-            <input
+            <StRadio
               type='radio'
               id='간식'
               value='간식'
@@ -115,7 +139,7 @@ const DietModal = (props) => {
             />
             <label htmlFor='간식'>간식</label>
           </div>
-          <ET1>{errors.time ? errors.time.message : ""}</ET1>
+          <ET1>{errors.time ? errors.time.message : ""}</ET1> */}
         </fieldset>
         <ST3>드실 날짜를 정해볼까요?</ST3>
         <input
@@ -155,7 +179,11 @@ const StInput = styled.input`
 `;
 
 const StRadio = styled.input`
+  appearance: none;
   background: #fafafa;
   border: 0.6px solid #dadada;
   border-radius: 30px;
+  padding: 10px 7px;
+  width: 52px;
+  height: 40px;
 `;

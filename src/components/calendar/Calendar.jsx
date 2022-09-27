@@ -7,9 +7,9 @@ import moment from "moment";
 import "moment/locale/ko";
 
 import "react-big-calendar/lib/css/react-big-calendar.css";
-import "./ReactBigCalendar/style.css";
+import "./react-big-calendar/style.css";
 import LoadingSpinner from "../../elements/atoms/LoadingSpinner";
-import Toolbar from "./ReactBigCalendar/Toolbar";
+import Toolbar from "./react-big-calendar/Toolbar";
 import { __getAllDiets, openModal } from "../../modules/redux/calendar";
 
 const RecipeCalendar = () => {

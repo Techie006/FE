@@ -95,6 +95,10 @@
 }
 .rbc-show-more:hover {
   color: #958271;
+  cursor: pointer;
+}
+.rbc-show-more:focus {
+  color: #958271;
 }
 
 /* 더보기 시 헤더 스타일 정의 */

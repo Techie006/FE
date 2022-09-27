@@ -180,6 +180,10 @@ export const designTheme = {
           background: Colors.special.yellow,
           text: Colors.font.mainBlack,
         },
+        hover: {
+          background: "#EFEFEF",
+          text: Colors.font.lightGray1,
+        },
       },
       content: {
         fontWeight: "700",

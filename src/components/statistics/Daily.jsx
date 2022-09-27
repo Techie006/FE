@@ -95,8 +95,9 @@ const Daily = (props) => {
         <Category
           contents={["열량", "영양성분"]}
           onClick={clickHandler}
-          selectedCategory={criteria}
           page='statistics'
+          func='filter'
+          selectedCategory={criteria}
         />
       </StHeader>
       {loading ? <LoadingSpinner /> : null}

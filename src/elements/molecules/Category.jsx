@@ -13,12 +13,13 @@ const Category = ({
   const categoryItems = contents.map((category, idx) => (
     <Button
       key={idx}
+      type='button'
       content={category}
       onClick={onClick}
-      isBasic={category !== selectedCategory}
-      disabled={category === selectedCategory}
       page={page}
       func={func}
+      disabled={category === selectedCategory}
+      isSelected={category === selectedCategory}
       {...props}
     />
   ));
