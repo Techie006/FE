@@ -1,8 +1,10 @@
 import { useSelector, useDispatch } from "react-redux";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
+import Calendar from "react-calendar";
 import styled from "styled-components";
 
+import "react-calendar/dist/Calendar.css";
 import {
   closeDietModal,
   openSearchModal,
@@ -21,26 +23,48 @@ const DietModal = (props) => {
 
   const dispatch = useDispatch();
 
-  const [selectedTime, setSelectedTime] = useState(selectedDiet.time);
+  const [time, setTime] = useState(selectedDiet.time);
+  const [date, setDate] = useState(selectedDate);
+  const [showCalendar, setShowCalendar] = useState(false);
 
+  // 사용자가 모달창 닫음
   const closeHandler = () => {
     dispatch(closeDietModal());
   };
 
+  // 사용자가 모달창 인풋창 포커스 시 동작
+  const focusHandler = (e) => {
+    const focused = e.target.id;
+
+    // 사용자가 모달창의 검색창 포커스 시, SearchModal 엶
+    if (focused === "recipe") {
+      dispatch(openSearchModal());
+      return;
+    }
+    // 사용자가 모달창의 날짜창 포커스 시, Calendar 엶
+    if (focused === "due") {
+      setShowCalendar(true);
+      return;
+    }
+  };
+
+  // 사용자가 모달창에서 선택한 time을 상태값에 저장
   const clickHandler = (e) => {
     const value = e.target.innerText;
 
     // 이미 선택된 시간대라면 중복 처리하지 않음
-    if (selectedTime === value) {
+    if (time === value) {
       return;
     }
 
     // 식단 시간대를 변경
-    setSelectedTime(value);
+    setTime(value);
   };
 
-  const focusHandler = () => {
-    dispatch(openSearchModal());
+  // 사용자가 모달창에서 선택한 date를 상태값에 저장
+  const changeHandler = (e) => {
+    console.log(e);
+    // setDate()
   };
 
   // const submitHandler = ({ recipe, time, date }) => {
@@ -57,8 +81,6 @@ const DietModal = (props) => {
 
   // let disable = errors.recipe || errors.time || errors.date;
 
-  console.log(selectedTime);
-
   return (
     <Modal header='식단 기록하기' onClick={closeHandler} depth={1}>
       <StForm onSubmit={() => console.log("hello")}>
@@ -67,6 +89,7 @@ const DietModal = (props) => {
           <StInput
             type='text'
             placeholder='레시피명 검색'
+            id='recipe'
             onFocus={focusHandler}
             value={selectedRecipe?.recipe_name}
           />
@@ -79,11 +102,18 @@ const DietModal = (props) => {
             onClick={clickHandler}
             page='modal'
             func='time'
-            selectedCategory={selectedTime}
+            selectedCategory={time}
           />
         </StTimePart>
         <StDatePart>
           <ST3>드실 날짜를 정해볼까요?</ST3>
+          <StInput
+            type='text'
+            placeholder='레시피명 검색'
+            id='due'
+            onFocus={focusHandler}
+          />
+          <Calendar onChange={changeHandler} value={new Date()} />
           {/* <input
           type='date'
           id='due'
