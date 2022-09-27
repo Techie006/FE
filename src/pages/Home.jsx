@@ -1,5 +1,6 @@
-import Layout from "../components/common/Layout";
-import Header from "../components/common/Header";
+import Layout from "../elements/templates/Layout";
+import Header from "../elements/organisms/Header";
+
 // import HomeLayout from "../components/home/HomeLayout";
 
 const Home = (props) => {

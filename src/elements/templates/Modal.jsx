@@ -1,17 +1,24 @@
-import { faX } from "@fortawesome/free-solid-svg-icons";
 import styled from "styled-components";
 
-import Button from "../atoms/Button";
+import { BT2, ST1 } from "../../styles/Text";
+import IconBox from "../atoms/IconBox";
+import { ReactComponent as X } from "../../assets/icons/x.svg";
 
-const Modal = ({ onClick, ...props }) => {
+const Modal = ({ header, onClick, depth, ...props }) => {
   return (
-    <>
-      <StBackground />
-      <StModal>
-        <Button isIcon={true} icon={faX} onClick={onClick} />
+    <div style={{ ...props }}>
+      <StBackground depth={depth} />
+      <StLayout depth={depth}>
+        {/* depth에 따라 스타일 분기처리 */}
+        <StHeader hasLine={depth === 1}>
+          {depth === 1 ? <BT2>{header}</BT2> : <ST1>{header}</ST1>}
+          <IconBox page='modal' func='close' isCircle={true} onClick={onClick}>
+            <X fill='#5B5B5B' />
+          </IconBox>
+        </StHeader>
         {props.children}
-      </StModal>
-    </>
+      </StLayout>
+    </div>
   );
 };
 
@@ -24,21 +31,28 @@ const StBackground = styled.div`
   bottom: 0;
   right: 0;
   background-color: rgba(0, 0, 0, 0.5);
-  z-index: 50;
+  z-index: ${(props) => props.depth * 50};
 `;
 
-const StModal = styled.div`
+const StLayout = styled.div`
   position: fixed;
   left: 50%;
   top: 50%;
   transform: translate(-50%, -50%);
-  max-height: 80%;
-  width: 20rem;
-  height: 80%;
-  padding: 16px;
-  background: white;
-  border-radius: 10px;
-  text-align: center;
+  width: 405px;
+  height: 472px;
+  background: #ffffff;
+  border-radius: 15px;
   overflow-y: auto;
-  z-index: 100;
+  z-index: ${(props) => props.depth * 100};
+`;
+
+const StHeader = styled.div`
+  height: 68px;
+  padding: 20px 28px;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: flex-start;
+  border-bottom: ${(props) => (props.hasLine ? "1.5px solid #ececec" : "none")};
 `;

@@ -12,9 +12,6 @@ import Recipe from "../pages/Recipe";
 import SearchResult from "../pages/SearchResult";
 import NotFound from "../pages/NotFound";
 
-// TODO erase elements
-import Elements from "../pages/Elements";
-
 // TODO protected router 구현하기
 const Routers = (props) => {
   return (
@@ -30,7 +27,6 @@ const Routers = (props) => {
         <Route path='/class/:classId/:redisClassId' element={<Class />} />
         <Route path='/recipes' element={<Recipe />} />
         <Route path='/recipes/:keyword' element={<SearchResult />} />
-        <Route path='/elements' element={<Elements />} />
         <Route path='*' element={<NotFound />} />
       </Routes>
     </BrowserRouter>
