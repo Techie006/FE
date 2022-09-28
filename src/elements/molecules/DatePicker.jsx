@@ -26,6 +26,8 @@ const DatePicker = ({ defaultDate, ...props }) => {
         formatDay={(_, date) => {
           return date.getDate();
         }}
+        maxDetail='month'
+        minDetail='year' // month와 year view만 가능하도록 설정
       />
     </div>
   );
