@@ -2,17 +2,21 @@ import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import { apis } from "../../shared/axios";
 
 const initialState = {
-  dietModalOpen: false,
-  modalType: "",
-  searchModalOpen: false,
-  selectedRecipe: {},
-  selectedDate: {},
-  selectedDiet: {},
-  isLoading: false,
-  error: "",
-  allDiets: [],
-  weeklyDiets: [],
-  week: [],
+  dietModalOpen: false, // 식단 모달 여닫기
+  modalType: "", // 식단 모달 타입이 create / update 인지 저장
+  selectedDate: {}, // create 타입의 식단 모달을 열 때 캘린더에서 선택한 날짜를 저장
+  selectedDiet: {}, // update 타입의 식단 모달을 열 때 주별 식단에서 선택한 식단을 저장
+
+  searchModalOpen: false, // 검색 모달 여닫기
+  selectedRecipe: {}, // 검색 모달에서 선택한 레시피 저장
+
+  datePickerOpen: false, // 날짜 선택 필드 여닫기
+
+  isLoading: false, // 캘린더 페이지에 맨 처음 들어왔을 때 전체 식단 정보를 성공적으로 불러왔는지 여부를 저장
+  error: "", // 전역 에러를 저장
+  allDiets: [], // 사용자의 전체 식단 정보 저장
+  weeklyDiets: [], // 사용자의 이번주 식단 정보 저장
+  week: [], // 이번주에 해당하는 날짜 저장
 };
 
 export const __getAllDiets = createAsyncThunk(
@@ -48,15 +52,15 @@ export const __getWeeklyDiets = createAsyncThunk(
 
 export const __createDiet = createAsyncThunk(
   "calendar/__createDiet",
-  async ({ recipe_name, category, date }, thunkAPI) => {
+  async ({ recipe_id, category, date }, thunkAPI) => {
     try {
-      const resp = await apis.create_diet({ recipe_name, category, date });
+      const resp = await apis.create_diet({ recipe_id, category, date });
       const {
         content: { meals },
       } = resp.data;
-      // TODO API 수정
       return thunkAPI.fulfillWithValue({ day: date, meals });
     } catch (e) {
+      console.log(e);
       return thunkAPI.rejectWithValue(e.code);
     }
   }
@@ -107,15 +111,23 @@ const calendarSlice = createSlice({
       state.modalType = "";
       state.selectedDiet = {};
       state.selectedDate = "";
-      // state.selectedRecipe = {};
+      state.selectedRecipe = {};
+      state.datePickerOpen = false;
     },
     openSearchModal: (state, _) => {
+      state.datePickerOpen = false;
       state.searchModalOpen = true;
-      state.selectedRecipe = {};
     },
     closeSearchModal: (state, action) => {
       state.searchModalOpen = false;
       state.selectedRecipe = action.payload;
+    },
+    openDatePicker: (state, _) => {
+      state.datePickerOpen = true;
+    },
+    closeDatePicker: (state, action) => {
+      state.selectedDate = action.payload.selectedDate;
+      state.datePickerOpen = false;
     },
   },
   extraReducers: {
@@ -224,5 +236,7 @@ export const {
   closeDietModal,
   openSearchModal,
   closeSearchModal,
+  openDatePicker,
+  closeDatePicker,
 } = calendarSlice.actions;
 export default calendarSlice.reducer;

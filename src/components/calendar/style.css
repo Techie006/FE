@@ -1,15 +1,15 @@
 /* scroll bar 나타나지 않게 처리 */
 
 /* -webkit- (Chrome, Safari, newer versions of Opera): */
-.autoComplete::-webkit-scrollbar {
+.scroll::-webkit-scrollbar {
   width: 0 !important;
 }
 
 /* -moz- (Firefox): */
-.autoComplete {
+.scroll {
   overflow: -moz-scrollbars-none;
 }
 
-.autoComplete {
+.scroll {
   -ms-overflow-style: none;
 }

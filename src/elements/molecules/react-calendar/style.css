@@ -1,0 +1,112 @@
+/* 캘린더 전체 레이아웃 스타일 설정 */
+.react-calendar {
+  width: 285px;
+  height: 219px;
+  background: #ffffff;
+  border: 0.6px solid #dadada;
+  box-shadow: 0px 2px 8px rgba(0, 0, 0, 0.1);
+  border-radius: 6px;
+  font-family: "Noto Sans KR";
+  font-style: normal;
+  align-items: center;
+  text-align: center;
+}
+
+/* 캘린더 네비게이션 바 스타일 지정 */
+.react-calendar__navigation {
+  padding: 10px 0px 0px 0px;
+  margin-bottom: 9px;
+}
+
+/* 캘린더 네비게이션 바 내부 텍스트 스타일 지정 */
+.react-calendar__navigation__label__labelText {
+  font-weight: 500;
+  font-size: 16px;
+  line-height: 23px;
+  color: #5b5b5b;
+}
+
+/* 캘린더 각 월/일 셀 스타일 지정 */
+.react-calendar__tile {
+  max-width: 100%;
+  padding: 5px 7px;
+  background: none;
+  text-align: center;
+}
+
+/* 캘린더 월별 뷰 */
+/* 캘린더 요일 바 내부 텍스트 스타일 지정 */
+.react-calendar__month-view__weekdays__weekday > abbr {
+  font-weight: 500;
+  font-size: 12px;
+  line-height: 17px;
+  color: #5b5b5b;
+  text-decoration: none;
+}
+
+/* 캘린더 일별 셀 내부 텍스트 스타일 지정 */
+.react-calendar__month-view__days__day > abbr {
+  font-weight: 400;
+  font-size: 10px;
+  line-height: 14px;
+  color: #5b5b5b;
+}
+
+/* 캘린더 일별 셀(주말) 내부 텍스트 스타일 지정 */
+.react-calendar__month-view__days__day--weekend > abbr {
+  color: #ff5c01;
+}
+
+/* 캘린더 일별 셀(이전 월/이후 월 날짜) 내부 텍스트 스타일 지정 */
+.react-calendar__month-view__days__day--neighboringMonth > abbr {
+  color: #a5a5a5;
+}
+
+/* TODO 달력 선택 날짜 스타일 지정 */
+.react-calendar__tile--active:enabled:hover,
+.react-calendar__tile--active:enabled:focus {
+  background: #ff5c01;
+}
+
+/* TODO 달력 선택 날짜 스타일 지정 */
+.react-calendar__tile--active:enabled:hover > abbr,
+.react-calendar__tile--active:enabled:focus > abbr {
+  color: #ffffff;
+}
+
+/* 연도별 뷰 */
+/* 각 월 셀 스타일 지정 */
+.react-calendar__year-view .react-calendar__tile {
+  padding: 11px 16px;
+}
+
+/* 각 월 셀 내부 텍스트 스타일 지정 */
+.react-calendar__year-view__months__month > abbr {
+  font-weight: 500;
+  font-size: 12px;
+  line-height: 17px;
+  color: #5b5b5b;
+}
+
+/* 오늘 날짜 스타일 지정 */
+/* TODO 이번 월 날짜 색상 지정 */
+.react-calendar__tile--now {
+  background: #ff5c01;
+}
+
+/* TODO 오늘 호버, 포커스 시 날짜 색상 지정 */
+.react-calendar__tile--now:enabled:hover,
+.react-calendar__tile--now:enabled:focus {
+  background: red;
+}
+
+/* TODO 오늘 호버, 포커스 시 날짜 색상 지정 */
+.react-calendar__tile--now > abbr {
+  color: #ffffff;
+}
+
+/* TODO 오늘 호버, 포커스 시 날짜 색상 지정 */
+.react-calendar__tile--now:enabled:hover > abbr,
+.react-calendar__tile--now:enabled:focus > abbr {
+  color: #ffffff;
+}

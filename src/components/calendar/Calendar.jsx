@@ -8,9 +8,10 @@ import "moment/locale/ko";
 
 import "react-big-calendar/lib/css/react-big-calendar.css";
 import "./react-big-calendar/style.css";
+import { __getAllDiets, openDietModal } from "../../modules/redux/calendar";
+import { parseDate } from "../../shared/regex";
 import LoadingSpinner from "../../elements/atoms/LoadingSpinner";
 import Toolbar from "./react-big-calendar/Toolbar";
-import { __getAllDiets, openDietModal } from "../../modules/redux/calendar";
 
 const RecipeCalendar = () => {
   const dispatch = useDispatch();
@@ -47,11 +48,10 @@ const RecipeCalendar = () => {
     };
   });
 
-  // TODO timezone 이슈 해결
   const clickSlotHandler = (slot) => {
     const { start } = slot;
-    const date = start.toISOString().slice(0, 10);
-    dispatch(openDietModal({ diet: {}, type: "create", date }));
+    const parsedDate = parseDate(start);
+    dispatch(openDietModal({ diet: {}, type: "create", date: parsedDate }));
   };
 
   const clickEventHandler = (event) => {

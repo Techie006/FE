@@ -2,6 +2,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { useEffect } from "react";
 import styled from "styled-components";
 
+import "./style.css";
 import { __getWeeklyDiets } from "../../modules/redux/calendar";
 import { ST1 } from "../../styles/Text";
 import LoadingSpinner from "../../elements/atoms/LoadingSpinner";
@@ -27,7 +28,9 @@ const WeekDiets = (props) => {
     <StLayout>
       <ST1>이번주 식단을 확인해보세요!</ST1>
       {loading ? <LoadingSpinner /> : null}
-      {!loading ? <StRecipePart>{weeklyDiets}</StRecipePart> : null}
+      {!loading ? (
+        <StRecipePart className='scroll'>{weeklyDiets}</StRecipePart>
+      ) : null}
     </StLayout>
   );
 };

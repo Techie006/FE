@@ -2,10 +2,10 @@ import { useDispatch } from "react-redux";
 import { useState, useRef, useEffect } from "react";
 import styled from "styled-components";
 
-import "./style.css";
+import "../style.css";
 import useDebounce from "../../../hooks/useDebounce";
-// import { apis } from "../../../shared/axios";
-import RESP from "../../../server/response";
+import { apis } from "../../../shared/axios";
+// import RESP from "../../../server/response";
 import { closeSearchModal } from "../../../modules/redux/calendar";
 import Modal from "../../../elements/templates/Modal";
 import { ReactComponent as NoResultSVG } from "../../../assets/illustrations/no_result_black.svg";
@@ -34,10 +34,11 @@ const SearchModal = (props) => {
   }, [debounceKeyword]);
 
   const getAutoComplete = async (debounceKeyword) => {
-    const resp = RESP.CALENDAR.GET_AUTOCOMPLETE_SUCCESS;
+    // Mock APIs
+    // const resp = RESP.CALENDAR.GET_AUTOCOMPLETE_SUCCESS;
     // const resp = RESP.CALENDAR.GET_AUTOCOMPLETE_EMPTY;
 
-    // const resp = await apis.get_autocomplete(debounceKeyword);
+    const resp = await apis.get_autocomplete({ debounceKeyword });
     const {
       content: { empty, recipes },
     } = resp.data;
@@ -54,7 +55,8 @@ const SearchModal = (props) => {
   };
 
   const closeHandler = () => {
-    dispatch(closeSearchModal({ recipe: {} }));
+    const recipe = {};
+    dispatch(closeSearchModal(recipe));
   };
 
   const changeHandler = (e) => {
@@ -81,9 +83,7 @@ const SearchModal = (props) => {
           onChange={changeHandler}
         />
         {!noResult ? (
-          <StResultPart className='autoComplete'>
-            {autoCompleteItems}
-          </StResultPart>
+          <StResultPart className='scroll'>{autoCompleteItems}</StResultPart>
         ) : (
           <StSVGPart>
             <NoResultSVG width='200px' height='200px' viewport='' />

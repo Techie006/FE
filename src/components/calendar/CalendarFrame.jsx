@@ -7,12 +7,15 @@ import Calendar from "./Calendar";
 import WeekDiets from "./WeekDiets";
 import DietModal from "./modal/DietModal";
 import SearchModal from "./modal/SearchModal";
+import DatePicker from "../../elements/molecules/DatePicker";
+import { openDatePicker } from "../../modules/redux/calendar";
 
 const CalendarFrame = () => {
   const dietModalOpen = useSelector((state) => state.calendar.dietModalOpen);
   const searchModalOpen = useSelector(
     (state) => state.calendar.searchModalOpen
   );
+  const datePickerOpen = useSelector((state) => state.calendar.datePickerOpen);
 
   return (
     <>
@@ -26,6 +29,7 @@ const CalendarFrame = () => {
       </GridTemplate>
       {dietModalOpen ? <DietModal /> : null}
       {searchModalOpen ? <SearchModal /> : null}
+      {datePickerOpen ? <DatePicker depth={1.5} /> : null}
     </>
   );
 };

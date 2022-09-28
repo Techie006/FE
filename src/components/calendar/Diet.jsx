@@ -87,7 +87,7 @@ const Diet = (props) => {
   const getDate = (day) => {
     const dateFormat = day.replace(/-/g, "/");
     const mm = new Date(dateFormat).getMonth() + 1;
-    const dd = new Date(dateFormat).getDay();
+    const dd = new Date(dateFormat).getDate();
     return `${mm}월 ${dd}일`;
   };
 
@@ -143,7 +143,6 @@ const StName = styled.div`
 const StButtons = styled.div`
   display: flex;
   flex-direction: row;
-  flex-wrap: wrap;
   gap: 10px;
 `;
 
