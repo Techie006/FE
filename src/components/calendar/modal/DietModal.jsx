@@ -7,6 +7,7 @@ import styled from "styled-components";
 import "react-calendar/dist/Calendar.css";
 import {
   closeDietModal,
+  openDatePicker,
   openSearchModal,
   __createDiet,
   __updateDiet,
@@ -16,18 +17,27 @@ import { ST3, ET1 } from "../../../styles/Text";
 import Category from "../../../elements/molecules/Category";
 
 const DietModal = (props) => {
+  // 식단 모달의 유형 create/ update 가져옴
   const modalType = useSelector((state) => state.calendar.modalType);
-  const selectedDiet = useSelector((state) => state.calendar.selectedDiet);
+
+  // 식단 생성하기 모달인 경우, 캘린더에서 선택된 날짜를 가져옴
   const selectedDate = useSelector((state) => state.calendar.selectedDate);
+
+  // 식단 변경하기 모달인 경우, 주간 식단들 중 선택된 식단을 가져옴
+  const selectedDiet = useSelector((state) => state.calendar.selectedDiet);
+
+  // 식단 작성을 위해 검색 모달에서 선택한 레시피 정보를 가져옴
   const selectedRecipe = useSelector((state) => state.calendar.selectedRecipe);
+
+  // 식단 작성을 위한 date picker를 여닫음
+  const datePickerOpen = useSelector((state) => state.calendar.datePickerOpen);
 
   const dispatch = useDispatch();
 
   const [time, setTime] = useState(selectedDiet.time);
   const [date, setDate] = useState(selectedDate);
-  const [showCalendar, setShowCalendar] = useState(false);
 
-  // 사용자가 모달창 닫음
+  // 사용자가 식단 모달창 닫음
   const closeHandler = () => {
     dispatch(closeDietModal());
   };
@@ -43,7 +53,8 @@ const DietModal = (props) => {
     }
     // 사용자가 모달창의 날짜창 포커스 시, Calendar 엶
     if (focused === "due") {
-      setShowCalendar(true);
+      console.log(date);
+      dispatch(openDatePicker());
       return;
     }
   };
@@ -86,7 +97,7 @@ const DietModal = (props) => {
       <StForm onSubmit={() => console.log("hello")}>
         <StRecipePart>
           <ST3>어떤 요리를 하실건가요?</ST3>
-          <StInput
+          <StSearchBar
             type='text'
             placeholder='레시피명 검색'
             id='recipe'
@@ -107,27 +118,13 @@ const DietModal = (props) => {
         </StTimePart>
         <StDatePart>
           <ST3>드실 날짜를 정해볼까요?</ST3>
-          <StInput
+          <StCalendarBar
             type='text'
-            placeholder='레시피명 검색'
+            placeholder='날짜 입력'
             id='due'
+            value={selectedDate.toISOString().slice(0, 10)}
             onFocus={focusHandler}
           />
-          <Calendar onChange={changeHandler} value={new Date()} />
-          {/* <input
-          type='date'
-          id='due'
-          placeholder='날짜 입력'
-          {...register("date", {
-            required: "드실 날짜를 입력해주셔야 식단 입력이 가능해요.",
-          })}
-        />
-        <ET1>{errors.date ? errors.date.message : ""}</ET1> */}
-          {/* <ModalSmallButton
-          type='submit'
-          content='식단 저장하기'
-          disabled={disable}
-        /> */}
         </StDatePart>
       </StForm>
     </Modal>
@@ -140,7 +137,7 @@ const StForm = styled.div`
   padding: 27px 61px;
 `;
 
-const StInput = styled.input`
+const StSearchBar = styled.input`
   background: #fafafa;
   border: 0.6px solid #dadada;
   border-radius: 6px;
@@ -150,6 +147,10 @@ const StInput = styled.input`
   background-image: url("https://raw.githubusercontent.com/Techie006/FE/21142e4530a912b50a49fc500325a0d78f2fd272/src/assets/icons/search.svg");
   background-position: 250px center;
   background-repeat: no-repeat;
+`;
+
+const StCalendarBar = styled(StSearchBar)`
+  background-image: url("https://user-images.githubusercontent.com/48196721/192671343-31990b4f-464c-4534-80d1-9589dfe6df28.svg");
 `;
 
 const StRecipePart = styled.div`

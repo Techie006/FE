@@ -50,8 +50,8 @@ const RecipeCalendar = () => {
   // TODO timezone 이슈 해결
   const clickSlotHandler = (slot) => {
     const { start } = slot;
-    const date = start.toISOString().slice(0, 10);
-    dispatch(openDietModal({ diet: {}, type: "create", date }));
+    // const date = start.toISOString().slice(0, 10);
+    dispatch(openDietModal({ diet: {}, type: "create", date: start }));
   };
 
   const clickEventHandler = (event) => {

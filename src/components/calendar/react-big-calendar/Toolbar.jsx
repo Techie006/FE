@@ -21,7 +21,7 @@ const Toolbar = (props) => {
 
   // 캘린더 각 칸 클릭 시 해당 날짜에 신규 식단 추가 가능
   const clickHandler = () => {
-    const date = new Date().toISOString().slice(0, 10);
+    // const date = new Date().toISOString().slice(0, 10);
     dispatch(openDietModal({ diet: {}, type: "create", date }));
   };
 

@@ -37,7 +37,7 @@ const StBackground = styled.div`
 const StLayout = styled.div`
   position: fixed;
   left: 50%;
-  top: 50%;
+  top: 46%;
   transform: translate(-50%, -50%);
   width: 405px;
   height: 472px;

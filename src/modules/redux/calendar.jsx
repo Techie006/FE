@@ -112,6 +112,7 @@ const calendarSlice = createSlice({
       state.selectedDiet = {};
       state.selectedDate = "";
       state.selectedRecipe = {};
+      state.datePickerOpen = false;
     },
     openSearchModal: (state, _) => {
       state.searchModalOpen = true;
@@ -121,10 +122,11 @@ const calendarSlice = createSlice({
       state.selectedRecipe = action.payload;
     },
     openDatePicker: (state, _) => {
-      state.openDatePicker = true;
+      state.datePickerOpen = true;
     },
-    closeDatePicker: (state, _) => {
-      state.openDatePicker = false;
+    closeDatePicker: (state, action) => {
+      state.selectedDate = action.payload.selectedDate;
+      state.datePickerOpen = false;
     },
   },
   extraReducers: {

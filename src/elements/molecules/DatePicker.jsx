@@ -1,24 +1,28 @@
+import { useSelector, useDispatch } from "react-redux";
 import { useState } from "react";
 import Calendar from "react-calendar";
+import styled from "styled-components";
 
 import "react-calendar/dist/Calendar.css";
 import "./react-calendar/style.css";
+import { closeDatePicker } from "../../modules/redux/calendar";
 
-const DatePicker = ({ defaultDate, ...props }) => {
-  const [date, setDate] = useState(defaultDate);
+const DatePicker = ({ depth, ...props }) => {
+  // 식단 모달 생성하기인 경우, 캘린더에서 선택된 날짜나 오늘 날짜를 가져옴
+  const selectedDate = useSelector((state) => state.calendar.selectedDate);
 
+  const dispatch = useDispatch();
+
+  const [date, setDate] = useState(selectedDate);
+
+  // 선택한 날짜로 변경
   const changeHandler = (selectedDate) => {
-    // 동일 날짜 선택시 상태 변화하지 않음
-    if (date === selectedDate) {
-      return;
-    }
-
-    // 선택한 날짜로 변경
     setDate(selectedDate);
+    dispatch(closeDatePicker({ selectedDate }));
   };
 
   return (
-    <div style={{ ...props }}>
+    <StLayout style={{ ...props }} depth={depth}>
       <Calendar
         locale='ko'
         onChange={changeHandler}
@@ -29,8 +33,16 @@ const DatePicker = ({ defaultDate, ...props }) => {
         maxDetail='month'
         minDetail='year' // month와 year view만 가능하도록 설정
       />
-    </div>
+    </StLayout>
   );
 };
 
 export default DatePicker;
+
+const StLayout = styled.div`
+  position: fixed;
+  left: 50%;
+  top: 81%;
+  transform: translate(-50%, -50%);
+  z-index: ${(props) => props.depth * 80};
+`;
