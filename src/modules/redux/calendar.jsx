@@ -52,13 +52,13 @@ export const __getWeeklyDiets = createAsyncThunk(
 
 export const __createDiet = createAsyncThunk(
   "calendar/__createDiet",
-  async ({ recipe_name, category, date }, thunkAPI) => {
+  async ({ recipe_id, category, date }, thunkAPI) => {
     try {
-      const resp = await apis.create_diet({ recipe_name, category, date });
+      console.log(recipe_id, category, date);
+      const resp = await apis.create_diet({ recipe_id, category, date });
       const {
         content: { meals },
       } = resp.data;
-      // TODO API 수정
       return thunkAPI.fulfillWithValue({ day: date, meals });
     } catch (e) {
       return thunkAPI.rejectWithValue(e.code);

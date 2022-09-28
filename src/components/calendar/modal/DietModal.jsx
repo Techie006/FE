@@ -30,9 +30,6 @@ const DietModal = (props) => {
   // 식단 작성을 위해 검색 모달에서 선택한 레시피 정보를 가져옴
   const selectedRecipe = useSelector((state) => state.calendar.selectedRecipe);
 
-  // 식단 작성을 위한 date picker를 여닫음
-  const datePickerOpen = useSelector((state) => state.calendar.datePickerOpen);
-
   const dispatch = useDispatch();
 
   const [time, setTime] = useState(selectedDiet.time);
@@ -60,7 +57,6 @@ const DietModal = (props) => {
     }
     // 사용자가 모달창의 날짜창 포커스 시, Calendar 엶
     if (focused === "due") {
-      console.log(selectedDate);
       dispatch(openDatePicker());
       return;
     }
@@ -91,10 +87,6 @@ const DietModal = (props) => {
     // form에 빈 값 오는 경우 에러처리
     let error = {};
 
-    console.log(selectedRecipe);
-    console.log(time);
-    console.log(selectedDate);
-
     if (JSON.stringify(selectedRecipe) === `{}`) {
       error.recipe = {
         hasError: true,
@@ -113,23 +105,37 @@ const DietModal = (props) => {
         message: "날짜를 입력해주세야해요.",
       };
     }
-    if (error.length !== 0) {
+
+    if (JSON.stringify(error) !== "{}") {
       setErrors(error);
       return;
     }
 
-    // if (modalType === "create") {
-    //   dispatch(__createDiet({ recipe_name: recipe, category: time, date }));
-    // }
+    // 모든 입력값 받은 경우, 식단 기록하기 모달 처리
+    if (modalType === "create") {
+      console.log("create");
+      dispatch(
+        __createDiet({
+          recipe_id: selectedRecipe.id,
+          category: time,
+          date: selectedDate,
+        })
+      );
+    }
 
-    // if (modalType === "update") {
-    //   dispatch(__updateDiet({ selecte, recipe_name: recipe, category: time, date }));
-    // }
+    // 모든 입력값 받은 경우, 식단 변경하기 모달 처리
+    if (modalType === "update") {
+      dispatch(
+        __updateDiet({
+          recipe_id: selectedRecipe.id,
+          category: time,
+          date: selectedDate,
+        })
+      );
+    }
 
-    // closeHandler();
+    closeHandler();
   };
-
-  console.log(errors);
 
   return (
     <Modal header='식단 기록하기' onClick={closeHandler} depth={1}>
@@ -141,6 +147,7 @@ const DietModal = (props) => {
             placeholder='레시피명 검색'
             id='recipe'
             onFocus={focusHandler}
+            onChange={focusHandler}
             value={selectedRecipe?.recipe_name || ""}
           />
           {errors.recipe?.hasError ? <ET1>{errors.recipe.message}</ET1> : null}
@@ -163,8 +170,9 @@ const DietModal = (props) => {
             type='text'
             placeholder='날짜 입력'
             id='due'
-            value={selectedDate.toISOString().slice(0, 10) || ""}
+            value={selectedDate || ""}
             onFocus={focusHandler}
+            onChange={focusHandler}
           />
           {errors.due?.hasError ? <ET1>{errors.due.message}</ET1> : null}
         </StDatePart>

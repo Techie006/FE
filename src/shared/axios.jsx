@@ -46,8 +46,13 @@ export const apis = {
   // calendar page
   get_all_diets: () => api.get(`/api/calendar/all`),
   get_weekly_diets: ({ date }) => api.get(`/api/calendar/week?day=${date}`),
-  create_diet: ({ recipe_name, category, date }) =>
-    api.post(`/api/calendar`, { recipe_name, category, day: date }),
+  create_diet: ({ recipe_id, category, date }) => {
+    const day = `${date.getFullYear()}-${
+      date.getFullMonth() + 1
+    }-${date.getDate()}`;
+    console.log(day);
+    return api.post(`/api/calendar`, { recipe_id, category, day });
+  },
   update_diet: ({ id, recipe_name, category, date }) =>
     api.put(`/api/calendar/${id}`, { recipe_name, category, day: date }),
   delete_diet: ({ id }) => api.delete(`/api/calendar/${id}`),

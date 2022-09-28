@@ -6,6 +6,7 @@ import styled from "styled-components";
 import "react-calendar/dist/Calendar.css";
 import "./react-calendar/style.css";
 import { closeDatePicker } from "../../modules/redux/calendar";
+import { parseDate } from "../../shared/regex";
 
 const DatePicker = ({ depth, ...props }) => {
   // 식단 모달 생성하기인 경우, 캘린더에서 선택된 날짜나 오늘 날짜를 가져옴
@@ -13,12 +14,13 @@ const DatePicker = ({ depth, ...props }) => {
 
   const dispatch = useDispatch();
 
-  const [date, setDate] = useState(selectedDate);
+  const [date, setDate] = useState(new Date(selectedDate));
 
   // 선택한 날짜로 변경
-  const changeHandler = (selectedDate) => {
-    setDate(selectedDate);
-    dispatch(closeDatePicker({ selectedDate }));
+  const changeHandler = (selectedDay) => {
+    setDate(selectedDay);
+    const parsedDate = parseDate(selectedDay);
+    dispatch(closeDatePicker({ selectedDate: parsedDate }));
   };
 
   return (
