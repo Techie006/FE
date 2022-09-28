@@ -54,13 +54,13 @@ export const __createDiet = createAsyncThunk(
   "calendar/__createDiet",
   async ({ recipe_id, category, date }, thunkAPI) => {
     try {
-      console.log(recipe_id, category, date);
       const resp = await apis.create_diet({ recipe_id, category, date });
       const {
         content: { meals },
       } = resp.data;
       return thunkAPI.fulfillWithValue({ day: date, meals });
     } catch (e) {
+      console.log(e);
       return thunkAPI.rejectWithValue(e.code);
     }
   }

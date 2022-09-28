@@ -14,5 +14,3 @@ export const parseDate = (date) => {
 
   return `${YYYY}-${mm.padStart(2, 0)}-${dd.padStart(2, 0)}`;
 };
-
-export const getDate = (yyyy_mm_dd) => {};

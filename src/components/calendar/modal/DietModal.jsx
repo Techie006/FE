@@ -113,7 +113,7 @@ const DietModal = (props) => {
 
     // 모든 입력값 받은 경우, 식단 기록하기 모달 처리
     if (modalType === "create") {
-      console.log("create");
+      console.log("create diet called");
       dispatch(
         __createDiet({
           recipe_id: selectedRecipe.id,
@@ -125,6 +125,7 @@ const DietModal = (props) => {
 
     // 모든 입력값 받은 경우, 식단 변경하기 모달 처리
     if (modalType === "update") {
+      console.log("update diet called");
       dispatch(
         __updateDiet({
           recipe_id: selectedRecipe.id,
