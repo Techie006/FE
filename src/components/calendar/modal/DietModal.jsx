@@ -153,7 +153,7 @@ const StInput = styled.input`
 `;
 
 const StRecipePart = styled.div`
-  margin-top: 26px;
+  margin-top: 0px;
 `;
 
 const StTimePart = styled.div`

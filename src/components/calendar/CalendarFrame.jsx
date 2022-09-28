@@ -7,6 +7,7 @@ import Calendar from "./Calendar";
 import WeekDiets from "./WeekDiets";
 import DietModal from "./modal/DietModal";
 import SearchModal from "./modal/SearchModal";
+import DatePicker from "../../elements/molecules/DatePicker";
 
 const CalendarFrame = () => {
   const dietModalOpen = useSelector((state) => state.calendar.dietModalOpen);
@@ -26,6 +27,7 @@ const CalendarFrame = () => {
       </GridTemplate>
       {dietModalOpen ? <DietModal /> : null}
       {searchModalOpen ? <SearchModal /> : null}
+      <DatePicker />
     </>
   );
 };
