@@ -115,6 +115,7 @@ const calendarSlice = createSlice({
       state.datePickerOpen = false;
     },
     openSearchModal: (state, _) => {
+      state.datePickerOpen = false;
       state.searchModalOpen = true;
     },
     closeSearchModal: (state, action) => {

@@ -87,10 +87,13 @@ const Button = ({
         break;
       case "modal":
         if (func === "time") {
-          border = "0.6px solid #DADADA";
           borderRadius = "30px";
           width = "52px";
           height = "40px";
+
+          fontWeight = 500;
+          fontSize = "14px";
+          lineHeight = "20px";
 
           if (!isSelected) {
             border = "0.6px solid #DADADA";
@@ -105,6 +108,19 @@ const Button = ({
             hoverBackground = "#FFB356";
             hoverColor = "#482647";
           }
+        } else if (func === "create") {
+          border = "none";
+          borderRadius = "8px";
+          background = "#FFDD7C";
+          hoverBackground = "#FFB356";
+          width = "123px";
+          height = "36px";
+
+          fontWeight = 700;
+          fontSize = "14px";
+          lineHeight = "16px";
+          color = "#664500";
+          hoverColor = "#482647";
         }
         break;
       default:
@@ -142,6 +158,7 @@ const StClickLayout = styled.div`
   display: flex;
   flex-direction: row;
   align-items: flex-start;
+  justify-content: center;
   padding: 0px;
   gap: 12px;
 `;

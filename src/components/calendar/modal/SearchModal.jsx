@@ -55,12 +55,11 @@ const SearchModal = (props) => {
   };
 
   const closeHandler = () => {
-    dispatch(closeSearchModal({ recipe: {} }));
+    const recipe = {};
+    dispatch(closeSearchModal(recipe));
   };
 
   const changeHandler = (e) => {
-    console.log("changeHandler");
-    console.log(e.target.value);
     setKeyword(e.target.value);
   };
 

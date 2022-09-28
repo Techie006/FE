@@ -15,6 +15,7 @@ import {
 import Modal from "../../../elements/templates/Modal";
 import { ST3, ET1 } from "../../../styles/Text";
 import Category from "../../../elements/molecules/Category";
+import Button from "../../../elements/atoms/Button";
 
 const DietModal = (props) => {
   // 식단 모달의 유형 create/ update 가져옴
@@ -35,16 +36,22 @@ const DietModal = (props) => {
   const dispatch = useDispatch();
 
   const [time, setTime] = useState(selectedDiet.time);
-  const [date, setDate] = useState(selectedDate);
+  const [errors, setErrors] = useState({});
 
   // 사용자가 식단 모달창 닫음
   const closeHandler = () => {
     dispatch(closeDietModal());
   };
 
-  // 사용자가 모달창 인풋창 포커스 시 동작
+  // 사용자가 모달창 각 인풋필드 포커스 시 동작
   const focusHandler = (e) => {
     const focused = e.target.id;
+
+    // 사용자가 특정 인풋필드 내용 변경 시도 시 기존 에러 삭제
+    setErrors((prev) => {
+      delete prev[focused];
+      return prev;
+    });
 
     // 사용자가 모달창의 검색창 포커스 시, SearchModal 엶
     if (focused === "recipe") {
@@ -53,7 +60,7 @@ const DietModal = (props) => {
     }
     // 사용자가 모달창의 날짜창 포커스 시, Calendar 엶
     if (focused === "due") {
-      console.log(date);
+      console.log(selectedDate);
       dispatch(openDatePicker());
       return;
     }
@@ -68,33 +75,65 @@ const DietModal = (props) => {
       return;
     }
 
+    // 기존 에러 삭제
+    setErrors((prev) => {
+      delete prev.time;
+      return prev;
+    });
+
     // 식단 시간대를 변경
     setTime(value);
   };
 
-  // 사용자가 모달창에서 선택한 date를 상태값에 저장
-  const changeHandler = (e) => {
-    console.log(e);
-    // setDate()
+  const submitHandler = (e) => {
+    e.preventDefault();
+
+    // form에 빈 값 오는 경우 에러처리
+    let error = {};
+
+    console.log(selectedRecipe);
+    console.log(time);
+    console.log(selectedDate);
+
+    if (JSON.stringify(selectedRecipe) === `{}`) {
+      error.recipe = {
+        hasError: true,
+        message: "레시피를 입력해주세야해요.",
+      };
+    }
+    if (time === undefined) {
+      error.time = {
+        hasError: true,
+        message: "시간대를 지정해주세야해요.",
+      };
+    }
+    if (selectedDate === undefined) {
+      error.due = {
+        hasError: true,
+        message: "날짜를 입력해주세야해요.",
+      };
+    }
+    if (error.length !== 0) {
+      setErrors(error);
+      return;
+    }
+
+    // if (modalType === "create") {
+    //   dispatch(__createDiet({ recipe_name: recipe, category: time, date }));
+    // }
+
+    // if (modalType === "update") {
+    //   dispatch(__updateDiet({ selecte, recipe_name: recipe, category: time, date }));
+    // }
+
+    // closeHandler();
   };
 
-  // const submitHandler = ({ recipe, time, date }) => {
-  //   if (modalType === "create") {
-  //     dispatch(__createDiet({ recipe_name: recipe, category: time, date }));
-  //   }
-
-  //   if (modalType === "update") {
-  //     dispatch(__updateDiet({ selecte, recipe_name: recipe, category: time, date }));
-  //   }
-
-  //   closeHandler();
-  // };
-
-  // let disable = errors.recipe || errors.time || errors.date;
+  console.log(errors);
 
   return (
     <Modal header='식단 기록하기' onClick={closeHandler} depth={1}>
-      <StForm onSubmit={() => console.log("hello")}>
+      <StForm onSubmit={submitHandler}>
         <StRecipePart>
           <ST3>어떤 요리를 하실건가요?</ST3>
           <StSearchBar
@@ -102,8 +141,9 @@ const DietModal = (props) => {
             placeholder='레시피명 검색'
             id='recipe'
             onFocus={focusHandler}
-            value={selectedRecipe?.recipe_name}
+            value={selectedRecipe?.recipe_name || ""}
           />
+          {errors.recipe?.hasError ? <ET1>{errors.recipe.message}</ET1> : null}
         </StRecipePart>
         <StTimePart>
           <ST3>언제 드실지 정해볼까요?</ST3>
@@ -115,6 +155,7 @@ const DietModal = (props) => {
             func='time'
             selectedCategory={time}
           />
+          {errors.time?.hasError ? <ET1>{errors.time.message}</ET1> : null}
         </StTimePart>
         <StDatePart>
           <ST3>드실 날짜를 정해볼까요?</ST3>
@@ -122,10 +163,19 @@ const DietModal = (props) => {
             type='text'
             placeholder='날짜 입력'
             id='due'
-            value={selectedDate.toISOString().slice(0, 10)}
+            value={selectedDate.toISOString().slice(0, 10) || ""}
             onFocus={focusHandler}
           />
+          {errors.due?.hasError ? <ET1>{errors.due.message}</ET1> : null}
         </StDatePart>
+        <Button
+          type='submit'
+          content='기록하기'
+          page='modal'
+          func='create'
+          marginTop={"30px"}
+          onClick={submitHandler}
+        />
       </StForm>
     </Modal>
   );
