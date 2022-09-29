@@ -1,11 +1,16 @@
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 
+import { T7, ST1 } from "../../styles/Text";
+import Ingridients from "../../elements/molecules/Ingredients";
+
 const Class = ({
   class_id,
-  redis_class_id,
-  class_name,
   class_img,
+  class_name,
+  redis_class_id,
+  ingredients,
+  session_id,
   viewer_nums,
 }) => {
   const navigate = useNavigate();
@@ -16,16 +21,76 @@ const Class = ({
 
   return (
     <StLayout onClick={clickHandler}>
-      <img src={class_img} alt='thumbbnail' />
-      <div>시청자 수: {viewer_nums}</div>
-      <div>{class_name}</div>
+      <StImgPart>
+        <StViewerBox>
+          <StViewerText>{`${viewer_nums}명 시청중`}</StViewerText>
+        </StViewerBox>
+        <StImg src={class_img} alt='thumbnail' />
+      </StImgPart>
+      <StInfoPart>
+        {/* <Ingridients contents={ingredients} /> */}
+        <Ingridients contents={["아스파라거스", "무엇", "가지"]} />
+        <StClassTitle>{class_name}</StClassTitle>
+      </StInfoPart>
     </StLayout>
   );
 };
 
 export default Class;
 
+// TOOD 반응형으로 바꾸기
 const StLayout = styled.div`
-  width: 352px;
-  height: 303px;
+  width: 405px;
+  height: 331px;
+  background: #ffffff;
+  box-shadow: 0px 3px 13px 1px rgba(0, 0, 0, 0.05);
+  border-radius: 10px;
+  &:hover {
+    cursor: pointer;
+  }
+`;
+
+const StImgPart = styled.div`
+  border-top-left-radius: 10px;
+  border-top-right-radius: 10px;
+  width: 405px;
+  height: 212px;
+  position: relative;
+  overflow: hidden;
+`;
+
+const StViewerBox = styled.div`
+  position: absolute;
+  left: 10px;
+  top: 13px;
+  padding: 3px 4px;
+  background: #ececec;
+  opacity: 0.5;
+  border-radius: 2px;
+  z-index: 10;
+`;
+
+const StViewerText = styled(T7)`
+  color: #ffffff;
+  opacity: 1;
+  z-index: 20;
+`;
+
+const StImg = styled.img`
+  border-top-left-radius: 10px;
+  border-top-right-radius: 10px;
+  width: 100%;
+  top: 50%;
+  left: 50%;
+`;
+
+const StInfoPart = styled.div`
+  display: flex;
+  padding: 18px;
+  flex-direction: column;
+`;
+
+const StClassTitle = styled(ST1)`
+  margin-top: 10px;
+  line-height: 26px;
 `;

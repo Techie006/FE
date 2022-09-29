@@ -1,7 +1,5 @@
 import { useSelector, useDispatch } from "react-redux";
-import { useState } from "react";
-import { useForm } from "react-hook-form";
-import Calendar from "react-calendar";
+import { useState, useEffect } from "react";
 import styled from "styled-components";
 
 import "react-calendar/dist/Calendar.css";
@@ -32,8 +30,30 @@ const DietModal = (props) => {
 
   const dispatch = useDispatch();
 
+  // 식단 수정하기 모달인 경우 선택된 식단 정보를 초기값으로 부여
+  // 식단 생성하기 모달의 경우 선택한 날짜 정보만 초기값으로 부여
+  console.log(selectedRecipe, "selectedRecipe");
+  console.log(selectedRecipe.id || selectedDiet.recipe_id);
+  console.log(selectedDiet, "selectedDiet");
+  console.log(selectedRecipe.recipe_name || selectedDiet.recipe_name);
+  console.log(selectedDiet.day || selectedDate || "");
+
+  const [recipe, setRecipe] = useState({
+    recipe_id: selectedRecipe.id || selectedDiet.recipe_id || "",
+    recipe_name: selectedRecipe.recipe_name || selectedDiet.recipe_name || "",
+  });
+  console.log("recipe", recipe);
   const [time, setTime] = useState(selectedDiet.time);
+  const [due, setDue] = useState(selectedDiet.day || selectedDate);
+
   const [errors, setErrors] = useState({});
+
+  useEffect(() => {
+    setRecipe({
+      recipe_id: selectedRecipe.id || selectedDiet.recipe_id || "",
+      recipe_name: selectedRecipe.recipe_name || selectedDiet.recipe_name || "",
+    });
+  }, [selectedRecipe, selectedDiet]);
 
   // 사용자가 식단 모달창 닫음
   const closeHandler = () => {
@@ -99,7 +119,7 @@ const DietModal = (props) => {
         message: "시간대를 지정해주세야해요.",
       };
     }
-    if (selectedDate === undefined) {
+    if (selectedDiet?.day || selectedDate === undefined) {
       error.due = {
         hasError: true,
         message: "날짜를 입력해주세야해요.",
@@ -138,9 +158,15 @@ const DietModal = (props) => {
     closeHandler();
   };
 
+  console.log(recipe, time, due);
+
   return (
-    <Modal header='식단 기록하기' onClick={closeHandler} depth={1}>
-      <StLayout>
+    <Modal
+      header={modalType === "create" ? "식단 기록하기" : "식단 수정하기"}
+      onClick={closeHandler}
+      depth={1}
+    >
+      <StForm onSubmit={submitHandler}>
         <StRecipePart>
           <ST3>어떤 요리를 하실건가요?</ST3>
           <StSearchBar
@@ -149,7 +175,10 @@ const DietModal = (props) => {
             id='recipe'
             onFocus={focusHandler}
             onChange={focusHandler}
-            value={selectedRecipe?.recipe_name || ""}
+            value={recipe.recipe_name}
+            // value={
+            //   selectedRecipe?.recipe_name || selectedDiet?.recipe_name || ""
+            // }
           />
           {errors.recipe?.hasError ? <ET1>{errors.recipe.message}</ET1> : null}
         </StRecipePart>
@@ -171,7 +200,8 @@ const DietModal = (props) => {
             type='text'
             placeholder='날짜 입력'
             id='due'
-            value={selectedDate || ""}
+            // value={selectedDate || selectedDiet?.day || ""}
+            value={due}
             onFocus={focusHandler}
             onChange={focusHandler}
           />
@@ -185,14 +215,14 @@ const DietModal = (props) => {
           marginTop={"30px"}
           onClick={submitHandler}
         />
-      </StLayout>
+      </StForm>
     </Modal>
   );
 };
 
 export default DietModal;
 
-const StLayout = styled.div`
+const StForm = styled.div`
   padding: 27px 61px;
 `;
 

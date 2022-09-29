@@ -2,7 +2,7 @@ import axios from "axios";
 import { encode as base64_encode } from "base-64";
 
 const base = {
-  server_http: "http://3.36.56.125",
+  server_http: "http://3.38.214.79",
   server_https: "https://magorosc.shop",
   openvidu_server: "https://monsterwarrior.shop",
 };
@@ -51,6 +51,9 @@ export const apis = {
   update_diet: ({ id, recipe_name, category, date }) =>
     api.put(`/api/calendar/${id}`, { recipe_name, category, day: date }),
   delete_diet: ({ id }) => api.delete(`/api/calendar/${id}`),
+
+  // commonly used
+  // usage: calendar, class
   get_autocomplete: ({ debounceKeyword }) =>
     api.post(`/api/recipes/autocomplete`, { keyword: debounceKeyword }),
 

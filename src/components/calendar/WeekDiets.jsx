@@ -2,7 +2,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { useEffect } from "react";
 import styled from "styled-components";
 
-import "./style.css";
+import "../../styles/scroll.css";
 import { __getWeeklyDiets } from "../../modules/redux/calendar";
 import { ST1 } from "../../styles/Text";
 import LoadingSpinner from "../../elements/atoms/LoadingSpinner";

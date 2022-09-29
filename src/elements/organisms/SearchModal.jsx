@@ -2,21 +2,22 @@ import { useDispatch } from "react-redux";
 import { useState, useRef, useEffect } from "react";
 import styled from "styled-components";
 
-import "../style.css";
-import useDebounce from "../../../hooks/useDebounce";
-import { apis } from "../../../shared/axios";
+import "../../styles/scroll.css";
+import useDebounce from "../../hooks/useDebounce";
+import { apis } from "../../shared/axios";
 // import RESP from "../../../server/response";
-import { closeSearchModal } from "../../../modules/redux/calendar";
-import Modal from "../../../elements/templates/Modal";
-import { ReactComponent as NoResultSVG } from "../../../assets/illustrations/no_result_black.svg";
-import { T1 } from "../../../styles/Text";
+import { closeSearchModal } from "../../modules/redux/calendar";
+import Modal from "../templates/Modal";
+import { ReactComponent as NoResultSVG } from "../../assets/illustrations/no_result_black.svg";
+import { T1 } from "../../styles/Text";
+import { closeModal } from "../../modules/redux/cookingClass";
 
-const SearchModal = (props) => {
+const SearchModal = ({ pageFrom }) => {
   const dispatch = useDispatch();
 
   const [keyword, setKeyword] = useState("");
   const [recipes, setRecipes] = useState([]);
-  const [noResult, setNoResult] = useState(false);
+  const [showMsg, setShowMsg] = useState(false);
 
   // 포커싱을 위해 useRef 사용
   const searchBar = useRef();
@@ -35,36 +36,54 @@ const SearchModal = (props) => {
 
   const getAutoComplete = async (debounceKeyword) => {
     // Mock APIs
-    // const resp = RESP.CALENDAR.GET_AUTOCOMPLETE_SUCCESS;
-    // const resp = RESP.CALENDAR.GET_AUTOCOMPLETE_EMPTY;
+    // const resp = RESP.COMMON.GET_AUTOCOMPLETE_SUCCESS;
+    // const resp = RESP.COMMON.GET_AUTOCOMPLETE_EMPTY;
 
     const resp = await apis.get_autocomplete({ debounceKeyword });
+
     const {
       content: { empty, recipes },
     } = resp.data;
 
     // 자동 완성 결과가 없는 경우 TODO 디자인 어떻게 처리할지 논의
     if (empty) {
-      setNoResult(true);
+      setShowMsg(true);
       setRecipes([]);
       return;
     }
 
-    setNoResult(false);
+    setShowMsg(false);
     setRecipes(recipes);
   };
 
+  // 검색 수행하지 않고 창 닫는 경우
   const closeHandler = () => {
     const recipe = {};
-    dispatch(closeSearchModal(recipe));
+    if (pageFrom === "calendar") {
+      dispatch(closeSearchModal(recipe));
+      return;
+    }
+    if (pageFrom === "class") {
+      dispatch(closeModal({ recipe }));
+      return;
+    }
   };
 
+  // 검색 키워드 입력 시
   const changeHandler = (e) => {
     setKeyword(e.target.value);
   };
 
+  // 검색 하고 특정 레시피를 클릭 시
   const clickHandler = (recipe) => {
-    dispatch(closeSearchModal(recipe));
+    if (pageFrom === "calendar") {
+      dispatch(closeSearchModal(recipe));
+      return;
+    }
+    if (pageFrom === "class") {
+      dispatch(closeModal({ recipe }));
+      return;
+    }
   };
 
   const autoCompleteItems = recipes?.map((recipe) => (
@@ -82,13 +101,13 @@ const SearchModal = (props) => {
           ref={searchBar}
           onChange={changeHandler}
         />
-        {!noResult ? (
+        {!showMsg ? (
           <StResultPart className='scroll'>{autoCompleteItems}</StResultPart>
         ) : (
-          <StSVGPart>
+          <StMsgPart>
             <NoResultSVG width='200px' height='200px' viewport='' />
             <T1>검색 결과가 없어요</T1>
-          </StSVGPart>
+          </StMsgPart>
         )}
       </StLayout>
     </Modal>
@@ -133,7 +152,7 @@ const StRecipe = styled.div`
   }
 `;
 
-const StSVGPart = styled.div`
+const StMsgPart = styled.div`
   margin-top: 50px;
   padding: 0px 0px 28px 0px;
   width: 285px;
