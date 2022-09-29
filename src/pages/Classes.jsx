@@ -1,12 +1,12 @@
 import Layout from "../elements/templates/Layout";
 import Header from "../elements/organisms/Header";
-import ClassesLayout from "../components/classes/ClassesLayout";
+import ClassesFrame from "../components/classes/ClassesFrame";
 
 const Class = (props) => {
   return (
     <Layout>
       <Header />
-      <ClassesLayout />
+      <ClassesFrame />
     </Layout>
   );
 };

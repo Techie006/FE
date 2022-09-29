@@ -85,6 +85,23 @@ const Button = ({
           hoverColor = "#5B5B5B";
         }
         break;
+      case "classes":
+        if (func === "create") {
+          border = "0.5px solid #ECECEC";
+          borderRadius = "6px";
+          background = "#FFB356";
+          hoverBackground = "#FC9700";
+          width = "93px";
+          height = "36px";
+
+          fontWeight = 700;
+          fontSize = "14px";
+          lineHeight = "16px";
+          color = "#FFFFFF";
+          hoverColor = "#482647";
+        }
+
+        break;
       case "modal":
         if (func === "time") {
           borderRadius = "30px";

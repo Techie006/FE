@@ -7,7 +7,7 @@ import Class from "./Class";
 
 const Classes = (props) => {
   const [loading, setLoading] = useState(true);
-  const [data, setData] = useState([]);
+  const [classes, setClasses] = useState([]);
 
   const getData = useCallback(async () => {
     // const resp = RESP.CLASS.GET_CLASSES_SUCCESS;
@@ -16,21 +16,21 @@ const Classes = (props) => {
     const { content } = resp.data;
 
     setLoading(false);
-    setData([...content.classes]);
+    setClasses(content.classes);
   }, []);
 
   useEffect(() => {
     getData();
   }, [getData]);
 
-  const classes = data.map((datum) => (
-    <Class key={datum.class_id} {...datum} />
+  const classList = classes.map((cookingClass) => (
+    <Class key={cookingClass.class_id} {...cookingClass} />
   ));
 
   return (
     <>
       {loading ? <LoadingSpinner /> : null}
-      {!loading ? classes : null}
+      {!loading ? classList : null}
     </>
   );
 };

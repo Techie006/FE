@@ -60,7 +60,6 @@ export const __createDiet = createAsyncThunk(
       } = resp.data;
       return thunkAPI.fulfillWithValue({ day: date, meals });
     } catch (e) {
-      console.log(e);
       return thunkAPI.rejectWithValue(e.code);
     }
   }

@@ -1,5 +1,4 @@
 import Colors from "./Colors";
-import { R4 } from "./Radius";
 
 export const designTheme = {
   colors: Colors,
