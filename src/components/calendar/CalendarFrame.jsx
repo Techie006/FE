@@ -6,7 +6,7 @@ import GridTemplate from "../../elements/templates/GridTemplate";
 import Calendar from "./Calendar";
 import WeekDiets from "./WeekDiets";
 import DietModal from "./modal/DietModal";
-import SearchModal from "./modal/SearchModal";
+import SearchModal from "../../elements/organisms/SearchModal";
 import DatePicker from "../../elements/molecules/DatePicker";
 import { openDatePicker } from "../../modules/redux/calendar";
 
@@ -28,7 +28,7 @@ const CalendarFrame = () => {
         </StWeekSection>
       </GridTemplate>
       {dietModalOpen ? <DietModal /> : null}
-      {searchModalOpen ? <SearchModal /> : null}
+      {searchModalOpen ? <SearchModal pageFrom='calendar' /> : null}
       {datePickerOpen ? <DatePicker depth={1.5} /> : null}
     </>
   );

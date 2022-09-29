@@ -2,16 +2,17 @@ import { useDispatch } from "react-redux";
 import { useState, useRef, useEffect } from "react";
 import styled from "styled-components";
 
-import "../style.css";
-import useDebounce from "../../../hooks/useDebounce";
-import { apis } from "../../../shared/axios";
+import "../../styles/scroll.css";
+import useDebounce from "../../hooks/useDebounce";
+import { apis } from "../../shared/axios";
 // import RESP from "../../../server/response";
-import { closeSearchModal } from "../../../modules/redux/calendar";
-import Modal from "../../../elements/templates/Modal";
-import { ReactComponent as NoResultSVG } from "../../../assets/illustrations/no_result_black.svg";
-import { T1 } from "../../../styles/Text";
+import { closeSearchModal } from "../../modules/redux/calendar";
+import Modal from "../templates/Modal";
+import { ReactComponent as NoResultSVG } from "../../assets/illustrations/no_result_black.svg";
+import { T1 } from "../../styles/Text";
+import { closeModal } from "../../modules/redux/cookingClass";
 
-const SearchModal = (props) => {
+const SearchModal = ({ pageFrom }) => {
   const dispatch = useDispatch();
 
   const [keyword, setKeyword] = useState("");
@@ -54,17 +55,34 @@ const SearchModal = (props) => {
     setRecipes(recipes);
   };
 
+  // 검색 수행하지 않고 창 닫는 경우
   const closeHandler = () => {
     const recipe = {};
-    dispatch(closeSearchModal(recipe));
+    if (pageFrom === "calendar") {
+      dispatch(closeSearchModal(recipe));
+      return;
+    }
+    if (pageFrom === "class") {
+      dispatch(closeModal(recipe));
+      return;
+    }
   };
 
+  // 검색 키워드 입력 시
   const changeHandler = (e) => {
     setKeyword(e.target.value);
   };
 
+  // 검색 하고 특정 레시피를 클릭 시
   const clickHandler = (recipe) => {
-    dispatch(closeSearchModal(recipe));
+    if (pageFrom === "calendar") {
+      dispatch(closeSearchModal(recipe));
+      return;
+    }
+    if (pageFrom === "class") {
+      dispatch(closeModal(recipe));
+      return;
+    }
   };
 
   const autoCompleteItems = recipes?.map((recipe) => (

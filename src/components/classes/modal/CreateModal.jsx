@@ -5,12 +5,14 @@ import { useForm } from "react-hook-form";
 import styled from "styled-components";
 
 import { apis } from "../../../shared/axios";
-import { openModal, closeModal } from "../../../modules/redux/cookingClass";
+import { openModal } from "../../../modules/redux/cookingClass";
 import Modal from "../../../elements/templates/Modal";
 import { ST3, ET1, T4 } from "../../../styles/Text";
-import { ReactComponent as X } from "../../../assets/icons/circleX.svg";
+// import { ReactComponent as X } from "../../../assets/icons/circleX.svg";
 import Button from "../../../elements/atoms/Button";
+import SearchModal from "../../../elements/organisms/SearchModal";
 
+// TODO 이미지 삭제 X 버튼 위치 디자인 협의 필요
 const CreateModal = ({ onClick }) => {
   const modalOpen = useSelector((state) => state.cookingClass.modalOpen);
   const selectedRecipe = useSelector(
@@ -18,10 +20,8 @@ const CreateModal = ({ onClick }) => {
   );
   const dispatch = useDispatch();
 
-  const defaultImgUrl =
-    "data:image/jpeg;base64,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";
   const [showImg, setShowImg] = useState(false);
-  const [imgUrl, setImgUrl] = useState([defaultImgUrl]);
+  const [imgUrl, setImgUrl] = useState([]);
   const [imgInfo, setImgInfo] = useState("선택된 사진이 없어요.");
 
   const navigate = useNavigate();
@@ -77,7 +77,8 @@ const CreateModal = ({ onClick }) => {
 
   // 이미지 미리보기 내의 X 버튼 클릭시 이미지 사라짐
   const clickHandler = () => {
-    setImgUrl([defaultImgUrl]);
+    setImgUrl([]);
+    setImgInfo("");
     setShowImg(false);
     resetField("classImgs");
   };
@@ -190,6 +191,7 @@ const CreateModal = ({ onClick }) => {
           </form>
         </StLayout>
       </Modal>
+      {modalOpen ? <SearchModal fromPage='class' depth={2} /> : null}
     </>
   );
 };
