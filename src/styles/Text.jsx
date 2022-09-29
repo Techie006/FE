@@ -113,6 +113,16 @@ export const T6 = styled(T1)`
   color: #5b5b5b;
 `;
 
+// usage : 쿠킹 클래스 리스트 시청자수
+export const T7 = styled.div`
+  font-family: "Noto Sans KR";
+  font-style: normal;
+  font-weight: 500;
+  font-size: 10px;
+  line-height: 14px;
+  color: #ffffff;
+`;
+
 // usage : 모달 에러 메시지
 export const ET1 = styled.div`
   font-family: "Noto Sans KR";

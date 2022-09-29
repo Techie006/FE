@@ -1,6 +1,8 @@
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 
+import { T7 } from "../../styles/Text";
+
 const Class = ({
   class_id,
   class_img,
@@ -18,7 +20,9 @@ const Class = ({
   return (
     <StLayout onClick={clickHandler}>
       <StImgPart>
-        <StViewer>{`${viewer_nums}명 시청중`}</StViewer>
+        <StViewerBox>
+          <StViewerText>{`${viewer_nums}명 시청중`}</StViewerText>
+        </StViewerBox>
         <StImg src={class_img} alt='thumbnail' />
       </StImgPart>
       <div>{class_name}</div>
@@ -42,26 +46,31 @@ const StImgPart = styled.div`
   border-top-right-radius: 10px;
   width: 405px;
   height: 212px;
+  position: relative;
   overflow: hidden;
 `;
 
-const StViewer = styled.div`
+const StViewerBox = styled.div`
+  position: absolute;
+  left: 10px;
+  top: 13px;
   padding: 3px 4px;
-  background: #efefef;
+  background: #ececec;
   opacity: 0.5;
   border-radius: 2px;
-  font-family: "Noto Sans KR";
-  font-style: normal;
-  font-weight: 500;
-  font-size: 10px;
-  line-height: 14px;
-  color: white;
-  z-index: 50;
+  z-index: 10;
+`;
+
+const StViewerText = styled(T7)`
+  color: #ffffff;
+  opacity: 1;
+  z-index: 20;
 `;
 
 const StImg = styled.img`
+  border-top-left-radius: 10px;
+  border-top-right-radius: 10px;
   width: 100%;
   top: 50%;
   left: 50%;
-  transform: translate(-50%, -50%);
 `;
