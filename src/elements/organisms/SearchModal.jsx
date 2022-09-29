@@ -17,7 +17,7 @@ const SearchModal = ({ pageFrom }) => {
 
   const [keyword, setKeyword] = useState("");
   const [recipes, setRecipes] = useState([]);
-  const [noResult, setNoResult] = useState(false);
+  const [showMsg, setShowMsg] = useState(false);
 
   // 포커싱을 위해 useRef 사용
   const searchBar = useRef();
@@ -46,12 +46,12 @@ const SearchModal = ({ pageFrom }) => {
 
     // 자동 완성 결과가 없는 경우 TODO 디자인 어떻게 처리할지 논의
     if (empty) {
-      setNoResult(true);
+      setShowMsg(true);
       setRecipes([]);
       return;
     }
 
-    setNoResult(false);
+    setShowMsg(false);
     setRecipes(recipes);
   };
 
@@ -100,13 +100,13 @@ const SearchModal = ({ pageFrom }) => {
           ref={searchBar}
           onChange={changeHandler}
         />
-        {!noResult ? (
+        {!showMsg ? (
           <StResultPart className='scroll'>{autoCompleteItems}</StResultPart>
         ) : (
-          <StSVGPart>
+          <StMsgPart>
             <NoResultSVG width='200px' height='200px' viewport='' />
             <T1>검색 결과가 없어요</T1>
-          </StSVGPart>
+          </StMsgPart>
         )}
       </StLayout>
     </Modal>
@@ -151,7 +151,7 @@ const StRecipe = styled.div`
   }
 `;
 
-const StSVGPart = styled.div`
+const StMsgPart = styled.div`
   margin-top: 50px;
   padding: 0px 0px 28px 0px;
   width: 285px;
