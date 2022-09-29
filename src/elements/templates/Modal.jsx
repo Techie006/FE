@@ -40,7 +40,7 @@ const StLayout = styled.div`
   top: 46%;
   transform: translate(-50%, -50%);
   width: 405px;
-  height: 472px;
+  height: minmax(472px, 634px);
   background: #ffffff;
   border-radius: 15px;
   overflow-y: auto;

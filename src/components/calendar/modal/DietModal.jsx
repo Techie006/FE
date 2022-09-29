@@ -140,7 +140,7 @@ const DietModal = (props) => {
 
   return (
     <Modal header='식단 기록하기' onClick={closeHandler} depth={1}>
-      <StForm onSubmit={submitHandler}>
+      <StLayout>
         <StRecipePart>
           <ST3>어떤 요리를 하실건가요?</ST3>
           <StSearchBar
@@ -185,14 +185,14 @@ const DietModal = (props) => {
           marginTop={"30px"}
           onClick={submitHandler}
         />
-      </StForm>
+      </StLayout>
     </Modal>
   );
 };
 
 export default DietModal;
 
-const StForm = styled.div`
+const StLayout = styled.div`
   padding: 27px 61px;
 `;
 

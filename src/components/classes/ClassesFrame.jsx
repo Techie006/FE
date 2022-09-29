@@ -2,10 +2,9 @@ import { useState } from "react";
 import styled from "styled-components";
 
 import GridTemplate from "../../elements/templates/GridTemplate";
-// import ChatTest from "./ChatTest";
 import ClassesHeader from "./ClassesHeader";
 import Classes from "./Classes";
-// import CreateClass from "./CreateClass";
+import CreateModal from "./modal/CreateModal";
 
 const ClassesFrame = () => {
   const [modalOpen, setModalOpen] = useState(false);
@@ -17,12 +16,11 @@ const ClassesFrame = () => {
 
   return (
     <GridTemplate height='auto'>
-      {/* <ChatTest /> */}
       <StHeader>
         <ClassesHeader onClick={clickHandler} />
       </StHeader>
       <Classes />
-      {/* {modalOpen ? <CreateClass onClick={clickHandler} /> : null} */}
+      {modalOpen ? <CreateModal onClick={clickHandler} /> : null}
     </GridTemplate>
   );
 };

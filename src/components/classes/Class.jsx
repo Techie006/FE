@@ -9,6 +9,7 @@ const Class = ({
   class_img,
   class_name,
   redis_class_id,
+  ingredients,
   session_id,
   viewer_nums,
 }) => {
@@ -27,6 +28,7 @@ const Class = ({
         <StImg src={class_img} alt='thumbnail' />
       </StImgPart>
       <StInfoPart>
+        {/* <Ingridients contents={ingredients} /> */}
         <Ingridients contents={["아스파라거스", "무엇", "가지"]} />
         <StClassTitle>{class_name}</StClassTitle>
       </StInfoPart>

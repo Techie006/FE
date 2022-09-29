@@ -89,7 +89,7 @@ export const T3 = styled(T1)`
   color: #282828;
 `;
 
-// usage: 식단 시간
+// usage: 식단 시간, 클래스 열기 버튼
 export const T4 = styled(T1)`
   font-weight: 500;
   font-size: 14px;
@@ -123,6 +123,13 @@ export const T7 = styled.div`
   color: #ffffff;
 `;
 
+// usage: 클래스 이미지 미리보기
+export const T8 = styled.div`
+  font-weight: 700;
+  font-size: 16px;
+  line-height: 23px;
+`;
+
 // usage : 모달 에러 메시지
 export const ET1 = styled.div`
   font-family: "Noto Sans KR";
@@ -136,14 +143,6 @@ export const ET1 = styled.div`
 // 그 외 텍스트
 
 export const H1 = styled.div``;
-
-export const H2 = styled.div`
-  font-weight: 700;
-  font-size: 16px;
-  line-height: 23px;
-  margin-bottom: 20px;
-  background-color: inherit;
-`;
 
 export const Text = styled.div`
   font-size: 0.7rem;

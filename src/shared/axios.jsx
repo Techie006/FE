@@ -2,7 +2,7 @@ import axios from "axios";
 import { encode as base64_encode } from "base-64";
 
 const base = {
-  server_http: "http://3.36.56.125",
+  server_http: "http://3.38.214.79",
   server_https: "https://magorosc.shop",
   openvidu_server: "https://monsterwarrior.shop",
 };

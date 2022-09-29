@@ -2,6 +2,8 @@ import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import { apis } from "../../shared/axios";
 
 const initialState = {
+  modalOpen: false,
+  selectedRecipe: {},
   prevChats: [],
   sessionId: "",
   token: "",
@@ -36,6 +38,14 @@ const cookingClassSlice = createSlice({
   name: "cookingClass",
   initialState,
   reducers: {
+    openModal: (state, _) => {
+      state.modalOpen = true;
+    },
+    closeModal: (state, action) => {
+      state.modalOpen = false;
+      const { selectedRecipe } = action.payload;
+      state.selectedRecipe = selectedRecipe;
+    },
     enterClass: (state, action) => {
       const { message } = action.payload;
       state.prevChats = [...state.prevChats, message];
@@ -55,7 +65,7 @@ const cookingClassSlice = createSlice({
     },
   },
   extraReducers: {
-    [__getClassInfo.pending]: (state, action) => {
+    [__getClassInfo.pending]: (state, _) => {
       state.isLoading = true;
     },
     [__getClassInfo.fulfilled]: (state, action) => {
@@ -72,6 +82,11 @@ const cookingClassSlice = createSlice({
   },
 });
 
-export const { enterClass, sendMessage, saveStompClient } =
-  cookingClassSlice.actions;
+export const {
+  openModal,
+  closeModal,
+  enterClass,
+  sendMessage,
+  saveStompClient,
+} = cookingClassSlice.actions;
 export default cookingClassSlice.reducer;
