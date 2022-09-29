@@ -1,7 +1,8 @@
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 
-import { T7 } from "../../styles/Text";
+import { T7, ST1 } from "../../styles/Text";
+import Ingridients from "../../elements/molecules/Ingredients";
 
 const Class = ({
   class_id,
@@ -25,7 +26,10 @@ const Class = ({
         </StViewerBox>
         <StImg src={class_img} alt='thumbnail' />
       </StImgPart>
-      <div>{class_name}</div>
+      <StInfoPart>
+        <Ingridients contents={["아스파라거스", "무엇", "가지"]} />
+        <StClassTitle>{class_name}</StClassTitle>
+      </StInfoPart>
     </StLayout>
   );
 };
@@ -39,6 +43,9 @@ const StLayout = styled.div`
   background: #ffffff;
   box-shadow: 0px 3px 13px 1px rgba(0, 0, 0, 0.05);
   border-radius: 10px;
+  &:hover {
+    cursor: pointer;
+  }
 `;
 
 const StImgPart = styled.div`
@@ -73,4 +80,15 @@ const StImg = styled.img`
   width: 100%;
   top: 50%;
   left: 50%;
+`;
+
+const StInfoPart = styled.div`
+  display: flex;
+  padding: 18px;
+  flex-direction: column;
+`;
+
+const StClassTitle = styled(ST1)`
+  margin-top: 10px;
+  line-height: 26px;
 `;
