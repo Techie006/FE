@@ -51,6 +51,9 @@ export const apis = {
   update_diet: ({ id, recipe_name, category, date }) =>
     api.put(`/api/calendar/${id}`, { recipe_name, category, day: date }),
   delete_diet: ({ id }) => api.delete(`/api/calendar/${id}`),
+
+  // commonly used
+  // usage: calendar, class
   get_autocomplete: ({ debounceKeyword }) =>
     api.post(`/api/recipes/autocomplete`, { keyword: debounceKeyword }),
 

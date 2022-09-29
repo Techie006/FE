@@ -43,8 +43,8 @@ const cookingClassSlice = createSlice({
     },
     closeModal: (state, action) => {
       state.modalOpen = false;
-      const { selectedRecipe } = action.payload;
-      state.selectedRecipe = selectedRecipe;
+      const { recipe } = action.payload;
+      state.selectedRecipe = recipe;
     },
     enterClass: (state, action) => {
       const { message } = action.payload;

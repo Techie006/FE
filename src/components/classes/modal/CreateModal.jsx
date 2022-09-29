@@ -31,16 +31,13 @@ const CreateModal = ({ onClick }) => {
     handleSubmit,
     formState: { errors },
     resetField,
-  } = useForm({ mode: "onChange" });
+  } = useForm({
+    mode: "onChange",
+    defaultValues: { recipe: selectedRecipe.name },
+  });
 
-  // 사용자가 모달창 각 인풋필드 포커스 시 동작
-  const focusHandler = (e) => {
-    // 사용자가 특정 인풋필드 내용 변경 시도 시 기존 에러 삭제
-    // setErrors((prev) => {
-    //   delete prev[focused];
-    //   return prev;
-    // });
-
+  // 사용자가 모달창 각 인풋필드 클릭 시 동작
+  const clickHandler = (e) => {
     // 사용자가 모달창의 검색창 포커스 시, SearchModal 엶
     dispatch(openModal());
   };
@@ -51,7 +48,6 @@ const CreateModal = ({ onClick }) => {
     const files = e.target.files;
 
     const fileList = Array.from(files);
-    console.log(fileList);
 
     // 선택된 파일 없으면 보여주지 않음.
     if (fileList.length === 0) {
@@ -76,7 +72,7 @@ const CreateModal = ({ onClick }) => {
   };
 
   // 이미지 미리보기 내의 X 버튼 클릭시 이미지 사라짐
-  const clickHandler = () => {
+  const deleteHandler = () => {
     setImgUrl([]);
     setImgInfo("");
     setShowImg(false);
@@ -84,22 +80,28 @@ const CreateModal = ({ onClick }) => {
   };
 
   // 클래스 생성
-  const submitHandler = async ({ className, classImgs, recipeId }) => {
+  const submitHandler = async ({ className, classImgs, _ }) => {
     const resp = await apis.create_class({
-      recipe_id: recipeId,
+      recipe_id: selectedRecipe.id,
       class_name: className,
       files: classImgs,
     });
+
     const {
       content,
-      status: { code, message },
+      status: { code },
     } = resp.data;
+
+    // TODO 썸네일 크기 메시지 추가
     if (code === 400) {
-      alert(message);
+      errors.classImg = {
+        message: "썸네일 크기는 20MB를 넘을 수 없습니다.",
+      };
       return;
     }
-    const { redis_class_id } = content;
-    navigate(`/class/${redis_class_id}/publisher`);
+
+    const { redis_class_id, session_id, token } = content;
+    navigate(`/class/${redis_class_id}`);
   };
 
   return (
@@ -130,8 +132,8 @@ const CreateModal = ({ onClick }) => {
                 type='text'
                 placeholder='레시피명 검색'
                 id='recipe'
-                onFocus={focusHandler}
-                onChange={focusHandler}
+                onClick={clickHandler}
+                onChange={clickHandler}
                 value={selectedRecipe?.recipe_name || ""}
                 {...register("recipe", {
                   required:
@@ -148,11 +150,7 @@ const CreateModal = ({ onClick }) => {
                 <StLabelBox className='input-file-button' htmlFor='classImgs'>
                   <StLabelText>파일 선택</StLabelText>
                 </StLabelBox>
-                <StFileInput
-                  type='text'
-                  value={imgInfo}
-                  onChange={() => console.log("change")}
-                />
+                <StFileInput type='text' value={imgInfo} onChange={() => {}} />
                 <input
                   type='file'
                   style={{ display: "none" }}
@@ -178,7 +176,7 @@ const CreateModal = ({ onClick }) => {
               {showImg ? (
                 <>
                   <StImg src={imgUrl[0]} alt='img' />
-                  {/* <X onClick={() => console.log("clicked")} /> */}
+                  {/* <X onClick={deleteHandler} /> */}
                 </>
               ) : null}
             </StImgPart>
@@ -191,7 +189,7 @@ const CreateModal = ({ onClick }) => {
           </form>
         </StLayout>
       </Modal>
-      {modalOpen ? <SearchModal fromPage='class' depth={2} /> : null}
+      {modalOpen ? <SearchModal pageFrom='class' depth={2} /> : null}
     </>
   );
 };

@@ -36,10 +36,11 @@ const SearchModal = ({ pageFrom }) => {
 
   const getAutoComplete = async (debounceKeyword) => {
     // Mock APIs
-    // const resp = RESP.CALENDAR.GET_AUTOCOMPLETE_SUCCESS;
-    // const resp = RESP.CALENDAR.GET_AUTOCOMPLETE_EMPTY;
+    // const resp = RESP.COMMON.GET_AUTOCOMPLETE_SUCCESS;
+    // const resp = RESP.COMMON.GET_AUTOCOMPLETE_EMPTY;
 
     const resp = await apis.get_autocomplete({ debounceKeyword });
+
     const {
       content: { empty, recipes },
     } = resp.data;
@@ -63,7 +64,7 @@ const SearchModal = ({ pageFrom }) => {
       return;
     }
     if (pageFrom === "class") {
-      dispatch(closeModal(recipe));
+      dispatch(closeModal({ recipe }));
       return;
     }
   };
@@ -80,7 +81,7 @@ const SearchModal = ({ pageFrom }) => {
       return;
     }
     if (pageFrom === "class") {
-      dispatch(closeModal(recipe));
+      dispatch(closeModal({ recipe }));
       return;
     }
   };

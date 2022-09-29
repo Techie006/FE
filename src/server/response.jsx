@@ -811,6 +811,9 @@ const RESP = {
         message: "해당 날짜에 식단을 삭제하였습니다.",
       },
     },
+  },
+
+  COMMON: {
     GET_AUTOCOMPLETE_SUCCESS: {
       data: {
         result: true,
