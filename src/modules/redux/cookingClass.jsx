@@ -46,9 +46,16 @@ const cookingClassSlice = createSlice({
       const { recipe } = action.payload;
       state.selectedRecipe = recipe;
     },
+    createdClass: (state, action) => {
+      const { session_id, token } = action.payload;
+      state.sessionId = session_id;
+      state.token = token;
+    },
     enterClass: (state, action) => {
-      const { message } = action.payload;
-      state.prevChats = [...state.prevChats, message];
+      const { session_id, token, chats } = action.payload;
+      state.sessionId = session_id;
+      state.token = token;
+      state.prevChats = chats;
     },
     sendMessage: (state, action) => {
       const { message } = action.payload;
@@ -86,6 +93,7 @@ export const {
   openModal,
   closeModal,
   enterClass,
+  createdClass,
   sendMessage,
   saveStompClient,
 } = cookingClassSlice.actions;

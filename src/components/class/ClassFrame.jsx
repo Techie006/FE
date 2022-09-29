@@ -9,7 +9,7 @@ import ChatFrame from "./ChatFrame";
 // import VideoFrame from "./VideoFrame";
 
 const ClassFrame = () => {
-  const { classId } = useParams();
+  const { classId, redisClassId, role } = useParams();
 
   const dispatch = useDispatch();
 
@@ -23,9 +23,9 @@ const ClassFrame = () => {
         <div>classSection</div>
         {/* <VideoFrame /> */}
       </StClassSection>
-      <StChatSection>
+      {/* <StChatSection>
         <ChatFrame />
-      </StChatSection>
+      </StChatSection> */}
     </GridTemplate>
   );
 };

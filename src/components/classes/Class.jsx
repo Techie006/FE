@@ -1,6 +1,9 @@
+import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 
+import { apis } from "../../shared/axios";
+import { enterClass } from "../../modules/redux/cookingClass";
 import { T7, ST1 } from "../../styles/Text";
 import Ingridients from "../../elements/molecules/Ingredients";
 
@@ -13,10 +16,29 @@ const Class = ({
   session_id,
   viewer_nums,
 }) => {
+  const dispatch = useDispatch();
   const navigate = useNavigate();
 
-  const clickHandler = () => {
-    navigate(`/class/${class_id}/${redis_class_id}`);
+  // 클래스 입장 절차 거쳐야 함
+  const clickHandler = async () => {
+    // TODO loader 클래스 입장중입니다 알람 띄우기
+    // 클래스 입장 요청
+    const resp = await apis.enter_class({ class_id });
+
+    const {
+      content,
+      status: { code },
+    } = resp.data;
+
+    if (code === 400) {
+      window.alert("이미 정원이 다 찬 방입니다. 입장이 불가해요.");
+      return;
+    }
+
+    const { session_id, token, chats } = content;
+    dispatch(enterClass({ session_id, token, chats }));
+
+    navigate(`/class/${class_id}/${redis_class_id}/sub`);
   };
 
   return (
@@ -28,8 +50,7 @@ const Class = ({
         <StImg src={class_img} alt='thumbnail' />
       </StImgPart>
       <StInfoPart>
-        {/* <Ingridients contents={ingredients} /> */}
-        <Ingridients contents={["아스파라거스", "무엇", "가지"]} />
+        <Ingridients contents={ingredients} />
         <StClassTitle>{class_name}</StClassTitle>
       </StInfoPart>
     </StLayout>
