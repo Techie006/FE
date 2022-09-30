@@ -57,14 +57,16 @@ const CreateChat = ({ stompClient }) => {
             placeholder='메시지 작성...'
             {...register("message", { required: true })}
           />
-          <IconBox
-            isCircle={true}
-            page='class'
-            func='send'
-            onClick={handleSubmit(submitHandler)}
-          >
-            <SendMsg fill='#A5A5A5' />
-          </IconBox>
+          <StButton>
+            <IconBox
+              page='class'
+              func='send'
+              onClick={handleSubmit(submitHandler)}
+              isBox={false}
+            >
+              <SendMsg fill='#A5A5A5' />
+            </IconBox>
+          </StButton>
         </form>
       </StInputBox>
     </>
@@ -75,7 +77,6 @@ export default CreateChat;
 
 const StInputBox = styled.div`
   position: relative;
-  background: tomato;
   margin: 14px;
   height: 40px;
 `;
@@ -83,8 +84,11 @@ const StInputBox = styled.div`
 const StInput = styled.input`
   border: none;
   width: 100%;
-  background: black;
-  margin: 14px;
-  color: white;
   padding: 11px 43px 12px 8px;
+`;
+
+const StButton = styled.div`
+  position: absolute;
+  top: 10px;
+  left: 90%;
 `;
