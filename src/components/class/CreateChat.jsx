@@ -90,5 +90,5 @@ const StInput = styled.input`
 const StButton = styled.div`
   position: absolute;
   top: 10px;
-  left: 90%;
+  left: 85%;
 `;
