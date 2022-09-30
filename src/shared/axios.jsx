@@ -82,7 +82,7 @@ export const apis = {
     // }
     return api.post(`/api/class`, formData);
   },
-  get_class_recipe: ({ class_id }) => api.delete(`/api/class/${class_id}`),
+  get_class_recipe: ({ class_id }) => api.get(`/api/class/${class_id}`),
   enter_class: ({ class_id }) => api.get(`/api/class/enter/${class_id}`),
   quit_class: ({ class_id }) => api.delete(`/api/class/${class_id}`),
 
