@@ -1,12 +1,16 @@
 import { useParams } from "react-router-dom";
 import { useSelector } from "react-redux";
-// import { useDispatch } from "react-redux";
+import { useDispatch } from "react-redux";
 import { useRef, useCallback, useEffect } from "react";
 import webstomp from "webstomp-client";
 import SockJs from "sockjs-client";
 import styled from "styled-components";
 
-import { ST2, Text } from "../../styles/Text";
+import {
+  enterEvent,
+  messageEvent,
+  leaveEvent,
+} from "../../modules/redux/cookingClass";
 import Chats from "./Chats";
 import CreateChat from "./CreateChat";
 import ChatHeader from "./ChatHeader";
@@ -17,6 +21,8 @@ const ChatFrame = (props) => {
 
   const isLogin = useSelector((state) => state.auth.isLogin);
   const userInfo = useSelector((state) => state.auth.userInfo);
+
+  const dispatch = useDispatch();
 
   // 리렌더링이 되더라도 값을 유지
   const stompClient = useRef({});
@@ -64,6 +70,7 @@ const ChatFrame = (props) => {
     switch (type) {
       case "ENTER":
         console.log("enter", resp);
+        // dispatch(enterEvent());
         return;
       case "MESSAGE":
         console.log("message", resp);

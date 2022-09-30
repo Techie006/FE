@@ -55,6 +55,20 @@ const cookingClassSlice = createSlice({
       const { message } = action.payload;
       state.prevChats = [...state.prevChats, message];
     },
+    enterEvent: (state, action) => {
+      const { message } = action.payload;
+      state.viewerNum = state.viewerNum + 1;
+      state.prevChats = [...state.prevChats, message];
+    },
+    messageEvent: (state, action) => {
+      const { message } = action.payload;
+      state.prevChats = [...state.prevChats, message];
+    },
+    leaveEvent: (state, action) => {
+      const { message } = action.payload;
+      state.viewerNum = state.viewerNum - 1;
+      state.prevChats = [...state.prevChats, message];
+    },
   },
   extraReducers: {
     // [__getClassInfo.pending]: (state, _) => {
@@ -74,6 +88,14 @@ const cookingClassSlice = createSlice({
   },
 });
 
-export const { openModal, closeModal, enterClass, createdClass, sendMessage } =
-  cookingClassSlice.actions;
+export const {
+  openModal,
+  closeModal,
+  enterClass,
+  createdClass,
+  sendMessage,
+  enterEvent,
+  messageEvent,
+  leaveEvent,
+} = cookingClassSlice.actions;
 export default cookingClassSlice.reducer;
