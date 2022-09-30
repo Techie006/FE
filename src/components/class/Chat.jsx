@@ -1,13 +1,16 @@
+import { useSelector } from "react-redux";
 import styled from "styled-components";
 
 import UserImg from "../../elements/molecules/UserImg";
 
 const Chat = ({ nickname: username, profile_img, message }) => {
+  const userInfo = useSelector((state) => state.auth.userInfo);
+
   return (
     <StWrapper>
       <UserImg src={profile_img} alt={`profile_${username}`} />
       <StUsername>{username}</StUsername>
-      <StMessage>{message}</StMessage>
+      <StMessage isMe={userInfo.username === username}>{message}</StMessage>
     </StWrapper>
   );
 };
@@ -39,5 +42,5 @@ const StMessage = styled.div`
   font-size: 12px;
   line-height: 17px;
   letter-spacing: -0.5px;
-  color: #282828;
+  color: ${(props) => (!props.isMe ? "#282828" : "#F07401")};
 `;

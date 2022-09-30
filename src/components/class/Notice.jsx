@@ -15,6 +15,7 @@ const StWrapper = styled.div`
   align-items: center;
   flex-wrap: nowrap;
   justify-content: center;
+  margin: 10px 0px;
 `;
 
 const StMessage = styled.div`

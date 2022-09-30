@@ -1,7 +1,46 @@
+import { useSelector } from "react-redux";
+import { useParams } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import styled from "styled-components";
 
-const CreateChat = ({ stompClient, getHeader, createData, sendEvent }) => {
+import IconBox from "../../elements/atoms/IconBox";
+import { ReactComponent as SendMsg } from "../../assets/icons/sendMsg.svg";
+
+const CreateChat = ({ stompClient }) => {
+  const isLogin = useSelector((state) => state.auth.isLogin);
+  const userInfo = useSelector((state) => state.auth.userInfo);
+
+  const { redis_class_id } = useParams();
+
+  // webSocket 통신을 위한 헤더 생성
+  const getHeader = () => {
+    if (isLogin)
+      return {
+        Authorization: localStorage.getItem("Authorization"),
+      };
+    else return {};
+  };
+
+  // webSocket 통신을 위한 request body 생성
+  const createData = (eventType, message = "") => ({
+    type: eventType,
+    redis_class_id: redis_class_id,
+    member_id: userInfo.member_id,
+    nickname: userInfo.username,
+    profile_img: userInfo.profile_img,
+    message: message,
+    viewer_num: 0,
+  });
+
+  // 발생 이벤트에 따라 webSocket 통신 송신 요청 생성
+  const sendEvent = (event, message) => {
+    stompClient.current.send(
+      `/api/pub/chat`,
+      JSON.stringify(createData(event, message)),
+      getHeader()
+    );
+  };
+
   const { register, handleSubmit, reset } = useForm({ mode: "onChange" });
 
   const submitHandler = ({ message }) => {
@@ -12,17 +51,20 @@ const CreateChat = ({ stompClient, getHeader, createData, sendEvent }) => {
   return (
     <>
       <StInputBox>
-        <form>
-          <input
+        <form onSubmit={handleSubmit(submitHandler)}>
+          <StInput
             type='text'
-            placeholder='메시지 작성'
+            placeholder='메시지 작성...'
             {...register("message", { required: true })}
           />
-          {/* <Button
-          isIcon={true}
-          icon={faPaperPlane}
-          onClick={handleSubmit(submitHandler)}
-        /> */}
+          <IconBox
+            isCircle={true}
+            page='class'
+            func='send'
+            onClick={handleSubmit(submitHandler)}
+          >
+            <SendMsg fill='#A5A5A5' />
+          </IconBox>
         </form>
       </StInputBox>
     </>
@@ -33,17 +75,16 @@ export default CreateChat;
 
 const StInputBox = styled.div`
   position: relative;
-  width: 60%;
   background: tomato;
+  margin: 14px;
   height: 40px;
+`;
 
-  input {
-    border: none;
-    width: 60%;
-    background: black;
-    margin: 14px;
-    color: white;
-    padding: 11px 43px 12px 8px;
-    box-sizing: content-box;
-  }
+const StInput = styled.input`
+  border: none;
+  width: 100%;
+  background: black;
+  margin: 14px;
+  color: white;
+  padding: 11px 43px 12px 8px;
 `;
