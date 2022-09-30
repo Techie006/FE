@@ -1,9 +1,8 @@
-import { connect, useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 import { useState, useEffect } from "react";
 import { OpenVidu } from "openvidu-browser";
 import styled from "styled-components";
 
-import { apis } from "../../shared/axios";
 import ClassVideo from "./ClassVideo";
 
 const VideoFrame = (props) => {
