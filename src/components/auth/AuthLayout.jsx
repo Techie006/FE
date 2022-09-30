@@ -4,7 +4,7 @@ import FormLayout from './FormLayout';
 
 const AuthLayout = () => {
     return (
-        <div>AuthLayout
+        <div>
             <FormLayout/>
         </div>
     );
