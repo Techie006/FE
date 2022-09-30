@@ -19,6 +19,8 @@ import ChatHeader from "./ChatHeader";
 const ChatFrame = (props) => {
   const { redis_class_id } = useParams();
 
+  console.log(redis_class_id);
+
   const isLogin = useSelector((state) => state.auth.isLogin);
   const userInfo = useSelector((state) => state.auth.userInfo);
 

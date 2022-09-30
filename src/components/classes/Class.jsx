@@ -42,7 +42,7 @@ const Class = ({
   };
 
   return (
-    <StLayout onClick={clickHandler}>
+    <StClassSection onClick={clickHandler}>
       <StImgPart>
         <StViewerBox>
           <StViewerText>{`${viewer_nums}명 시청중`}</StViewerText>
@@ -53,29 +53,34 @@ const Class = ({
         <Ingridients contents={ingredients} />
         <StClassTitle>{class_name}</StClassTitle>
       </StInfoPart>
-    </StLayout>
+    </StClassSection>
   );
 };
 
 export default Class;
 
 // TOOD 반응형으로 바꾸기
-const StLayout = styled.div`
-  width: 405px;
-  height: 331px;
+const StClassSection = styled.div`
+  /* width: 405px; */
+  grid-column: span 4;
+
   background: #ffffff;
   box-shadow: 0px 3px 13px 1px rgba(0, 0, 0, 0.05);
   border-radius: 10px;
   &:hover {
     cursor: pointer;
   }
+
+  /* mobile */
+  @media all and (max-width: 600px) {
+    grid-column-end: span 4;
+  }
 `;
 
 const StImgPart = styled.div`
   border-top-left-radius: 10px;
   border-top-right-radius: 10px;
-  width: 405px;
-  height: 212px;
+  width: 100%;
   position: relative;
   overflow: hidden;
 `;
