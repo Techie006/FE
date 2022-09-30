@@ -6,9 +6,10 @@ import webstomp from "webstomp-client";
 import SockJs from "sockjs-client";
 import styled from "styled-components";
 
-import { T3, Text } from "../../styles/Text";
+import { ST2, Text } from "../../styles/Text";
 import Chats from "./Chats";
 import CreateChat from "./CreateChat";
+import ChatHeader from "./ChatHeader";
 
 // TODO change v4 -> v5
 const ChatFrame = (props) => {
@@ -48,7 +49,7 @@ const ChatFrame = (props) => {
   const sendEvent = useCallback(
     (event, message) => {
       stompClient.current.send(
-        `/pub/chat`,
+        `/api/pub/chat`,
         JSON.stringify(createData(event, message)),
         getHeader()
       );
@@ -77,7 +78,7 @@ const ChatFrame = (props) => {
 
   const connectSocket = useCallback(() => {
     // 1. webSocket 클라이언트 생성
-    const sock = new SockJs("http://3.36.56.125/ws");
+    const sock = new SockJs("http://3.38.214.79/ws");
     stompClient.current = webstomp.over(sock);
 
     // 2. webSocket 연결
@@ -85,7 +86,7 @@ const ChatFrame = (props) => {
       sendEvent("ENTER");
 
       subscription.current = stompClient.current.subscribe(
-        `/sub/chat/${redis_class_id}`,
+        `/api/sub/chat/${redis_class_id}`,
         (frame) => receiveEvent(frame),
         getHeader()
       );
@@ -95,7 +96,7 @@ const ChatFrame = (props) => {
   const disconnectSocket = useCallback(() => {
     // 1. webSocket 연결 해지 전 Leave 이벤트 전달
     stompClient.current.send(
-      `/pub/chat`,
+      `/api/pub/chat`,
       JSON.stringify(createData("LEAVE")),
       getHeader()
     );
@@ -110,39 +111,34 @@ const ChatFrame = (props) => {
     return () => disconnectSocket();
   }, [connectSocket, disconnectSocket]);
 
-  console.log(stompClient.current);
-
   return (
     <>
-      <StHeader>
-        <T3>실시간 채팅</T3>
-        <Text>시청자 수 : </Text>
-      </StHeader>
-      <main>
-        {/* <StChatsPart>
-          <Chats />
-        </StChatsPart>
-        <StCreatePart>
-          <CreateChat />
-        </StCreatePart> */}
-      </main>
+      <ChatHeader />
+      <StChatsPart>
+        <Chats />
+      </StChatsPart>
+      <StCreatePart>
+        <CreateChat
+          stompClient={stompClient.current}
+          getHeader={getHeader}
+          createData={createData}
+          sendEvent={sendEvent}
+        />
+      </StCreatePart>
     </>
   );
 };
 
 export default ChatFrame;
 
-const StHeader = styled.div`
-  padding: 18px 18px;
-`;
-
 const StChatsPart = styled.div`
-  height: 300px;
+  height: 439px;
   overflow-y: scroll;
   background-color: #eeeaea;
 `;
 
 const StCreatePart = styled.div`
   border-top: 1px solid #ececec;
-  background: ${(props) => props.theme.section.box.background};
+  background: #fafafa;
+  border-radius: 0px 0px 8px 8px;
 `;

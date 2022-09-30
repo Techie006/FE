@@ -1,6 +1,6 @@
 import styled from "styled-components";
 
-const Image = (src, alt, ...props) => {
+const Image = ({ src, alt, ...props }) => {
   return (
     <div {...props}>
       <StImg src={src} alt={alt} />

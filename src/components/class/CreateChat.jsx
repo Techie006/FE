@@ -1,14 +1,7 @@
-import { useSelector } from "react-redux";
 import { useForm } from "react-hook-form";
-import { faPaperPlane } from "@fortawesome/free-solid-svg-icons";
+import styled from "styled-components";
 
-import Button from "../../elements/atoms/Button";
-
-const CreateChat = (props) => {
-  const stomp = useSelector((state) => state.cookingClass.stomp);
-
-  const { stompClient, getHeader, createData, sendEvent } = stomp;
-
+const CreateChat = ({ stompClient, getHeader, createData, sendEvent }) => {
   const { register, handleSubmit, reset } = useForm({ mode: "onChange" });
 
   const submitHandler = ({ message }) => {
@@ -18,20 +11,39 @@ const CreateChat = (props) => {
 
   return (
     <>
-      <form>
-        <input
-          type='text'
-          placeholder='chat message'
-          {...register("message", { required: true })}
-        />
-        <Button
+      <StInputBox>
+        <form>
+          <input
+            type='text'
+            placeholder='메시지 작성'
+            {...register("message", { required: true })}
+          />
+          {/* <Button
           isIcon={true}
           icon={faPaperPlane}
           onClick={handleSubmit(submitHandler)}
-        />
-      </form>
+        /> */}
+        </form>
+      </StInputBox>
     </>
   );
 };
 
 export default CreateChat;
+
+const StInputBox = styled.div`
+  position: relative;
+  width: 60%;
+  background: tomato;
+  height: 40px;
+
+  input {
+    border: none;
+    width: 60%;
+    background: black;
+    margin: 14px;
+    color: white;
+    padding: 11px 43px 12px 8px;
+    box-sizing: content-box;
+  }
+`;

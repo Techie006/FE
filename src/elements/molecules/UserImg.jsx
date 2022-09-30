@@ -2,7 +2,7 @@ import styled from "styled-components";
 
 import Image from "../atoms/Image";
 
-const UserImg = (src, alt, ...props) => {
+const UserImg = ({ src, alt, ...props }) => {
   return (
     <div {...props}>
       <StWrapper>
@@ -18,4 +18,5 @@ const StWrapper = styled.div`
   width: 32px;
   height: 32px;
   border-radius: 50%;
+  background: #d9d9d9;
 `;

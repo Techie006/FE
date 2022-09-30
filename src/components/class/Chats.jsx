@@ -1,6 +1,7 @@
 import { useSelector } from "react-redux";
 import { useState, useEffect } from "react";
 
+import Notice from "./Notice";
 import Chat from "./Chat";
 
 const Chats = () => {
@@ -12,9 +13,13 @@ const Chats = () => {
     setChats(prevChats);
   }, [prevChats]);
 
-  const chatList = chats.map(({ redis_chat_id, ...props }) => (
-    <Chat key={redis_chat_id} {...props} />
-  ));
+  const chatList = chats.map(({ redis_chat_id, notice = "true", ...props }) => {
+    if (notice) {
+      return <Notice key={redis_chat_id} {...props} />;
+    } else {
+      return <Chat key={redis_chat_id} {...props} />;
+    }
+  });
 
   return <>{chatList}</>;
 };
