@@ -5,7 +5,7 @@ import { useForm } from "react-hook-form";
 import styled from "styled-components";
 
 import { apis } from "../../../shared/axios";
-import { openModal } from "../../../modules/redux/cookingClass";
+import { openModal, createdClass } from "../../../modules/redux/cookingClass";
 import Modal from "../../../elements/templates/Modal";
 import { ST3, ET1, T4 } from "../../../styles/Text";
 // import { ReactComponent as X } from "../../../assets/icons/circleX.svg";
@@ -28,12 +28,12 @@ const CreateModal = ({ onClick }) => {
 
   const {
     register,
+    setValue,
     handleSubmit,
     formState: { errors },
     resetField,
   } = useForm({
     mode: "onChange",
-    defaultValues: { recipe: selectedRecipe.name },
   });
 
   // 사용자가 모달창 각 인풋필드 클릭 시 동작
@@ -80,7 +80,7 @@ const CreateModal = ({ onClick }) => {
   };
 
   // 클래스 생성
-  const submitHandler = async ({ className, classImgs, _ }) => {
+  const submitHandler = async ({ className, classImgs, recipe }) => {
     const resp = await apis.create_class({
       recipe_id: selectedRecipe.id,
       class_name: className,
@@ -92,7 +92,6 @@ const CreateModal = ({ onClick }) => {
       status: { code },
     } = resp.data;
 
-    // TODO 썸네일 크기 메시지 추가
     if (code === 400) {
       errors.classImg = {
         message: "썸네일 크기는 20MB를 넘을 수 없습니다.",
@@ -100,8 +99,12 @@ const CreateModal = ({ onClick }) => {
       return;
     }
 
-    const { redis_class_id, session_id, token } = content;
-    navigate(`/class/${redis_class_id}`);
+    const { class_id, redis_class_id, session_id, full_token, token } = content;
+
+    // session_id, token 정보 저장
+    dispatch(createdClass({ session_id, token, full_token }));
+
+    navigate(`/class/${class_id}/${redis_class_id}/pub`);
   };
 
   return (
@@ -134,10 +137,9 @@ const CreateModal = ({ onClick }) => {
                 id='recipe'
                 onClick={clickHandler}
                 onChange={clickHandler}
-                value={selectedRecipe?.recipe_name || ""}
+                value={selectedRecipe.recipe_name || ""}
                 {...register("recipe", {
-                  required:
-                    "신규 클래스 생성을 위해서 해당하는 레시피를 입력해주셔야해요.",
+                  required: "신규 클래스 생성을 위해서 레시피를 입력해주세요.",
                 })}
               />
               {errors.recipe ? <ET1>{errors.recipe.message}</ET1> : null}

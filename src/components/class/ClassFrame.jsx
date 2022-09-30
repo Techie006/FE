@@ -1,27 +1,14 @@
-import { useParams } from "react-router-dom";
-import { useDispatch } from "react-redux";
-import { useEffect } from "react";
-import { __getClassInfo } from "../../modules/redux/cookingClass";
 import styled from "styled-components";
 
 import GridTemplate from "../../elements/templates/GridTemplate";
+import VideoFrame from "./VideoFrame";
 import ChatFrame from "./ChatFrame";
-// import VideoFrame from "./VideoFrame";
 
 const ClassFrame = () => {
-  const { classId } = useParams();
-
-  const dispatch = useDispatch();
-
-  useEffect(() => {
-    dispatch(__getClassInfo({ classId }));
-  }, [dispatch, classId]);
-
   return (
     <GridTemplate>
       <StClassSection>
-        <div>classSection</div>
-        {/* <VideoFrame /> */}
+        <VideoFrame />
       </StClassSection>
       <StChatSection>
         <ChatFrame />

@@ -5,6 +5,7 @@ const NotFound = (props) => {
   return (
     <Layout>
       <Header />
+      <div>NotFound</div>
     </Layout>
   );
 };

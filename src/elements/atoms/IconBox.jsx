@@ -16,7 +16,6 @@ const IconBox = ({
   let background = "";
   let viewBoxWidth = "";
   let viewBoxHeight = "";
-  let padding = "";
 
   const createStyle = () => {
     switch (page) {
@@ -52,6 +51,16 @@ const IconBox = ({
           background = "#FFFFF";
           viewBoxWidth = "7px";
           viewBoxHeight = "7px";
+        }
+        break;
+      case "class":
+        if (func === "send") {
+          width = "22px";
+          height = "22px";
+          border = "";
+          background = "";
+          viewBoxWidth = "22px";
+          viewBoxHeight = "22px";
         }
         break;
       default:
