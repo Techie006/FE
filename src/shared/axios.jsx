@@ -82,7 +82,6 @@ export const apis = {
     // }
     return api.post(`/api/class`, formData);
   },
-  get_class_info: ({ classId }) => api.get(`api/class/enter/${classId}`),
   enter_class: ({ class_id }) => api.get(`api/class/enter/${class_id}`),
 
   // back과 협업하는 코드가 아닌 경우 사용해야 함. 현재 플젝에서는 변경되어 사용하지 않음.
