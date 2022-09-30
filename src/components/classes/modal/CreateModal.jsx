@@ -99,10 +99,10 @@ const CreateModal = ({ onClick }) => {
       return;
     }
 
-    const { class_id, redis_class_id, session_id, token } = content;
+    const { class_id, redis_class_id, session_id, full_token, token } = content;
 
     // session_id, token 정보 저장
-    dispatch(createdClass({ session_id, token }));
+    dispatch(createdClass({ session_id, token, full_token }));
 
     navigate(`/class/${class_id}/${redis_class_id}/pub`);
   };

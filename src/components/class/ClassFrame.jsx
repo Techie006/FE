@@ -1,13 +1,15 @@
 import styled from "styled-components";
 
 import GridTemplate from "../../elements/templates/GridTemplate";
+import VideoFrame from "./VideoFrame";
 import ChatFrame from "./ChatFrame";
-// import VideoFrame from "./VideoFrame";
 
 const ClassFrame = () => {
   return (
     <GridTemplate>
-      <StClassSection>{/* <VideoFrame /> */}</StClassSection>
+      <StClassSection>
+        <VideoFrame />
+      </StClassSection>
       <StChatSection>
         <ChatFrame />
       </StChatSection>

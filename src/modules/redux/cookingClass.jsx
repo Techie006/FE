@@ -7,6 +7,7 @@ const initialState = {
   prevChats: [],
   sessionId: "",
   token: "",
+  fullToken: "",
   viewerNum: 0,
   isLoading: false,
   error: "",
@@ -41,19 +42,17 @@ const cookingClassSlice = createSlice({
       state.selectedRecipe = recipe;
     },
     createdClass: (state, action) => {
-      const { session_id, token } = action.payload;
+      const { session_id, token, full_token } = action.payload;
       state.sessionId = session_id;
+      state.fullToken = full_token;
       state.token = token;
     },
     enterClass: (state, action) => {
-      const { session_id, token, chats } = action.payload;
+      const { session_id, token, full_token, chats } = action.payload;
       state.sessionId = session_id;
       state.token = token;
+      state.fullToken = full_token;
       state.prevChats = chats;
-    },
-    sendMessage: (state, action) => {
-      const { message } = action.payload;
-      state.prevChats = [...state.prevChats, message];
     },
     enterEvent: (state, action) => {
       const { chat } = action.payload;

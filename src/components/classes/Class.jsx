@@ -35,8 +35,8 @@ const Class = ({
       return;
     }
 
-    const { session_id, token, chats } = content;
-    dispatch(enterClass({ session_id, token, chats }));
+    const { session_id, token, full_token, chats } = content;
+    dispatch(enterClass({ session_id, token, full_token, chats }));
 
     navigate(`/class/${class_id}/${redis_class_id}/sub`);
   };
