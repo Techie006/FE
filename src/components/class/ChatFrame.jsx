@@ -71,14 +71,13 @@ const ChatFrame = (props) => {
     const { type } = resp;
     switch (type) {
       case "ENTER":
-        console.log("enter", resp);
-        // dispatch(enterEvent());
+        dispatch(enterEvent({ chat: resp }));
         return;
       case "MESSAGE":
-        console.log("message", resp);
+        dispatch(messageEvent({ chat: resp }));
         return;
       case "LEAVE":
-        console.log("leave", resp);
+        dispatch(leaveEvent({ chat: resp }));
         return;
       default:
         return;

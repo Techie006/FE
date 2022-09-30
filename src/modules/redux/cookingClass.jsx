@@ -56,18 +56,18 @@ const cookingClassSlice = createSlice({
       state.prevChats = [...state.prevChats, message];
     },
     enterEvent: (state, action) => {
-      const { message } = action.payload;
+      const { chat } = action.payload;
       state.viewerNum = state.viewerNum + 1;
-      state.prevChats = [...state.prevChats, message];
+      state.prevChats = [...state.prevChats, chat];
     },
     messageEvent: (state, action) => {
-      const { message } = action.payload;
-      state.prevChats = [...state.prevChats, message];
+      const { chat } = action.payload;
+      state.prevChats = [...state.prevChats, chat];
     },
     leaveEvent: (state, action) => {
-      const { message } = action.payload;
+      const { chat } = action.payload;
       state.viewerNum = state.viewerNum - 1;
-      state.prevChats = [...state.prevChats, message];
+      state.prevChats = [...state.prevChats, chat];
     },
   },
   extraReducers: {
