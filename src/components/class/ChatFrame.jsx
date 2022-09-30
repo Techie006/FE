@@ -118,12 +118,7 @@ const ChatFrame = (props) => {
         <Chats />
       </StChatsPart>
       <StCreatePart>
-        <CreateChat
-          stompClient={stompClient.current}
-          getHeader={getHeader}
-          createData={createData}
-          sendEvent={sendEvent}
-        />
+        <CreateChat stompClient={stompClient} />
       </StCreatePart>
     </>
   );

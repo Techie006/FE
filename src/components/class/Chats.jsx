@@ -13,7 +13,7 @@ const Chats = () => {
     setChats(prevChats);
   }, [prevChats]);
 
-  const chatList = chats.map(({ redis_chat_id, notice = "true", ...props }) => {
+  const chatList = chats.map(({ redis_chat_id, notice, ...props }) => {
     if (notice) {
       return <Notice key={redis_chat_id} {...props} />;
     } else {
