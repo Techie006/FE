@@ -3,8 +3,8 @@ import { useParams } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import styled from "styled-components";
 
-import IconBox from "../../elements/atoms/IconBox";
-import { ReactComponent as SendMsg } from "../../assets/icons/sendMsg.svg";
+import IconBox from "../../../elements/atoms/IconBox";
+import { ReactComponent as SendMsg } from "../../../assets/icons/sendMsg.svg";
 
 const CreateChat = ({ stompClient }) => {
   const isLogin = useSelector((state) => state.auth.isLogin);

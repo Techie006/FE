@@ -1,7 +1,7 @@
 import { useSelector } from "react-redux";
 import styled from "styled-components";
 
-import UserImg from "../../elements/molecules/UserImg";
+import UserImg from "../../../elements/molecules/UserImg";
 
 const Chat = ({ nickname: username, profile_img, message }) => {
   const userInfo = useSelector((state) => state.auth.userInfo);

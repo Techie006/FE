@@ -7,10 +7,7 @@ import ChatFrame from "./ChatFrame";
 const ClassFrame = () => {
   return (
     <GridTemplate>
-      <StClassSection>
-        <div>classSection</div>
-        {/* <VideoFrame /> */}
-      </StClassSection>
+      <StClassSection>{/* <VideoFrame /> */}</StClassSection>
       <StChatSection>
         <ChatFrame />
       </StChatSection>

@@ -1,7 +1,7 @@
 import { useSelector } from "react-redux";
 import styled from "styled-components";
 
-import { ST2 } from "../../styles/Text";
+import { ST2 } from "../../../styles/Text";
 
 const ChatHeader = () => {
   const viewerNum = useSelector((state) => state.cookingClass.viewerNum);

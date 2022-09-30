@@ -57,7 +57,7 @@ const cookingClassSlice = createSlice({
     },
     enterEvent: (state, action) => {
       const { chat } = action.payload;
-      state.viewerNum = state.viewerNum + 1;
+      state.viewerNum = chat.viewer_num;
       state.prevChats = [...state.prevChats, chat];
     },
     messageEvent: (state, action) => {
@@ -66,7 +66,7 @@ const cookingClassSlice = createSlice({
     },
     leaveEvent: (state, action) => {
       const { chat } = action.payload;
-      state.viewerNum = state.viewerNum - 1;
+      state.viewerNum = chat.viewer_num;
       state.prevChats = [...state.prevChats, chat];
     },
   },

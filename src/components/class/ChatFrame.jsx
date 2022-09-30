@@ -11,9 +11,9 @@ import {
   messageEvent,
   leaveEvent,
 } from "../../modules/redux/cookingClass";
-import Chats from "./Chats";
-import CreateChat from "./CreateChat";
-import ChatHeader from "./ChatHeader";
+import Chats from "./Chat/Chats";
+import CreateChat from "./Chat/CreateChat";
+import ChatHeader from "./Chat/ChatHeader";
 
 // TODO change v4 -> v5
 const ChatFrame = (props) => {
@@ -66,23 +66,26 @@ const ChatFrame = (props) => {
   );
 
   // 발생 이벤트에 따라 webSocket 통신 수신
-  const receiveEvent = useCallback((frame) => {
-    const resp = JSON.parse(frame.body);
-    const { type } = resp;
-    switch (type) {
-      case "ENTER":
-        dispatch(enterEvent({ chat: resp }));
-        return;
-      case "MESSAGE":
-        dispatch(messageEvent({ chat: resp }));
-        return;
-      case "LEAVE":
-        dispatch(leaveEvent({ chat: resp }));
-        return;
-      default:
-        return;
-    }
-  }, []);
+  const receiveEvent = useCallback(
+    (frame) => {
+      const resp = JSON.parse(frame.body);
+      const { type } = resp;
+      switch (type) {
+        case "ENTER":
+          dispatch(enterEvent({ chat: resp }));
+          return;
+        case "MESSAGE":
+          dispatch(messageEvent({ chat: resp }));
+          return;
+        case "LEAVE":
+          dispatch(leaveEvent({ chat: resp }));
+          return;
+        default:
+          return;
+      }
+    },
+    [dispatch]
+  );
 
   const connectSocket = useCallback(() => {
     // 1. webSocket 클라이언트 생성
@@ -116,8 +119,13 @@ const ChatFrame = (props) => {
 
   useEffect(() => {
     connectSocket();
+    // 페이지 벗어나서 컴포넌트가 unmount 시 소켓에서 해제
     return () => disconnectSocket();
   }, [connectSocket, disconnectSocket]);
+
+  // window.onbeforeunload = function () {
+  //   stompClient.current.disconnect();
+  // };
 
   return (
     <>
