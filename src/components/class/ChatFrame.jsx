@@ -87,7 +87,7 @@ const ChatFrame = (props) => {
 
   const connectSocket = useCallback(() => {
     // 1. webSocket 클라이언트 생성
-    const sock = new SockJs("http://3.38.214.79/ws");
+    const sock = new SockJs("https://magorosc.shop/ws");
     stompClient.current = webstomp.over(sock);
 
     // optional ) stomp client debug mode OFF
