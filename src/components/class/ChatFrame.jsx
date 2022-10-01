@@ -11,9 +11,9 @@ import {
   messageEvent,
   leaveEvent,
 } from "../../modules/redux/cookingClass";
-import Chats from "./Chat/Chats";
-import CreateChat from "./Chat/CreateChat";
-import ChatHeader from "./Chat/ChatHeader";
+import Chats from "./sock-js/Chats";
+import CreateChat from "./sock-js/CreateChat";
+import ChatHeader from "./sock-js/ChatHeader";
 
 // TODO change v4 -> v5
 const ChatFrame = (props) => {
@@ -90,6 +90,9 @@ const ChatFrame = (props) => {
     const sock = new SockJs("http://3.38.214.79/ws");
     stompClient.current = webstomp.over(sock);
 
+    // optional ) stomp client debug mode OFF
+    stompClient.debug = null;
+
     // 2. webSocket 연결
     stompClient.current.connect(getHeader(), () => {
       sendEvent("ENTER");
@@ -143,7 +146,7 @@ export default ChatFrame;
 const StChatsPart = styled.div`
   height: 439px;
   overflow-y: scroll;
-  background-color: #eeeaea;
+  padding: 10px 20px 0px 20px;
 `;
 
 const StCreatePart = styled.div`

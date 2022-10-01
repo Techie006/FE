@@ -100,7 +100,22 @@ const Button = ({
           color = "#FFFFFF";
           hoverColor = "#482647";
         }
+        break;
+      case "class":
+        if (func === "leave") {
+          border = "0.5px solid #ECECEC";
+          borderRadius = "6px";
+          background = "#FAFAFA";
+          hoverBackground = "#EFEFEF";
+          width = "86px";
+          height = "36px";
 
+          fontWeight = 700;
+          fontSize = "14px";
+          lineHeight = "16px";
+          color = "#656565";
+          hoverColor = "#FF8E42";
+        }
         break;
       case "modal":
         if (func === "time") {

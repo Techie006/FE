@@ -4,13 +4,6 @@ import styled from "styled-components";
 const ClassVideo = ({ streamManager, hidden = false, mute = false, isPub }) => {
   const videoRef = useRef();
 
-  if (isPub) {
-    console.log("*** publisher video info ****");
-  } else {
-    console.log("*** sub video info ***");
-  }
-  console.log(streamManager, isPub);
-
   useEffect(() => {
     if (streamManager !== undefined && videoRef.current) {
       streamManager.addVideoElement(videoRef.current);
@@ -34,6 +27,7 @@ const ClassVideo = ({ streamManager, hidden = false, mute = false, isPub }) => {
 export default ClassVideo;
 
 const StVideo = styled.video`
-  width: ${(props) => (props.isPub ? "100px" : "200px")};
-  height: 200px;
+  max-width: 100%;
+  height: auto;
+  padding: 30px 18px;
 `;

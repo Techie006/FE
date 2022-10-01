@@ -1,17 +1,22 @@
+import { useDispatch } from "react-redux";
 import { useState } from "react";
 import styled from "styled-components";
 
+import { resetSelected } from "../../modules/redux/cookingClass";
 import GridTemplate from "../../elements/templates/GridTemplate";
 import ClassesHeader from "./ClassesHeader";
 import Classes from "./Classes";
 import CreateModal from "./modal/CreateModal";
 
 const ClassesFrame = () => {
+  const dispatch = useDispatch();
+
   const [modalOpen, setModalOpen] = useState(false);
 
   // 클래스 생성 모달을 여닫는 함수
   const clickHandler = () => {
     setModalOpen((prev) => !prev);
+    dispatch(resetSelected());
   };
 
   return (

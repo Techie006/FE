@@ -1,5 +1,4 @@
-import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
-import { apis } from "../../shared/axios";
+import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
   modalOpen: false,
@@ -13,26 +12,13 @@ const initialState = {
   error: "",
 };
 
-// export const __getClassInfo = createAsyncThunk(
-//   "cookingClass/__getClassInfo",
-//   async ({ classId }, thunkAPI) => {
-//     try {
-//       const resp = await apis.get_class_info({ classId });
-//       const {
-//         content: { session_id, token, chats },
-//       } = resp.data;
-
-//       return thunkAPI.fulfillWithValue({ session_id, token, chats });
-//     } catch (e) {
-//       return thunkAPI.rejectWithValue(e.code);
-//     }
-//   }
-// );
-
 const cookingClassSlice = createSlice({
   name: "cookingClass",
   initialState,
   reducers: {
+    resetSelected: (state, _) => {
+      state.selectedRecipe = {};
+    },
     openModal: (state, _) => {
       state.modalOpen = true;
     },
@@ -69,25 +55,10 @@ const cookingClassSlice = createSlice({
       state.prevChats = [...state.prevChats, chat];
     },
   },
-  extraReducers: {
-    // [__getClassInfo.pending]: (state, _) => {
-    //   state.isLoading = true;
-    // },
-    // [__getClassInfo.fulfilled]: (state, action) => {
-    //   state.isLoading = false;
-    //   const { session_id, token, chats } = action.payload;
-    //   state.prevChats = chats;
-    //   state.sessionId = session_id;
-    //   state.token = token;
-    // },
-    // [__getClassInfo.rejected]: (state, action) => {
-    //   state.isLoading = false;
-    //   state.error = action.payload;
-    // },
-  },
 });
 
 export const {
+  resetSelected,
   openModal,
   closeModal,
   enterClass,
