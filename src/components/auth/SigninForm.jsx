@@ -1,469 +1,739 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect } from 'react';
 import { useForm } from "react-hook-form";
-import { NavLink } from "react-router-dom";
-import OAuth from "./OAuth";
-import OAuth2 from "./OAuth2";
-// import GoogleLogin from './GoogleLogin';
-// import RESP_WOO from "../../server/response_woo";
+import ServiceInfo from './ServiceInfo';
+import OAuth from "./OAuth"
+import OAuth2 from "./OAuth2"
 import { useNavigate } from "react-router-dom";
-import { useDispatch } from "react-redux";
+import { useDispatch } from 'react-redux';
 import Select from "react-select";
 import { ErrorText } from "../../styles/Text";
-import { login, saveInfo } from "../../modules/redux/auth";
-// import SmallLinkWithHelper from '../../elements/links/SmallLinkWithHelper';
-import axios from "axios";
+import { login } from "../../modules/redux/auth";
+import { user } from "../../modules/redux/userData";
+import axios from 'axios';
+import userIcon from "../../assets/icons/userIcon.png"
+import pwIcon from "../../assets/icons/pwIcon.png"
+import visibleIcon from "../../assets/icons/visibleIcon.png"
 
-import { AiFillEyeInvisible } from "react-icons/ai";
-import { AiFillEye } from "react-icons/ai";
 import Swal from "sweetalert2";
 import styled from "styled-components";
 
+
 const SigninForm = () => {
-  const [currPage, setCurrPage] = useState(false);
-  const [show, setShow] = useState(false);
-  const [loginState, setLoginState] = useState({});
-  const [signupValue, setSignupValue] = useState(null);
-  const [errorMessage, setErrorMessage] = useState("");
+    const [currPage, setCurrPage] = useState(false);
+    const [show, setShow] = useState(false);
+    const [loginState, setLoginState] = useState({});
+    const [signupValue, setSignupValue] = useState(null);
+    const [errorMessage, setErrorMessage] = useState("");
+    const [pwValidation, setPwValidation] = useState({});
 
-  var domain = [
-    { value: "naver.com", label: "naver.com" },
-    { value: "gmail.com", label: "gmail.com" },
-    { value: "nate.com", label: "nate.com" },
-    { value: "daum.net", label: "daum.net" },
-    { value: "hanmail.net", label: "hanmail.net" },
-    { value: "icloud.com", label: "icloud.com" },
-  ];
-  var [selectDomain, setSelectDomain] = useState(domain[0].value);
+    var domain = [
+        {value : "naver.com", label : "naver.com"},
+        {value : "gmail.com", label : "gmail.com"},
+        {value : "nate.com", label : "nate.com"},
+        {value : "daum.net", label : "daum.net"},
+        {value : "hanmail.net", label : "hanmail.net"},
+        {value : "icloud.com", label : "icloud.com"},
+    ]
+    var [selectDomain, setSelectDomain] = useState(domain[0].value);
+    
+    const {
+        register,
+        watch,
+        reset,
+        handleSubmit,
+        getValues,
+        formState: { errors },
+      } = useForm({ mode: "submit" });
+      // formState: { errors } 의 errors는 handleSubmit이 실행되고 난 후 
+      // error가 발생하면 해당 error의 값들은 formState 객체 안의 errors에 담겨 있다.
+      // errors 객체 형식은 아래와 같다.
+      // errors."내가 지정한 input name"."내가 지정한 error message"
+    const userId = watch("email") + "@" + selectDomain
+    const loginUserId = watch("login_email")
+    console.log("watch",watch())
+    console.log("values",getValues())
 
-  const {
-    register,
-    watch,
-    reset,
-    handleSubmit,
-    formState: { errors },
-  } = useForm({ mode: "submit" });
-  // formState: { errors } 의 errors는 handleSubmit이 실행되고 난 후
-  // error가 발생하면 해당 error의 값들은 formState 객체 안의 errors에 담겨 있다.
-  // errors 객체 형식은 아래와 같다.
-  // errors."내가 지정한 input name"."내가 지정한 error message"
-  const userId = watch("email") + "@" + selectDomain.value;
-  const loginUserId = watch("login_email") + "@" + selectDomain.value;
+    const pwCheck = (pw) => {
+        let regExp = /^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{8,}$/;
+        return regExp.test(pw);
+    };
 
-  const pwCheck = (pw) => {
-    let regExp =
-      /^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{8,}$/;
-    return regExp.test(pw);
-  };
+    const navigate = useNavigate();
+    const dispatch = useDispatch();
+    
 
-  const navigate = useNavigate();
-  const dispatch = useDispatch();
-
-  const pageChangeHandler = () => {
-    if (
-      watch("email") === "" &&
-      watch("username") === "" &&
-      watch("password") === "" &&
-      watch("passwordCheck") === "" &&
-      watch("login_email") === "" &&
-      watch("login_password") === ""
-    ) {
-      setCurrPage((prev) => !prev);
-    } else {
-      Swal.fire({
-        title: "진행하시겠습니까?",
-        text: "페이지를 벗어나시면 작성하신 내용이 모두 소실됩니다.",
-        icon: "warning",
-        showCancelButton: true,
-        confirmButtonColor: "#3085d6",
-        cancelButtonColor: "#d33",
-        confirmButtonText: "Yes, delete it!",
-      }).then((result) => {
-        if (result.isConfirmed) {
-          setCurrPage((prev) => !prev);
-          setSignupValue({
-            email: "",
-            username: "",
-            login_email: "",
-            login_password: "",
-            password: "",
-            passwordCheck: "",
-          });
+    const pageChangeHandler = () => {
+        if (
+            watch("email") == "" &&
+            watch("username") == "" &&
+            watch("password") == "" &&
+            watch("passwordCheck") == "" &&
+            watch("login_email") == "" &&
+            watch("login_password") == "" 
+        ){
+            setCurrPage((prev) => !prev)
+        }else{
+            Swal.fire({
+                title : "진행하시겠습니까?",
+                text: "페이지를 벗어나시면 작성하신 내용이 모두 소실됩니다.",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Yes, delete it!'
+              }).then((result) => {
+                if (result.isConfirmed) {
+                    setCurrPage((prev) => !prev)
+                    setSignupValue({
+                        email : "",
+                        username : "",
+                        login_email : "",
+                        login_password : "",
+                        password : "",
+                        passwordCheck : "",
+                    })
+                }
+              })
         }
-      });
     }
-  };
-  const onShowHandler = (e) => {
-    e.preventDefault();
-    e.stopPropagation();
-    setShow((prev) => !prev);
-  };
+    const onShowHandler = (e) => {
+        e.preventDefault()
+        e.stopPropagation()
+        setShow((prev) => !prev)
+    }
+    
+    const onSubmitHadler = async () => {
+        
+        try{
+        if ( currPage === true ) {
+            const Toast = Swal.mixin({
+                toast: true,
+                position: 'center-center',
+                showConfirmButton: false,
+                timer: 4000,
+                timerProgressBar: true,
+                didOpen: (toast) => {
+                    toast.addEventListener('mouseenter', Swal.stopTimer)
+                    toast.addEventListener('mouseleave', Swal.resumeTimer)
+                },
+                customClass : {
+                    // 나중에 디자인 할때 공부
+                }
+            })
+            Toast.fire({
+                icon: 'info',
+                title: "인증메일 전송 중입니다."
+            })             
+            const resp = await axios.post("https://magorosc.shop/api/user/signup",{
+                email : userId,
+                username : watch("usename"),
+                password : watch("password"),
 
-  const onSubmitHadler = async () => {
-    try {
-      if (currPage === true) {
-        const Toast = Swal.mixin({
-          toast: true,
-          position: "center-center",
-          showConfirmButton: false,
-          timer: 4000,
-          timerProgressBar: true,
-          didOpen: (toast) => {
-            toast.addEventListener("mouseenter", Swal.stopTimer);
-            toast.addEventListener("mouseleave", Swal.resumeTimer);
-          },
-          customClass: {
-            // 나중에 디자인 할때 공부
-          },
-        });
-
-        Toast.fire({
-          icon: "info",
-          title: "인증메일 전송 중입니다.",
-        });
-
-        const resp = await axios.post("http://3.38.214.79/api/user/signup", {
-          email: userId,
-          username: watch("usename"),
-          password: watch("password"),
-        });
-        const loginResult = resp.data;
-        setLoginState(loginResult);
-
-        if (loginResult.result === true) {
-          setCurrPage(false);
-          Swal.fire(
-            "메일 전송이 완료되었습니다.",
-            "가입하신 메일로 인증 후에 이용 가능합니다.",
-            "success"
-          );
-          setSignupValue({
-            email: "",
-            username: "",
-            login_email: "",
-            login_password: "",
-            password: "",
-            passwordCheck: "",
-          });
+            })
+            const loginResult = resp.data
+                setLoginState(loginResult)
+                
+                if (loginResult.result === true) {
+                setCurrPage(false);
+                Swal.fire(
+                    '메일 전송이 완료되었습니다.',        
+                    '가입하신 메일로 인증 후에 이용 가능합니다.',
+                    'success',
+                  ); 
+                  setSignupValue({
+                      email : "",
+                      username : "",
+                      login_email : "",
+                      login_password : "",
+                      password : "",
+                      passwordCheck : "",
+                  })
+                }
+                }
         }
-      }
-    } catch (error) {
-      setErrorMessage(error.response.data.status.message);
+        catch (error) {
+            setErrorMessage(error.response.data.status.message)
+        }
+        if( currPage === false ) {
+            try{
+            const resp = await axios.post("https://magorosc.shop/api/user/signin",{
+                email : loginUserId,
+                password : watch("login_password"),
+            })
+    
+            localStorage.setItem("Authorization",resp.headers.authorization);
+            
+            if (resp.data.result===true){
+                Swal.fire({
+                    icon: 'success',
+                    title: '로그인에 성공하셨습니다.',
+                    html: `${resp.data.status.message}`,
+                    showConfirmButton: false,
+                    timer: 1500
+                  })
+                  console.log("1")
+                  dispatch(login());
+                  console.log("2")
+                  dispatch(user(resp.data.content));
+                  console.log("3")
+                  navigate("/home", { replace: true })
+                  console.log("4")
+                }
+            } 
+            catch(error) {
+                console.log(error)
+                
+                if (error.response.data.status.message == "비밀번호를 잘못 입력하셨습니다.") {
+                    setLoginState("")
+                    setPwValidation(error.response.data)
+                    console.log("asd",pwValidation)
+                } else {
+                    setLoginState(error.response.data)
+                    console.log("asd")
+                }
+            }
+        }
+
     }
-    if (currPage === false) {
-      const resp = await axios.post("http://3.38.214.79/api/user/signin", {
-        email: loginUserId,
-        password: watch("login_password"),
-      });
+    useEffect(() => {
+        reset(signupValue);
+    }, [signupValue]);
 
-      localStorage.setItem("Authorization", resp.headers.authorization);
-
-      setLoginState(resp.data);
-
-      if (resp.data.result === true) {
-        Swal.fire(
-          "로그인에 성공하였습니다.",
-          `${resp.data.status.message}`,
-          "success"
-        );
-        dispatch(login());
-        dispatch(saveInfo(resp.data.content));
-
-        navigate("/home", { replace: true });
-      }
+    const selectStyle = {
+        valueContainer: (provided) => ({
+            ...provided,
+            height : '50px',
+            width : '85px',
+            padding : "0px"
+        }),
+        placeholder: (provided) => ({
+            ...provided,
+            height : '18px',
+            width : '85px',
+        }),
+        Input : (provided) => ({
+            ...provided,
+            height : '40px',
+            width : '128px',
+            margin : "0px"
+        }),
+        singleValue : (provided) => ({
+            ...provided,
+            height : '18px',
+            width : '84px',
+            color : '#656565',
+            fontWeight: "400",
+            fontSize: "14px",
+            margin : '0px',
+            letterSpacing: "-0.005em"
+        }),
+        control : (provided) => ({
+            ...provided,
+            margin : '0px auto',
+            height : '50px',
+            minHeight : '50px',
+            backgroundColor : '#FAFAFA',
+            border: '1.19856px solid #DADADA',
+            borderRadius: '6px',
+            boxShadow: `0 0 0 0 'orange'`,
+            '&:hover' : { textDecoration: 'none' },
+            '&:focus-within' : { borderColor : "#FFB356" }
+        }),
+        indicatorsContainer : (provided) => ({
+            ...provided,
+            width : '33px',
+            height : '33px',
+            minHeight : '50px'
+        })
     }
-    // const {
-    //     result,
-    //     status: { message },
-    //   } = RESP_WOO.AUTH.SIGN_UP_FAIL;
-  };
-  useEffect(() => {
-    reset(signupValue);
-  }, [signupValue]);
 
-  return (
-    <div>
-      {currPage === true ? (
-        <StyledSignUp>
-          <form onSubmit={handleSubmit(onSubmitHadler)}>
-            <div>
-              <InputTitle>이메일</InputTitle>
-              <StyledEmailGroup>
+    return (
+        <StWrapper>
+            {currPage === true ?(
+            <StSignUpWrapper>
+            <StHeaderWrapper>
+            <div className='signup_title'>Frigo</div>
+            <div className='go_signup' onClick={pageChangeHandler}>로그인</div>
+            </StHeaderWrapper>
+            <form onSubmit = {handleSubmit(onSubmitHadler)}>    
+            <StEmailWrapper>
+                <div className='email_label'>이메일</div>
+                <StEmailGroup>
                 <input
-                  autoFocus
-                  className='email_input'
-                  type='text'
-                  id='email'
-                  placeholder='email'
-                  {...register("email", {
-                    required: "이메일을 입력해주세요.",
-                  })}
+                className='email_input'
+                type = "text"
+                placeholder="email"
+                {...register("email",{
+                required : "이메일을 입력해주세요."
+                })}
                 />
-                <StyledGol>@</StyledGol>
+                <StGol>@</StGol>
                 <StyledSelect
-                  styles={{
-                    // 모바일 환경에서도 option 목록이 항상 위로 보이게 zIndex 설정함
-                    domain: (provided) => ({ ...provided, zIndex: 999 }),
-                  }}
-                  onChange={setSelectDomain}
-                  placeholder='선택해주세요!'
-                  options={domain}
-                />
-              </StyledEmailGroup>
-            </div>
-            {errors.email ? (
-              <ErrorText>{errors.email.message}</ErrorText>
-            ) : null}
-            {errorMessage !== "" ? <ErrorText>{errorMessage}</ErrorText> : null}
-            <div>
-              <InputTitle>유저네임</InputTitle>
-              <input
-                type='usename'
-                id='usename'
-                placeholder='usename'
-                {...register("usename", {
-                  required: "유저네임을 입력해주세요.",
-                })}
-              />
-              {errors.usename ? (
-                <ErrorText>{errors.usename.message}</ErrorText>
-              ) : null}
-            </div>
-            <div>
-              <InputTitle>비밀번호</InputTitle>
-              <input
-                type={!show ? "password" : "text"}
-                id='password'
-                placeholder='password'
-                {...register("password", {
-                  required: "패스워드를 입력해주세요.",
-
-                  validate: {
-                    check: (value) =>
-                      pwCheck(value) ||
-                      "패스워드는 영문,숫자, 특수기호(@$!%*#?&)를 포함한 7자리~16자리 이내로 입력해주세요.",
-                  },
-                })}
-              />
-              {errors.password ? (
-                <ErrorText>{errors.password.message}</ErrorText>
-              ) : null}
-              <div className='guide'>
-                패스워드는 영문,숫자, 특수기호(@$!%*#?&)를 포함한 7자리~16자리
-                이내로 입력해주세요.
-              </div>
-            </div>
-            <div>
-              <InputTitle>비밀번호 확인</InputTitle>
-              <input
-                type={!show ? "password" : "text"}
-                id='passwordCheck'
-                placeholder='passwordCheck'
-                {...register("passwordCheck", {
-                  required: "패스워드가 일치하는지 확인해 주세요.",
-                  validate: {
-                    check: (value) =>
-                      watch("password") === value ||
-                      "비밀번호가 일치하지 않습니다.",
-                  },
-                })}
-              />
-              {!show ? (
-                <button className='show_button' onClick={onShowHandler}>
-                  <AiFillEye className='icon' />
-                </button>
-              ) : (
-                <button className='show_button' onClick={onShowHandler}>
-                  <AiFillEyeInvisible className='icon' />
-                </button>
-              )}
-
-              {watch("passwordCheck") === "" &&
-              true ? null : errors.passwordCheck ? (
-                <ErrorText>{errors.passwordCheck.message}</ErrorText>
-              ) : null}
-            </div>
-            <input
-              type='submit'
-              className='submitButton'
-              value='회원가입하기'
-            />
-            <a
-              href=' https://dust-sulfur-10c.notion.site/2c4cd8fc0c91493abc3ffed858998727'
-              target='_blank'
-            >
-              이용약관
-            </a>
-            <a
-              href=' https://dust-sulfur-10c.notion.site/2c4cd8fc0c91493abc3ffed858998727'
-              target='_blank'
-            >
-              개인정보취급방침
-            </a>
-            {/* 이 부분 element로 수정하기 link 훅은 내부로만 이동가능 외부링크 가능한 형식으로 바꿔줄 것 
-                target='_blank' <- 새창열기  */}
-            <div onClick={pageChangeHandler}>로그인하기</div>
-          </form>
-        </StyledSignUp>
-      ) : (
-        <StyledSignIn>
-          <form onSubmit={handleSubmit(onSubmitHadler)}>
-            <InputTitle>이메일</InputTitle>
-            <StyledEmailGroup>
-              <input
-                autoFocus
-                type='text'
-                id='email'
-                placeholder='email'
-                {...register("login_email", {
-                  required: "이메일을 입력해주세요.",
-                })}
-              />
-              <StyledGol>@</StyledGol>
-              <StyledSelect
-                styles={{
-                  // 모바일 환경에서도 option 목록이 항상 위로 보이게 zIndex 설정함
-                  domain: (provided) => ({ ...provided, zIndex: 999 }),
-                }}
-                // value = {domain.find(domain => {
-                //     return domain.value === selectDomain
-                // })}
-                onChange={setSelectDomain}
-                placeholder='선택해주세요!'
+                styles={selectStyle}
+                onChange = {setSelectDomain}
+                placeholder = "선택해주세요!"
                 options={domain}
-              />
-            </StyledEmailGroup>
-            {errors.login_email ? (
-              <ErrorText>{errors.login_email.message}</ErrorText>
-            ) : null}
-            <InputTitle>비밀번호</InputTitle>
-            <input
-              type='password'
-              id='password'
-              placeholder='password'
-              {...register("login_password", {
-                required: "패스워드를 입력해주세요.",
-              })}
-            />
-            {loginState.result === false ? (
-              <ErrorText>{loginState.status.message}</ErrorText>
-            ) : null}
-            <input type='submit' className='submitButton' value='로그인하기' />
-            <br />
-            <div>or</div>
-            <br />
-            <OAuth />
-            <br />
-            <OAuth2 />
-            <br />
-            <span>로그인 없이 이용하고 싶으시다면?</span>&nbsp;
-            <NavLink to='/'>둘러보기!</NavLink>
-            <br />
-            <br />
-            <a
-              href=' https://dust-sulfur-10c.notion.site/2c4cd8fc0c91493abc3ffed858998727'
-              target='_blank'
-            >
-              이용약관
-            </a>
-            <a
-              href=' https://dust-sulfur-10c.notion.site/2c4cd8fc0c91493abc3ffed858998727'
-              target='_blank'
-            >
-              개인정보취급방침
-            </a>
-            <div onClick={pageChangeHandler}>회원가입하기</div>
-          </form>
-        </StyledSignIn>
-      )}
-    </div>
-  );
+                />
+                </StEmailGroup>
+                {errors.email ? (
+                <ErrorText>{errors.email.message}</ErrorText>
+                ):
+                (
+                <Blank/>
+                )}
+                {errorMessage !== "" ? (
+                    <ErrorText>{errorMessage}</ErrorText>
+                ):
+                (
+                    null
+                )}
+                </StEmailWrapper>
+                <div>
+                <InputTitle>유저네임</InputTitle>
+                <input
+                type = "usename"
+                id = "usename"
+                placeholder="usename"
+                {...register("usename",{
+                    required : "유저네임을 입력해주세요."
+                })}
+                />
+                {errors.usename ? (
+                <ErrorText>{errors.usename.message}</ErrorText>
+                ):
+                (
+                <Blank/>
+                )}
+                </div>
+                <div>
+                <InputTitle className='pw'>비밀번호</InputTitle>
+                <input
+                type = {!show ? "password" : "text"}
+                id = "password"
+                placeholder="password"
+                {...register("password",{
+                    required : "패스워드를 입력해주세요.",
+                   
+                      validate: {
+                        check: (value) =>
+                          pwCheck(value) ||
+                          "영문, 숫자, 특수기호(@$!%*#?)를 포함한 7자리~16자리 이내로 입력해주세요!",
+                      },
+                })}
+                />
+                {errors.password ? (
+                    <StErrorText>{errors.password.message}</StErrorText>
+                ) : (
+                    <Blank/>
+                )}
+                </div>
+                <div>
+                <InputTitle className='pw_check'>비밀번호 확인</InputTitle>
+                <StPwConfirmWrapper>
+                <input
+                type = {!show ? "password" : "text"}
+                className='password_check'
+                id = "passwordCheck"
+                placeholder="passwordCheck"
+                {...register("passwordCheck",{
+                    required : "패스워드가 일치하는지 확인해 주세요.",
+                    validate : {
+                        check : (value) => 
+                        watch("password") === value || "비밀번호가 일치하지 않습니다."
+                    }
+                })}
+                />
+                {!show ? (
+                <button className='show_button' onClick = {onShowHandler}>
+                    <img src={visibleIcon} style={{
+                        width : '22px',
+                        height : '16px',
+                        backgroundColor : '#FAFAFA'
+                    }}/>
+                </button>
+                ) : (
+                <button className='show_button' onClick = {onShowHandler}>
+                    <img src={visibleIcon} style={{
+                        width : '22px',
+                        height : '16px',
+                        backgroundColor : '#FAFAFA'
+                    }}/>
+                </button>
+                )}
+                </StPwConfirmWrapper>
+                
+                {(watch("passwordCheck") === "") && true ?
+                (<Blank/>
+                ) : (errors.passwordCheck ? (
+                    <ErrorText>{errors.passwordCheck.message}</ErrorText>
+                ) : (
+                    null
+                ))}
+                
+                </div>
+                <input type="submit" className="submitButton" value = "회원가입하기"/>
+                <a href = " https://dust-sulfur-10c.notion.site/2c4cd8fc0c91493abc3ffed858998727" target='_blank'>이용약관</a>
+                <a href = " https://dust-sulfur-10c.notion.site/2c4cd8fc0c91493abc3ffed858998727" target='_blank'>개인정보취급방침</a>
+                {/* 이 부분 element로 수정하기 link 훅은 내부로만 이동가능 외부링크 가능한 형식으로 바꿔줄 것 
+                target='_blank' <- 새창열기  */}
+            </form>
+            </StSignUpWrapper>
+            ):
+            (<StSigninLayout>
+                <ServiceInfo/>
+                <StSignInWrapper>
+                <form onSubmit = {handleSubmit(onSubmitHadler)}>
+                <StSignInTitle>Frigo</StSignInTitle>
+                <StInputWrapper>
+                <div className='email_wrapper'>
+                <UserIcon className='user' src={userIcon} />
+                <input
+                type = "text"
+                id = "email"
+                placeholder="email"
+                {...register("login_email",{
+                required : "이메일을 입력해주세요."
+                })}
+                />
+                </div>
+                {errors.login_email ? (
+                    <ErrorText>{errors.login_email.message}</ErrorText>
+                ):
+                (
+                null
+                )}
+                {loginState.result === false ? (
+                <ErrorText>{loginState.status.message}</ErrorText>
+                ):
+                (
+                <Blank/>
+                )}
+                </StInputWrapper>
+                <StInputWrapper>
+                <div className='pw_wrapper'>
+                <UserIcon className='pw' src={pwIcon} />
+                <input
+                type = "password"
+                id = "password"
+                placeholder="비밀번호"
+                {...register("login_password",{
+                    required : "비밀번호를 입력해주세요."
+                })}
+                />
+                </div>
+                {errors.login_password ? (
+                    <ErrorText>{errors.login_password.message}</ErrorText>
+                ) : (
+                    null
+                )}
+                {pwValidation.result == false ? (
+                    <ErrorText>{pwValidation.status.message}</ErrorText>
+                ) : (
+                    <Blank/>
+                )}
+                </StInputWrapper>
+                <StInputButton className = 'submit_button'>
+                <input type="submit" className="submitButton" value = "로그인"/> 
+                <div className='signup_find_box'>
+                    <div className='go_signup' onClick={pageChangeHandler}>회원가입하기</div>               
+                    <div className='go_findPw'>비밀번호 찾기</div>
+                </div>
+                </StInputButton>
+                <div className='middle_wrapper'>
+                <div className='middle_border'/>
+                <div className='middle_border'/>
+                <div className='middle_textbox'>또는</div>
+                </div>
+                <OAuth/>
+                <OAuth2/>
+                <a className='helper' href = " https://dust-sulfur-10c.notion.site/2c4cd8fc0c91493abc3ffed858998727" target='_blank'>이용약관</a>
+                <a className='helper' href = " https://dust-sulfur-10c.notion.site/2c4cd8fc0c91493abc3ffed858998727" target='_blank'>개인정보취급방침</a>
+                
+                </form>
+                </StSignInWrapper>
+                </StSigninLayout>
+                
+            )}
+            </StWrapper>
+        
+    );
 };
 
 export default SigninForm;
 
-const StyledSignUp = styled.div`
-  display: flex;
-  flex-direction: column;
-  margin: 10px 0px;
-  input {
-    width: 260px;
-    height: 35px;
-    margin-bottom: 10px;
-    &:hover {
-      border-color: red;
+const StWrapper = styled.div`
+    letter-spacing: -0.5px;
+`
+const StHeaderWrapper =styled.div`
+    display : flex;
+    flex-direction : row;
+    justify-content : space-between;
+    .go_signup {
+        margin-top :56px;
+        margin-left : 23px;
+        color : ${(props) => props.theme.colors.font.gray3};
+        text-decoration-line: underline;
+        font-weight: 500;
+        font-size: 14px;
+        line-height: 20px;
+        cursor : pointer;
     }
-  }
-  .guide {
-    font-size: 10px;
-    margin-bottom: 15px;
-  }
-  .submitButton {
-    display: flex;
-    flex-direction: center;
-    justify-content: center;
-  }
-  .show_button {
-    border: 0px;
-    background-color: white;
-  }
-  .icon {
-    width: 20px;
-    height: 20px;
-  }
-`;
+    .signup_title {
+        font-family: Snug FREE;
+        color: #F07401;
+        margin-left : 111px;
+        font-size : 40px;
+        font-weight : bold;
+        letter-spacing: 1px;
+        margin-top : 32px;
+    }
+`
+const StEmailWrapper = styled.div`
+    display : flex;
+    flex-direction : column;
+    .email_label {
+        margin-top : 18px;
+        text-align : left;
+        margin-bottom : 6px;
+    }
+    .email_input {
+        background: #FAFAFA;
+        border: 1.19856px solid #DADADA;
+        font-weight : 400;
+        border-radius: 6px;
+        width : 163px;
+        height : 50px;
+        margin : 0px;
+        padding : 16px 14px;
+        font-size : 14px;
+    }
+`
+const StSignUpWrapper = styled.div`
+    display : flex;
+    flex-direction : column;
+    text-align : center;
+    width : 406px;
+    height : 646px;
+    background-color : ${(props) => props.theme.colors.background.white};
+    border : 1px solid #ECECEC;
+    margin : 189px auto;
+    padding : 37px;
+    padding-top : 0px;
+
+    input {
+        width : 332px;
+        height : 50px;
+        background: #FAFAFA;
+        border: 1.19856px solid #DADADA;
+        border-radius: 6px;
+        padding : 16px 14px;
+        outline : none;
+        margin-bottom: 4px;
+    }
+    input:focus {
+        border: 1.19856px solid #FFB356;
+    }
+    .submitButton {
+        margin-top : 40px;
+        align-items : center;
+        background-color : #FC9700;
+        border : 1px solid #F07401;
+        border-radius : 6px;
+        color : #FAFAFA;
+        font-weight : 700;
+        font-size : 20px;
+    }
+    .show_button {
+        border : 0px;
+        background-color : white;
+    }
+    .pw { 
+        margin-top : 26px;
+    }
+    .pw_check {
+        margin-top : 26px;
+    }
+
+`
+const StPwConfirmWrapper = styled.div`
+    width : 332px;
+    height : 53px;
+    border: 1.19856px solid #DADADA;
+    border-radius: 6px;
+    background: #FAFAFA;
+    margin-bottom : 4px;
+    .password_check {
+        width : 290px;
+        margin-left : -4px;
+        border : 0px;
+        background: #FAFAFA;
+        :focus {
+            border : 0px;
+        }
+    }
+    :focus-within {
+        border-color : #FFB356;
+    }
+`
 const InputTitle = styled.div`
-  margin-bottom: 10px;
-`;
-const StyledGol = styled.span`
-  font-size: 20px;
-  margin: 5px;
-`;
+    margin-top : 26px;
+    margin-bottom : 6px;
+    font-weight: 700;
+    font-size: 14px;
+    line-height: 20px;
+    color : #282828;
+    text-align : left;
+`
+const StGol = styled.span`
+    font-size : 16px;
+    margin-right : 11px;
+    margin-left : 11px;
+`
 const StyledSelect = styled(Select)`
-  width: 130px;
-  border: 0px;
-  position: relative;
-  line-height: 14px;
-  font-size: 13px;
-  background-color: white;
-  border: 0px;
-  color: #black;
+    width: 129px;
+    font-size: 14px;
 
-  &::placeholder {
-    color: #999999;
-  }
-  &:hover {
-  }
-  &:focus {
-    outline: none;
-    border: 0px solid #999999;
-  }
-`;
-const StyledEmailGroup = styled.div`
-  display: flex;
-  align-items: center;
-  margin: 0px;
+`
+const StEmailGroup = styled.div`
+    display : flex;
+    flex-direction : row;
+    justify-content : center;
+    text-align : center;
+    align-items: center;
+    margin : 0px auto;
+    margin-bottom :4px;  
+`
+//////// sign in ////////
 
-  .email_input {
-    width: 110px;
-  }
-`;
-const StyledGuide = styled.div``;
-const StyledSignIn = styled.div`
-  display: flex;
-  flex-direction: column;
-  margin: 10px 0px;
-  input {
-    width: 160px;
-    height: 30px;
-    margin-bottom: 10px;
-
-    &:hover {
-      border-color: red;
-    }
-  }
-  .submitButton {
+const StSigninLayout = styled.div`
     display: flex;
-    flex-direction: center;
-    justify-content: center;
-  }
-`;
+    flex-direction : row;
+    justify-content : center;
+    flex-wrap : wrap;
+`
+
+const StSignInTitle = styled.div`
+    font-family: Snug FREE;
+    color: #F07401;
+    font-size : 40px;
+    font-weight : bold;
+    letter-spacing: 1px;
+    margin-top : 32px;
+`
+const StSignInWrapper = styled.div`
+    display : flex;
+    flex-direction : column;
+    text-align : center;
+    border : 1px solid #ECECEC;
+    width : 433px;
+    height : 597px;
+    margin : 231px 273px 196px 50px;
+    input {
+        width : 250px;
+        display : flex;
+        border : 0px;
+        text-align : left;
+        background-color : #FAFAFA;
+    }
+    input:focus { 
+        outline : none;
+    }
+    .email_wrapper {
+        display : flex;
+        margin : 13px 25px 13px;
+    }
+    .pw_wrapper {
+        display : flex;
+        margin : 13px 25px 13px;
+    }
+    .submitButton {
+        background-color : #FC9700;
+        padding : 0px;
+        margin : 11px auto;
+        justify-content : center;
+        color : #FAFAFA;
+        font-size : 20px;
+        font-weight : 700;
+    }
+    .go_signup {
+        width : 131px;
+        border-bottom : 1px solid #D3D3D3;
+        text-align : left;
+    }
+    .go_findPw {
+        width : 131px;
+        border-bottom : 1px solid #D3D3D3;
+        text-align : right;
+    }
+    .signup_find_box {
+        font-size : 12px;
+        color : #656565;
+        height : 64px;
+        padding-top : 10px;
+        display : flex;
+        flex-direction : row;
+        justify-content : space-between;
+    }
+    .middle_wrapper {
+        display : flex;
+        
+        justify-content : space-between;
+    }
+    .middle_border {
+        padding-bottom : 38px;
+        border-bottom : 1px solid #D3D3D3;
+    }
+    .middle_textbox {
+        width : 67px;
+        margin : 0px auto;
+        margin-top : 30px;
+        margin-bottom : 16px;
+        font-size : 14px;
+        color : #A5A5A5;
+    }
+    .helper {
+        margin : 5px;
+        font-size : 14px;
+        color : #A5A5A5;
+    }
+
+`
+const StInputWrapper = styled.div`
+    width : 329px;
+    height : 50px;
+    margin : 28px auto;
+    border : 1.2px solid #DADADA;
+    border-radius : 6px;
+    background-color : #FAFAFA;
+    :focus-within {
+        border: 1.19856px solid #FFB356;
+    }
+    .password {
+        width : 250px;
+    }
+`
+const StInputButton =styled.div`
+    width : 329px;
+    height : 50px;
+    margin : 28px auto;
+    border : 1.2px solid #DADADA;
+    background-color : #FC9700;
+    border : 1px solid #F07401;
+    border-radius : 6px;
+`
+const UserIcon = styled.img`
+    width : 14px;
+    height : 18px;
+    margin-right : 10px;
+`
+const Blank = styled.div`
+    height : 11.2px;
+    width : 200px;
+`
+const StErrorText = styled.div`
+    color : #FF5C01;
+    font-weight : 500;
+    font-size : 11px;
+    letter-spacing : -1px;
+    text-align : left;
+`

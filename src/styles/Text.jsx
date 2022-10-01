@@ -154,7 +154,11 @@ export const HelperText = styled(Text)`
 `;
 
 export const ErrorText = styled(Text)`
-  /* color: ${(props) => props.theme.errorTextColor}; */
+  
+  color : #FF5C01;
+  fontWeight : 500;
+  fontSize : 10px;
+  text-align : left;
 `;
 
 export const ValidateText = styled(Text)`
