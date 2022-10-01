@@ -1,5 +1,5 @@
 import { useParams } from "react-router-dom";
-import { useState, useEffect, useCallback } from "react";
+import { useState, useEffect } from "react";
 import styled from "styled-components";
 
 import { apis } from "../../shared/axios";
@@ -17,7 +17,6 @@ const VideoHeader = () => {
   };
 
   const leaveVideo = async () => {
-    console.log("**call of leaveVideo***");
     // publisher인 경우 종료 API 호출
     if (role === "pub") {
       const resp = await apis.quit_class({ class_id });
@@ -35,7 +34,7 @@ const VideoHeader = () => {
 
   useEffect(() => {
     getData();
-    // return () => leaveVideo();
+    return () => leaveVideo();
   }, []);
 
   return (
