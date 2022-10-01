@@ -4,13 +4,6 @@ import styled from "styled-components";
 const ClassVideo = ({ streamManager, hidden = false, mute = false, isPub }) => {
   const videoRef = useRef();
 
-  if (isPub) {
-    console.log("*** publisher video info ****");
-  } else {
-    console.log("*** sub video info ***");
-  }
-  console.log(streamManager, isPub);
-
   useEffect(() => {
     if (streamManager !== undefined && videoRef.current) {
       streamManager.addVideoElement(videoRef.current);

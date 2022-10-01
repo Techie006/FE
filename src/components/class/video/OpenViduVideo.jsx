@@ -5,7 +5,7 @@ import styled from "styled-components";
 
 import ClassVideo from "./ClassVideo";
 
-const Video = (props) => {
+const OpenViduVideo = (props) => {
   const sessionId = useSelector((state) => state.cookingClass.sessionId);
   // const token = useSelector((state) => state.cookingClass.token);
   const fullToken = useSelector((state) => state.cookingClass.fullToken);
@@ -149,33 +149,25 @@ const Video = (props) => {
     }
   };
 
-  const subVideos = subscribers?.map((subscriber, idx) => (
-    <ClassVideo
-      key={idx}
-      streamManager={subscriber}
-      isPub={false}
-      hidden={true}
-      mute={true}
-    />
-  ));
+  // 만약 subscribers의 화면도 보여주고 싶다면 아래 코드 사용시 실시간 영상 통화 가능
+  // const subVideos = subscribers?.map((subscriber, idx) => (
+  //   <ClassVideo
+  //     key={idx}
+  //     streamManager={subscriber}
+  //     isPub={false}
+  //     hidden={false}
+  //     mute={false}
+  //   />
+  // ));
 
   return (
     <>
       {publisher !== null ? (
         <ClassVideo streamManager={publisher} isPub={true} />
       ) : null}
-      <StVideoLayout>{subVideos}</StVideoLayout>
+      {/* {subVideos} */}
     </>
   );
 };
 
-export default Video;
-
-const StVideo = styled.video`
-  background: 1px solid black;
-`;
-
-const StVideoLayout = styled.div`
-  display: flex;
-  gap: 530px;
-`;
+export default OpenViduVideo;

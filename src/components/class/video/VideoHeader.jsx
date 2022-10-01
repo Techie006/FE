@@ -3,9 +3,9 @@ import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 
-import { apis } from "../../shared/axios";
-import Button from "../../elements/atoms/Button";
-import Ingredients from "../../elements/molecules/Ingredients";
+import { apis } from "../../../shared/axios";
+import Button from "../../../elements/atoms/Button";
+import Ingredients from "../../../elements/molecules/Ingredients";
 
 const VideoHeader = () => {
   const { class_id, role } = useParams();
