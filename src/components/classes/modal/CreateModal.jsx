@@ -5,11 +5,7 @@ import { useForm } from "react-hook-form";
 import styled from "styled-components";
 
 import { apis } from "../../../shared/axios";
-import {
-  openModal,
-  createdClass,
-  resetSelected,
-} from "../../../modules/redux/cookingClass";
+import { openModal, createdClass } from "../../../modules/redux/cookingClass";
 import Modal from "../../../elements/templates/Modal";
 import { ST3, ET1, T4 } from "../../../styles/Text";
 // import { ReactComponent as X } from "../../../assets/icons/circleX.svg";
@@ -32,13 +28,15 @@ const CreateModal = ({ onClick }) => {
 
   const {
     register,
-    setValue,
     handleSubmit,
+    setValue,
     formState: { errors },
     resetField,
   } = useForm({
     mode: "onChange",
   });
+
+  setValue("recipe", selectedRecipe.recipe_name);
 
   // 사용자가 모달창 각 인풋필드 클릭 시 동작
   const clickHandler = (e) => {
@@ -107,8 +105,6 @@ const CreateModal = ({ onClick }) => {
 
     // session_id, token 정보 저장
     dispatch(createdClass({ session_id, token, full_token }));
-    // selectedRecipe 정보 삭제
-    dispatch(resetSelected());
 
     navigate(`/class/${class_id}/${redis_class_id}/pub`);
   };
@@ -142,8 +138,8 @@ const CreateModal = ({ onClick }) => {
                 placeholder='레시피명 검색'
                 id='recipe'
                 onClick={clickHandler}
-                onChange={clickHandler}
-                value={selectedRecipe.recipe_name || ""}
+                // onChange={Handler}
+                // value={selectedRecipe.recipe_name || ""}
                 {...register("recipe", {
                   required: "신규 클래스 생성을 위해서 레시피를 입력해주세요.",
                 })}
