@@ -5,7 +5,11 @@ import { useForm } from "react-hook-form";
 import styled from "styled-components";
 
 import { apis } from "../../../shared/axios";
-import { openModal, createdClass } from "../../../modules/redux/cookingClass";
+import {
+  openModal,
+  createdClass,
+  resetSelected,
+} from "../../../modules/redux/cookingClass";
 import Modal from "../../../elements/templates/Modal";
 import { ST3, ET1, T4 } from "../../../styles/Text";
 // import { ReactComponent as X } from "../../../assets/icons/circleX.svg";
@@ -103,6 +107,8 @@ const CreateModal = ({ onClick }) => {
 
     // session_id, token 정보 저장
     dispatch(createdClass({ session_id, token, full_token }));
+    // selectedRecipe 정보 삭제
+    dispatch(resetSelected());
 
     navigate(`/class/${class_id}/${redis_class_id}/pub`);
   };

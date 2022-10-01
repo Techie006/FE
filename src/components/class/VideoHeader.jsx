@@ -11,7 +11,6 @@ const VideoHeader = () => {
 
   const getData = async () => {
     const resp = await apis.get_class_recipe({ class_id });
-    console.log("***getData***", resp);
     const { content } = resp.data;
     setRecipe(content);
   };

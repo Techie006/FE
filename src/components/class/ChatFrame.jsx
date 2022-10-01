@@ -90,6 +90,9 @@ const ChatFrame = (props) => {
     const sock = new SockJs("http://3.38.214.79/ws");
     stompClient.current = webstomp.over(sock);
 
+    // optional ) stomp client debug mode OFF
+    stompClient.debug = null;
+
     // 2. webSocket 연결
     stompClient.current.connect(getHeader(), () => {
       sendEvent("ENTER");

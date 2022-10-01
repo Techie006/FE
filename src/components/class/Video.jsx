@@ -7,7 +7,7 @@ import ClassVideo from "./ClassVideo";
 
 const Video = (props) => {
   const sessionId = useSelector((state) => state.cookingClass.sessionId);
-  const token = useSelector((state) => state.cookingClass.token);
+  // const token = useSelector((state) => state.cookingClass.token);
   const fullToken = useSelector((state) => state.cookingClass.fullToken);
   const userInfo = useSelector((state) => state.auth.userInfo);
 
@@ -97,11 +97,6 @@ const Video = (props) => {
   useEffect(() => {
     joinSession();
   }, []);
-
-  useEffect(() => {
-    console.log(ov);
-    console.log(session);
-  }, [ov, session]);
 
   useEffect(() => {
     connectSession();
