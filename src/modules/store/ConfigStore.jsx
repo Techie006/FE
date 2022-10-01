@@ -1,4 +1,5 @@
 import { configureStore } from "@reduxjs/toolkit";
+
 import logger from "redux-logger";
 
 import auth from "../redux/auth";

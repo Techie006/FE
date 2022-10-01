@@ -15,12 +15,7 @@ const BookMarkedRecipes = () => {
     })
     const [recipes, setRecipes] = useState([])
     const [showModal, setShowModal] = useState(false)
-    // const [recipesId, setRecipesId] = useState()
-    const userData = useSelector((state) => state.user.userData.payload);
-    const userName = userData.username
-    
-    console.log("userData",userData)
-    console.log("userData",userName)
+    const [user, setUser] = useState("")
 
     const clickHandler = (data) => {
         setShowModal(!showModal);
@@ -32,14 +27,15 @@ const BookMarkedRecipes = () => {
 
         const auth = localStorage.getItem("Authorization")
         
-        const resp = await axios.get("https://magorosc.shop/api/my/bookmark", {
+        const resp = await axios.get(`https://magorosc.shop/api/my/bookmark?pageNum=0&pageLimit=100`, {
             headers: {
             Authorization: auth,
             },
         });
-        const recipesData = resp.data.content.recipes;
+        const recipesData = resp.data.content
         console.log("resp",resp.data.content.recipes)
-        setRecipes(recipesData);
+        setRecipes(recipesData.recipes);
+        setUser(recipesData.user_name)
         console.log("resp",recipes);
 
         }
@@ -65,7 +61,7 @@ const BookMarkedRecipes = () => {
     return (
         <StWrapper>
             <StTitle>
-                {userName} 님의 북마크
+                {user} 님의 북마크
             </StTitle>
             <StBookMarkRecipes>
                 {bookmarkRecipe }
