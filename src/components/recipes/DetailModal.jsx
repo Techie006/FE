@@ -11,8 +11,7 @@ import axios from 'axios';
 import styled from "styled-components";
 
 const DetailModal = ({ id, recipeName, totalIngredient, onClick }) => {
-  console.log(totalIngredient)
-  console.log("id", id)
+
   const [loading, setLoading] = useState(false);
   const [showModal, setShowModal] = useState(false);
   const [recipe, setRecipe] = useState({});
@@ -90,7 +89,7 @@ const DetailModal = ({ id, recipeName, totalIngredient, onClick }) => {
           ) : null}
         </>
         {!loading && showModal ? (
-          <DoneModal onClick={clickHandler} onClickDetail={onClick} />
+          <DoneModal onClick={clickHandler} onClickDetail={onClick} id={id}/>
         ) : null}
         
         </StWrapper>

@@ -1,6 +1,6 @@
 import { useState, useRef, useCallback, useEffect } from "react";
 import styled from "styled-components";
-
+import { useDispatch } from 'react-redux';
 // import { apis } from "../../shared/axios";
 // import RESP_CHAE from "../../server/response_chae";
 import { ReactComponent as Search } from "../../assets/icons/search.svg";
@@ -21,19 +21,12 @@ const Recipes = (props) => {
     id: -1,
     recipe_name: "",
   });
-
   const onChangeData = (e) => {
-    console.log(e.target.value)
+
     if (e.target.value === "") {
-    console.log("hi")
       setKeyword("")
-      console.log("hi2")
     }
-    console.log("bye")
     setKeyword(e.target.value);
-    
-    console.log(keyword)
-    
   };
 
   const pageNum = useRef(0);
@@ -45,10 +38,14 @@ const Recipes = (props) => {
     // const resp = RESP_CHAE.RECIPES.GET_RECIPE_FAIL;
     // const resp = await apis.get_recipes({ pageNum.current, PAGELIMIT });
     // const resp = await axios.get(`https://magorosc.shop/api/recipes?pageNum=${pageNum}&pageLimit=${pageLimit}`);
-    const resp = await axios.get(`https://magorosc.shop/api/recipes?pageNum=${2}&pageLimit=${20}`);
-    const { result, content } = resp.data;
-    console.log("hi",resp.data)
+    const auth = localStorage.getItem("Authorization")
 
+    const resp = await axios.get(`https://magorosc.shop/api/recipes?pageNum=${1}&pageLimit=${100}`,{
+      headers : {
+        "Authorization" : auth,
+    } 
+    });
+    const { result, content } = resp.data;
 
     if (!result) {
       setLoading(false);
@@ -99,8 +96,6 @@ const Recipes = (props) => {
     setKeyItemsError("검색결과가 없습니다!")
 }
 
-    console.log("as",resp.data.content.recipes)
-    console.log("recipe",keyItems)
 // && 연산자로 묶는거 고민
 }
 useEffect(() => {
@@ -138,12 +133,7 @@ useEffect(() => {
               <StSearchBox
               className='search_box'
               key = {index}
-              onClick = { () => {
-                  // setKeyword(search.food_name);
-                  // dispatch(recommend(search.id))
-                  // dispatch(searchData(search.food_name))
-                  // onClose()
-              }}
+              onClick = {clickHandler}
               >
               {search.recipe_name}
               </StSearchBox>                    

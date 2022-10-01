@@ -10,7 +10,7 @@ const Recipe = ({
   method,
   category,
   calorie,
-  is_liked,
+  liked,
   onClick,
 }) => {
   const ingredientList = ingredients.map((data) => <div className="ingredient">{data}</div> )
@@ -21,7 +21,7 @@ const Recipe = ({
         backgroundImage : `url(${final_img})`,
         backgroundSize : "100% 100%",
       }}>
-        <BookmarkBtn className="bookmark" recipe_id={id} is_liked={is_liked} isBox={false} />
+        <BookmarkBtn className="bookmark" recipe_id={id} is_liked={liked} isBox={false} />
       </StImg>
       <StDesc>
       <div className="ingredient_list">{ingredientList}</div>
