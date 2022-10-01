@@ -146,7 +146,7 @@ export default ChatFrame;
 const StChatsPart = styled.div`
   height: 439px;
   overflow-y: scroll;
-  background-color: #eeeaea;
+  padding: 10px 20px 0px 20px;
 `;
 
 const StCreatePart = styled.div`

@@ -34,6 +34,7 @@ const ClassVideo = ({ streamManager, hidden = false, mute = false, isPub }) => {
 export default ClassVideo;
 
 const StVideo = styled.video`
-  width: ${(props) => (props.isPub ? "100px" : "200px")};
-  height: 200px;
+  max-width: 100%;
+  height: auto;
+  padding: 30px 18px;
 `;

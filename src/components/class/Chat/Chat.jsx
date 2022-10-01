@@ -7,20 +7,21 @@ const Chat = ({ nickname: username, profile_img, message }) => {
   const userInfo = useSelector((state) => state.auth.userInfo);
 
   return (
-    <StWrapper>
+    <StLayout>
       <UserImg src={profile_img} alt={`profile_${username}`} />
       <StUsername>{username}</StUsername>
       <StMessage isMe={userInfo.username === username}>{message}</StMessage>
-    </StWrapper>
+    </StLayout>
   );
 };
 
 export default Chat;
 
-const StWrapper = styled.div`
+const StLayout = styled.div`
   display: flex;
   align-items: center;
   flex-wrap: nowrap;
+  margin-bottom: 10px;
 `;
 
 const StUsername = styled.div`

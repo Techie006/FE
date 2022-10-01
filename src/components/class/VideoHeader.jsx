@@ -1,13 +1,17 @@
 import { useParams } from "react-router-dom";
 import { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 
 import { apis } from "../../shared/axios";
+import Button from "../../elements/atoms/Button";
 import Ingredients from "../../elements/molecules/Ingredients";
 
 const VideoHeader = () => {
   const { class_id, role } = useParams();
   const [recipe, setRecipe] = useState();
+
+  const navigate = useNavigate();
 
   const getData = async () => {
     const resp = await apis.get_class_recipe({ class_id });
@@ -29,6 +33,8 @@ const VideoHeader = () => {
         return;
       }
     }
+
+    navigate("/classes");
   };
 
   useEffect(() => {
@@ -39,8 +45,19 @@ const VideoHeader = () => {
   return (
     <StLayout>
       <StHeader>
-        <StTitle>클래스 이름을 찾아 적어줍니다 어쩌고 저쩌고</StTitle>
-        <StRecipeButton>상세 레시피 확인</StRecipeButton>
+        <StClassPart>
+          <StTitle>클래스 이름을 찾아 적어줍니다 어쩌고 저쩌고</StTitle>
+          <StRecipeButton>상세 레시피 확인</StRecipeButton>
+        </StClassPart>
+        {role === "pub" ? (
+          <Button
+            type='button'
+            content='종료하기'
+            onClick={leaveVideo}
+            page='class'
+            func='leave'
+          />
+        ) : null}
       </StHeader>
       <StInfoPart>
         {recipe !== undefined ? (
@@ -73,6 +90,13 @@ const StHeader = styled.div`
   justify-content: space-between;
   flex-wrap: wrap;
   align-items: center;
+`;
+
+const StClassPart = styled.div`
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 14px;
 `;
 
 const StTitle = styled.div`
