@@ -13,7 +13,7 @@ const KakaoLogin = () => {
     const kakaoLogin = async () => {
         try {
     
-            const resp = await axios.get(`http://magorosc.shop/user/kakao/callback?code=${code}`,{});
+            const resp = await axios.get(`https://magorosc.shop/user/kakao/callback?code=${code}`,{});
     
             localStorage.setItem("Authorization",resp.headers.authorization);
             localStorage.setItem("Refresh_Token",resp.headers.refresh_token);
