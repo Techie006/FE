@@ -9,6 +9,7 @@ import Calendar from "../pages/Calendar";
 import Classes from "../pages/Classes";
 import Class from "../pages/Class";
 import Recipe from "../pages/Recipe";
+import BookMarkRecipe from "../pages/BookMarkRecipe";
 import SearchResult from "../pages/SearchResult";
 import NotFound from "../pages/NotFound";
 
@@ -21,6 +22,8 @@ const Routers = (props) => {
         <Route path='/kakaoLogin' element={<KakaoLogin />} />
         <Route path='/googleLogin' element={<GoogleLogin />} />
         <Route path='/' element={<Home />} />
+        <Route path='/home' element={<Home />} />
+        <Route path='/bookmark' element={<BookMarkRecipe />} />
         <Route path='/statistics' element={<Statistics />} />
         <Route path='/calendar' element={<Calendar />} />
         <Route path='/classes' element={<Classes />} />

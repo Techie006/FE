@@ -12,7 +12,7 @@ const KakaoLogin = () => {
 
     const kakaoLogin = async () => {
         try {
-            console.log("hi")
+    
             const resp = await axios.get(`http://magorosc.shop/user/kakao/callback?code=${code}`,{});
     
             localStorage.setItem("Authorization",resp.headers.authorization);
@@ -23,7 +23,6 @@ const KakaoLogin = () => {
                 `${resp.data.status.message}`,
                 'success'
               )
-              console.log("con",resp.data)
             //   navigate("/home", { replace: true })
             dispatch(login());
         }

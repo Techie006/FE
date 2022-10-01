@@ -1,15 +1,15 @@
 import Layout from "../elements/templates/Layout";
-import Header from "../elements/organisms/Header";
+// import Header from "../elements/organisms/Header";
+import Header from "../components/common/Header";
 
-// import HomeLayout from "../components/home/HomeLayout";
+import HomeLayout from "../components/home/HomeLayout";
 
 const Home = (props) => {
   return (
     <>
-      Home
       <Layout>
         <Header />
-        {/* <HomeLayout /> */}
+        <HomeLayout />
       </Layout>
     </>
   );
