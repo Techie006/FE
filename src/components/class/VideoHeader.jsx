@@ -11,12 +11,13 @@ const VideoHeader = () => {
 
   const getData = async () => {
     const resp = await apis.get_class_recipe({ class_id });
-
+    console.log("***getData***", resp);
     const { content } = resp.data;
     setRecipe(content);
   };
 
   const leaveVideo = async () => {
+    console.log("**call of leaveVideo***");
     // publisher인 경우 종료 API 호출
     if (role === "pub") {
       const resp = await apis.quit_class({ class_id });
@@ -38,17 +39,18 @@ const VideoHeader = () => {
   }, []);
 
   return (
-    <>
+    <StLayout>
       <StHeader>
         <StTitle>클래스 이름을 찾아 적어줍니다 어쩌고 저쩌고</StTitle>
         <StRecipeButton>상세 레시피 확인</StRecipeButton>
       </StHeader>
       <StInfoPart>
-        {recipe ? (
+        {recipe !== undefined ? (
           <>
-            <Ingredients content={recipe.ingredients} />
+            <Ingredients contents={recipe.ingredients.slice(0, 3)} />
             <Ingredients
-              content={[
+              isInfo={true}
+              contents={[
                 recipe.method,
                 recipe.category,
                 `${recipe.calorie}kcal`,
@@ -57,14 +59,22 @@ const VideoHeader = () => {
           </>
         ) : null}
       </StInfoPart>
-    </>
+    </StLayout>
   );
 };
 
 export default VideoHeader;
 
-const StHeader = styled.div`
+const StLayout = styled.div`
   padding: 18px 18px 0px 18px;
+`;
+
+const StHeader = styled.div`
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  align-items: center;
 `;
 
 const StTitle = styled.div`
@@ -85,6 +95,14 @@ const StRecipeButton = styled.button`
   line-height: 16px;
   text-decoration-line: underline;
   color: #a5a5a5;
+  background: transparent;
 `;
 
-const StInfoPart = styled.div``;
+const StInfoPart = styled.div`
+  margin-top: 6px;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  flex-wrap: wrap;
+  gap: 6px;
+`;

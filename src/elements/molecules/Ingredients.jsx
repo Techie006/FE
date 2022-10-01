@@ -2,9 +2,9 @@ import styled from "styled-components";
 
 import { T6 } from "../../styles/Text";
 
-const Ingredients = ({ contents, ...props }) => {
+const Ingredients = ({ contents, isInfo = false, ...props }) => {
   const ingridientItems = contents.map((ingredient, idx) => (
-    <StIngredientBox key={idx}>
+    <StIngredientBox key={idx} isInfo={isInfo}>
       <StIngredient>{ingredient}</StIngredient>
     </StIngredientBox>
   ));
@@ -22,7 +22,7 @@ const StWrapper = styled.div`
 `;
 
 const StIngredientBox = styled.div`
-  background: #f0eadc;
+  background: ${(props) => (!props.isInfo ? "#f0eadc" : "#FFEAD8")};
   border-radius: 6px;
   padding: 5px 8px;
 `;

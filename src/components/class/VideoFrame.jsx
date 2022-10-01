@@ -4,7 +4,7 @@ import Video from "./Video";
 const VideoFrame = () => {
   return (
     <>
-      {/* <VideoHeader /> */}
+      <VideoHeader />
       <Video />
     </>
   );
