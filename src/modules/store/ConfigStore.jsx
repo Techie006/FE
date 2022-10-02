@@ -13,6 +13,7 @@ import recipeData from "../redux/recipeData";
 const store = configureStore({
   reducer: { auth, calendar, cookingClassuser, searchData, recipeData, user },
   middleware: (getDefaultMiddleware) => getDefaultMiddleware().concat(logger),
+  
 });
 
 export default store;
