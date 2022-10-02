@@ -45,8 +45,13 @@ const BookMarkedRecipes = () => {
         const bookmarkRecipe =                 
         recipes && recipes.map((data, index) =>(
             <StBookMarkRecipe key={index} onClick={() => {clickHandler(data)}}>
-                {/* <BookmarkBtn is_liked={data.liked} /> */}
-                <StImg src={data.final_img} alt={data.recipe_name} />
+                
+                <StImg style={{
+                    backgroundImage : `url(${data.final_img})`,
+                    backgroundSize : "100% 100%",
+                }}>
+                <BookmarkBtn className="bookmark" recipe_id={data.id} is_liked={data.liked} isBox={false} />
+                </StImg>
                 <StRecipeDesc>
                 <StRecipeIngredients>{data.ingredients.map((data) => 
                 (<div className='recipe_ingredient'>{data}</div>))}
@@ -79,8 +84,7 @@ const BookMarkedRecipes = () => {
 
 export default BookMarkedRecipes;
 
-const StWrapper = styled.div`
-`
+const StWrapper = styled.div``
 const StTitle = styled.div`
     font-family: 'Happiness Sans';
     font-weight: 900;
@@ -94,14 +98,17 @@ const StTitle = styled.div`
 const StBookMarkRecipes = styled.div`
     display : flex;
     flex-direction : row;
-    justify-content : center;
+    justify-content : left;
+    text-align : center;
     flex-wrap: wrap;
 `
-const StImg = styled.img`
+const StImg = styled.div`
     border-top-right-radius: 10px;
     border-top-left-radius: 10px;
     width : 405px;
     height : 167px;
+    padding-left : 91%;
+    padding-top : 3%;
 `
 const StRecipeDesc =styled.div`
     padding : 12px 0px 12px 18px;
@@ -113,6 +120,9 @@ const StBookMarkRecipe = styled.div`
     box-shadow: 0px 3px 13px 1px rgba(0, 0, 0, 0.05);
     border-radius: 10px;
     margin : 28px;
+    .bookmark {
+        position : absolute;
+    }
 `
 const StRecipeIngredients = styled.div`
     display: flex;

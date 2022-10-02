@@ -20,8 +20,7 @@ const DoneModal = ({ id, onClick, onClickDetail }) => {
     // const resp = RESP_CHAE.RECIPES.GET_INGREDIENTS_SUCCESS;
     const auth = localStorage.getItem("Authorization")
 
-    const resp = await axios.get(`https://magorosc.shop/api/ingredients`,{
-
+    const resp = await axios.get(`https://magorosc.shop/api/ingredient`,{
       headers: {
           Authorization: auth,
           },
@@ -47,12 +46,14 @@ const DoneModal = ({ id, onClick, onClickDetail }) => {
     label: `[${ingredient.category}] ${ingredient.food_name}`,
     value: ingredient.id,
   }));
+  console.log(ingredientOptions)
 
   const disabled = selectedIds.length === 0;
 
   const changedHandler = (data) => {
     const values = data.map((selected) => selected.value);
     setSelectedIds([...values]);
+    console.log(selectedIds)
   };
 
   const send_data = async () => {
@@ -62,7 +63,15 @@ const DoneModal = ({ id, onClick, onClickDetail }) => {
     // console.log(payload);
     // const resp = RESP_CHAE.RECIPES.FINISH_RECIPE_SUCCESS;
     // const resp = await apis.done_recipe({ id, payload });
-    const resp = await axios.post(`https://magorosc.shop/api/recipe/finish?${id}`);
+    const auth = localStorage.getItem("Authorization")
+
+    const resp = await axios.post(`https://magorosc.shop/api/recipe/finish?id=${id}`,{
+      ingredients_id : selectedIds
+    },{
+      headers : {
+        Authorization: auth,
+      }
+    });
     const { result } = resp.data;
 
     if (!result) {
@@ -85,7 +94,7 @@ const DoneModal = ({ id, onClick, onClickDetail }) => {
         height : "318px",
         backgroundColor : "#FFFFFF",
         border: "1px solid #DADADA"}}>
-        {/* <Button icon={faX} onClick={onClick} /> */}
+        <Button icon={faX} onClick={onClick} />
         {!loading ? (
           <Select
             className='react-select'
@@ -96,12 +105,12 @@ const DoneModal = ({ id, onClick, onClickDetail }) => {
             onChange={changedHandler}
           />
         ) : null}
-        {/* <Button
+        <Button
           type='button'
           content='해당 재료로 요리 완료 처리하기'
           onClick={clickHandler}
           disabled={disabled}
-        /> */}
+        />
       </Modal>
     </>
   );

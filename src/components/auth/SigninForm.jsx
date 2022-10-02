@@ -50,8 +50,6 @@ const SigninForm = () => {
       // errors."내가 지정한 input name"."내가 지정한 error message"
     const userId = watch("email") + "@" + selectDomain
     const loginUserId = watch("login_email")
-    console.log("watch",watch())
-    console.log("values",getValues())
 
     const pwCheck = (pw) => {
         let regExp = /^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{8,}$/;
@@ -171,13 +169,9 @@ const SigninForm = () => {
                     showConfirmButton: false,
                     timer: 1500
                   })
-                  console.log("1")
                   dispatch(login());
-                  console.log("2")
                   dispatch(user(resp.data.content));
-                  console.log("3")
                   navigate("/home", { replace: true })
-                  console.log("4")
                 }
             } 
             catch(error) {
@@ -186,10 +180,8 @@ const SigninForm = () => {
                 if (error.response.data.status.message == "비밀번호를 잘못 입력하셨습니다.") {
                     setLoginState("")
                     setPwValidation(error.response.data)
-                    console.log("asd",pwValidation)
                 } else {
                     setLoginState(error.response.data)
-                    console.log("asd")
                 }
             }
         }

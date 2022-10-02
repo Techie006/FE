@@ -20,19 +20,26 @@ export default Link;
 const StLink = styled(DOMLink)`
   color: ${(props) => props.theme.colors.font.gray2};
   background-color: inherit;
+  text-decoration: none;
   &:hover {
+    text-decoration: none;
     cursor: pointer;
-    text-decoration: underline;
   }
 `;
 
 const StContent = styled.div`
   font-weight: 700;
-  font-size: "14px";
-  line-height: "20px";
-  letter-spacing: "-0.5px";
-  color: ${(props) => props.theme.colors.main.orange};
+  font-size: 14px;
+  line-height: 20px;
+  letter-spacing: -0.5px;
+  text-decoration: none;
+  color: #656565;
   background-color: inherit;
+  &:hover {
+    color: ${(props) => props.theme.colors.main.orange_red};
+    cursor: pointer;
+    text-decoration: none;
+  }
 `;
 
 const StText = styled(StContent)`
