@@ -8,7 +8,7 @@ import styled from "styled-components";
 
 const SearchModal = ({onClose}) => {
 
-    const dispatch =useDispatch();
+    const dispatch = useDispatch();
 
     const [keyword, setKeyword] = useState("");
     const [keyItems, setKeyItems] = useState([]);

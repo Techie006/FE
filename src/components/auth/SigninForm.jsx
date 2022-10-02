@@ -3,6 +3,7 @@ import { useForm } from "react-hook-form";
 import ServiceInfo from './ServiceInfo';
 import OAuth from "./OAuth"
 import OAuth2 from "./OAuth2"
+import GridTemplate from "../../elements/templates/GridTemplate";
 import { useNavigate } from "react-router-dom";
 import { useDispatch } from 'react-redux';
 import Select from "react-select";
@@ -240,8 +241,11 @@ const SigninForm = () => {
     }
 
     return (
+        
         <StWrapper>
             {currPage === true ?(
+        <GridTemplate className="signUp_grid">
+            <StSignUpSection>
             <StSignUpWrapper>
             <StHeaderWrapper>
             <div className='signup_title'>Frigo</div>
@@ -370,9 +374,15 @@ const SigninForm = () => {
                 target='_blank' <- 새창열기  */}
             </form>
             </StSignUpWrapper>
+            </StSignUpSection>
+            </GridTemplate>
             ):
-            (<StSigninLayout>
-                <ServiceInfo/>
+            (<GridTemplate>
+                {/* <StSigninLayout> */}
+                    <StServiceInfoSection>
+                        <ServiceInfo/>
+                    </StServiceInfoSection>
+                    <StSignInSection>
                 <StSignInWrapper>
                 <form onSubmit = {handleSubmit(onSubmitHadler)}>
                 <StSignInTitle>Frigo</StSignInTitle>
@@ -388,6 +398,7 @@ const SigninForm = () => {
                 })}
                 />
                 </div>
+                <div>
                 {errors.login_email ? (
                     <ErrorText>{errors.login_email.message}</ErrorText>
                 ):
@@ -400,6 +411,7 @@ const SigninForm = () => {
                 (
                 <Blank/>
                 )}
+                </div>
                 </StInputWrapper>
                 <StInputWrapper>
                 <div className='pw_wrapper'>
@@ -443,7 +455,9 @@ const SigninForm = () => {
                 
                 </form>
                 </StSignInWrapper>
-                </StSigninLayout>
+                </StSignInSection>
+                {/* </StSigninLayout> */}
+                </GridTemplate>
                 
             )}
             </StWrapper>
@@ -453,8 +467,32 @@ const SigninForm = () => {
 
 export default SigninForm;
 
+const StGrid = styled.div`
+  background: ${(props) => props.theme.section.layout.background};
+  border-radius: ${(props) => props.theme.section.layout.borderRadius};
+  box-shadow: ${(props) => props.theme.section.layout.boxShadow};
+`;
 const StWrapper = styled.div`
     letter-spacing: -0.5px;
+    a {
+        font-weight: 400;
+        font-size: 12px;
+        line-height: 17px;
+        align-items: center;
+        text-align: center;
+        letter-spacing: -0.5px;
+        color: #5B5B5B;
+        margin-right : 10px;
+        text-decoration: none;
+    }
+`
+const StSignUpSection = styled(StGrid)`
+        grid-column: 1 / span 12;
+
+        /* mobile */
+        @media all and (max-width: 600px) {
+        grid-column: 1 / span 4;
+        }
 `
 const StHeaderWrapper =styled.div`
     display : flex;
@@ -505,10 +543,10 @@ const StSignUpWrapper = styled.div`
     flex-direction : column;
     text-align : center;
     width : 406px;
-    height : 646px;
+    height : 670px;
     background-color : ${(props) => props.theme.colors.background.white};
     border : 1px solid #ECECEC;
-    margin : 189px auto;
+    margin :0px auto;
     padding : 37px;
     padding-top : 0px;
 
@@ -534,6 +572,7 @@ const StSignUpWrapper = styled.div`
         color : #FAFAFA;
         font-weight : 700;
         font-size : 20px;
+        margin-bottom : 10px;
     }
     .show_button {
         border : 0px;
@@ -596,13 +635,23 @@ const StEmailGroup = styled.div`
     margin-bottom :4px;  
 `
 //////// sign in ////////
+const StServiceInfoSection = styled(StGrid)`
+  grid-column: 1 / span 7;
 
-const StSigninLayout = styled.div`
-    display: flex;
-    flex-direction : row;
-    justify-content : center;
-    flex-wrap : wrap;
-`
+  /* mobile */
+  @media all and (max-width: 600px) {
+    grid-column: 1 / span 4;
+  }
+`;
+const StSignInSection = styled(StGrid)`
+  
+  grid-column: 8 / span 5;
+
+  /* mobile */
+  @media all and (max-width: 600px) {
+    grid-column: 1 / span 4;
+  }
+`;
 
 const StSignInTitle = styled.div`
     font-family: Snug FREE;
@@ -617,12 +666,13 @@ const StSignInWrapper = styled.div`
     flex-direction : column;
     text-align : center;
     border : 1px solid #ECECEC;
-    width : 433px;
-    height : 597px;
-    margin : 231px 273px 196px 50px;
+    width : 80%;
+    height : 90%;
+    margin : 38px 40px 38px 40px;
     input {
-        width : 250px;
+        width : 95%;
         display : flex;
+        font-size : 70%;
         border : 0px;
         text-align : left;
         background-color : #FAFAFA;
@@ -632,11 +682,15 @@ const StSignInWrapper = styled.div`
     }
     .email_wrapper {
         display : flex;
-        margin : 13px 25px 13px;
+        padding : 17px 0px 3px 8%;
+        margin-bottom : 10px;
+        align-items: center
     }
     .pw_wrapper {
         display : flex;
-        margin : 13px 25px 13px;
+        padding : 17px 0px 3px 8%;
+        margin-bottom : 10px;
+        align-items: center
     }
     .submitButton {
         background-color : #FC9700;
@@ -682,6 +736,7 @@ const StSignInWrapper = styled.div`
         margin-bottom : 16px;
         font-size : 14px;
         color : #A5A5A5;
+        background-color : #FFFFFF;
     }
     .helper {
         margin : 5px;
@@ -691,7 +746,7 @@ const StSignInWrapper = styled.div`
 
 `
 const StInputWrapper = styled.div`
-    width : 329px;
+    width :  calc(100% - 100px);
     height : 50px;
     margin : 28px auto;
     border : 1.2px solid #DADADA;
@@ -705,7 +760,7 @@ const StInputWrapper = styled.div`
     }
 `
 const StInputButton =styled.div`
-    width : 329px;
+    width : calc(100% - 100px);
     height : 50px;
     margin : 28px auto;
     border : 1.2px solid #DADADA;
@@ -715,8 +770,9 @@ const StInputButton =styled.div`
 `
 const UserIcon = styled.img`
     width : 14px;
-    height : 18px;
-    margin-right : 10px;
+    height : 14px;
+    margin-right : 4%;
+    padding : 2px;
 `
 const Blank = styled.div`
     height : 11.2px;

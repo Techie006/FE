@@ -107,7 +107,7 @@ const DoneModal = ({ id, onClick, onClickDetail }) => {
         ) : null}
         <Button
           type='button'
-          content='해당 재료로 요리 완료 처리하기'
+          content='재료 사용 완료'
           onClick={clickHandler}
           disabled={disabled}
         />

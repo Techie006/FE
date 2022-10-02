@@ -22,6 +22,6 @@ export default OAuth2;
 
 const StOAuthWrapper = styled.div``
 const StImg = styled.img`
-    width : 361px;
+    width : 69%;
     height : 62px;
 `
