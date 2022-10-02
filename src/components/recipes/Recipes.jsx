@@ -194,12 +194,13 @@ export default Recipes;
 const StWrapper = styled.div`
   display: flex;
   flex-wrap: wrap;
-  padding : 40px 70px ;
+
 `;
 const StHeader = styled.div`
   display : flex;
   flex-direction : row;
   justify-content : space-between;
+  flex-wrap : wrap;
   width : 1270px;
 `;
 const StTitle = styled.div`

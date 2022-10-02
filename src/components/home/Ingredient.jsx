@@ -89,7 +89,6 @@ const StyledIngredinet = styled.div`
     flex-direction : row;
     justify-content : space-between;
     align-items : center;
-    width : 365px;
     height : 73px;
     border : 1px solid #ECECEC;
     border-radius: 6px;
