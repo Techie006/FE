@@ -16,11 +16,14 @@ const Recipes = (props) => {
   const [keyItemsError, setKeyItemsError] = useState("");
   const [loading, setLoading] = useState(true);
   const [recipes, setRecipes] = useState([]);
+  const [searchName, setSearchName] = useState("");
   const [showModal, setShowModal] = useState(false);
+  const [search, setSearch] = useState(false);
   const [recipe, setRecipe] = useState({
     id: -1,
     recipe_name: "",
   });
+  console.log(keyword)
   const onChangeData = (e) => {
 
     if (e.target.value === "") {
@@ -66,6 +69,11 @@ const Recipes = (props) => {
     setShowModal((prev) => !prev);
     setRecipe({ ...recipe });
   };
+  const showModalHandler = () => {
+    setKeyword("");
+    setShowModal((prev) => !prev);
+    seachRecipe();
+  }
 
   const seachRecipe = async (keyword) => {
 
@@ -78,12 +86,12 @@ const Recipes = (props) => {
           "Authorization" : auth,
       }
     });
+    setRecipe()
   const autoCompleteData = resp.data.content.recipes;
   
   if (keyword !== ""){
     if (autoCompleteData == undefined) {
         setKeyItems([]);
-        setKeyItemsError("검색결과가 없습니다!")
         
     }else{
         setKeyItemsError("")
@@ -95,8 +103,24 @@ const Recipes = (props) => {
 }else{
     setKeyItemsError("검색결과가 없습니다!")
 }
-
 // && 연산자로 묶는거 고민
+}
+const searchRecipeResult = async () => {
+  console.log("키워드",keyword)
+  const auth = localStorage.getItem("Authorization")
+  const resp = await axios.post(`https://magorosc.shop/api/recipes/search?pageNum=${0}&pageLimit=${100}`,{
+    recipe_name : keyword
+  },{
+    headers : {
+        "Authorization" : auth,
+    }
+  });
+  console.log(resp.data)
+  setRecipes(resp.data.content.recipes)
+  setSearchName(resp.data.content.search_name)
+  setSearch(!search)
+  setKeyword("");
+  seachRecipe();
 }
 useEffect(() => {
   const trottled = setTimeout(() => {
@@ -114,13 +138,19 @@ useEffect(() => {
   return (
     <StWrapper>
       <StHeader>
+        {!search ? (
         <StTitle>
         다양한 레시피를 만나보세요!
+        </StTitle>) : 
+        (
+        <StTitle>
+          "{searchName}" 검색 결과
         </StTitle>
+        )}
         <div>
         <StSearchWrapper>
         <div className="search_wrapper">
-          <Search fill="#5B5B5B"/>
+          <Search fill="#5B5B5B" onClick={searchRecipeResult}/>
         <StSearchInput
                   type = "text"
                   onChange={onChangeData}
@@ -133,7 +163,7 @@ useEffect(() => {
               <StSearchBox
               className='search_box'
               key = {index}
-              onClick = {clickHandler}
+              onClick = {showModalHandler}
               >
               {search.recipe_name}
               </StSearchBox>                    
@@ -164,7 +194,7 @@ export default Recipes;
 const StWrapper = styled.div`
   display: flex;
   flex-wrap: wrap;
-  padding : 40px 84px ;
+  padding : 40px 70px ;
 `;
 const StHeader = styled.div`
   display : flex;
@@ -217,14 +247,14 @@ const StContent = styled.div`
 
 const StSearchBoxWrapper = styled.div`
   position : absolute;
-  z-index : 999;
+  z-index : 2;
   margin : 40px auto;
   width: 285px;
   height : auto;
   max-height : 200px;
   overflow-y: scroll;
   background: #FFFFFF;
-  border: 0.6px solid #DADADA;
+
   box-shadow: 0px 2px 8px rgba(0, 0, 0, 0.1);
   border-radius: 6px;
 `

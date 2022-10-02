@@ -125,6 +125,7 @@ const StyledContent = styled.div`
     border-radius: 15px;
     position: relative;
     background-color : #FFFFFF;
+    z-index : 100;
     overflow: auto;
     &::-webkit-scrollbar {
       width: 8px;
