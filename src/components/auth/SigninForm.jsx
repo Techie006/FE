@@ -551,7 +551,8 @@ const StSignUpWrapper = styled.div`
     padding-top : 0px;
 
     input {
-        width : 332px;
+        width : 95%;
+        font-size : 70%;
         height : 50px;
         background: #FAFAFA;
         border: 1.19856px solid #DADADA;
@@ -671,8 +672,8 @@ const StSignInWrapper = styled.div`
     margin : 38px 40px 38px 40px;
     input {
         width : 95%;
-        display : flex;
         font-size : 70%;
+        display : flex;
         border : 0px;
         text-align : left;
         background-color : #FAFAFA;

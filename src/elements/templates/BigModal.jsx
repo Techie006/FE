@@ -1,11 +1,13 @@
 import styled from "styled-components";
-
+import GridTemplate from "../../elements/templates/GridTemplate";
 import { BT2, ST1 } from "../../styles/Text";
 import IconBox from "../atoms/IconBox";
 // import { ReactComponent as X } from "../../assets/icons/x.svg";
 
 const Modal = ({ header, onClick, depth, ...props }) => {
   return (
+    <GridTemplate>
+      <StMainSection>
     <div style={{ ...props }}>
       <StBackground depth={depth} />
       <StLayout depth={depth}>
@@ -19,10 +21,27 @@ const Modal = ({ header, onClick, depth, ...props }) => {
         {props.children}
       </StLayout>
     </div>
+    </StMainSection>
+    </GridTemplate>
   );
 };
 
 export default Modal;
+
+const StGrid = styled.div`
+  background: ${(props) => props.theme.section.layout.background};
+  border-radius: ${(props) => props.theme.section.layout.borderRadius};
+  box-shadow: ${(props) => props.theme.section.layout.boxShadow};
+`;
+
+const StMainSection = styled(StGrid)`
+  grid-column: 1 / span 4;
+
+  /* mobile */
+  @media all and (max-width: 600px) {
+    grid-column: 1 / span 4;
+  }
+`;
 
 const StBackground = styled.div`
   position: fixed;
@@ -39,8 +58,8 @@ const StLayout = styled.div`
   left: 50%;
   top: 46%;
   transform: translate(-50%, -50%);
-  width: 405px;
-  height: 542px;
+  
+  
   background: #ffffff;
   border-radius: 15px;
   overflow-y: auto;

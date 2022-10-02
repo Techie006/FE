@@ -2,6 +2,7 @@ import CreateIngredient from './CreateIngredient';
 import HomeIngredients from './HomeIngredients';
 import RecommendRecipes from './RecommendRecipes';
 import Ingredients from '../statistics/Ingredients';
+import GridTemplate from "../../elements/templates/GridTemplate";
 import styled from "styled-components";
 import TodayRecipe from './TodayRecipe';
 
@@ -10,29 +11,23 @@ const HomeLayout = () => {
 
     return (
         <StWrapper>
-            <StContainer>
-            <CreateIngredient/>
-            <HomeIngredients/>
-            </StContainer>
-            <StContainer>
+            <GridTemplate>
+                <StMainSection>
+                    <CreateIngredient/>
+                    <HomeIngredients/>
+                </StMainSection>
+                <StSubSection>
             <RecommendRecipes/>
-            </StContainer>
-            <div className='wrapper'>
-            <StContainer>
-            <div className='wrapper'>
+            </StSubSection>
+            <StCartSection>
             <StChartWrapper>
-            <div className='chart_title'>우리집 냉장고 상태</div>
-            <div className='chart_subTitle'>우리집 냉장고 현황</div>
-            <Ingredients styled={{
-                width : "221px",
-                height : "221px"
-            }}/>
+            {/* <div className='chart_title'>우리집 냉장고 상태</div>
+            <div className='chart_subTitle'>우리집 냉장고 현황</div> */}
+            <Ingredients/>
             </StChartWrapper>
-            
             <TodayRecipe/>
-            </div>
-            </StContainer>
-            </div>
+            </StCartSection>
+            </GridTemplate>
     </StWrapper>
         );
     };
@@ -41,20 +36,40 @@ const HomeLayout = () => {
 export default HomeLayout;
 
 const StWrapper = styled.div`
-    display: flex;
-    flex-direction : row;
-    margin-top : 28px;
-    padding : 0px 85px 0px 85px;
 `
-const StContainer = styled.div`
-    margin-right : 28px;
-`
+const StGrid = styled.div`
+  background: ${(props) => props.theme.section.layout.background};
+  border-radius: ${(props) => props.theme.section.layout.borderRadius};
+  box-shadow: ${(props) => props.theme.section.layout.boxShadow};
+`;
+
+const StMainSection = styled(StGrid)`
+  grid-column: 1 / span 4;
+
+  /* mobile */
+  @media all and (max-width: 600px) {
+    grid-column: 1 / span 4;
+  }
+`;
+
+const StSubSection = styled(StGrid)`
+  grid-column: 5 / span 4;
+
+  /* mobile */
+  @media all and (max-width: 600px) {
+    grid-column: 1 / span 4;
+  }
+`;
+const StCartSection = styled(StGrid)`
+  grid-column: 9 / span 4;
+
+  /* mobile */
+  @media all and (max-width: 600px) {
+    grid-column: 1 / span 4;
+  }
+`;
 const StChartWrapper = styled.div`
-    display : flex; 
-    flex-direction : column;
     padding : 20px;
-    width : 405px;
-    height : 387px;
     background-color : ${(props) => props.theme.colors.background.white};
     box-shadow : ${(props) => props.theme.section.layout.boxShadow};
     border-radius : ${(props) => props.theme.section.layout.borderRadius};

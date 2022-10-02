@@ -5,7 +5,7 @@ import { faAppleWhole } from "@fortawesome/free-solid-svg-icons";
 import axios from 'axios';
 import Swal from "sweetalert2";
 import styled from "styled-components";
-
+import GridTemplate from "../../elements/templates/GridTemplate";
 import Potal from '../modals/Potal';
 import UpdateProfileModal from '../modals/UpdateProfileModal';
 import Link from "../../elements/atoms/Link";
@@ -94,6 +94,8 @@ const Header = () => {
   ));
 
   return (
+    <GridTemplate>
+      <StHeaderSection>
     <StWrapper>
       <StLayout>
         <FontAwesomeIcon icon={faAppleWhole} size='lg' />
@@ -124,15 +126,29 @@ const Header = () => {
         </div>
         </StMypageWrapper>
       </StLayout>
-
     </StWrapper>
+    </StHeaderSection>
+    </GridTemplate>
   );
 };
 
 export default Header;
 
+const StGrid = styled.div`
+  background: ${(props) => props.theme.section.layout.background};
+  border-radius: ${(props) => props.theme.section.layout.borderRadius};
+  box-shadow: ${(props) => props.theme.section.layout.boxShadow};
+`;
+
+const StHeaderSection = styled(StGrid)`
+  grid-column: 1 / span 4; 
+
+  /* mobile */
+  @media all and (max-width: 600px) {
+    grid-column: 1 / span 4;
+  }
+`;
 const StWrapper = styled.div`
-  width: 100%;
   height: 64px;
   display: flex;
   flex-direction: column;

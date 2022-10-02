@@ -100,8 +100,8 @@ export default HomeIngredients;
 const StyledInredientsWrapper = styled.div`
     display : flex;
     flex-direction : column;
-    width : 405;
-    height : 638px;
+    height : 530px;
+    padding-bottom : 10px;
     background-color : ${(props) => props.theme.colors.background.white};
     box-shadow: ${(props) => props.theme.section.layout.boxShadow};
     border-radius: ${(props) => props.theme.section.layout.borderRadius};
