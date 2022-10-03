@@ -155,7 +155,7 @@ const SigninForm = () => {
         }
         if( currPage === false ) {
             try{
-            const resp = await axios.post("http://3.38.214.79/api/user/signin",{
+            const resp = await axios.post("https://magorosc.shop/api/user/signin",{
                 email : loginUserId,
                 password : watch("login_password"),
             })

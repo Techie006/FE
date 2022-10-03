@@ -12,7 +12,7 @@ import { recommend } from '../../modules/redux/searchData';
 const HomeIngredients = () => {
     const [showModal, setShowModal] = useState(false);
     const [ingredients, setIngredients] = useState([]);
-    const [curr, setCurr] = useState("none")
+    const [curr, setCurr] = useState("freeze")
     const [filterData, setFilterData] = useState([])
     
 
