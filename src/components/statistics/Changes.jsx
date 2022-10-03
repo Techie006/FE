@@ -46,7 +46,7 @@ const Changes = ({ type }) => {
       }
 
       // 사용자가 요리한 레시피 내역이 있는 경우 처리
-      setLoading(false);
+      // setLoading(false);
       setData(statistics);
     },
     [type]

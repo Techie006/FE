@@ -7,7 +7,7 @@ import Changes from "./Changes";
 
 const StatisticsFrame = () => {
   return (
-    <GridTemplate height='minmax(349px, auto)'>
+    <GridTemplate page='statistics'>
       <StLeftSection>
         <Ingredients fromMain={false} />
       </StLeftSection>

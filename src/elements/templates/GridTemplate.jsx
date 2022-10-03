@@ -37,6 +37,7 @@ const StLayout = styled.div`
   grid-template-columns: repeat(12, 12fr);
   grid-column-gap: 28px; // gutter @Figma
   grid-row-gap: 28px; // gutter @Figma
+  grid-auto-rows: minmax(349px, auto);
 
   /* tablet */
   @media all and (max-width: 1024px) {
