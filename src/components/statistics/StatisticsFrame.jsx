@@ -9,7 +9,7 @@ const StatisticsFrame = () => {
   return (
     <GridTemplate height='minmax(349px, auto)'>
       <StLeftSection>
-        <Ingredients />
+        <Ingredients fromMain={false} />
       </StLeftSection>
       <StRightSection>
         <Daily />

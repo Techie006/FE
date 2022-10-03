@@ -4,12 +4,11 @@ import styled from "styled-components";
 // import RESP from "../../server/response";
 import { apis } from "../../shared/axios";
 import { ST3 } from "../../styles/Text";
-import { ChartColors } from "../../styles/Colors";
 import LoadingSpinner from "../../elements/atoms/LoadingSpinner";
 import HelperButton from "../../elements/molecules/HelperButton";
 import DonutChart from "./ApexCharts/DonutChart";
 
-const Ingredients = (props) => {
+const Ingredients = ({ fromMain = false }) => {
   const [loading, setLoading] = useState(true);
   const [showMsg, setShowMsg] = useState(false);
   const [data, setData] = useState({
@@ -17,14 +16,15 @@ const Ingredients = (props) => {
     category: [],
   });
 
+  // ApexChart에 전달될 차트 관련 정보
   const ChartInfo = {
     LABELS: {
       due: ["만료", "임박", "정상"],
       category: ["농산물", "축산물", "해산물", "음료류", "기타"],
     },
     CHART_COLORS: {
-      due: ChartColors.due,
-      category: ChartColors.category,
+      due: ["#FF7528", "#FADD8A", "#84BBB2"],
+      category: ["#FFDD7C", "#FFB356", "#FF8E42", "#79A6DC", "#74BDB2"],
     },
   };
 
@@ -59,14 +59,19 @@ const Ingredients = (props) => {
       return;
     }
 
+    // 식재료 통계 데이터 컴포넌트에 반영
     setData((prev) => ({ ...prev, [type]: count }));
-    setLoading(false);
+    // setLoading(false);
   }, []);
 
   useEffect(() => {
     getData("due");
-    getData("category");
-  }, [getData]);
+
+    // 메인 페이지에서 요청한 경우 카테고리별 분류는 보여주지 않음
+    if (!fromMain) {
+      getData("category");
+    }
+  }, [getData, fromMain]);
 
   return (
     <>
@@ -91,15 +96,17 @@ const Ingredients = (props) => {
             labels={ChartInfo.LABELS.due}
             colors={ChartInfo.CHART_COLORS.due}
           />
-          {/* Category Status */}
-          <DonutChart
-            height='300px'
-            padding='28px 0px 0px 0px'
-            series={data.category}
-            title='식재료 식품분류 현황'
-            labels={ChartInfo.LABELS.category}
-            colors={ChartInfo.CHART_COLORS.category}
-          />
+          {/* Category Status (statistics 페이지에서만 보임) */}
+          {!fromMain ? (
+            <DonutChart
+              height='300px'
+              padding='28px 0px 0px 0px'
+              series={data.category}
+              title='식재료 식품분류 현황'
+              labels={ChartInfo.LABELS.category}
+              colors={ChartInfo.CHART_COLORS.category}
+            />
+          ) : null}
         </StLayout>
       ) : null}
     </>
