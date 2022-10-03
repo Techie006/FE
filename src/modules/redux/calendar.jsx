@@ -67,9 +67,10 @@ export const __createDiet = createAsyncThunk(
 
 export const __updateDiet = createAsyncThunk(
   "calendar/__updateDiet",
-  async ({ id, recipe_name, category, date }, thunkAPI) => {
+  async ({ id, recipe_id, category, date }, thunkAPI) => {
+    console.log(recipe_id);
     try {
-      const resp = await apis.update_diet({ id, recipe_name, category, date });
+      const resp = await apis.update_diet({ id, recipe_id, category, date });
       const {
         content: { day, meals },
       } = resp.data;
@@ -101,16 +102,18 @@ const calendarSlice = createSlice({
   reducers: {
     openDietModal: (state, action) => {
       state.dietModalOpen = true;
-      state.modalType = action.payload.type;
-      state.selectedDiet = action.payload.diet;
-      state.selectedDate = action.payload.date;
+      const { type, diet, recipe, date } = action.payload;
+      state.modalType = type;
+      state.selectedDiet = diet;
+      state.selectedRecipe = recipe;
+      state.selectedDate = date;
     },
     closeDietModal: (state, _) => {
       state.dietModalOpen = false;
       state.modalType = "";
       state.selectedDiet = {};
-      state.selectedDate = "";
       state.selectedRecipe = {};
+      state.selectedDate = "";
       state.datePickerOpen = false;
     },
     openSearchModal: (state, _) => {
@@ -125,7 +128,8 @@ const calendarSlice = createSlice({
       state.datePickerOpen = true;
     },
     closeDatePicker: (state, action) => {
-      state.selectedDate = action.payload.selectedDate;
+      const { selectedDate } = action.payload;
+      state.selectedDate = selectedDate;
       state.datePickerOpen = false;
     },
   },

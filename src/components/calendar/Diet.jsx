@@ -13,18 +13,8 @@ import IconBox from "../../elements/atoms/IconBox";
 import { ReactComponent as Edit } from "../../assets/icons/edit.svg";
 import Textbox from "../../elements/atoms/Textbox";
 
-const Diet = (props) => {
-  const {
-    id,
-    recipe_id,
-    recipe_name,
-    time,
-    liked,
-    category,
-    calorie,
-    method,
-    day,
-  } = props;
+const Diet = ({ id, time, day, ...props }) => {
+  const { recipe_id, recipe_name, liked, category, calorie, method } = props;
 
   const dispatch = useDispatch();
 
@@ -36,8 +26,14 @@ const Diet = (props) => {
   // 식단 변경 시 식단 변경하기 모달 띄움
   const showModal = () => {
     const parsedDate = parseDate(new Date(day));
-    console.log(parsedDate);
-    dispatch(openDietModal({ diet: props, type: "update", date: parsedDate }));
+    dispatch(
+      openDietModal({
+        diet: { id, time, day },
+        type: "update",
+        date: parsedDate,
+        recipe: { ...props, id: recipe_id },
+      })
+    );
   };
 
   // 식단 삭제 시 컨펌창 띄우기

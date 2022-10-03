@@ -30,7 +30,7 @@ const DietModal = (props) => {
 
   const dispatch = useDispatch();
 
-  const [time, setTime] = useState(selectedDiet.time || "");
+  const [time, setTime] = useState(selectedDiet.time);
 
   const [errors, setErrors] = useState({});
 
@@ -86,26 +86,19 @@ const DietModal = (props) => {
     // form에 빈 값 오는 경우 에러처리
     let error = {};
 
-    if (
-      !(
-        JSON.stringify(selectedRecipe) !== `{}` ||
-        JSON.stringify(selectedDiet) !== `{}`
-      )
-    ) {
+    if (JSON.stringify(selectedRecipe) === `{}`) {
       error.recipe = {
         hasError: true,
         message: "레시피를 입력해주세야해요.",
       };
     }
-    if (time === "") {
+    if (time === undefined) {
       error.time = {
         hasError: true,
         message: "시간대를 지정해주세야해요.",
       };
     }
-    if (
-      !(JSON.stringify(selectedDiet) !== `{}` || selectedDate !== undefined)
-    ) {
+    if (selectedDate === undefined) {
       error.due = {
         hasError: true,
         message: "날짜를 입력해주세야해요.",
@@ -116,7 +109,6 @@ const DietModal = (props) => {
       setErrors(error);
       return;
     }
-    console.log(error);
 
     // 모든 입력값 받은 경우, 식단 기록하기 모달 처리
     if (modalType === "create") {
@@ -131,8 +123,10 @@ const DietModal = (props) => {
 
     // 모든 입력값 받은 경우, 식단 변경하기 모달 처리
     if (modalType === "update") {
+      console.log(selectedDate.id);
       dispatch(
         __updateDiet({
+          id: selectedDiet.id,
           recipe_id: selectedRecipe.id,
           category: time,
           date: selectedDate,
@@ -143,10 +137,12 @@ const DietModal = (props) => {
     closeHandler();
   };
 
-  console.log(selectedDate, selectedDiet.day);
-
   return (
-    <Modal header='식단 기록하기' onClick={closeHandler} depth={1}>
+    <Modal
+      header={modalType === "create" ? "식단 기록하기" : "식단 수정하기"}
+      onClick={closeHandler}
+      depth={1}
+    >
       <StLayout>
         <StRecipePart>
           <ST3>어떤 요리를 하실건가요?</ST3>
@@ -156,9 +152,7 @@ const DietModal = (props) => {
             id='recipe'
             onFocus={focusHandler}
             onChange={focusHandler}
-            value={
-              selectedRecipe?.recipe_name || selectedDiet?.recipe_name || ""
-            }
+            value={selectedRecipe?.recipe_name || ""}
           />
           {errors.recipe?.hasError ? <ET1>{errors.recipe.message}</ET1> : null}
         </StRecipePart>
@@ -180,7 +174,7 @@ const DietModal = (props) => {
             type='text'
             placeholder='날짜 입력'
             id='due'
-            value={selectedDate || selectedDiet?.day || ""}
+            value={selectedDate || ""}
             onFocus={focusHandler}
             onChange={focusHandler}
           />
@@ -188,7 +182,7 @@ const DietModal = (props) => {
         </StDatePart>
         <Button
           type='submit'
-          content='기록하기'
+          content={modalType === "create" ? "기록하기" : "수정하기"}
           page='modal'
           func='create'
           marginTop={"30px"}
