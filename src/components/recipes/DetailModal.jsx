@@ -1,6 +1,6 @@
 import { useState, useCallback, useEffect } from "react";
-import { faX } from "@fortawesome/free-solid-svg-icons";
 
+import { ReactComponent as X } from "../../assets/icons/x.svg";
 import { apis } from "../../shared/axios";
 // import RESP_CHAE from "../../server/response_chae";
 import Loader from "../common/Loader";
@@ -20,8 +20,14 @@ const DetailModal = ({ id, recipeName, totalIngredient, onClick }) => {
     // const resp = RESP_CHAE.RECIPES.GET_RECIPE_SUCCESS;
     // const resp = RESP_CHAE.RECIPES.GET_RECIPE_FAIL;
     // const resp = await apis.get_recipes({ pageNum.current, PAGELIMIT });
-    const resp = await axios.get(`https://magorosc.shop/api/recipe/${id}`);
+    const auth = localStorage.getItem("Authorization")
+    const resp = await axios.get(`https://magorosc.shop/api/recipe/${id}`,{
+      headers : {
+        "Authorization" : auth,
+      }
+    });
     const { result, content } = resp.data;
+    console.log("aa",resp.data)
 
     if (!result) {
       setLoading(false);
@@ -66,7 +72,12 @@ const DetailModal = ({ id, recipeName, totalIngredient, onClick }) => {
               {headerIngredient}
             </div>
             </div>
-            <StClosebutton onClick={onClick}/>
+            <X fill="black" onClick={onClick}/>
+            <StCompletebutton
+                type='button'
+                // content='요리 완료'
+                onClick={clickHandler}
+              >요리완료</StCompletebutton>
           </StHeader>
         <>
           {loading ? <Loader /> : null}
@@ -79,11 +90,6 @@ const DetailModal = ({ id, recipeName, totalIngredient, onClick }) => {
                 </StTotalIngredient>
               <StDetailRecipe>
               {instruction}
-              <button
-                type='button'
-                // content='요리 완료'
-                onClick={clickHandler}
-              >요리완료</button>
               </StDetailRecipe>
             </>
           ) : null}
@@ -120,7 +126,7 @@ const StyledContent = styled.div`
     align-items: left;
     text-align: left;
     width: 622px;
-    height: 884px;
+    height: 500px;
     border : 1px solid black;
     border-radius: 15px;
     position: relative;
@@ -156,7 +162,7 @@ const StHeader = styled.div`
       font-family: 'Happiness Sans';
       font-style: normal;
       font-weight: 900;
-      font-size: 24px;
+      font-size: 100%;
       line-height: 32px;
       display: flex;
       align-items: center;
@@ -183,10 +189,24 @@ const StHeader = styled.div`
       color: #FF5C01;
     }
 `
-const StClosebutton = styled.button`
-    width :21.5px;
-    height :21.5px;
-
+const StCompletebutton = styled.button`
+  cursor : pointer;
+  position : fixed; 
+  top : 80%;
+  left : 65%;
+  padding: 9px 17px;
+  margin-bottom : 20px;
+  text-align : right;
+  width: 89px;
+  height: 34px;
+  background: #FFDD7C;
+  border-radius: 8px;
+  font-weight: 700;
+  font-size: 14px;
+  line-height: 16px;
+  text-align: center;
+  letter-spacing: -0.005em;
+  color: #664500;
 `
 const StTotalIngredient = styled.div`
   padding : 13px 36px 0px 30px;
@@ -232,6 +252,8 @@ const StDetailRecipe = styled.div`
   }
 `
 const StInstruction = styled.div`
+  width : 80%;
+  margin : 0px auto;
   .desc {
     font-weight: 500;
     font-size: 14px;
@@ -243,7 +265,7 @@ const StInstruction = styled.div`
   }
 `
 const StRecipeimg = styled.img`
-    width : 462px;
+    width : 100%;
     height : 215px;
     margin-bottom : 10px;
 `

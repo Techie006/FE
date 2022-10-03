@@ -102,6 +102,7 @@ const StMainSection = styled(StGrid)`
   }
 `;
 const StWrapper = styled.div`
+    cursor: pointer;
 `
 const StTitle = styled.div`
     font-family: 'Happiness Sans';

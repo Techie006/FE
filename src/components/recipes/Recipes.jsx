@@ -43,7 +43,7 @@ const Recipes = (props) => {
     // const resp = await axios.get(`https://magorosc.shop/api/recipes?pageNum=${pageNum}&pageLimit=${pageLimit}`);
     const auth = localStorage.getItem("Authorization")
 
-    const resp = await axios.get(`https://magorosc.shop/api/recipes?pageNum=${1}&pageLimit=${100}`,{
+    const resp = await axios.get(`https://magorosc.shop/api/recipes?pageNum=${1}&pageLimit=${20}`,{
       headers : {
         "Authorization" : auth,
     } 
@@ -66,13 +66,15 @@ const Recipes = (props) => {
   }, [get_data]);
 
   const clickHandler = (recipe) => {
-    setShowModal((prev) => !prev);
-    setRecipe({ ...recipe });
-  };
-  const showModalHandler = () => {
     setKeyword("");
     setShowModal((prev) => !prev);
     seachRecipe();
+    setRecipe({ ...recipe });
+  };
+  const showModalHandler = () => {
+    
+    setShowModal((prev) => !prev);
+    
   }
 
   const seachRecipe = async (keyword) => {
@@ -163,7 +165,7 @@ useEffect(() => {
               <StSearchBox
               className='search_box'
               key = {index}
-              onClick = {showModalHandler}
+              onClick = {clickHandler}
               >
               {search.recipe_name}
               </StSearchBox>                    
