@@ -122,7 +122,7 @@ const SigninForm = () => {
           icon: "info",
           title: "인증메일 전송 중입니다.",
         });
-        const resp = await axios.post("http://3.38.214.79/api/user/signup", {
+        const resp = await axios.post("https://magorosc.shop/api/user/signup", {
           email: userId,
           username: watch("usename"),
           password: watch("password"),
@@ -152,7 +152,7 @@ const SigninForm = () => {
     }
     if (currPage === false) {
       try {
-        const resp = await axios.post("http://3.38.214.79/api/user/signin", {
+        const resp = await axios.post("https://magorosc.shop/api/user/signin", {
           email: loginUserId,
           password: watch("login_password"),
         });
