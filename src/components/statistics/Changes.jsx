@@ -7,8 +7,7 @@ import { apis } from "../../shared/axios";
 import { ST3 } from "../../styles/Text";
 import Category from "../../elements/molecules/Category";
 import LoadingSpinner from "../../elements/atoms/LoadingSpinner";
-import HelperButton from "../../elements/molecules/HelperButton";
-import { ChartColors } from "../../styles/Colors";
+import HelperNav from "../../elements/molecules/HelperNav";
 import LineChart from "./ApexCharts/LineChart";
 
 const Changes = ({ type }) => {
@@ -94,7 +93,8 @@ const Changes = ({ type }) => {
     series: type === "calorie" ? calorieSeries : nutrientsSeries,
     labels: labels,
     base: type === "calorie" ? "kcal" : "g",
-    colors: type === "calorie" ? ChartColors.calorie : ChartColors.nutrients,
+    colors:
+      type === "calorie" ? ["#DFB078"] : ["#FFB356", "#FADD8A", "#79A6DC"],
   };
 
   const clickHandler = (e) => {
@@ -121,12 +121,13 @@ const Changes = ({ type }) => {
       </StHeader>
       {loading ? <LoadingSpinner /> : null}
       {!loading && showMsg ? (
-        <HelperButton
-          msg='아직 입력하신 식재료가 없네요. 홈으로 가서 새로운 식재료를 추가해보세요!'
-          content='재료 추가하기'
-          path={`/`}
+        <HelperNav
+          msg='최근 요리한 내역이 없어요./ 레시피를 찾아 요리하고/ 나만의 통계를 확인해보세요!'
+          content='레시피 살펴보기'
+          // 칼로리 탭에서만 이미지를 보여줌
+          showImg={type === "calorie"}
+          path={`/recipes`}
           page='statistics'
-          func='filter'
         />
       ) : null}
       {!loading && !showMsg ? (
@@ -143,4 +144,5 @@ export default Changes;
 const StHeader = styled.div`
   display: flex;
   justify-content: space-between;
+  flex-wrap: wrap;
 `;

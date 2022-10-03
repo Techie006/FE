@@ -11,9 +11,9 @@ import {
   messageEvent,
   leaveEvent,
 } from "../../modules/redux/cookingClass";
-import Chats from "./sock-js/Chats";
-import CreateChat from "./sock-js/CreateChat";
-import ChatHeader from "./sock-js/ChatHeader";
+import Chats from "./chat/Chats";
+import CreateChat from "./chat/CreateChat";
+import ChatHeader from "./chat/ChatHeader";
 
 // TODO change v4 -> v5
 const ChatFrame = (props) => {

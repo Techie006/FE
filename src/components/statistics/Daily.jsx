@@ -5,7 +5,7 @@ import styled from "styled-components";
 import { apis } from "../../shared/axios";
 import { ST3 } from "../../styles/Text";
 import LoadingSpinner from "../../elements/atoms/LoadingSpinner";
-import HelperButton from "../../elements/molecules/HelperButton";
+import HelperNav from "../../elements/molecules/HelperNav";
 
 import Category from "../../elements/molecules/Category";
 import BarChart from "./ApexCharts/BarChart";
@@ -20,7 +20,7 @@ const Daily = (props) => {
     BASES: ["kcal", "g"],
     AXIS: ["어제", "오늘"],
     COLORS: {
-      nutrients: ["#FFB356", "#FFDD7C", "#79A6DC"],
+      nutrients: ["#FFB356", "#FADD8A", "#79A6DC"],
       calorie: ["#DFB078"],
     },
   };
@@ -67,7 +67,7 @@ const Daily = (props) => {
 
   // 영양성분 series	추출
   const NUTRIENTS = ["탄수화물", "단백질", "지방"];
-  const nutrientsSeries = data.yesterday?.nutrients.map((nutrient, i) => {
+  const nutrientsSeries = data.yesterday?.nutrients.map((_, i) => {
     return {
       name: NUTRIENTS[i],
       data: [data.yesterday?.nutrients[i], data.today?.nutrients[i]],
@@ -101,8 +101,8 @@ const Daily = (props) => {
       </StHeader>
       {loading ? <LoadingSpinner /> : null}
       {!loading && showMsg ? (
-        <HelperButton
-          msg='최근 요리한 내역이 없어요. 냉장고 속 재료로 뚝딱 만들 수 있는 레시피를 확인해보세요!'
+        <HelperNav
+          msg='최근 요리한 내역이 없어요./ 냉장고 속 재료로 간단하게 요리하고/ 나만의 통계를 확인해보세요!'
           content='추천 레시피 확인하기'
           page='statistics'
           path={`/`}

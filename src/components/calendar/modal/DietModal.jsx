@@ -1,7 +1,5 @@
 import { useSelector, useDispatch } from "react-redux";
 import { useState } from "react";
-import { useForm } from "react-hook-form";
-import Calendar from "react-calendar";
 import styled from "styled-components";
 
 import "react-calendar/dist/Calendar.css";
@@ -33,6 +31,7 @@ const DietModal = (props) => {
   const dispatch = useDispatch();
 
   const [time, setTime] = useState(selectedDiet.time);
+
   const [errors, setErrors] = useState({});
 
   // 사용자가 식단 모달창 닫음
@@ -113,7 +112,6 @@ const DietModal = (props) => {
 
     // 모든 입력값 받은 경우, 식단 기록하기 모달 처리
     if (modalType === "create") {
-      console.log("create diet called");
       dispatch(
         __createDiet({
           recipe_id: selectedRecipe.id,
@@ -125,9 +123,9 @@ const DietModal = (props) => {
 
     // 모든 입력값 받은 경우, 식단 변경하기 모달 처리
     if (modalType === "update") {
-      console.log("update diet called");
       dispatch(
         __updateDiet({
+          id: selectedDiet.id,
           recipe_id: selectedRecipe.id,
           category: time,
           date: selectedDate,
@@ -139,7 +137,11 @@ const DietModal = (props) => {
   };
 
   return (
-    <Modal header='식단 기록하기' onClick={closeHandler} depth={1}>
+    <Modal
+      header={modalType === "create" ? "식단 기록하기" : "식단 수정하기"}
+      onClick={closeHandler}
+      depth={1}
+    >
       <StLayout>
         <StRecipePart>
           <ST3>어떤 요리를 하실건가요?</ST3>
@@ -179,7 +181,7 @@ const DietModal = (props) => {
         </StDatePart>
         <Button
           type='submit'
-          content='기록하기'
+          content={modalType === "create" ? "기록하기" : "수정하기"}
           page='modal'
           func='create'
           marginTop={"30px"}

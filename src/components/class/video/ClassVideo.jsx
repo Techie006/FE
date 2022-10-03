@@ -13,12 +13,12 @@ const ClassVideo = ({ streamManager, hidden = false, mute = false, isPub }) => {
   return (
     <>
       <StVideo
+        className={isPub ? "myPublishingVideo" : "mySubscribingVideo"}
         isPub={isPub}
         ref={videoRef}
         autoPlay={true}
         muted={mute}
         hidden={hidden}
-        className='video-items'
       ></StVideo>
     </>
   );

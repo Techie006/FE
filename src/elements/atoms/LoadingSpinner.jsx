@@ -1,13 +1,10 @@
-import { RotatingLines } from "react-loader-spinner";
+import { FadeLoader } from "react-spinners";
 
 const LoadingSpinner = () => {
   return (
-    <RotatingLines
-      strokeColor='grey'
-      strokeWidth='5'
-      animationDuration='1.0'
-      width='70'
-      visible={true}
+    <FadeLoader
+      color='#797979'
+      style={{ top: "40%", left: "50%", position: "relative" }}
     />
   );
 };

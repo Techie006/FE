@@ -62,16 +62,16 @@
   color: #a5a5a5;
 }
 
-/* TODO 달력 선택 날짜 스타일 지정 */
+/* 캘린더 특정 일/월 호버시 셀 스타일 지정 */
 .react-calendar__tile--active:enabled:hover,
 .react-calendar__tile--active:enabled:focus {
-  background: #ff5c01;
+  background: #efefef;
 }
 
-/* TODO 달력 선택 날짜 스타일 지정 */
+/* 캘린더 특정 일/월 호버시 셀 내부 텍스트 스타일 지정 */
 .react-calendar__tile--active:enabled:hover > abbr,
 .react-calendar__tile--active:enabled:focus > abbr {
-  color: #ffffff;
+  color: #5b5b5b;
 }
 
 /* 연도별 뷰 */
@@ -88,25 +88,24 @@
   color: #5b5b5b;
 }
 
-/* 오늘 날짜 스타일 지정 */
-/* TODO 이번 월 날짜 색상 지정 */
+/* 오늘 일/월 셀 스타일 지정 */
 .react-calendar__tile--now {
-  background: #ff5c01;
+  background: #ffdd7c;
 }
 
-/* TODO 오늘 호버, 포커스 시 날짜 색상 지정 */
+/* 오늘 일/월 셀 내부 텍스트 스타일 지정 */
+.react-calendar__tile--now > abbr {
+  color: #5b5b5b;
+}
+
+/* 오늘 일/월 셀 호버시 스타일 지정 */
 .react-calendar__tile--now:enabled:hover,
 .react-calendar__tile--now:enabled:focus {
-  background: red;
+  background: #dedede;
 }
 
-/* TODO 오늘 호버, 포커스 시 날짜 색상 지정 */
-.react-calendar__tile--now > abbr {
-  color: #ffffff;
-}
-
-/* TODO 오늘 호버, 포커스 시 날짜 색상 지정 */
+/* 오늘 일/월 셀 호버시 내부 텍스트 스타일 지정 */
 .react-calendar__tile--now:enabled:hover > abbr,
 .react-calendar__tile--now:enabled:focus > abbr {
-  color: #ffffff;
+  color: #5b5b5b;
 }

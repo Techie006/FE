@@ -6,34 +6,34 @@ import styled from "styled-components";
 
 import "rc-dropdown/assets/index.css";
 import "./rc-dropdown/style.css";
+import { parseDate } from "../../shared/regex";
 import { openDietModal, __deleteDiet } from "../../modules/redux/calendar";
 import BookmarkBtn from "../../elements/molecules/BookmarkBtn";
 import IconBox from "../../elements/atoms/IconBox";
 import { ReactComponent as Edit } from "../../assets/icons/edit.svg";
-import { T3, T5, T6 } from "../../styles/Text";
 import Textbox from "../../elements/atoms/Textbox";
 
-const Diet = (props) => {
-  const {
-    id,
-    recipe_id,
-    recipe_name,
-    time,
-    liked,
-    category,
-    calorie,
-    method,
-    day,
-  } = props;
+const Diet = ({ id, time, day, ...props }) => {
+  const { recipe_id, recipe_name, liked, category, calorie, method } = props;
 
   const dispatch = useDispatch();
 
+  // 식단 삭제 시 삭제 수행
   const delete_diet = () => {
     dispatch(__deleteDiet({ id }));
   };
 
+  // 식단 변경 시 식단 변경하기 모달 띄움
   const showModal = () => {
-    dispatch(openDietModal({ diet: props, type: "update" }));
+    const parsedDate = parseDate(new Date(day));
+    dispatch(
+      openDietModal({
+        diet: { id, time, day },
+        type: "update",
+        date: parsedDate,
+        recipe: { ...props, id: recipe_id },
+      })
+    );
   };
 
   // 식단 삭제 시 컨펌창 띄우기
@@ -45,8 +45,8 @@ const Diet = (props) => {
       showCancelButton: true,
       cancelButtonText: "취소하기",
       confirmButtonText: "삭제하기",
-      cancelButtonColor: "#d33",
-      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#FC9700",
+      confirmButtonColor: "#74BDB2",
     });
 
   // 식단 삭제 완료 후 알랏창 띄우기
@@ -60,6 +60,15 @@ const Diet = (props) => {
     });
   };
 
+  // rc-menu로 드롭다운 생성
+  const overlay = () => (
+    <Menu onSelect={onSelect}>
+      <Item key='update'>수정하기</Item>
+      <Item key='delete'>삭제하기</Item>
+    </Menu>
+  );
+
+  // 사용자가 특정 드롭다운 선택
   const onSelect = ({ key }) => {
     if (key === "update") {
       showModal();
@@ -75,14 +84,6 @@ const Diet = (props) => {
     }
   };
 
-  // rc-menu로 드롭다운 생성
-  const overlay = () => (
-    <Menu onSelect={onSelect}>
-      <Item key='update'>수정하기</Item>
-      <Item key='delete'>삭제하기</Item>
-    </Menu>
-  );
-
   // 날짜 포맷팅
   const getDate = (day) => {
     const dateFormat = day.replace(/-/g, "/");
@@ -95,7 +96,7 @@ const Diet = (props) => {
     <StLayout>
       <StHeader>
         <StName>
-          <T3>{recipe_name}</T3>
+          <StRecipe>{recipe_name}</StRecipe>
           <Textbox content={time} />
         </StName>
         <StButtons>
@@ -107,10 +108,8 @@ const Diet = (props) => {
           </Dropdown>
         </StButtons>
       </StHeader>
-      <T5>{`${method} | ${category} | ${calorie}kcal`}</T5>
-      <StDate>
-        <T6>{`${getDate(day)}`}</T6>
-      </StDate>
+      <StInfo>{`${method} | ${category} | ${calorie}kcal`}</StInfo>
+      <StDate>{`${getDate(day)}`}</StDate>
     </StLayout>
   );
 };
@@ -146,6 +145,30 @@ const StButtons = styled.div`
   gap: 10px;
 `;
 
-const StDate = styled.div`
+// usage: 캘린더 식단명
+const StRecipe = styled.div`
+  font-family: "Noto Sans KR";
+  font-style: normal;
+  background: inherit;
+  font-weight: 700;
+  font-size: 18px;
+  line-height: 26px;
+  color: #282828;
+`;
+
+// usage: 식단 정보
+const StInfo = styled(StRecipe)`
+  font-weight: 400;
+  font-size: 12px;
+  line-height: 17px;
+  color: #8e7b6d;
+`;
+
+// usage : 식단 내 날짜
+const StDate = styled(StRecipe)`
   margin-top: 23px;
+  font-weight: 500;
+  font-size: 12px;
+  line-height: 17px;
+  color: #5b5b5b;
 `;

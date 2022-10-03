@@ -67,9 +67,9 @@ export const __createDiet = createAsyncThunk(
 
 export const __updateDiet = createAsyncThunk(
   "calendar/__updateDiet",
-  async ({ id, recipe_name, category, date }, thunkAPI) => {
+  async ({ id, recipe_id, category, date }, thunkAPI) => {
     try {
-      const resp = await apis.update_diet({ id, recipe_name, category, date });
+      const resp = await apis.update_diet({ id, recipe_id, category, date });
       const {
         content: { day, meals },
       } = resp.data;
@@ -101,16 +101,18 @@ const calendarSlice = createSlice({
   reducers: {
     openDietModal: (state, action) => {
       state.dietModalOpen = true;
-      state.modalType = action.payload.type;
-      state.selectedDiet = action.payload.diet;
-      state.selectedDate = action.payload.date;
+      const { type, diet, recipe, date } = action.payload;
+      state.modalType = type;
+      state.selectedDiet = diet;
+      state.selectedRecipe = recipe;
+      state.selectedDate = date;
     },
     closeDietModal: (state, _) => {
       state.dietModalOpen = false;
       state.modalType = "";
       state.selectedDiet = {};
-      state.selectedDate = "";
       state.selectedRecipe = {};
+      state.selectedDate = "";
       state.datePickerOpen = false;
     },
     openSearchModal: (state, _) => {
@@ -125,7 +127,8 @@ const calendarSlice = createSlice({
       state.datePickerOpen = true;
     },
     closeDatePicker: (state, action) => {
-      state.selectedDate = action.payload.selectedDate;
+      const { selectedDate } = action.payload;
+      state.selectedDate = selectedDate;
       state.datePickerOpen = false;
     },
   },
@@ -165,7 +168,7 @@ const calendarSlice = createSlice({
       state.allDiets.push(action.payload.meals);
 
       // 신규 생성한 식단 요리 날짜가 이번주 내인 경우, weekDiets에 추가하고 정렬
-      if (state.week.indexOf(action.payload.day)) {
+      if (state.week.indexOf(action.payload.day) !== -1) {
         state.weeklyDiets.push(action.payload.meals);
         const orderedDiets = state.weeklyDiets.sort(
           (a, b) => new Date(a.day) - new Date(b.day)
@@ -192,7 +195,8 @@ const calendarSlice = createSlice({
       });
 
       // 변경한 식단 요리 날짜가 이번주 내인 경우, weekDiets를 변경
-      if (state.week.indexOf(action.payload.day)) {
+      // TODO 해당 주에서 빠진 경우 처리
+      if (state.week.indexOf(action.payload.day) !== -1) {
         state.weeklyDiets = state.weeklyDiets.map((diet) => {
           if (diet.id === action.payload.id) {
             return action.payload.meals;
@@ -217,7 +221,7 @@ const calendarSlice = createSlice({
       );
 
       // 삭제한 식단 요리 날짜가 이번주 내인 경우, weekDiets를 변경
-      if (state.week.indexOf(action.payload.day)) {
+      if (state.week.indexOf(action.payload.day) !== -1) {
         state.weeklyDiets = state.weeklyDiets.filter(
           (diet) => diet.id !== action.payload.id
         );
