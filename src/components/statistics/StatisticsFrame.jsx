@@ -1,4 +1,4 @@
-import GridTemplate from "../../elements/templates/GridTemplate";
+import GridTemplate, { StGrid } from "../../elements/templates/GridTemplate";
 import styled from "styled-components";
 
 import Ingredients from "./Ingredients";
@@ -26,14 +26,8 @@ const StatisticsFrame = () => {
 
 export default StatisticsFrame;
 
-const StGrid = styled.div`
-  background: ${(props) => props.theme.section.layout.background};
-  border-radius: ${(props) => props.theme.section.layout.borderRadius};
-  box-shadow: ${(props) => props.theme.section.layout.boxShadow};
-  padding: 16px 18px;
-`;
-
 const StLeftSection = styled(StGrid)`
+  padding: 16px 18px;
   grid-column: 1 / span 6;
 
   /* mobile */
@@ -43,6 +37,7 @@ const StLeftSection = styled(StGrid)`
 `;
 
 const StRightSection = styled(StGrid)`
+  padding: 16px 18px;
   grid-column: 7 / span 6;
 
   /* mobile */
