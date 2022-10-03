@@ -88,8 +88,6 @@ const TodayRecipe = () => {
 export default TodayRecipe;
 
 const StWrapper = styled.div`
-    width : 405px;
-    height : 310px;
     padding : 20px;
     background-color : ${(props) => props.theme.colors.background.white};
     box-shadow : ${(props) => props.theme.section.layout.boxShadow};
@@ -122,7 +120,6 @@ const StButton = styled.button`
     border : 0px;
 `
 const StRecipeWrapper = styled.div`
-    width : 365px;
     height : 220px;
     overflow: auto;
     &::-webkit-scrollbar {
@@ -140,7 +137,6 @@ const StTodayrecipe = styled.div`
     display : flex;
     flex-direction : column;
     justify-content : left;
-    width : 350px;
     height : 83px;
     border-top : 1px solid #ECECEC;
     border-bottom : 1px solid #ECECEC; 

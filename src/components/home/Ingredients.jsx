@@ -17,7 +17,7 @@ const Ingredients = ({ ingredients }) => {
 export default Ingredients;
 
 const StyledWrapper = styled.div`
-    margin : 0px auto;
+    margin : 0px 10px;
     overflow: auto;
     &::-webkit-scrollbar {
         width: 8px;

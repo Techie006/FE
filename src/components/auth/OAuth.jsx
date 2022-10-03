@@ -27,6 +27,6 @@ const StyledOAuthWrapper = styled.div`
 const StyledKakaoLogin = styled.div`
 `
 const StImg = styled.img`
-    width : 329px;
+    width : 62%;
     height : 50px;
 `

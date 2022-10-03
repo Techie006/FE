@@ -1,8 +1,9 @@
 import { useState, useRef, useCallback, useEffect } from "react";
 import styled from "styled-components";
-
+import { useDispatch } from 'react-redux';
 // import { apis } from "../../shared/axios";
 // import RESP_CHAE from "../../server/response_chae";
+import { ReactComponent as Search } from "../../assets/icons/search.svg";
 import axios from 'axios';
 import Loader from "../common/Loader";
 import Recipe from "./Recipe";
@@ -15,15 +16,20 @@ const Recipes = (props) => {
   const [keyItemsError, setKeyItemsError] = useState("");
   const [loading, setLoading] = useState(true);
   const [recipes, setRecipes] = useState([]);
+  const [searchName, setSearchName] = useState("");
   const [showModal, setShowModal] = useState(false);
+  const [search, setSearch] = useState(false);
   const [recipe, setRecipe] = useState({
     id: -1,
     recipe_name: "",
   });
-
+  console.log(keyword)
   const onChangeData = (e) => {
+
+    if (e.target.value === "") {
+      setKeyword("")
+    }
     setKeyword(e.target.value);
-    console.log(keyword)
   };
 
   const pageNum = useRef(0);
@@ -35,10 +41,14 @@ const Recipes = (props) => {
     // const resp = RESP_CHAE.RECIPES.GET_RECIPE_FAIL;
     // const resp = await apis.get_recipes({ pageNum.current, PAGELIMIT });
     // const resp = await axios.get(`https://magorosc.shop/api/recipes?pageNum=${pageNum}&pageLimit=${pageLimit}`);
-    const resp = await axios.get(`https://magorosc.shop/api/recipes?pageNum=${2}&pageLimit=${20}`);
-    const { result, content } = resp.data;
-    console.log("hi",resp.data)
+    const auth = localStorage.getItem("Authorization")
 
+    const resp = await axios.get(`https://magorosc.shop/api/recipes?pageNum=${1}&pageLimit=${100}`,{
+      headers : {
+        "Authorization" : auth,
+    } 
+    });
+    const { result, content } = resp.data;
 
     if (!result) {
       setLoading(false);
@@ -59,6 +69,11 @@ const Recipes = (props) => {
     setShowModal((prev) => !prev);
     setRecipe({ ...recipe });
   };
+  const showModalHandler = () => {
+    setKeyword("");
+    setShowModal((prev) => !prev);
+    seachRecipe();
+  }
 
   const seachRecipe = async (keyword) => {
 
@@ -71,12 +86,12 @@ const Recipes = (props) => {
           "Authorization" : auth,
       }
     });
+    setRecipe()
   const autoCompleteData = resp.data.content.recipes;
   
   if (keyword !== ""){
     if (autoCompleteData == undefined) {
         setKeyItems([]);
-        setKeyItemsError("검색결과가 없습니다!")
         
     }else{
         setKeyItemsError("")
@@ -88,14 +103,29 @@ const Recipes = (props) => {
 }else{
     setKeyItemsError("검색결과가 없습니다!")
 }
-
-    console.log("as",resp.data.content.recipes)
 // && 연산자로 묶는거 고민
+}
+const searchRecipeResult = async () => {
+  console.log("키워드",keyword)
+  const auth = localStorage.getItem("Authorization")
+  const resp = await axios.post(`https://magorosc.shop/api/recipes/search?pageNum=${0}&pageLimit=${100}`,{
+    recipe_name : keyword
+  },{
+    headers : {
+        "Authorization" : auth,
+    }
+  });
+  console.log(resp.data)
+  setRecipes(resp.data.content.recipes)
+  setSearchName(resp.data.content.search_name)
+  setSearch(!search)
+  setKeyword("");
+  seachRecipe();
 }
 useEffect(() => {
   const trottled = setTimeout(() => {
       if( keyword !== "" ) { seachRecipe(keyword) }
-  }, 150)
+  }, 200)
   return () => {
       clearTimeout(trottled)
   }
@@ -107,32 +137,43 @@ useEffect(() => {
 
   return (
     <StWrapper>
-      <StTitle>
+      <StHeader>
+        {!search ? (
+        <StTitle>
         다양한 레시피를 만나보세요!
-      </StTitle>
-      <StSearchInput
-                type = "text"
-                onChange={onChangeData}
-                value={keyword}
-                />
-        <StSearchBoxWrapper>
-        {keyItems.map((search, index) => (
-            <StSearchBox
-            className='search_box'
-            key = {index}
-            onClick = { () => {
-                // setKeyword(search.food_name);
-                // dispatch(recommend(search.id))
-                // dispatch(searchData(search.food_name))
-                // onClose()
-            }}
-            >
-            {search.food_name}
-            </StSearchBox>                    
-        ))
-        }
-        </StSearchBoxWrapper>
-        {keyItemsError !== "" ? (keyItemsError) : (null)}
+        </StTitle>) : 
+        (
+        <StTitle>
+          "{searchName}" 검색 결과
+        </StTitle>
+        )}
+        <div>
+        <StSearchWrapper>
+        <div className="search_wrapper">
+          <Search fill="#5B5B5B" onClick={searchRecipeResult}/>
+        <StSearchInput
+                  type = "text"
+                  onChange={onChangeData}
+                  value={keyword}
+                  placeholder="원하는 레시피를 검색해보세요!"
+                  />
+        </div>
+          <StSearchBoxWrapper>
+          {keyItems.map((search, index) => (
+              <StSearchBox
+              className='search_box'
+              key = {index}
+              onClick = {showModalHandler}
+              >
+              {search.recipe_name}
+              </StSearchBox>                    
+          ))
+          }
+          </StSearchBoxWrapper>
+        </StSearchWrapper>
+        </div>
+      </StHeader>
+        {/* {keyItemsError !== "" ? (keyItemsError) : (null)} */}
       <StContent>
       {loading ? <Loader /> : null}
       {!loading ? recipesView : null}
@@ -153,27 +194,47 @@ export default Recipes;
 const StWrapper = styled.div`
   display: flex;
   flex-wrap: wrap;
-  padding : 40px 84px ;
+
+`;
+const StHeader = styled.div`
+  display : flex;
+  flex-direction : row;
+  justify-content : space-between;
+  flex-wrap : wrap;
+  width : 1270px;
 `;
 const StTitle = styled.div`
   font-family: 'Happiness Sans';
-  width : 1270px;
   font-weight: 900;
   font-size: 30px;
   line-height: 38px;
   color: #5B5B5B;
   padding-bottom : 36px;
-  border-bottom : 1.5px solid #ECECEC;
   margin-bottom : 30px;
+  
 `;
+const StSearchWrapper = styled.div`
+  display : flex;
+  flex-direction : column;
+  .search_wrapper {
+    display : flex;
+    flex-direction : row;
+    align-items : center;
+    padding : 12px;
+    width : 291px;
+    height : 38px;
+    background-color : #FFFFFF;
+    border : 1px solid #C0C0C0;
+    border-radius : 6px;
+  }
+`
 const StSearchInput = styled.input`
+  margin-left : 10px;
   border : 0px;
-  // background-color : #FAFAFA;
-  background-color : green;
+  background-color : #FFFFF;
   color : #5B5B5B;
   font-size : 14px;
-  border : 0px;
-  width : 240px;
+  width : 250px;
   height : 35px;
   font-size : 14px;
   outline: none;
@@ -182,20 +243,32 @@ const StContent = styled.div`
   display: flex;
   flex-direction : row;
   flex-wrap: wrap;
+  border-top : 1.5px solid #ECECEC;
 `
 
 const StSearchBoxWrapper = styled.div`
-  margin : 8px auto;
-  padding: 0px 0px 28px 0px;
+  position : absolute;
+  z-index : 2;
+  margin : 40px auto;
   width: 285px;
-  height: 356px;
+  height : auto;
+  max-height : 200px;
   overflow-y: scroll;
+  background: #FFFFFF;
+
+  box-shadow: 0px 2px 8px rgba(0, 0, 0, 0.1);
+  border-radius: 6px;
 `
 const StSearchBox = styled.div`
   width: 285px;
-  height: 37px;
-  padding: 7px 1px;
-  color: red;
+  padding : 14px;
+  font-weight: 500;
+  font-size: 14px;
+  line-height: 20px;
+  display: flex;
+  align-items: center;
+  letter-spacing: -0.005em;
+  color: #5B5B5B;
   &:hover {
     background: #fafafa;
     color: #ff8e42;

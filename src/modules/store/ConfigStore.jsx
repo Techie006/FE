@@ -1,4 +1,5 @@
 import { configureStore } from "@reduxjs/toolkit";
+
 import logger from "redux-logger";
 
 import auth from "../redux/auth";
@@ -11,6 +12,7 @@ import recipeData from "../redux/recipeData";
 const store = configureStore({
   reducer: { auth, calendar, cookingClass, searchData, recipeData, user },
   middleware: (getDefaultMiddleware) => getDefaultMiddleware().concat(logger),
+  
 });
 
 export default store;

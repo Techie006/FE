@@ -119,8 +119,6 @@ export default RecommendRecipes;
 
 const StRecipesWrapper = styled.div`
   border: 1px solid black;
-  width: 405px;
-  height: 726px;
   padding : 20px;
   border : 0px;
   border-radius : 10px;
@@ -154,7 +152,6 @@ const StButtonList = styled.span`
   display: flex;
   flex-direction: row;
   
-  width: 360px;
   overflow: auto;
   &::-webkit-scrollbar {
     width: 8px;
@@ -191,8 +188,8 @@ const StRecipes = styled.div`
   flex-direction: column;
   margin : 5px 0px;
   padding : 0px;
-  width: 370px;
-  height: 600px;
+
+  height: 490px;
   overflow: scroll;
   &::-webkit-scrollbar {
     width: 8px;
@@ -210,7 +207,7 @@ const StRecipe = styled.div`
   flex-direction : row;
   align-items : center;
   border: 1px solid black;
-  width : 360px;
+
   height : 108px;
   border-radius : 6px;
   background-color : ${(props) => props.theme.colors.background.gray};

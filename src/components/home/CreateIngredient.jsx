@@ -33,10 +33,10 @@ const StWrapper = styled.div`
     font-family: 'Happiness Sans';
     border : 1px solid black;
     background-color : ${(props) => props.theme.colors.background.white};
-    width : 405px;
-    height : 60px;
-    // font-family : ${(props) => props.theme.colors.background.white};
     font-size : 18px;
+    font-weight : 900;
+    letter-spacing: -0.5px;
+    color: #4B4B4B;
     padding : 20px;
     margin-bottom : 28px;
     border : 0px;

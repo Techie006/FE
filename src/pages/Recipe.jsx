@@ -7,7 +7,7 @@ const Recipe = (props) => {
   return (
     <>
       <Layout>
-        <Header />
+        {/* <Header /> */}
         <RecipesLayout />
       </Layout>
     </>

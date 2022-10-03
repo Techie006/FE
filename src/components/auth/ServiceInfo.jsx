@@ -12,11 +12,9 @@ const ServiceInfo = () => {
 export default ServiceInfo;
 
 const StServiceInfoWrapper = styled.div`
-    width : 560px;
     height : 384px; 
-    background-color :#EFEFEF;
-    margin-left : 124px;
-    margin-top : 309px;
-    margin-bottom : 331px;
+    background-color :black;
+    width : calc(100% - 74px);
+    margin : 20% 35px 0px 35px;
 
 `
