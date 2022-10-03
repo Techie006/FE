@@ -123,7 +123,6 @@ const DietModal = (props) => {
 
     // 모든 입력값 받은 경우, 식단 변경하기 모달 처리
     if (modalType === "update") {
-      console.log(selectedDate.id);
       dispatch(
         __updateDiet({
           id: selectedDiet.id,

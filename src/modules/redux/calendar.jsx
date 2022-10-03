@@ -68,7 +68,6 @@ export const __createDiet = createAsyncThunk(
 export const __updateDiet = createAsyncThunk(
   "calendar/__updateDiet",
   async ({ id, recipe_id, category, date }, thunkAPI) => {
-    console.log(recipe_id);
     try {
       const resp = await apis.update_diet({ id, recipe_id, category, date });
       const {
@@ -196,6 +195,7 @@ const calendarSlice = createSlice({
       });
 
       // 변경한 식단 요리 날짜가 이번주 내인 경우, weekDiets를 변경
+      // TODO 해당 주에서 빠진 경우 처리
       if (state.week.indexOf(action.payload.day) !== -1) {
         state.weeklyDiets = state.weeklyDiets.map((diet) => {
           if (diet.id === action.payload.id) {
