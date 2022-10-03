@@ -8,7 +8,6 @@ import WeekDiets from "./WeekDiets";
 import DietModal from "./modal/DietModal";
 import SearchModal from "../../elements/organisms/SearchModal";
 import DatePicker from "../../elements/molecules/DatePicker";
-import { openDatePicker } from "../../modules/redux/calendar";
 
 const CalendarFrame = () => {
   const dietModalOpen = useSelector((state) => state.calendar.dietModalOpen);
