@@ -61,7 +61,7 @@ const Ingredients = ({ fromMain = false }) => {
 
     // 식재료 통계 데이터 컴포넌트에 반영
     setData((prev) => ({ ...prev, [type]: count }));
-    // setLoading(false);
+    setLoading(false);
   }, []);
 
   useEffect(() => {

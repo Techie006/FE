@@ -143,4 +143,5 @@ export default Changes;
 const StHeader = styled.div`
   display: flex;
   justify-content: space-between;
+  flex-wrap: wrap;
 `;
