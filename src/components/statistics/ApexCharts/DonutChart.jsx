@@ -1,7 +1,6 @@
 import ReactApexChart from "react-apexcharts";
 
 import "./Chart.css";
-import { ChartColors } from "../../../styles/Colors";
 
 const DonutChart = ({ series, title, labels, colors, ...props }) => {
   return (
@@ -13,7 +12,7 @@ const DonutChart = ({ series, title, labels, colors, ...props }) => {
         options={{
           chart: {
             fontFamily: "Noto Sans KR",
-            foreColor: ChartColors.font,
+            foreColor: "#939393",
             toolbar: {
               show: false,
             },

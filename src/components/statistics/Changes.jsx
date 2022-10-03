@@ -8,7 +8,6 @@ import { ST3 } from "../../styles/Text";
 import Category from "../../elements/molecules/Category";
 import LoadingSpinner from "../../elements/atoms/LoadingSpinner";
 import HelperButton from "../../elements/molecules/HelperButton";
-import { ChartColors } from "../../styles/Colors";
 import LineChart from "./ApexCharts/LineChart";
 
 const Changes = ({ type }) => {
@@ -94,7 +93,8 @@ const Changes = ({ type }) => {
     series: type === "calorie" ? calorieSeries : nutrientsSeries,
     labels: labels,
     base: type === "calorie" ? "kcal" : "g",
-    colors: type === "calorie" ? ChartColors.calorie : ChartColors.nutrients,
+    colors:
+      type === "calorie" ? ["#DFB078"] : ["#FFB356", "#FADD8A", "#79A6DC"],
   };
 
   const clickHandler = (e) => {

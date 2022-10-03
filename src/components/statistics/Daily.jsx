@@ -20,7 +20,7 @@ const Daily = (props) => {
     BASES: ["kcal", "g"],
     AXIS: ["어제", "오늘"],
     COLORS: {
-      nutrients: ["#FFB356", "#FFDD7C", "#79A6DC"],
+      nutrients: ["#FFB356", "#FADD8A", "#79A6DC"],
       calorie: ["#DFB078"],
     },
   };
@@ -67,7 +67,7 @@ const Daily = (props) => {
 
   // 영양성분 series	추출
   const NUTRIENTS = ["탄수화물", "단백질", "지방"];
-  const nutrientsSeries = data.yesterday?.nutrients.map((nutrient, i) => {
+  const nutrientsSeries = data.yesterday?.nutrients.map((_, i) => {
     return {
       name: NUTRIENTS[i],
       data: [data.yesterday?.nutrients[i], data.today?.nutrients[i]],
