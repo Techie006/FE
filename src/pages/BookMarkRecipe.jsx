@@ -8,7 +8,7 @@ const BookMarkRecipe = (props) => {
   return (
     <>
       <Layout>
-        {/* <Header /> */}
+        <Header />
         <BookMarkRecipeLayout />
         <Helper />
         <Footer />
