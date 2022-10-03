@@ -165,7 +165,7 @@ const calendarSlice = createSlice({
       state.allDiets.push(action.payload.meals);
 
       // 신규 생성한 식단 요리 날짜가 이번주 내인 경우, weekDiets에 추가하고 정렬
-      if (state.week.indexOf(action.payload.day)) {
+      if (state.week.indexOf(action.payload.day) !== -1) {
         state.weeklyDiets.push(action.payload.meals);
         const orderedDiets = state.weeklyDiets.sort(
           (a, b) => new Date(a.day) - new Date(b.day)
@@ -192,7 +192,7 @@ const calendarSlice = createSlice({
       });
 
       // 변경한 식단 요리 날짜가 이번주 내인 경우, weekDiets를 변경
-      if (state.week.indexOf(action.payload.day)) {
+      if (state.week.indexOf(action.payload.day) !== -1) {
         state.weeklyDiets = state.weeklyDiets.map((diet) => {
           if (diet.id === action.payload.id) {
             return action.payload.meals;
@@ -217,7 +217,7 @@ const calendarSlice = createSlice({
       );
 
       // 삭제한 식단 요리 날짜가 이번주 내인 경우, weekDiets를 변경
-      if (state.week.indexOf(action.payload.day)) {
+      if (state.week.indexOf(action.payload.day) !== -1) {
         state.weeklyDiets = state.weeklyDiets.filter(
           (diet) => diet.id !== action.payload.id
         );
