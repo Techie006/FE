@@ -102,7 +102,7 @@ const Daily = (props) => {
       {loading ? <LoadingSpinner /> : null}
       {!loading && showMsg ? (
         <HelperNav
-          msg='최근 요리한 내역이 없어요. 냉장고 속 재료로 뚝딱 만들 수 있는 레시피를 확인해보세요!'
+          msg='최근 요리한 내역이 없어요./ 냉장고 속 재료로 간단하게 요리하고/ 나만의 통계를 확인해보세요!'
           content='추천 레시피 확인하기'
           page='statistics'
           path={`/`}

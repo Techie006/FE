@@ -4,7 +4,7 @@ import styled from "styled-components";
 import { ReactComponent as NoInfo } from "../../assets/illustrations/no_info_color.svg";
 import Button from "../atoms/Button";
 
-const HelperNav = ({ msg, content, path, page, withImg = false, ...props }) => {
+const HelperNav = ({ msg, content, path, page, showImg = false, ...props }) => {
   const navigate = useNavigate();
 
   const clickHandler = () => {
@@ -20,10 +20,10 @@ const HelperNav = ({ msg, content, path, page, withImg = false, ...props }) => {
     <div style={{ ...props }}>
       <StLayout>
         {/* 이미지를 보여줘야 하는 경우  */}
-        {withImg ? <NoInfo /> : null}
+        {showImg ? <NoInfo /> : null}
         {messages}
         {/* 버튼을 보여줘야 하는 경우 */}
-        {!withImg ? (
+        {!showImg ? (
           <Button
             type='button'
             content={content}

@@ -46,7 +46,7 @@ const Changes = ({ type }) => {
       }
 
       // 사용자가 요리한 레시피 내역이 있는 경우 처리
-      // setLoading(false);
+      setLoading(false);
       setData(statistics);
     },
     [type]
@@ -122,9 +122,11 @@ const Changes = ({ type }) => {
       {loading ? <LoadingSpinner /> : null}
       {!loading && showMsg ? (
         <HelperNav
-          msg='아직 입력하신 식재료가 없네요. 홈으로 가서 새로운 식재료를 추가해보세요!'
-          content='재료 추가하기'
-          path={`/`}
+          msg='최근 요리한 내역이 없어요./ 레시피를 찾아 요리하고/ 나만의 통계를 확인해보세요!'
+          content='레시피 살펴보기'
+          // 칼로리 탭에서만 이미지를 보여줌
+          showImg={type === "calorie"}
+          path={`/recipes`}
           page='statistics'
         />
       ) : null}
