@@ -94,8 +94,8 @@ const Header = () => {
   ));
 
   return (
-    <GridTemplate>
-      <StHeaderSection>
+    // <GridTemplate>
+    //   <StHeaderSection>
     <StWrapper>
       <StLayout>
         <FontAwesomeIcon icon={faAppleWhole} size='lg' />
@@ -127,8 +127,8 @@ const Header = () => {
         </StMypageWrapper>
       </StLayout>
     </StWrapper>
-    </StHeaderSection>
-    </GridTemplate>
+    // {/* </StHeaderSection>
+    // </GridTemplate> */}
   );
 };
 
