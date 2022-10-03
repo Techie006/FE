@@ -38,6 +38,7 @@ const Recipe = ({
 export default Recipe;
 
 const StWrapper = styled.div`
+  cursor: pointer;
   width : 355px;
   height : 302px;
   background-color : #FFFFFF;

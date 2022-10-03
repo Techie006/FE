@@ -427,7 +427,7 @@ const SigninForm = () => {
                 {errors.login_password ? (
                     <ErrorText>{errors.login_password.message}</ErrorText>
                 ) : (
-                    null
+                null
                 )}
                 {pwValidation.result == false ? (
                     <ErrorText>{pwValidation.status.message}</ErrorText>
@@ -623,7 +623,6 @@ const StGol = styled.span`
 const StyledSelect = styled(Select)`
     width: 129px;
     font-size: 14px;
-
 `
 const StEmailGroup = styled.div`
     display : flex;
