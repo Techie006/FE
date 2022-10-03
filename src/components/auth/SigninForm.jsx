@@ -370,8 +370,7 @@ const SigninForm = () => {
                 <input type="submit" className="submitButton" value = "회원가입하기"/>
                 <a href = " https://dust-sulfur-10c.notion.site/2c4cd8fc0c91493abc3ffed858998727" target='_blank'>이용약관</a>
                 <a href = " https://dust-sulfur-10c.notion.site/2c4cd8fc0c91493abc3ffed858998727" target='_blank'>개인정보취급방침</a>
-                {/* 이 부분 element로 수정하기 link 훅은 내부로만 이동가능 외부링크 가능한 형식으로 바꿔줄 것 
-                target='_blank' <- 새창열기  */}
+
             </form>
             </StSignUpWrapper>
             </StSignUpSection>
