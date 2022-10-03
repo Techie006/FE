@@ -7,7 +7,7 @@ import { apis } from "../../shared/axios";
 import { ST3 } from "../../styles/Text";
 import Category from "../../elements/molecules/Category";
 import LoadingSpinner from "../../elements/atoms/LoadingSpinner";
-import HelperButton from "../../elements/molecules/HelperButton";
+import HelperNav from "../../elements/molecules/HelperNav";
 import LineChart from "./ApexCharts/LineChart";
 
 const Changes = ({ type }) => {
@@ -121,12 +121,11 @@ const Changes = ({ type }) => {
       </StHeader>
       {loading ? <LoadingSpinner /> : null}
       {!loading && showMsg ? (
-        <HelperButton
+        <HelperNav
           msg='아직 입력하신 식재료가 없네요. 홈으로 가서 새로운 식재료를 추가해보세요!'
           content='재료 추가하기'
           path={`/`}
           page='statistics'
-          func='filter'
         />
       ) : null}
       {!loading && !showMsg ? (

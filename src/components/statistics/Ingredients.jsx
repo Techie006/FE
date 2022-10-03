@@ -5,7 +5,7 @@ import styled from "styled-components";
 import { apis } from "../../shared/axios";
 import { ST3 } from "../../styles/Text";
 import LoadingSpinner from "../../elements/atoms/LoadingSpinner";
-import HelperButton from "../../elements/molecules/HelperButton";
+import HelperNav from "../../elements/molecules/HelperNav";
 import DonutChart from "./ApexCharts/DonutChart";
 
 const Ingredients = ({ fromMain = false }) => {
@@ -78,10 +78,10 @@ const Ingredients = ({ fromMain = false }) => {
       <ST3>오늘 우리집 식재료 상태는?</ST3>
       {loading ? <LoadingSpinner /> : null}
       {!loading && showMsg ? (
-        <HelperButton
-          msg='아직 입력한 식재료가 없어요. 재료를 추가하고 나만의 통계를 확인해보세요!'
+        <HelperNav
+          msg='아직 추가된 내용이 없어요./ 우리집 식재료를 추가해서/ 나만의 통계를 확인해보세요!'
           content='재료 추가하기'
-          page='section'
+          page='statistics'
           path={`/`}
         />
       ) : null}

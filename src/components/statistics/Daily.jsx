@@ -5,7 +5,7 @@ import styled from "styled-components";
 import { apis } from "../../shared/axios";
 import { ST3 } from "../../styles/Text";
 import LoadingSpinner from "../../elements/atoms/LoadingSpinner";
-import HelperButton from "../../elements/molecules/HelperButton";
+import HelperNav from "../../elements/molecules/HelperNav";
 
 import Category from "../../elements/molecules/Category";
 import BarChart from "./ApexCharts/BarChart";
@@ -101,7 +101,7 @@ const Daily = (props) => {
       </StHeader>
       {loading ? <LoadingSpinner /> : null}
       {!loading && showMsg ? (
-        <HelperButton
+        <HelperNav
           msg='최근 요리한 내역이 없어요. 냉장고 속 재료로 뚝딱 만들 수 있는 레시피를 확인해보세요!'
           content='추천 레시피 확인하기'
           page='statistics'
