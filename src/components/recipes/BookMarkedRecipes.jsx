@@ -5,6 +5,7 @@ import BookmarkBtn from "../common/BookmarkBtn";
 import DetailModal from "./DetailModal";
 import axios from 'axios';
 import Swal from "sweetalert2";
+import GridTemplate from "../../elements/templates/GridTemplate";
 import styled from "styled-components";
 
 const BookMarkedRecipes = () => {
@@ -64,6 +65,8 @@ const BookMarkedRecipes = () => {
             </StBookMarkRecipe>
         ))
     return (
+        <GridTemplate>
+            <StMainSection>
         <StWrapper>
             <StTitle>
                 {user} 님의 북마크
@@ -79,21 +82,35 @@ const BookMarkedRecipes = () => {
                     />) : (null)}
             </StBookMarkRecipes>
         </StWrapper>
+        </StMainSection>
+        </GridTemplate>
     );
 };
 
 export default BookMarkedRecipes;
 
-const StWrapper = styled.div``
+const StGrid = styled.div`
+  border-radius: ${(props) => props.theme.section.layout.borderRadius};
+`;
+
+const StMainSection = styled(StGrid)`
+  grid-column: 1 / span 12;
+
+  /* mobile */
+  @media all and (max-width: 600px) {
+    grid-column: 1 / span 4;
+  }
+`;
+const StWrapper = styled.div`
+`
 const StTitle = styled.div`
     font-family: 'Happiness Sans';
     font-weight: 900;
     font-size: 30px;
     line-height: 38px;
     color: #5B5B5B;
-    margin : 40px 56px 22px 56px;
+    margin-top : 40px; 
     padding-bottom : 36px;
-    border-bottom : 1.5px solid #ECECEC;
 `
 const StBookMarkRecipes = styled.div`
     display : flex;
@@ -101,11 +118,13 @@ const StBookMarkRecipes = styled.div`
     justify-content : left;
     text-align : center;
     flex-wrap: wrap;
+    padding-top : 22px; 
+    border-top : 1.5px solid #ECECEC;
 `
 const StImg = styled.div`
     border-top-right-radius: 10px;
     border-top-left-radius: 10px;
-    width : 405px;
+    width : 352px;
     height : 167px;
     padding-left : 91%;
     padding-top : 3%;
@@ -114,12 +133,14 @@ const StRecipeDesc =styled.div`
     padding : 12px 0px 12px 18px;
 `
 const StBookMarkRecipe = styled.div`
-    width: 405px;
+    width : 352px;
     height: 302px;
     background-color: #FFFFFF;
     box-shadow: 0px 3px 13px 1px rgba(0, 0, 0, 0.05);
     border-radius: 10px;
-    margin : 28px;
+    margin-right : 14px;
+    margin-left : 14px;
+    margin-bottom : 28px;
     .bookmark {
         position : absolute;
     }
@@ -147,6 +168,7 @@ const StRecipeName = styled.div`
     font-size: 20px;
     line-height: 26px;
     color: #8E7B6D;
+    text-align : left;
 `
 
 const StEtcInfo = styled.div`
@@ -156,6 +178,7 @@ const StEtcInfo = styled.div`
     line-height: 14px;
     letter-spacing: -0.3px;
     color: #A5A5A5;
+    text-align : left;
 `
 
 // const StWrapper = styled.div``

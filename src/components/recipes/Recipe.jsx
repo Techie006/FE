@@ -38,7 +38,7 @@ const Recipe = ({
 export default Recipe;
 
 const StWrapper = styled.div`
-  width : 405px;
+  width : 355px;
   height : 302px;
   background-color : #FFFFFF;
   box-shadow: 0px 3px 13px 1px rgba(0, 0, 0, 0.05);
@@ -74,7 +74,7 @@ const StWrapper = styled.div`
 const StImg = styled.div`
   border-top-right-radius: 10px;
   border-top-left-radius: 10px;
-  width : 405px;
+  width : 355px;
   height : 167px;
   background-size : cover;
   padding-left : 91%;

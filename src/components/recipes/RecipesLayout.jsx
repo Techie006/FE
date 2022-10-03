@@ -16,9 +16,9 @@ const RecipesLayout = (props) => {
 export default RecipesLayout;
 
 const StGrid = styled.div`
-  background: ${(props) => props.theme.section.layout.background};
+  // background: ${(props) => props.theme.section.layout.background};
   border-radius: ${(props) => props.theme.section.layout.borderRadius};
-  box-shadow: ${(props) => props.theme.section.layout.boxShadow};
+  // box-shadow: ${(props) => props.theme.section.layout.boxShadow};
 `;
 
 const StRecipeSection = styled(StGrid)`
