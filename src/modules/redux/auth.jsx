@@ -13,7 +13,7 @@ const authSlice = createSlice({
   name: "auth",
   initialState,
   reducers: {
-    signin: (state, { payload: userInfo }) => {
+    signin: (state, { payload: { userInfo } }) => {
       state.isLogin = true;
       state.userInfo = userInfo;
     },
