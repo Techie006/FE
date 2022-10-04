@@ -70,8 +70,10 @@ const SignIn = ({ onClick }) => {
     }
 
     // localStorage에 유저 정보 저장
-    const { authorization } = resp.headers;
+    const { authorization, refresh_token } = resp.headers;
     localStorage.setItem("Authorization", authorization);
+    localStorage.setItem("RefreshToken", refresh_token);
+
     const { member_id, username, profile_img } = content;
     localStorage.setItem("userId", member_id);
     localStorage.setItem("username", username);

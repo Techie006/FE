@@ -28,16 +28,35 @@ const SocialLogin = ({ type }) => {
     const { authorization, refresh_token } = resp.headers;
 
     const {
+      content,
       status: { message },
     } = resp.data;
 
     // accessToken, refreshToken 저장
     localStorage.setItem("Authorization", authorization);
-    localStorage.setItem("Refresh_Token", refresh_token);
+    localStorage.setItem("RefreshToken", refresh_token);
 
-    Swal.fire("로그인에 성공하였습니다.", message, "success");
+    const { member_id, username, profile_img } = content;
+    localStorage.setItem("userId", member_id);
+    localStorage.setItem("username", username);
+    localStorage.setItem("profileImg", profile_img);
 
-    dispatch(signin());
+    Swal.fire({
+      icon: "success",
+      title: `${username}님 환영합니다!`,
+      showConfirmButton: false,
+      timer: 1000,
+    });
+
+    dispatch(
+      signin({
+        userInfo: {
+          userId: member_id,
+          username: username,
+          profileImg: profile_img,
+        },
+      })
+    );
 
     // 메인화면으로 이동
     navigate("/");

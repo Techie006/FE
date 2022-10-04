@@ -78,6 +78,7 @@ const ChatFrame = (props) => {
         case "LEAVE":
           dispatch(leaveEvent({ chat: resp }));
           return;
+
         default:
           return;
       }
