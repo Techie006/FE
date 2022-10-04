@@ -8,7 +8,7 @@ const base = {
 };
 
 const api = axios.create({
-  baseURL: base.server_https,
+  baseURL: base.server_http,
   headers: {
     "content-type": "application/json; charset=UTF-8",
     accept: "application/json,",
@@ -32,6 +32,11 @@ const videoApi = axios.create({
 });
 
 export const apis = {
+  // auth page
+  signin: ({ email, password }) => api.post(`/api/user/signin`),
+  signup: ({ email, username, password }) => api.post(`/api/user/signup`),
+  // signout: () => api.delete(``)
+
   // statistics page
   get_state: () => api.get(`/api/statistics/state`),
   get_category: () => api.get(`/api/statistics/category`),
