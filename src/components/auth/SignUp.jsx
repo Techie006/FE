@@ -1,7 +1,9 @@
 import { useForm } from "react-hook-form";
 import { useState } from "react";
+import Swal from "sweetalert2";
 import styled from "styled-components";
 
+import { apis } from "../../shared/axios";
 import { ReactComponent as Logo } from "../../assets/icons/Frigo.svg";
 import { emailCheck, usernameCheck, pwCheck } from "../../shared/regex";
 import { ReactComponent as ShowPW } from "../../assets/icons/auth/showPW.svg";
@@ -10,18 +12,75 @@ import Button from "../../elements/atoms/Button";
 import InfoLinks from "./InfoLinks";
 
 const Signup = ({ onClick }) => {
-  const [showPW, setShowPW] = useState(false);
-
   const {
     register,
     watch,
+    setError,
+    clearErrors,
     handleSubmit,
     formState: { errors, isValid },
   } = useForm({ mode: "onChange" });
 
+  const [showPW, setShowPW] = useState(false);
+
   // 비밀번호 보기 toggle 함수
   const clickHandler = () => {
     setShowPW((prev) => !prev);
+  };
+
+  const submitHandler = async ({ email, username, password }) => {
+    const resp = await apis.signup({ email, username, password });
+
+    const {
+      result,
+      status: { message },
+    } = resp.data;
+
+    // 서버 측 에러 처리
+    // TODO 서버 에러 값 변경 시 안보이게 처리 필요
+    if (!result) {
+      if (message === "이미 존재하는 이메일입니다.") {
+        setError(
+          "email",
+          { type: "existing", message: message },
+          { shouldFocus: true }
+        );
+        return;
+      }
+      if (message === "적절하지 않은 이메일 형식입니다.") {
+        setError(
+          "email",
+          { type: "validate", message: message },
+          { shouldFocus: true }
+        );
+      }
+      if (message === "적절하지 않은 사용자 이름 형식입니다.") {
+        setError(
+          "username",
+          { type: "validate", message: message },
+          { shouldFocus: true }
+        );
+      }
+      return;
+    }
+
+    const Toast = Swal.mixin({
+      toast: true,
+      position: "center-center",
+      showConfirmButton: false,
+      timer: 3000,
+      timerProgressBar: true,
+      didOpen: (toast) => {
+        toast.addEventListener("mouseenter", Swal.stopTimer);
+        toast.addEventListener("mouseleave", Swal.resumeTimer);
+      },
+    });
+
+    // 메일 전송 중 알림창 띄우기
+    Toast.fire({
+      icon: "info",
+      title: "인증메일 전송 중입니다.",
+    });
   };
 
   return (
@@ -30,7 +89,7 @@ const Signup = ({ onClick }) => {
         <Logo />
         <StTab onClick={onClick}>로그인</StTab>
       </StHeader>
-      <form>
+      <form onSubmit={handleSubmit(submitHandler)}>
         <StPart hasError={errors.email}>
           <StLabel htmlFor='email'>이메일</StLabel>
           <StInput
