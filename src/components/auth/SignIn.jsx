@@ -72,16 +72,16 @@ const SignIn = ({ onClick }) => {
     // localStorage에 유저 정보 저장
     const { authorization } = resp.headers;
     localStorage.setItem("Authorization", authorization);
-    const { member_id, nickname, profile_img } = content;
+    const { member_id, username, profile_img } = content;
     localStorage.setItem("userId", member_id);
-    localStorage.setItem("username", nickname);
+    localStorage.setItem("username", username);
     localStorage.setItem("profileImg", profile_img);
 
     dispatch(
       signin({
         userInfo: {
           userId: member_id,
-          username: nickname,
+          username: username,
           profileImg: profile_img,
         },
       })
