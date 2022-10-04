@@ -4,10 +4,16 @@ import styled from "styled-components";
 const InfoLinks = () => {
   return (
     <StLayout>
-      <StLink to='/auth' target='_blank'>
+      <StLink
+        to='https://dust-sulfur-10c.notion.site/2c4cd8fc0c91493abc3ffed858998727'
+        target='_blank'
+      >
         이용약관
       </StLink>
-      <StLink to='/auth' target='_blank'>
+      <StLink
+        to='https://dust-sulfur-10c.notion.site/2c4cd8fc0c91493abc3ffed858998727'
+        target='_blank'
+      >
         개인정보 취급방침
       </StLink>
     </StLayout>
