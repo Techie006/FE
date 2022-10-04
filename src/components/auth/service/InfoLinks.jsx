@@ -1,17 +1,16 @@
-import { Link } from "react-router-dom";
 import styled from "styled-components";
 
 const InfoLinks = () => {
   return (
     <StLayout>
       <StLink
-        to='https://dust-sulfur-10c.notion.site/2c4cd8fc0c91493abc3ffed858998727'
+        href='https://dust-sulfur-10c.notion.site/2c4cd8fc0c91493abc3ffed858998727'
         target='_blank'
       >
         이용약관
       </StLink>
       <StLink
-        to='https://dust-sulfur-10c.notion.site/2c4cd8fc0c91493abc3ffed858998727'
+        href='https://dust-sulfur-10c.notion.site/2c4cd8fc0c91493abc3ffed858998727'
         target='_blank'
       >
         개인정보 취급방침
@@ -29,7 +28,7 @@ const StLayout = styled.div`
   gap: 12px;
 `;
 
-const StLink = styled(Link)`
+const StLink = styled.a`
   font-family: "Noto Sans KR";
   font-style: normal;
   font-weight: 400;
