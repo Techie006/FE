@@ -1,17 +1,15 @@
 import styled from "styled-components";
 
-import GridTemplate, { StGrid } from "../../elements/templates/GridTemplate";
-// import InfoFrame from "./InfoFrame";
+import GridTemplate from "../../elements/templates/GridTemplate";
 import FormFrame from "./FormFrame";
 
 const AuthFrame = () => {
   return (
     <>
       <GridTemplate>
-        <StLeftSection>{/* <InfoFrame /> */}</StLeftSection>
-        <StRightSection>
+        <StLayout>
           <FormFrame />
-        </StRightSection>
+        </StLayout>
       </GridTemplate>
     </>
   );
@@ -19,26 +17,15 @@ const AuthFrame = () => {
 
 export default AuthFrame;
 
-const StLeftSection = styled(StGrid)`
-  padding: 16px 18px;
-  background: inherit;
-  /* box-shadow: none; */
-  grid-column: 1 / span 8;
+const StLayout = styled.div`
+  grid-column: 1 / span 12;
+  display: grid;
+  place-content: center;
+  place-items: center;
 
   /* mobile */
   @media all and (max-width: 600px) {
     grid-column: 1 / span 4;
-  }
-`;
-
-const StRightSection = styled(StGrid)`
-  background: inherit;
-  width: 406px;
-  /* box-shadow: none; */
-  /* grid-column: 7 / span 6; */
-
-  /* mobile */
-  @media all and (max-width: 600px) {
-    grid-column: 1 / span 4;
+    margin-top: 20px;
   }
 `;

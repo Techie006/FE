@@ -207,6 +207,7 @@ export default Signup;
 
 const StLayout = styled.div`
   padding: 32px 37px;
+  border: 1px solid #ececec;
 `;
 
 const StHeader = styled.div`
