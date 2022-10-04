@@ -6,6 +6,7 @@ import { ReactComponent as Logo } from "../../assets/icons/Frigo.svg";
 import { emailCheck, usernameCheck, pwCheck } from "../../shared/regex";
 import { ReactComponent as ShowPW } from "../../assets/icons/auth/showPW.svg";
 import { ReactComponent as HidePW } from "../../assets/icons/auth/hidePW.svg";
+import Button from "../../elements/atoms/Button";
 
 const Signup = ({ onClick }) => {
   const [showPW, setShowPW] = useState(false);
@@ -14,7 +15,7 @@ const Signup = ({ onClick }) => {
     register,
     watch,
     handleSubmit,
-    formState: { errors },
+    formState: { errors, isValid },
   } = useForm({ mode: "onChange" });
 
   // 비밀번호 보기 toggle 함수
@@ -125,7 +126,13 @@ const Signup = ({ onClick }) => {
             <StError>{errors.passwordCheck.message}</StError>
           ) : null}
         </StPart>
-        <button type='submit'>회원 가입</button>
+        <Button
+          type='submit'
+          content='가입하기'
+          page='auth'
+          func='signup'
+          disabled={!isValid}
+        />
       </form>
     </StLayout>
   );
