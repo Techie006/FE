@@ -35,9 +35,11 @@ const Button = ({
 
     switch (page) {
       case "auth":
-        if (func === "signup") {
+        if (func === "signup" || func === "signin") {
           borderRadius = "6px";
-          padding = "11px 129px";
+          width = "329px";
+          height = "50px";
+          // padding = "11px 129px";
 
           fontWeight = "700";
           fontSize = "19px";
