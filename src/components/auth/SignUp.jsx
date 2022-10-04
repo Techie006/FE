@@ -92,8 +92,6 @@ const Signup = ({ onClick }) => {
     setTimeout(() => onClick(), 3000);
   };
 
-  console.log(errors);
-
   return (
     <StLayout>
       <StHeader>

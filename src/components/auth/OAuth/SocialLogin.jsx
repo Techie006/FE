@@ -30,11 +30,22 @@ const SocialLogin = ({ type }) => {
     const {
       result,
       content,
-      status: { code, message },
+      status: { message },
     } = resp.data;
 
-    // TODO result
-    // login 페이지 가고, 에러 메시지 보이게
+    // 이미 가입한 유저가 동일한 메일 주소로 소셜 로그인을 시도할 경우 에러 처리
+    if (!result) {
+      Swal.fire({
+        icon: "fail",
+        title: message,
+        showConfirmButton: false,
+        timer: 1000,
+      });
+
+      navigate("/auth");
+
+      return;
+    }
 
     // accessToken, refreshToken 저장
     localStorage.setItem("Authorization", authorization);
@@ -64,7 +75,7 @@ const SocialLogin = ({ type }) => {
 
     // 메인화면으로 이동
     navigate("/");
-  }, [type, code, dispatch, navigate]);
+  }, [type, dispatch, navigate]);
 
   useEffect(() => {
     oAuth();
