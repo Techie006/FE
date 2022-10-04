@@ -1,5 +1,5 @@
 import { useDispatch } from "react-redux";
-import { useNavigate, useParams } from "react-router-dom";
+import { useNavigate, useSearchParams } from "react-router-dom";
 import { useEffect, useCallback } from "react";
 import Swal from "sweetalert2";
 
@@ -11,10 +11,12 @@ const SocialLogin = ({ type }) => {
 
   const navigate = useNavigate();
 
-  console.log(useParams());
-  const code = new URL(window.location.href).searchParams.get("code");
+  // OAuth를 수행하기 위한 code를 url로부터 파싱
+  const [searchParams] = useSearchParams();
+  const code = searchParams.get("code");
 
   const oAuth = useCallback(async () => {
+    // 소셜 로그인 수행
     let resp = {};
     if (type === "google") {
       resp = await apis.sign_in_google({ code });
@@ -24,10 +26,12 @@ const SocialLogin = ({ type }) => {
     }
 
     const { authorization, refresh_token } = resp.headers;
+
     const {
       status: { message },
     } = resp.data;
 
+    // accessToken, refreshToken 저장
     localStorage.setItem("Authorization", authorization);
     localStorage.setItem("Refresh_Token", refresh_token);
 
@@ -35,6 +39,7 @@ const SocialLogin = ({ type }) => {
 
     dispatch(signin());
 
+    // 메인화면으로 이동
     navigate("/");
   }, [type, code, dispatch, navigate]);
 

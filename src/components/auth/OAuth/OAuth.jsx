@@ -1,4 +1,3 @@
-import { Link } from "react-router-dom";
 import styled from "styled-components";
 
 import { ReactComponent as Google } from "../../../assets/icons/auth/googleLogo.svg";
@@ -6,6 +5,7 @@ import { ReactComponent as Google } from "../../../assets/icons/auth/googleLogo.
 const OAuth = ({ type }) => {
   const currUrl = "http://localhost:3000";
 
+  // https://accounts.kakao.com/login?continue=https%3A%2F%2Fkauth.kakao.com%2Foauth%2Fauthorize%3Fresponse_type%3Dcode%26redirect_uri%3Dhttp%253A%252F%252Flocalhost%253A3000%252FkakaoLogin%26through_account%3Dtrue%26client_id%3D2b986d1b574416a7d6d064619545aaff
   const KAKAO_CLIENT_ID = "2b986d1b574416a7d6d064619545aaff";
   const KAKAO_REDIRECT_URI = `${currUrl}/kakaoLogin`;
   const KAKAO_AUTH_URL = `https://kauth.kakao.com/oauth/authorize?client_id=${KAKAO_CLIENT_ID}&redirect_uri=${KAKAO_REDIRECT_URI}&response_type=code`;
@@ -17,7 +17,7 @@ const OAuth = ({ type }) => {
 
   return (
     <StLayout
-      to={type === "kakao" ? KAKAO_AUTH_URL : GOOGLE_AUTH_URL}
+      href={type === "kakao" ? KAKAO_AUTH_URL : GOOGLE_AUTH_URL}
       type={type}
     >
       <Google />
@@ -28,7 +28,7 @@ const OAuth = ({ type }) => {
 
 export default OAuth;
 
-const StLayout = styled(Link)`
+const StLayout = styled.a`
   display: flex;
   align-items: center;
   justify-content: flex-start;

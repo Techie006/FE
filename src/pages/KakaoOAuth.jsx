@@ -1,9 +1,9 @@
-import OAuth from "../components/auth/OAuth/OAuth";
+import SocialLogin from "../components/auth/OAuth/SocialLogin";
 
 const KakaoOAuth = (props) => {
   return (
     <>
-      <OAuth type='kakao' />
+      <SocialLogin type='kakao' />
     </>
   );
 };

@@ -1,9 +1,9 @@
-import OAuth from "../components/auth/OAuth/OAuth";
+import SocialLogin from "../components/auth/OAuth/SocialLogin";
 
 const GoogleOAuth = (props) => {
   return (
     <>
-      <OAuth type='google' />
+      <SocialLogin type='google' />
     </>
   );
 };
