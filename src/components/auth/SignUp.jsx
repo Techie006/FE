@@ -16,7 +16,6 @@ const Signup = ({ onClick }) => {
     register,
     watch,
     setError,
-    clearErrors,
     handleSubmit,
     formState: { errors, isValid },
   } = useForm({ mode: "onChange" });
@@ -29,38 +28,45 @@ const Signup = ({ onClick }) => {
   };
 
   const submitHandler = async ({ email, username, password }) => {
-    const resp = await apis.signup({ email, username, password });
+    const resp = await apis.sign_up({ email, username, password });
 
     const {
       result,
-      status: { message },
+      status: { code, message },
     } = resp.data;
 
     // 서버 측 에러 처리
-    // TODO 서버 에러 값 변경 시 안보이게 처리 필요
     if (!result) {
-      if (message === "이미 존재하는 이메일입니다.") {
-        setError(
-          "email",
-          { type: "existing", message: message },
-          { shouldFocus: true }
-        );
-        return;
+      switch (code) {
+        case "201" || "202":
+          setError(
+            "email",
+            // 이미 존재하는 이메일입니다 / 적절하지않은 이메일 형식입니다
+            { type: "validate", message: message },
+            { shouldFocus: true }
+          );
+          break;
+        case "203" || "204":
+          setError(
+            "username",
+            // 사용자 이름이 너무 깁니다 / 적절하지 않은 사용자 이름 형식입니다.
+            { type: "validate", message: message },
+            { shouldFocus: true }
+          );
+          break;
+        case "210":
+          // 적절하지 않은 패스워드 형식입니다.
+          setError(
+            "password",
+            // 사용자 이름이 너무 깁니다 // 적절하지 않은 사용자 이름 형식입니다.
+            { type: "validate", message: message },
+            { shouldFocus: true }
+          );
+          break;
+        default:
+          break;
       }
-      if (message === "적절하지 않은 이메일 형식입니다.") {
-        setError(
-          "email",
-          { type: "validate", message: message },
-          { shouldFocus: true }
-        );
-      }
-      if (message === "적절하지 않은 사용자 이름 형식입니다.") {
-        setError(
-          "username",
-          { type: "validate", message: message },
-          { shouldFocus: true }
-        );
-      }
+
       return;
     }
 
@@ -85,6 +91,8 @@ const Signup = ({ onClick }) => {
     // 탭 전환
     setTimeout(() => onClick(), 3000);
   };
+
+  console.log(errors);
 
   return (
     <StLayout>

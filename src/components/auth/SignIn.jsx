@@ -1,6 +1,7 @@
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
+import Swal from "sweetalert2";
 import styled from "styled-components";
 
 import { apis } from "../../shared/axios";
@@ -34,9 +35,40 @@ const SignIn = ({ onClick }) => {
       status: { code, message },
     } = resp.data;
 
+    // 서버 측 에러 처리
+    // TODO 서버 에러 값 변경 시 안보이게 처리 필요
     if (!result) {
-      // TODO 에러 처리
-      console.log(message);
+      switch (code) {
+        case 205 || 206 || 207:
+          setError(
+            "email",
+            // 가입되지 않은 이메일입니다 / 카카오로 가입된 유저입니다 / 구글로 가입된 유저입니다
+            { type: "validate", message: message },
+            { shouldFocus: true }
+          );
+          break;
+        case 208:
+          setError(
+            "password",
+            // 비밀번호를 잘못 입력하셨습니다
+            { type: "validate", message: message },
+            { shouldFocus: true }
+          );
+          break;
+        case 209:
+          // 이메일 인증을 완료해주세요.
+          Swal.fire({
+            title: message,
+            text: "",
+            icon: "warning",
+            confirmButtonText: "확인",
+            confirmButtonColor: "#74BDB2",
+          });
+          break;
+        default:
+          break;
+      }
+
       return;
     }
 
