@@ -9,6 +9,7 @@ import { ReactComponent as Logo } from "../../assets/icons/Frigo.svg";
 import { ReactComponent as Email } from "../../assets/icons/auth/email.svg";
 import { ReactComponent as Password } from "../../assets/icons/auth/PW.svg";
 import Button from "../../elements/atoms/Button";
+import OAuth from "./OAuth/OAuth";
 import InfoLinks from "./service/InfoLinks";
 
 const SignIn = ({ onClick }) => {
@@ -119,6 +120,10 @@ const SignIn = ({ onClick }) => {
           <StOr>또는</StOr>
           <StLine />
         </StDivider>
+        <StOAuths>
+          <OAuth type='kakao' />
+          <OAuth type='google' />
+        </StOAuths>
         <InfoLinks />
       </StLayout>
     </>
@@ -150,6 +155,20 @@ const StLabel = styled.label`
   font-weight: 700;
   font-size: 14px;
   line-height: 20px;
+`;
+
+const StWrapper = styled.div`
+  position: relative;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  align-items: center;
+`;
+
+const StIcon = styled.div`
+  position: absolute;
+  left: 25px;
+  bottom: 10px;
 `;
 
 const StInput = styled.input`
@@ -227,16 +246,8 @@ const StOr = styled.div`
   color: #a5a5a5;
 `;
 
-const StWrapper = styled.div`
-  position: relative;
+const StOAuths = styled.div`
   display: flex;
-  flex-direction: row;
-  flex-wrap: nowrap;
-  align-items: center;
-`;
-
-const StIcon = styled.div`
-  position: absolute;
-  left: 25px;
-  bottom: 10px;
+  flex-direction: column;
+  gap: 14px;
 `;
