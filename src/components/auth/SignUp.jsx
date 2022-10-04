@@ -4,6 +4,8 @@ import styled from "styled-components";
 
 import { ReactComponent as Logo } from "../../assets/icons/Frigo.svg";
 import { emailCheck, usernameCheck, pwCheck } from "../../shared/regex";
+import { ReactComponent as ShowPW } from "../../assets/icons/auth/showPW.svg";
+import { ReactComponent as HidePW } from "../../assets/icons/auth/hidePW.svg";
 
 const Signup = ({ onClick }) => {
   const [showPW, setShowPW] = useState(false);
@@ -14,6 +16,11 @@ const Signup = ({ onClick }) => {
     handleSubmit,
     formState: { errors },
   } = useForm({ mode: "onChange" });
+
+  // 비밀번호 보기 toggle 함수
+  const clickHandler = () => {
+    setShowPW((prev) => !prev);
+  };
 
   return (
     <StLayout>
@@ -71,29 +78,31 @@ const Signup = ({ onClick }) => {
             <StHelper />
             <StHelper>8자에서 15자 사이의 조합이어야합니다.</StHelper>
           </StHelper>
-          <StInput
-            type={!showPW ? "password" : "text"}
-            id='password'
-            {...register("password", {
-              required: "비밀번호를 기입하셔야 합니다.",
-              minLength: {
-                value: 8,
-                message: "비밀번호는 8자 이상이어야 합니다.",
-              },
-              maxLength: {
-                value: 15,
-                message: "비밀번호는 15자 이하여야 합니다.",
-              },
-              validate: {
-                check: (value) =>
-                  pwCheck(value) ||
-                  "비밀번호에 영문/숫자/특수문자(@$!%*#?&)를 모두 사용해야합니다.",
-              },
-            })}
-          />
-          {/* <button type='button' onClick={onShowHandler}>
-            show
-          </button> */}
+          <StWrapper htmlFor='password'>
+            <StInput
+              type={!showPW ? "password" : "text"}
+              id='password'
+              {...register("password", {
+                required: "비밀번호를 기입하셔야 합니다.",
+                minLength: {
+                  value: 8,
+                  message: "비밀번호는 8자 이상이어야 합니다.",
+                },
+                maxLength: {
+                  value: 15,
+                  message: "비밀번호는 15자 이하여야 합니다.",
+                },
+                validate: {
+                  check: (value) =>
+                    pwCheck(value) ||
+                    "비밀번호에 영문/숫자/특수문자(@$!%*#?&)를 모두 사용해야합니다.",
+                },
+              })}
+            />
+            <StButton onClick={clickHandler}>
+              {!showPW ? <ShowPW /> : <HidePW />}
+            </StButton>
+          </StWrapper>
           {errors.password ? (
             <StError>{errors.password.message}</StError>
           ) : null}
@@ -139,6 +148,7 @@ const StPart = styled.div`
 `;
 
 const StLabel = styled.label`
+  position: relative;
   display: block;
   font-family: "Noto Sans KR";
   font-style: normal;
@@ -175,4 +185,19 @@ const StHelper = styled.div`
 
 const StError = styled(StHelper)`
   color: #ff5c01;
+`;
+
+const StWrapper = styled.div`
+  position: relative;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  align-items: center;
+`;
+
+const StButton = styled.div`
+  display: inline;
+  position: absolute;
+  left: 298px;
+  bottom: 10px;
 `;
