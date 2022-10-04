@@ -27,6 +27,7 @@ const Signup = ({ onClick }) => {
     <StLayout>
       <StHeader>
         <Logo />
+        <StTab onClick={onClick}>로그인</StTab>
       </StHeader>
       <form>
         <StPart hasError={errors.email}>
@@ -145,9 +146,27 @@ const StLayout = styled.div`
 `;
 
 const StHeader = styled.div`
+  position: relative;
   display: flex;
   justify-content: center;
   margin-bottom: 28px;
+`;
+
+const StTab = styled.div`
+  position: absolute;
+  top: 20px;
+  right: 10px;
+  font-family: "Noto Sans KR";
+  font-style: normal;
+  font-weight: 500;
+  font-size: 14px;
+  line-height: 20px;
+  letter-spacing: -0.5px;
+  text-decoration-line: underline;
+  color: #656565;
+  &:hover {
+    cursor: pointer;
+  }
 `;
 
 const StPart = styled.div`
