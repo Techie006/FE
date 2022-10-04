@@ -28,9 +28,13 @@ const SocialLogin = ({ type }) => {
     const { authorization, refresh_token } = resp.headers;
 
     const {
+      result,
       content,
-      status: { message },
+      status: { code, message },
     } = resp.data;
+
+    // TODO result
+    // login 페이지 가고, 에러 메시지 보이게
 
     // accessToken, refreshToken 저장
     localStorage.setItem("Authorization", authorization);
