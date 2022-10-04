@@ -1,16 +1,14 @@
 import styled from "styled-components";
 
 import GridTemplate, { StGrid } from "../../elements/templates/GridTemplate";
-import InfoFrame from "./InfoFrame";
+// import InfoFrame from "./InfoFrame";
 import FormFrame from "./FormFrame";
 
 const AuthFrame = () => {
   return (
     <>
       <GridTemplate>
-        <StLeftSection>
-          <InfoFrame />
-        </StLeftSection>
+        <StLeftSection>{/* <InfoFrame /> */}</StLeftSection>
         <StRightSection>
           <FormFrame />
         </StRightSection>

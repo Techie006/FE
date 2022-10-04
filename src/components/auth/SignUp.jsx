@@ -9,7 +9,7 @@ import { emailCheck, usernameCheck, pwCheck } from "../../shared/regex";
 import { ReactComponent as ShowPW } from "../../assets/icons/auth/showPW.svg";
 import { ReactComponent as HidePW } from "../../assets/icons/auth/hidePW.svg";
 import Button from "../../elements/atoms/Button";
-import InfoLinks from "./InfoLinks";
+import InfoLinks from "./service/InfoLinks";
 
 const Signup = ({ onClick }) => {
   const {
@@ -79,8 +79,11 @@ const Signup = ({ onClick }) => {
     // 메일 전송 중 알림창 띄우기
     Toast.fire({
       icon: "info",
-      title: "인증메일 전송 중입니다.",
+      title: "인증 메일을 전송하고 있어요.",
     });
+
+    // 탭 전환
+    setTimeout(() => onClick(), 3000);
   };
 
   return (
@@ -140,7 +143,7 @@ const Signup = ({ onClick }) => {
             <StHelper />
             <StHelper>8자에서 15자 사이의 조합이어야합니다.</StHelper>
           </StHelper>
-          <StWrapper htmlFor='password'>
+          <StWrapper>
             <StInput
               type={!showPW ? "password" : "text"}
               id='password'
@@ -283,7 +286,6 @@ const StWrapper = styled.div`
 `;
 
 const StButton = styled.div`
-  display: inline;
   position: absolute;
   left: 298px;
   bottom: 10px;

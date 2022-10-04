@@ -1,14 +1,21 @@
+import { useDispatch } from "react-redux";
+import { useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import styled from "styled-components";
 
 import { apis } from "../../shared/axios";
+import { signin } from "../../modules/redux/auth";
 import { ReactComponent as Logo } from "../../assets/icons/Frigo.svg";
 import { ReactComponent as Email } from "../../assets/icons/auth/email.svg";
 import { ReactComponent as Password } from "../../assets/icons/auth/PW.svg";
 import Button from "../../elements/atoms/Button";
-import InfoLinks from "./InfoLinks";
+import InfoLinks from "./service/InfoLinks";
 
 const SignIn = ({ onClick }) => {
+  const dispatch = useDispatch();
+
+  const navigate = useNavigate();
+
   const {
     register,
     setError,
@@ -17,33 +24,80 @@ const SignIn = ({ onClick }) => {
     formState: { errors, isValid },
   } = useForm({ mode: "onChange" });
 
+  const submitHandler = async ({ email, password }) => {
+    const resp = await apis.sign_in({ email, password });
+
+    const {
+      result,
+      content,
+      status: { code, message },
+    } = resp.data;
+
+    if (!result) {
+      // TODO 에러 처리
+      console.log(message);
+      return;
+    }
+
+    // localStorage에 유저 정보 저장
+    const { authorization } = resp.headers;
+    localStorage.setItem("Authorization", authorization);
+    const { member_id, nickname, profile_img } = content;
+    localStorage.setItem("userId", member_id);
+    localStorage.setItem("username", nickname);
+    localStorage.setItem("profileImg", profile_img);
+
+    dispatch(
+      signin({
+        userInfo: {
+          userId: member_id,
+          username: nickname,
+          profileImg: profile_img,
+        },
+      })
+    );
+
+    // 메인 화면으로 이동
+    navigate("/");
+  };
+
   return (
     <>
       <StLayout>
         <StHeader>
           <Logo />
         </StHeader>
-        <form>
+        <form onSubmit={handleSubmit(submitHandler)}>
           <StPart hasError={errors.email}>
             <StLabel htmlFor='email'>이메일</StLabel>
-            <StInput
-              type='text'
-              id='email'
-              {...register("email", {
-                required: "이메일을 입력해주세요.",
-              })}
-            />
+            <StWrapper>
+              <StIcon>
+                <Email />
+              </StIcon>
+              <StInput
+                type='text'
+                id='email'
+                {...register("email", {
+                  required: "이메일을 입력해주세요.",
+                })}
+              />
+            </StWrapper>
             {errors.email ? <StError>{errors.email.message}</StError> : null}
           </StPart>
           <StPart hasError={errors.password}>
             <StLabel htmlFor='password'>비밀번호</StLabel>
-            <StInput
-              type='password'
-              id='password'
-              {...register("password", {
-                required: "비밀번호를 기입하셔야 합니다.",
-              })}
-            />
+            <StWrapper>
+              <StIcon>
+                <Password />
+              </StIcon>
+              <StInput
+                type='password'
+                id='password'
+                {...register("password", {
+                  required: "비밀번호를 기입하셔야 합니다.",
+                })}
+              />
+            </StWrapper>
             {errors.password ? (
               <StError>{errors.password.message}</StError>
             ) : null}
@@ -105,7 +159,7 @@ const StInput = styled.input`
   width: 332px;
   height: 50px;
   margin-top: 6px;
-  padding: 11px 48px 11px 14px;
+  padding: 11px 14px 11px 60px;
   &:hover,
   &:focus {
     outline: none;
@@ -181,9 +235,8 @@ const StWrapper = styled.div`
   align-items: center;
 `;
 
-const StButton = styled.div`
-  display: inline;
+const StIcon = styled.div`
   position: absolute;
-  left: 298px;
+  left: 25px;
   bottom: 10px;
 `;

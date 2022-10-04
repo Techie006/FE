@@ -3,9 +3,9 @@ import { createSlice } from "@reduxjs/toolkit";
 const initialState = {
   isLogin: localStorage.getItem("Authorization") ? true : false,
   userInfo: {
-    member_id: 1,
-    username: "",
-    profile_img: "",
+    userId: localStorage.getItem("userId"),
+    username: localStorage.getItem("username"),
+    profileImg: localStorage.getItem("profileImg"),
   },
 };
 
@@ -13,17 +13,15 @@ const authSlice = createSlice({
   name: "auth",
   initialState,
   reducers: {
-    login: (state, _) => {
+    signin: (state, { payload: userInfo }) => {
       state.isLogin = true;
+      state.userInfo = userInfo;
     },
-    saveInfo: (state, action) => {
-      state.userInfo = { ...state.userInfo, ...action.payload };
-    },
-    logout: (state, _) => {
+    signout: (state, _) => {
       state.isLogin = false;
     },
   },
 });
 
-export const { login, saveInfo, logout } = authSlice.actions;
+export const { signin, signout } = authSlice.actions;
 export default authSlice.reducer;

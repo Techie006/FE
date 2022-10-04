@@ -2,7 +2,7 @@ import axios from "axios";
 import { encode as base64_encode } from "base-64";
 
 const base = {
-  server_http: "http://3.38.214.79",
+  server_http: "http://3.37.104.22",
   server_https: "https://magorosc.shop",
   openvidu_server: "https://monsterwarrior.shop",
 };
@@ -33,8 +33,12 @@ const videoApi = axios.create({
 
 export const apis = {
   // auth page
-  signin: ({ email, password }) => api.post(`/api/user/signin`),
-  signup: ({ email, username, password }) => api.post(`/api/user/signup`),
+  sign_in: ({ email, password }) =>
+    api.post(`/api/user/signin`, { email, password }),
+  sign_in_google: ({ code }) => api.get(`/user/google/callback?code=${code}`),
+  sign_in_kakao: ({ code }) => api.get(`/user/kakao/callback?code=${code}`),
+  sign_up: ({ email, username, password }) =>
+    api.post(`/api/user/signup`, { email, username, password }),
   // signout: () => api.delete(``)
 
   // statistics page
