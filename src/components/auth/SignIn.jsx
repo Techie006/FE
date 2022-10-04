@@ -21,7 +21,6 @@ const SignIn = ({ onClick }) => {
   const {
     register,
     setError,
-    clearErrors,
     handleSubmit,
     formState: { errors, isValid },
   } = useForm({ mode: "onChange" });
@@ -36,10 +35,9 @@ const SignIn = ({ onClick }) => {
     } = resp.data;
 
     // 서버 측 에러 처리
-    // TODO 서버 에러 값 변경 시 안보이게 처리 필요
     if (!result) {
       switch (code) {
-        case 205 || 206 || 207:
+        case "205" || "206" || "207":
           setError(
             "email",
             // 가입되지 않은 이메일입니다 / 카카오로 가입된 유저입니다 / 구글로 가입된 유저입니다
@@ -47,7 +45,7 @@ const SignIn = ({ onClick }) => {
             { shouldFocus: true }
           );
           break;
-        case 208:
+        case "208":
           setError(
             "password",
             // 비밀번호를 잘못 입력하셨습니다
@@ -55,7 +53,7 @@ const SignIn = ({ onClick }) => {
             { shouldFocus: true }
           );
           break;
-        case 209:
+        case "209":
           // 이메일 인증을 완료해주세요.
           Swal.fire({
             title: message,
@@ -68,7 +66,6 @@ const SignIn = ({ onClick }) => {
         default:
           break;
       }
-
       return;
     }
 
