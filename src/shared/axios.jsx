@@ -2,8 +2,8 @@ import axios from "axios";
 import { encode as base64_encode } from "base-64";
 
 const base = {
-  server_http: process.env.REEAT_APP_HTTP_URL,
-  server_https: process.env.REEAT_APP_HTTPS_URL,
+  server_http: process.env.REACT_APP_HTTP_URL,
+  server_https: process.env.REACT_APP_HTTPS_URL,
   openvidu_server: process.env.REACT_APP_OPENVIDU_URL,
 };
 

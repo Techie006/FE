@@ -157,15 +157,15 @@ const OpenViduVideo = (props) => {
     return () => leaveSession();
   }, [session]);
 
-  // cookingClass publisher가 나가면 페이지에서 나감.
-  useEffect(() => {
-    console.log("subVideos!!!", subVideos);
-  }, [subVideos]);
-
   // 쿠킹클래스에 들어온 유저의 경우 subVideo를 통해 publish된 실시간 영상을 볼 수 있음
   const subVideos = subscribers?.map((subscriber, idx) => (
     <ClassVideo key={idx} streamManager={subscriber} isPub={false} />
   ));
+
+  // cookingClass publisher가 나가면 페이지에서 나감.
+  useEffect(() => {
+    console.log("subVideos!!!", subVideos);
+  }, [subVideos]);
 
   return (
     <>

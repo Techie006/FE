@@ -6,7 +6,7 @@ import FormFrame from "./FormFrame";
 const AuthFrame = () => {
   return (
     <>
-      <GridTemplate>
+      <GridTemplate height='646px'>
         <StLayout>
           <FormFrame />
         </StLayout>

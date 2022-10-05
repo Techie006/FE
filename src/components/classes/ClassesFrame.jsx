@@ -32,21 +32,12 @@ const ClassesFrame = () => {
 
 export default ClassesFrame;
 
-const StGrid = styled.div`
-  background: ${(props) => props.theme.section.layout.background};
-  border-radius: ${(props) => props.theme.section.layout.borderRadius};
-  box-shadow: ${(props) => props.theme.section.layout.boxShadow};
-  padding: 16px 18px;
-`;
-
 const StHeader = styled.div`
   grid-column: 1 / span 12;
-  height: auto;
+  height: 114px;
 
   /* mobile */
   @media all and (max-width: 600px) {
     grid-column: 1 / span 4;
   }
 `;
-
-const StClassesPart = styled(StGrid)``;

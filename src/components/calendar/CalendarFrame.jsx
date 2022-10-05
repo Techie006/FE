@@ -18,7 +18,7 @@ const CalendarFrame = () => {
 
   return (
     <>
-      <GridTemplate>
+      <GridTemplate height='621px'>
         <StCalendarSection>
           <Calendar />
         </StCalendarSection>
