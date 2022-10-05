@@ -1,10 +1,10 @@
 import { useForm } from "react-hook-form";
 import { useState } from "react";
-import Swal from "sweetalert2";
 import styled from "styled-components";
 
 import { apis } from "../../shared/axios";
-import { ReactComponent as Logo } from "../../assets/icons/Frigo.svg";
+import { showAlert } from "../../shared/popups";
+import { ReactComponent as Logo } from "../../assets/icons/auth/Frigo.svg";
 import { emailCheck, usernameCheck, pwCheck } from "../../shared/regex";
 import { ReactComponent as ShowPW } from "../../assets/icons/auth/showPW.svg";
 import { ReactComponent as HidePW } from "../../assets/icons/auth/hidePW.svg";
@@ -70,25 +70,10 @@ const Signup = ({ onClick }) => {
       return;
     }
 
-    const Toast = Swal.mixin({
-      toast: true,
-      position: "center-center",
-      showConfirmButton: false,
-      timer: 3000,
-      timerProgressBar: true,
-      didOpen: (toast) => {
-        toast.addEventListener("mouseenter", Swal.stopTimer);
-        toast.addEventListener("mouseleave", Swal.resumeTimer);
-      },
-    });
+    // 인증 메일 전송중 알랏창 띄우기
+    showAlert(3000, "info", "인증메일 전송중입니다.");
 
-    // 메일 전송 중 알림창 띄우기
-    Toast.fire({
-      icon: "info",
-      title: "인증 메일을 전송하고 있어요.",
-    });
-
-    // 탭 전환
+    // 로그인 탭으로 전환
     setTimeout(() => onClick(), 3000);
   };
 
@@ -146,7 +131,6 @@ const Signup = ({ onClick }) => {
           <StLabel htmlFor='password'>비밀번호</StLabel>
           <StHelper>
             영문/숫자/특수문자(@$!%*#?&) 세 가지 종류를 모두 포함한
-            <StHelper />
             <StHelper>8자에서 15자 사이의 조합이어야합니다.</StHelper>
           </StHelper>
           <StWrapper>

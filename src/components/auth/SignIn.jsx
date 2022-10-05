@@ -6,7 +6,7 @@ import styled from "styled-components";
 
 import { apis } from "../../shared/axios";
 import { signin } from "../../modules/redux/auth";
-import { ReactComponent as Logo } from "../../assets/icons/Frigo.svg";
+import { ReactComponent as Logo } from "../../assets/icons/auth/Frigo.svg";
 import { ReactComponent as Email } from "../../assets/icons/auth/email.svg";
 import { ReactComponent as Password } from "../../assets/icons/auth/PW.svg";
 import Button from "../../elements/atoms/Button";

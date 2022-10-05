@@ -20,7 +20,7 @@ const ClassesFrame = () => {
   };
 
   return (
-    <GridTemplate height='auto'>
+    <GridTemplate height='114px'>
       <StHeader>
         <ClassesHeader onClick={clickHandler} />
       </StHeader>

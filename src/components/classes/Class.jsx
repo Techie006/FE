@@ -3,8 +3,9 @@ import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 
 import { apis } from "../../shared/axios";
+import { showAlert, showConfirm } from "../../shared/popups";
 import { enterClass } from "../../modules/redux/cookingClass";
-import { T7, ST1 } from "../../styles/Text";
+import { ST1 } from "../../styles/Text";
 import Ingridients from "../../elements/molecules/Ingredients";
 
 const Class = ({
@@ -21,7 +22,8 @@ const Class = ({
 
   // 클래스 입장 절차 거쳐야 함
   const clickHandler = async () => {
-    // TODO loader 클래스 입장중입니다 알람 띄우기
+    showAlert(2000, "info", "선택하신 클래스에 입장하는 중입니다.");
+
     // 클래스 입장 요청
     const resp = await apis.enter_class({ class_id });
 
@@ -30,8 +32,15 @@ const Class = ({
       status: { code },
     } = resp.data;
 
+    // TODO code 바꿔달라 요청
     if (code === 400) {
-      window.alert("이미 정원이 다 찬 방입니다. 입장이 불가해요.");
+      showConfirm(
+        "선택하신 클래스는 정원이 다 찼으므로 입장 불가합니다.",
+        "warning",
+        false,
+        "",
+        "클래스 조회로 돌아가기"
+      );
       return;
     }
 
@@ -44,9 +53,7 @@ const Class = ({
   return (
     <StClassSection onClick={clickHandler}>
       <StImgPart>
-        <StViewerBox>
-          <StViewerText>{`${viewer_nums}명 시청중`}</StViewerText>
-        </StViewerBox>
+        <StViewer>{`${viewer_nums}명 시청중`}</StViewer>
         <StImg src={class_img} alt='thumbnail' />
       </StImgPart>
       <StInfoPart>
@@ -59,9 +66,7 @@ const Class = ({
 
 export default Class;
 
-// TOOD 반응형으로 바꾸기
 const StClassSection = styled.div`
-  /* width: 405px; */
   grid-column: span 4;
 
   background: #ffffff;
@@ -78,28 +83,27 @@ const StClassSection = styled.div`
 `;
 
 const StImgPart = styled.div`
+  position: relative;
+  width: 100%;
+  overflow: hidden;
   border-top-left-radius: 10px;
   border-top-right-radius: 10px;
-  width: 100%;
-  position: relative;
-  overflow: hidden;
 `;
 
-const StViewerBox = styled.div`
+const StViewer = styled.div`
   position: absolute;
   left: 10px;
   top: 13px;
   padding: 3px 4px;
-  background: #ececec;
-  opacity: 0.5;
+  background: #ff5c01;
   border-radius: 2px;
   z-index: 10;
-`;
-
-const StViewerText = styled(T7)`
+  font-family: "Noto Sans KR";
+  font-style: normal;
+  font-weight: 700;
+  font-size: 10px;
+  line-height: 14px;
   color: #ffffff;
-  opacity: 1;
-  z-index: 20;
 `;
 
 const StImg = styled.img`

@@ -8,11 +8,10 @@ import { apis } from "../../../shared/axios";
 import { openModal, createdClass } from "../../../modules/redux/cookingClass";
 import Modal from "../../../elements/templates/Modal";
 import { ST3, ET1, T4 } from "../../../styles/Text";
-// import { ReactComponent as X } from "../../../assets/icons/circleX.svg";
+import { ReactComponent as CircleX } from "../../../assets/icons/classes/circleX.svg";
 import Button from "../../../elements/atoms/Button";
 import SearchModal from "../../../elements/organisms/SearchModal";
 
-// TODO 이미지 삭제 X 버튼 위치 디자인 협의 필요
 const CreateModal = ({ onClick }) => {
   const modalOpen = useSelector((state) => state.cookingClass.modalOpen);
   const selectedRecipe = useSelector(
@@ -114,7 +113,7 @@ const CreateModal = ({ onClick }) => {
       <Modal header='클래스 생성하기' onClick={onClick} depth={1}>
         <StLayout>
           <form onSubmit={handleSubmit(submitHandler)}>
-            <StNamePart>
+            <StPart hasError={errors.className}>
               <ST3 as='label' htmlFor='className'>
                 클래스명
               </ST3>
@@ -128,8 +127,8 @@ const CreateModal = ({ onClick }) => {
                 })}
               />
               {errors.className ? <ET1>{errors.className.message}</ET1> : null}
-            </StNamePart>
-            <StRecipePart>
+            </StPart>
+            <StPart hasError={errors.recipe}>
               <ST3 as='label' htmlFor='recipeId'>
                 레시피 검색
               </ST3>
@@ -138,15 +137,15 @@ const CreateModal = ({ onClick }) => {
                 placeholder='레시피명 검색'
                 id='recipe'
                 onClick={clickHandler}
-                // onChange={Handler}
+                // onChange={clickHandler}
                 // value={selectedRecipe.recipe_name || ""}
                 {...register("recipe", {
                   required: "신규 클래스 생성을 위해서 레시피를 입력해주세요.",
                 })}
               />
               {errors.recipe ? <ET1>{errors.recipe.message}</ET1> : null}
-            </StRecipePart>
-            <StFilePart>
+            </StPart>
+            <StPart hasError={errors.classImgs}>
               <ST3 as='label' htmlFor='classImgs'>
                 썸네일 업로드
               </ST3>
@@ -155,21 +154,29 @@ const CreateModal = ({ onClick }) => {
                   <StLabelText>파일 선택</StLabelText>
                 </StLabelBox>
                 <StFileInput type='text' value={imgInfo} onChange={() => {}} />
-                <input
-                  type='file'
-                  style={{ display: "none" }}
-                  accept='image/jpg, image/png, image/jpeg'
-                  id='classImgs'
-                  placeholder='이미지 파일 선택'
-                  {...register("classImgs", {
-                    required:
-                      "신규 클래스 생성을 위해서 썸네일을 입력해주세요.",
-                    onChange: (e) => changeImgHandler(e),
-                  })}
-                />
+                <StWrapper>
+                  <input
+                    type='file'
+                    style={{ display: "none" }}
+                    accept='image/jpg, image/png, image/jpeg'
+                    id='classImgs'
+                    placeholder='이미지 파일 선택'
+                    {...register("classImgs", {
+                      required:
+                        "신규 클래스 생성을 위해서 썸네일을 입력해주세요.",
+                      onChange: (e) => changeImgHandler(e),
+                    })}
+                  />
+                  {/* 이미지 삭제 버튼 */}
+                  {showImg ? (
+                    <StButton onClick={deleteHandler}>
+                      <CircleX />
+                    </StButton>
+                  ) : null}
+                </StWrapper>
               </StFilePicker>
               {errors.classImgs ? <ET1>{errors.classImgs.message}</ET1> : null}
-            </StFilePart>
+            </StPart>
             <StImgPart>
               {!showImg ? (
                 <StImgGuide>
@@ -180,7 +187,6 @@ const CreateModal = ({ onClick }) => {
               {showImg ? (
                 <>
                   <StImg src={imgUrl[0]} alt='img' />
-                  {/* <X onClick={deleteHandler} /> */}
                 </>
               ) : null}
             </StImgPart>
@@ -211,6 +217,11 @@ const StInput = styled.input`
   width: 285px;
   margin-top: 10px;
   padding: 11px 48px 11px 14px;
+  &:hover,
+  &:focus {
+    outline: none;
+    border: 1.2px solid #ffb356;
+  }
 `;
 
 const StSearchBar = styled(StInput)`
@@ -219,17 +230,8 @@ const StSearchBar = styled(StInput)`
   background-repeat: no-repeat;
 `;
 
-const StNamePart = styled.div`
-  margin-top: 0px;
-`;
-
-const StRecipePart = styled.div`
-  margin-top: 26px;
-`;
-
-const StFilePart = styled.div`
-  margin-top: 26px;
-  margin-bottom: 26px;
+const StPart = styled.div`
+  margin-bottom: ${(props) => (!props.hasError ? "26px" : "14px")};
 `;
 
 const StImgPart = styled.div`
@@ -249,15 +251,33 @@ const StLabelBox = styled.label`
   border-radius: 6px;
   width: 91px;
   height: 40px;
+  &:hover {
+    background: #ffb356;
+    color: #ffffff;
+  }
 `;
 
 const StLabelText = styled(T4)`
   color: #5b5b5b;
 `;
 
+const StWrapper = styled.div`
+  position: relative;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  align-items: center;
+`;
+
 const StFileInput = styled(StInput)`
   margin-top: 0px;
   margin-left: 8px;
+`;
+
+const StButton = styled.div`
+  position: absolute;
+  left: -36px;
+  bottom: 4px;
 `;
 
 const StImgGuide = styled.div`
