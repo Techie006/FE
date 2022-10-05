@@ -3,7 +3,7 @@ import styled from "styled-components";
 import { ReactComponent as Google } from "../../../assets/icons/auth/googleLogo.svg";
 
 const OAuth = ({ type }) => {
-  const currUrl = "http://localhost:3000";
+  const currUrl = process.env.REACT_APP_HTTPS_URL;
 
   // https://accounts.kakao.com/login?continue=https%3A%2F%2Fkauth.kakao.com%2Foauth%2Fauthorize%3Fresponse_type%3Dcode%26redirect_uri%3Dhttp%253A%252F%252Flocalhost%253A3000%252FkakaoLogin%26through_account%3Dtrue%26client_id%3D2b986d1b574416a7d6d064619545aaff
   const KAKAO_CLIENT_ID = "2b986d1b574416a7d6d064619545aaff";
@@ -13,7 +13,7 @@ const OAuth = ({ type }) => {
   const GOOGLE_CLIENT_ID =
     "230675215382-h29811lqdej9iikmiifbv5bk8eg0iass.apps.googleusercontent.com";
   const GOOGLE_REDIRECT_URI = `${currUrl}/googleLogin`;
-  const GOOGLE_AUTH_URL = `https://accounts.google.com/o/oauth2/v2/auth?client_id=230675215382-h29811lqdej9iikmiifbv5bk8eg0iass.apps.googleusercontent.com&redirect_uri=${currUrl}/googleLogin&response_type=code&scope=https://www.googleapis.com/auth/userinfo.email https://www.googleapis.com/auth/userinfo.profile`;
+  const GOOGLE_AUTH_URL = `https://accounts.google.com/o/oauth2/v2/auth?client_id=${GOOGLE_CLIENT_ID}&redirect_uri=${GOOGLE_REDIRECT_URI}&response_type=code&scope=https://www.googleapis.com/auth/userinfo.email https://www.googleapis.com/auth/userinfo.profile`;
 
   return (
     <StLayout

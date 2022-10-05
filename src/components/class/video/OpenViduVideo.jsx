@@ -13,7 +13,7 @@ const OpenViduVideo = (props) => {
 
   const [ov, setOv] = useState({
     mySessionId: sessionId,
-    myUserName: "Participant" + Math.floor(Math.random() * 100),
+    myUserName: "Participant" + localStorage.getItem("username"),
     session: undefined,
     mainStreamManager: undefined, // Main video of the page. Will be the 'publisher' or one of the 'subscribers'
     publisher: undefined,
@@ -158,7 +158,9 @@ const OpenViduVideo = (props) => {
   }, [session]);
 
   // cookingClass publisher가 나가면 페이지에서 나감.
-  useEffect(() => {}, [subVideos]);
+  useEffect(() => {
+    console.log("subVideos!!!", subVideos);
+  }, [subVideos]);
 
   // 쿠킹클래스에 들어온 유저의 경우 subVideo를 통해 publish된 실시간 영상을 볼 수 있음
   const subVideos = subscribers?.map((subscriber, idx) => (
