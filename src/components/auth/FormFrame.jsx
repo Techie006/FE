@@ -4,7 +4,7 @@ import SignIn from "./SignIn";
 import SignUp from "./SignUp";
 
 const FormFrame = () => {
-  const [tab, setTab] = useState("signup");
+  const [tab, setTab] = useState("signin");
 
   // 탭 전환 함수
   const clickHandler = () => {
