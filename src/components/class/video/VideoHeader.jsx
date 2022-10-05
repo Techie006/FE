@@ -9,23 +9,31 @@ import Ingredients from "../../../elements/molecules/Ingredients";
 
 const VideoHeader = () => {
   const { class_id, role } = useParams();
+  const [className, setClassName] = useState();
   const [recipe, setRecipe] = useState();
 
   const navigate = useNavigate();
 
   const getData = async () => {
     const resp = await apis.get_class_recipe({ class_id });
-    const { content } = resp.data;
-    setRecipe(content);
+    const {
+      content: { class_name, recipe },
+    } = resp.data;
+    setClassName(class_name);
+    setRecipe(recipe);
   };
 
   const leaveVideo = async () => {
     // publisher인 경우 종료 API 호출
+    console.log("call leave video", role);
     if (role === "pub") {
+      console.log("leaveVideo!!!!!!!!");
       const resp = await apis.quit_class({ class_id });
       const {
         status: { code, message },
       } = resp.data;
+
+      console.log(resp.data);
 
       // 존재하지 않는 클래스이거나 호스트가 아닌 경우
       if (code === 400) {
@@ -34,6 +42,10 @@ const VideoHeader = () => {
       }
     }
 
+    navigate("/classes");
+  };
+
+  const quitHandler = () => {
     navigate("/classes");
   };
 
@@ -46,14 +58,14 @@ const VideoHeader = () => {
     <StLayout>
       <StHeader>
         <StClassPart>
-          <StTitle>클래스 이름을 찾아 적어줍니다 어쩌고 저쩌고</StTitle>
+          <StTitle>{className}</StTitle>
           <StRecipeButton>상세 레시피 확인</StRecipeButton>
         </StClassPart>
         {role === "pub" ? (
           <Button
             type='button'
             content='종료하기'
-            onClick={leaveVideo}
+            onClick={quitHandler}
             page='class'
             func='leave'
           />

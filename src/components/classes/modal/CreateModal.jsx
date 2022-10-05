@@ -6,6 +6,7 @@ import styled from "styled-components";
 
 import { apis } from "../../../shared/axios";
 import { openModal, createdClass } from "../../../modules/redux/cookingClass";
+import { showAlert } from "../../../shared/popups";
 import Modal from "../../../elements/templates/Modal";
 import { ST3, ET1, T4 } from "../../../styles/Text";
 import { ReactComponent as CircleX } from "../../../assets/icons/classes/circleX.svg";
@@ -93,7 +94,7 @@ const CreateModal = ({ onClick }) => {
       status: { code },
     } = resp.data;
 
-    if (code === 400) {
+    if (code === "400") {
       errors.classImg = {
         message: "썸네일 크기는 20MB를 넘을 수 없습니다.",
       };
@@ -101,6 +102,8 @@ const CreateModal = ({ onClick }) => {
     }
 
     const { class_id, redis_class_id, session_id, full_token, token } = content;
+
+    showAlert(1000, "info", "새로운 클래스를 생성하고 있어요.");
 
     // session_id, token 정보 저장
     dispatch(createdClass({ session_id, token, full_token }));
