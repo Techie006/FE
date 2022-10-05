@@ -174,7 +174,7 @@ const StIngredientButton = styled.button`
   color : ${(props) => props.theme.colors.font.lightGray1};
   border : 0.6px solid ${(props) => props.theme.colors.font.lightGray4};
   border-radius : ${(props) => props.theme.button.layout.borderRoundRadius};
-  :focus {
+  :hover {
     background-color : ${(props) => props.theme.colors.background.yellow};
     color : ${(props) => props.theme.colors.font.mainWhite};
   }
@@ -189,7 +189,7 @@ const StRecipes = styled.div`
   margin : 5px 0px;
   padding : 0px;
 
-  height: 490px;
+  height: 600px;
   overflow: scroll;
   &::-webkit-scrollbar {
     width: 8px;

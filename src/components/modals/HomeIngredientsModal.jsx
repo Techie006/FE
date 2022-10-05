@@ -103,7 +103,7 @@ const HomeIngredientsModal = ({ onClose }) => {
                 </div>
                 </div>
                 <div>
-                {data.d_date === "만료" ?
+                {data.d_date === "기한 만료" ?
                 (
                 <div className='d_day' style={{
                     color : "#FF5C01"
@@ -112,7 +112,7 @@ const HomeIngredientsModal = ({ onClose }) => {
                 </div>
                 )
                 :
-                data.d_date.substr(2) < 4 ?
+                data.d_date.substr(2) < 5 ?
                 (
                 <div className='d_day' style={{
                     color : "#FFB356",
@@ -289,8 +289,7 @@ const StyledWrapper = styled.div`
     
     padding : 0px 26px 0px 26px;
     margin : 0px 1px;
-      .ingredient_wrapper{
-        height : 484px;
+      .ingredient_wrapper {
         display : flex;
         flex-direction : row;
         flex-wrap : wrap;

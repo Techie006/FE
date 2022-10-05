@@ -1,12 +1,13 @@
 import React, { useEffect, useState } from 'react';
 import { useSelector } from "react-redux";
 import { ReactComponent as X } from "../../assets/icons/circleX.svg";
+import xButton from '../../assets/icons/xButton.png'
 import hoverXButton from '../../assets/icons/hoverXButton.png'
 import axios from 'axios';
 import styled from "styled-components";
 
 const Ingredient = ( {totalIngredient} ) => {
-    console.log("icon",totalIngredient)
+    // console.log("icon",totalIngredient)
 
     // const deleteIngredient = useSelector((ingredient) => ingredient.searchData.recommend)
     // console.log("delete",deleteIngredient)
@@ -15,8 +16,7 @@ const Ingredient = ( {totalIngredient} ) => {
     const onXButtonHandler = async (e) => {
 
         setId(totalIngredient.id)
-        console.log(id)
-
+        
         const auth = localStorage.getItem("Authorization")
 
         const resp = await  axios.delete(`https://magorosc.shop/api/ingredient?id=${id}`,{
@@ -29,8 +29,11 @@ const Ingredient = ( {totalIngredient} ) => {
             
     }
 
+    useEffect(() => {
+        onXButtonHandler()
+    },[])
     const Ddate =
-    totalIngredient.d_date === "만료" ?
+    totalIngredient.d_date === "기한 만료" ?
         (
         <div className='d_day' style={{
             color : "#FF5C01"
@@ -76,7 +79,8 @@ const Ingredient = ( {totalIngredient} ) => {
             <div>
             {Ddate}
             </div>
-                <X fill='#5B5B5B' onClick={onXButtonHandler}/>
+                {/* <X fill='#5B5B5B' onClick={onXButtonHandler}/> */}
+                {/* <StXButton /> */}
             </div>
         </StyledIngredinet>
     );
@@ -146,18 +150,18 @@ const StFoodNameDateGroup = styled.div`
         font-weight : 400;
     }
 `
-// const StXButton = styled.div`
-//     margin-left : 10px;
-//     width : 21px;
-//     height : 21px;
-//     cursor : pointer;
-//     background-image: url(${xButton});
-//     background-repeat: no-repeat;
-//     background-size: cover;
+const StXButton = styled.div`
+    margin-left : 10px;
+    width : 21px;
+    height : 21px;
+    cursor : pointer;
+    background-image: url(${xButton});
+    background-repeat: no-repeat;
+    background-size: cover;
 
-//     :hover {
-//         background-image: url(${hoverXButton});
-//         background-repeat: no-repeat;
-//         background-size: cover;
-//     }
-// `
+    :hover {
+        background-image: url(${hoverXButton});
+        background-repeat: no-repeat;
+        background-size: cover;
+    }
+`

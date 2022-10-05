@@ -13,9 +13,9 @@ const Recipe = ({
   liked,
   onClick,
 }) => {
-  const ingredientList = ingredients.map((data) => <div className="ingredient">{data}</div> )
-
+  const ingredientList = ingredients.map((data ,index) => <div key={index} className="ingredient">{data}</div> )
   return (
+    // <StRecipeSection>
     <StWrapper className="wrapper">
       <StImg alt={recipe_name} style={{
         backgroundImage : `url(${final_img})`,
@@ -32,10 +32,30 @@ const Recipe = ({
       </StEtcInfo>
       </StDesc>
     </StWrapper>
+    // </StRecipeSection>
   );
 };
 
 export default Recipe;
+
+// const StRecipeSection = styled.div`
+//   /* width: 405px; */
+//   dispaly : flex;
+//   flex-direction : row;
+//   grid-column: span 12;
+
+//   background: #ffffff;
+//   box-shadow: 0px 3px 13px 1px rgba(0, 0, 0, 0.05);
+//   border-radius: 10px;
+//   &:hover {
+//     cursor: pointer;
+//   }
+
+//   /* mobile */
+//   @media all and (max-width: 600px) {
+//     grid-column-end: span 4;
+//   }
+// `;
 
 const StWrapper = styled.div`
   cursor: pointer;

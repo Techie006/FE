@@ -100,7 +100,7 @@ export default HomeIngredients;
 const StyledInredientsWrapper = styled.div`
     display : flex;
     flex-direction : column;
-    height : 530px;
+    height : 630px;
     padding-bottom : 10px;
     background-color : ${(props) => props.theme.colors.background.white};
     box-shadow: ${(props) => props.theme.section.layout.boxShadow};
@@ -166,7 +166,7 @@ const StStatusButton =styled.button`
     &:hover {
         
     } 
-    &:focus {
+    &:hover {
         color : ${(props) => props.theme.colors.font.mainWhite};
         background-color : ${(props) => props.theme.colors.background.yellow};
     } 

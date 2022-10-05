@@ -98,7 +98,6 @@ const DoneModal = ({ id, onClick, onClickDetail }) => {
         height : '18px',
         width : '140px',
     }),
-
     singleValue : (provided) => ({
         ...provided,
         
@@ -124,16 +123,24 @@ const DoneModal = ({ id, onClick, onClickDetail }) => {
     indicatorsContainer : (provided) => ({
         ...provided,
         width : '33px',
-        minHeight : '50px'
+        minHeight : '40px'
     }),
     option : (provided) => ({
       ...provided,
+      width : "200px",
       color :"#000000",
       letterSpacing: "-0.5px",
       fontSize: "14px",
-      '&:hover' : { color : '#FC9700' ,backgroundColor : "#FAFAFA"},
-
+      backgroundColor : "#FFFFFF",
+      '&:hover' : { color : '#FC9700'},
+      '&:focus-within' : { borderColor : "none" }
   }),
+  menu : (provided) => ({
+    ...provided,
+    width : "212px",
+    color :"#000000",
+    margin :"6px 18px"
+}),
 }
 
   return (
@@ -203,7 +210,7 @@ const StyledContent = styled.div`
     border : 1px solid #DADADA;
     box-shadow: 0px 2px 8px rgba(0, 0, 0, 0.1);
     border-radius: 6px;
-    z-index : 200;
+    z-index : 300;
     .complete_button {
       background: #FAFAFA;
       width : 94px;

@@ -140,20 +140,47 @@ const StGrid = styled.div`
   box-shadow: ${(props) => props.theme.section.layout.boxShadow};
 `;
 
-const StHeaderSection = styled(StGrid)`
-  grid-column: 1 / span 4; 
+// const StHeaderSection = styled(StGrid)`
+//   grid-column: 1 / span 4; 
 
-  /* mobile */
-  @media all and (max-width: 600px) {
-    grid-column: 1 / span 4;
-  }
-`;
+//   /* mobile */
+//   @media all and (max-width: 600px) {
+//     grid-column: 1 / span 4;
+//   }
+// `;
 const StWrapper = styled.div`
   height: 64px;
   display: flex;
   flex-direction: column;
   padding : 10px 84px 10px;
   background-color: ${(props) => props.theme.colors.background.white};
+  ul {
+    position : absolute;
+    left : 70%;
+    width : 92px;
+    height : 105px;
+    background: #FFFFFF;
+    border: 1px solid #DADADA;
+    box-shadow: 0px 2px 8px rgba(0, 0, 0, 0.1);
+    border-radius: 2px;
+  }
+  li {
+    padding : 10px 0px;
+    justify-content : center;
+    border-bottom: 1px solid #DADADA;
+    width : 100%;
+    height : 35px;
+    font-weight: 500;
+    font-size: 14px;
+    text-align: center;
+    align-items: center;
+    letter-spacing: -0.5px;
+    color : #5B5B5B;
+    :hover {
+      color : #FF8E42;
+    }
+
+  }
 `;
 const StLayout = styled.div`
   height: 44px;
@@ -179,11 +206,11 @@ const StMypage = styled.button`
 const StMypageMenu = styled.div`
   position : absolute;
   z-index : 900;
+  background: #FFFFFF;
+  border: 1px solid #DADADA;
+  box-shadow: 0px 2px 8px rgba(0, 0, 0, 0.1);
+  border-radius: 2px;
 `
 const StMypageWrapper = styled.div`
-  li {
-    border : 1px solid black;
-    background-color : white;
-  }
 `
 

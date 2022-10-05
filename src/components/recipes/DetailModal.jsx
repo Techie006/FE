@@ -1,5 +1,4 @@
 import { useState, useCallback, useEffect } from "react";
-
 import { ReactComponent as X } from "../../assets/icons/x.svg";
 import { apis } from "../../shared/axios";
 // import RESP_CHAE from "../../server/response_chae";
@@ -73,11 +72,6 @@ const DetailModal = ({ id, recipeName, totalIngredient, onClick }) => {
             </div>
             </div>
             <X fill="black" onClick={onClick}/>
-            <StCompletebutton
-                type='button'
-                // content='요리 완료'
-                onClick={clickHandler}
-              >요리완료</StCompletebutton>
           </StHeader>
         <>
           {loading ? <Loader /> : null}
@@ -97,7 +91,10 @@ const DetailModal = ({ id, recipeName, totalIngredient, onClick }) => {
         {!loading && showModal ? (
           <DoneModal onClick={clickHandler} onClickDetail={onClick} id={id}/>
         ) : null}
-        
+        <StCompletebutton
+                type='button'
+                onClick={clickHandler}
+              >요리 완료</StCompletebutton>
         </StWrapper>
       </StyledContent>
       </StyledModalBackground>
@@ -115,6 +112,7 @@ const StyledModalBackground = styled.div`
     align-items: center;
     justify-content: center;
     position: fixed;
+    z-index : 300;
     left: 0;
     top: 0;
     text-align: center;
@@ -131,7 +129,7 @@ const StyledContent = styled.div`
     border-radius: 15px;
     position: relative;
     background-color : #FFFFFF;
-    z-index : 100;
+    z-index : 200;
     overflow: auto;
     &::-webkit-scrollbar {
       width: 8px;
@@ -162,7 +160,7 @@ const StHeader = styled.div`
       font-family: 'Happiness Sans';
       font-style: normal;
       font-weight: 900;
-      font-size: 100%;
+      font-size: 24px;
       line-height: 32px;
       display: flex;
       align-items: center;
@@ -207,6 +205,7 @@ const StCompletebutton = styled.button`
   text-align: center;
   letter-spacing: -0.005em;
   color: #664500;
+  border : 0px;
 `
 const StTotalIngredient = styled.div`
   padding : 13px 36px 0px 30px;
