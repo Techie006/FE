@@ -68,7 +68,6 @@ const ChatFrame = (props) => {
   const receiveEvent = useCallback(
     (frame) => {
       const resp = JSON.parse(frame.body);
-      console.log(resp);
       const { type } = resp;
       switch (type) {
         case "ENTER":
@@ -89,7 +88,7 @@ const ChatFrame = (props) => {
 
   const connectSocket = useCallback(() => {
     // 1. webSocket 클라이언트 생성
-    const sock = new SockJs(`${process.env.REACT_APP_HTTP_URL}/ws`);
+    const sock = new SockJs(`${process.env.REACT_APP_HTTPS_URL}/ws`);
     stompClient.current = webstomp.over(sock);
 
     // optional ) stomp client debug mode OFF
