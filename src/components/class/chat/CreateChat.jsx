@@ -23,11 +23,12 @@ const CreateChat = ({ stompClient }) => {
 
   // webSocket 통신을 위한 request body 생성
   const createData = (eventType, message = "") => ({
+    notice: false,
     type: eventType,
     redis_class_id: redis_class_id,
-    member_id: userInfo.member_id,
+    member_id: userInfo.userId,
     nickname: userInfo.username,
-    profile_img: userInfo.profile_img,
+    profile_img: userInfo.profileImg,
     message: message,
     viewer_num: 0,
   });

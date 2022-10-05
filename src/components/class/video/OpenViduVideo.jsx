@@ -1,5 +1,5 @@
 import { useSelector } from "react-redux";
-import { useParams } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 import { useState, useEffect } from "react";
 import { OpenVidu } from "openvidu-browser";
 
@@ -13,7 +13,7 @@ const OpenViduVideo = (props) => {
 
   const [ov, setOv] = useState({
     mySessionId: sessionId,
-    myUserName: "Participant" + Math.floor(Math.random() * 100),
+    myUserName: "Participant" + localStorage.getItem("username"),
     session: undefined,
     mainStreamManager: undefined, // Main video of the page. Will be the 'publisher' or one of the 'subscribers'
     publisher: undefined,
@@ -161,6 +161,11 @@ const OpenViduVideo = (props) => {
   const subVideos = subscribers?.map((subscriber, idx) => (
     <ClassVideo key={idx} streamManager={subscriber} isPub={false} />
   ));
+
+  // cookingClass publisher가 나가면 페이지에서 나감.
+  useEffect(() => {
+    console.log("subVideos!!!", subVideos);
+  }, [subVideos]);
 
   return (
     <>

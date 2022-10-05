@@ -1,11 +1,12 @@
 import Layout from "../elements/templates/Layout";
-import AuthLayout from "../components/auth/AuthLayout";
+
+import AuthFrame from "../components/auth/AuthFrame";
 
 const Auth = (props) => {
   return (
     <>
       <Layout>
-        <AuthLayout />
+        <AuthFrame />
       </Layout>
     </>
   );

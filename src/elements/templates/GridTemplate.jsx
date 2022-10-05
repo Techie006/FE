@@ -28,7 +28,6 @@ export default GridTemplate;
 
 const StLayout = styled.div`
   display: grid;
-  grid-auto-rows: ${(props) => (!props.height ? "621px" : `${props.height}px`)};
   // 콘텐츠 영역 확인하려면 아래 주석 활성화하세요!
   /* background: black;
   background-clip: content-box; */
@@ -37,7 +36,7 @@ const StLayout = styled.div`
   grid-template-columns: repeat(12, 12fr);
   grid-column-gap: 28px; // gutter @Figma
   grid-row-gap: 28px; // gutter @Figma
-  grid-auto-rows: minmax(349px, auto);
+  grid-auto-rows: ${(props) => `minmax(${props.height}, auto)`};
 
   /* tablet */
   @media all and (max-width: 1024px) {
