@@ -76,7 +76,7 @@ const Ingredient = ( {totalIngredient} ) => {
             <div>
             {Ddate}
             </div>
-                <X fill='#5B5B5B' onClick={onXButtonHandler}/>
+                {/* <X fill='#5B5B5B' onClick={onXButtonHandler}/> */}
             </div>
         </StyledIngredinet>
     );

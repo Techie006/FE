@@ -31,6 +31,7 @@ const StWrapper = styled.div`
     justify-content : space-between;
     align-items : center;
     font-family: 'Happiness Sans';
+    height : 60px;
     border : 1px solid black;
     background-color : ${(props) => props.theme.colors.background.white};
     font-size : 18px;

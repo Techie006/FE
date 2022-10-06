@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 
 // import BookmarkBtn from "../common/BookmarkBtn";
 // import IconBox from "../../elements/atoms/IconBox";
-
+import BookmarkBtn from "../common/BookmarkBtn";
 import axios from "axios";
 import styled from "styled-components";
 import { faColonSign } from "@fortawesome/free-solid-svg-icons";
@@ -10,7 +10,7 @@ import { faColonSign } from "@fortawesome/free-solid-svg-icons";
 const RecommendRecipes = () => {
   const [warningIngredient, setWarningIngredient] = useState([]);
   const [showRecipes, setShowRecipes] = useState([]);
-  console.log(showRecipes)
+  console.log("showre",showRecipes)
 
   const auth = localStorage.getItem("Authorization");
   const refresh = localStorage.getItem("Refresh_Token");
@@ -54,17 +54,20 @@ const RecommendRecipes = () => {
     setWarningIngredient(resp.data.content.in_hurry);
   };
 
-  const getDtailRecipe = async (e) => {
-    
-    // await axios.get(`https://magorosc.shop/api/recipe/${detailRecipe}`);
-
-  }
-
   console.log("inHurryFoodName", inHurryFoodName);
 
   useEffect(() => {
     getWarningIngredients();
   }, []);
+
+  const commonIngredients = showRecipes.map((data, index) => (
+    <StRestIngredients key={index}>{data.common_ingredients}</StRestIngredients>
+  ))
+
+  const commonIngredient = commonIngredients.map((data, index) => (
+    <StRestIngredients>{data.common_ingredients}</StRestIngredients>
+  ))
+  
 
   return (
     <StRecipesWrapper>
@@ -92,13 +95,13 @@ const RecommendRecipes = () => {
           showRecipes.map((data, index) => (
             <StRecipe 
             key={index}
-            onClick={getDtailRecipe}
+            // onClick={getDtailRecipe}
             value={data.id}>
               <StRecipeImg src = {data.recipe_image}/>
               <StRecipeDesc>
               <StIngreWrapper>
-                <StRestIngredients>{data.common_ingredients}</StRestIngredients>
-                {/* <CommonIngredients ingredients={data.common_ingredients} /> */}
+                <div className="ingredients">{data.common_ingredients.map((data) => <StRestIngredients>{data}</StRestIngredients> )}</div>
+                <BookmarkBtn className="bookmark" recipe_id={data.id} is_liked={data.liked} isBox={false} />
               </StIngreWrapper>
               <StRecipeTitle>{data.recipe_name}</StRecipeTitle>
               <StDay>{data.method} | {data.category} | {data.calorie}kcal</StDay>
@@ -120,10 +123,15 @@ export default RecommendRecipes;
 const StRecipesWrapper = styled.div`
   border: 1px solid black;
   padding : 20px;
+  height : 726px;
   border : 0px;
   border-radius : 10px;
   box-shadow : ${(props) => props.theme.section.layout.boxShadow};
   background-color : ${(props) => props.theme.section.layout.background};
+  .ingredients {
+    display : flex;
+    flex-direction : row;
+  }
 `;
 const StHeader = styled.div`
   display : flex;
@@ -174,7 +182,7 @@ const StIngredientButton = styled.button`
   color : ${(props) => props.theme.colors.font.lightGray1};
   border : 0.6px solid ${(props) => props.theme.colors.font.lightGray4};
   border-radius : ${(props) => props.theme.button.layout.borderRoundRadius};
-  :focus {
+  :hover {
     background-color : ${(props) => props.theme.colors.background.yellow};
     color : ${(props) => props.theme.colors.font.mainWhite};
   }
@@ -189,7 +197,7 @@ const StRecipes = styled.div`
   margin : 5px 0px;
   padding : 0px;
 
-  height: 490px;
+  height: 586px;
   overflow: scroll;
   &::-webkit-scrollbar {
     width: 8px;
@@ -232,15 +240,19 @@ const StRecipeDesc = styled.div`
 `
 const StIngreWrapper = styled.div`
   display: flex;
+  flex-direction : row;
+  justify-content : space-between;
+  align-items: center;
   padding : 0px;
 `
 const StRestIngredients = styled.div`
   color: #8E7B6D;
+  padding : 4px 5px;
   background: #F0EADC;
   border-radius: 6px;
   margin-bottom : 6px;
   font-size : 10px;
-  margin-right : 10px;
+  margin-right : 4px;
 `
 const StRecipeTitle = styled.div`
   color : ${(props) => props.theme.colors.font.gray0};

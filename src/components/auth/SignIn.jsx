@@ -1,4 +1,5 @@
 import { useDispatch } from "react-redux";
+import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import Swal from "sweetalert2";
@@ -10,10 +11,12 @@ import { ReactComponent as Logo } from "../../assets/icons/auth/Frigo.svg";
 import { ReactComponent as Email } from "../../assets/icons/auth/email.svg";
 import { ReactComponent as Password } from "../../assets/icons/auth/PW.svg";
 import Button from "../../elements/atoms/Button";
+import FindPwModal from "./FindPwModal";
 import OAuth from "./OAuth/OAuth";
 import InfoLinks from "./service/InfoLinks";
 
 const SignIn = ({ onClick }) => {
+  const [showFindModal, setShowFindModal] = useState(false) 
   const dispatch = useDispatch();
 
   const navigate = useNavigate();
@@ -24,6 +27,11 @@ const SignIn = ({ onClick }) => {
     handleSubmit,
     formState: { errors, isValid },
   } = useForm({ mode: "onChange" });
+
+  const showHandler = () => {
+    setShowFindModal(!showFindModal)
+    
+  }
 
   const submitHandler = async ({ email, password }) => {
     const resp = await apis.sign_in({ email, password });
@@ -146,7 +154,8 @@ const SignIn = ({ onClick }) => {
         </form>
         <StFuncs>
           <StTab onClick={onClick}>회원가입</StTab>
-          <StTab onClick={onClick}>비밀번호 찾기</StTab>
+          <StTab onClick={showHandler}>비밀번호 찾기</StTab>
+          {showFindModal ? <FindPwModal onClick={showHandler}/> : null }
         </StFuncs>
         <StDivider>
           <StLine />

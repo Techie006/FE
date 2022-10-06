@@ -2,7 +2,6 @@ import { useSelector } from "react-redux";
 import { useState, useEffect, useCallback } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
 import styled from "styled-components";
-
 import { apis } from "../../shared/axios";
 import { showConfirm } from "../../shared/popups";
 import { ReactComponent as Logo } from "../../assets/icons/common/frigoLogo.svg";
@@ -12,11 +11,14 @@ import Potal from "../../components/modals/Potal";
 import UpdateProfileModal from "../../components/modals/UpdateProfileModal";
 
 const Header = () => {
+
   const isLogin = useSelector((state) => state.auth.isLogin);
+
   const [showModal, setShowModal] = useState(false);
 
   const navigate = useNavigate();
   const location = useLocation();
+
 
   // 로그인 되어있지 않으면 로그인 페이지로 이동
   const redirectHandler = useCallback(() => {
@@ -28,6 +30,7 @@ const Header = () => {
   useEffect(() => {
     redirectHandler();
   }, [redirectHandler]);
+
 
   const NAVIGATORS = ["홈", "통계", "캘린더", "클래스", "레시피"];
   const PATHS = ["/", "/statistics", "/calendar", "/classes", "/recipes"];
@@ -61,6 +64,7 @@ const Header = () => {
         "로그아웃 할래요."
       );
 
+
       if (result.isConfirmed) {
         const resp = await apis.sign_out();
         const { result } = resp.data;
@@ -92,6 +96,7 @@ const Header = () => {
           keys={["profile", "bookmark", "signout"]}
           contents={["프로필 설정", "북마크", "로그아웃"]}
         >
+
           <StMypage>설정</StMypage>
         </DropDown>
         <Potal>
@@ -141,4 +146,5 @@ const StMypage = styled.div`
     cursor: default;
     color: #fc9700;
   }
+
 `;

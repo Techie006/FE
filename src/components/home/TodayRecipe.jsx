@@ -92,6 +92,7 @@ const StWrapper = styled.div`
     background-color : ${(props) => props.theme.colors.background.white};
     box-shadow : ${(props) => props.theme.section.layout.boxShadow};
     border-radius : ${(props) => props.theme.section.layout.borderRadius};
+    height : 334px;
 `
 const StHeader = styled.div`
     display : flex;

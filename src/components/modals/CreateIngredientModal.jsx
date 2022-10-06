@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { useForm } from "react-hook-form";
 import { useSelector, useDispatch } from "react-redux";
 import { searchData } from "../../modules/redux/searchData";
+import Button from "../../elements/atoms/Button"
 import Select, { NonceProvider } from "react-select";
 import Calendar from 'react-calendar';
 import moment from "moment";
@@ -21,8 +22,6 @@ import axios from 'axios';
 
 const CreateIngredientModal = ({ onClose }) => {
 
-
-
     const Storage = [
         {value : "refrigerated", label : "냉장"},
         {value : "freeze", label : "냉동"},
@@ -36,7 +35,8 @@ const CreateIngredientModal = ({ onClose }) => {
     const [expValue, expOnChange] = useState(new Date());
     const [showSearch, setShowSearch] = useState(false)
     const [errorMessages, setErrorMessages] = useState("")
-
+    const [disabled, setDisabled] = useState(true)
+    
     const dispatch = useDispatch()
 
     const search = useSelector((state) => state.searchData);
@@ -53,9 +53,6 @@ const CreateIngredientModal = ({ onClose }) => {
     }
     
     const {
-        register,
-        watch,
-        reset,
         handleSubmit,
         formState: { errors },
       } = useForm({ mode: "submit" });
@@ -76,6 +73,19 @@ const CreateIngredientModal = ({ onClose }) => {
     const showSearchHandler = () => {
         setShowSearch(!showSearch)
     }
+    // const disabledButtonHandler = () => {
+        
+    //     if (searchData === "") return 
+    //     console.log("1")
+    //     if (selectStorage.value === "") return 
+    //     console.log("2")
+    //     if (purchaseDate == "") return 
+    //     console.log("3")
+    //     if (expDate == "") return 
+    //     console.log("4")
+    //     if (purchaseDate < expDate) return
+    //     else setDisabled(false)
+    // }
 
     const onSubmitHandler = async () => {
 
@@ -96,12 +106,11 @@ const CreateIngredientModal = ({ onClose }) => {
                     "Authorization" : auth,
                 } 
             })
-            console.log("hi")
             onClose()
-            console.log("h",searchData)
+            
         }
         catch(error){
-            console.log(error.response.data.status.message)
+            console.log(error)
             setErrorMessages(errorMessage)
         }
     }
@@ -184,7 +193,7 @@ const CreateIngredientModal = ({ onClose }) => {
                 placeholder = "선택해주세요!"
                 options={Storage}
                 isSearchable={false}
-                // disabled = {false}
+                disabled = {true}
                 />
                 </div>
                 </div>
@@ -200,14 +209,9 @@ const CreateIngredientModal = ({ onClose }) => {
                                 formatDay={(locale, date) => moment(date).format("DD")}
                                 onChange={onChange} 
                                 value={value}
-                                // tileContent={ ({data,navigation}) => {
-                                //     return (
-                                //         <>
-                                //         <div class="react-calendar__navigation"/>
-                                //         </>
-                                //     )
-                                // } }
-                                // react-calendar html 변경하는 법 공부
+                                onClickDay={(date) => {
+                                    onChange(date)
+                                    setShow(true)}}
                                 />}
                 </StDateBox>
                 </StEnteringDate>
@@ -223,11 +227,16 @@ const CreateIngredientModal = ({ onClose }) => {
                                 className="exp_calendar"
                                 formatDay={(locale, date) => moment(date).format("DD")}
                                 onChange={expOnChange} 
-                                value={expValue}></Calendar>}
+                                value={expValue}
+                                onClickDay={(date) => {
+                                    expOnChange(date)
+                                    setExpShow(true)}}
+                                />}
                 </StDateBox>
                     {/* {error.response.data.status.message<ErrorText></ErrorText>} */}
                 </StExp>
                 <div className='input_wrapper'>
+                {/* <Button content="등록하기" disabled={disabled}/> */}
                 <input type="submit" className="submitButton" value = "등록하기"/>
                 </div>
                 </form>
