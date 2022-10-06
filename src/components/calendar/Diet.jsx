@@ -8,6 +8,7 @@ import "rc-dropdown/assets/index.css";
 import "./rc-dropdown/style.css";
 import { parseDate } from "../../shared/regex";
 import { openDietModal, __deleteDiet } from "../../modules/redux/calendar";
+import { showConfirm, showAlert } from "../../shared/popups";
 import BookmarkBtn from "../../elements/molecules/BookmarkBtn";
 import IconBox from "../../elements/atoms/IconBox";
 import { ReactComponent as Edit } from "../../assets/icons/edit.svg";
@@ -38,27 +39,17 @@ const Diet = ({ id, time, day, ...props }) => {
 
   // 식단 삭제 시 컨펌창 띄우기
   const showDeleteConfirm = () =>
-    Swal.fire({
-      title: "해당 날짜의 식단을 삭제하시겠습니까?",
-      text: "",
-      icon: "warning",
-      showCancelButton: true,
-      cancelButtonText: "취소하기",
-      confirmButtonText: "삭제하기",
-      cancelButtonColor: "#FC9700",
-      confirmButtonColor: "#74BDB2",
-    });
+    showConfirm(
+      "해당 식단을 정말 삭제하실건가요?",
+      "warning",
+      true,
+      "취소하기",
+      "삭제하기"
+    );
 
   // 식단 삭제 완료 후 알랏창 띄우기
-  const showSuccessAlert = () => {
-    Swal.fire({
-      position: "center",
-      icon: "success",
-      title: "해당 식단을 삭제하였습니다.",
-      showConfirmButton: false,
-      timer: 1000,
-    });
-  };
+  const showSuccessAlert = () =>
+    showAlert(1000, "success", "해당 식단을 삭제합니다.");
 
   // rc-menu로 드롭다운 생성
   const overlay = () => (

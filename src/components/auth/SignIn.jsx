@@ -16,9 +16,7 @@ import OAuth from "./OAuth/OAuth";
 import InfoLinks from "./service/InfoLinks";
 
 const SignIn = ({ onClick }) => {
-
   const [showFindModal, setShowFindModal] = useState(false) 
-
   const dispatch = useDispatch();
 
   const navigate = useNavigate();

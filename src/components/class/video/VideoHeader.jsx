@@ -9,14 +9,18 @@ import Ingredients from "../../../elements/molecules/Ingredients";
 
 const VideoHeader = () => {
   const { class_id, role } = useParams();
+  const [className, setClassName] = useState();
   const [recipe, setRecipe] = useState();
 
   const navigate = useNavigate();
 
   const getData = async () => {
     const resp = await apis.get_class_recipe({ class_id });
-    const { content } = resp.data;
-    setRecipe(content);
+    const {
+      content: { class_name, recipe },
+    } = resp.data;
+    setClassName(class_name);
+    setRecipe(recipe);
   };
 
   const leaveVideo = async () => {
@@ -37,23 +41,36 @@ const VideoHeader = () => {
     navigate("/classes");
   };
 
+  const quitHandler = () => {
+    navigate("/classes");
+  };
+
+  window.onbeforeunload = (e) => {
+    console.log(e);
+    console.log("on before unload");
+    window.confirm("on!!");
+  };
+
   useEffect(() => {
     getData();
-    return () => leaveVideo();
+    return () => {
+      console.log("useEffect return");
+      leaveVideo();
+    };
   }, []);
 
   return (
     <StLayout>
       <StHeader>
         <StClassPart>
-          <StTitle>클래스 이름을 찾아 적어줍니다 어쩌고 저쩌고</StTitle>
+          <StTitle>{className}</StTitle>
           <StRecipeButton>상세 레시피 확인</StRecipeButton>
         </StClassPart>
         {role === "pub" ? (
           <Button
             type='button'
             content='종료하기'
-            onClick={leaveVideo}
+            onClick={quitHandler}
             page='class'
             func='leave'
           />

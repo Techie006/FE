@@ -40,11 +40,12 @@ const ChatFrame = (props) => {
   // webSocket 통신을 위한 request body 생성
   const createData = useCallback(
     (eventType, message = "") => ({
+      notice: false,
       type: eventType,
       redis_class_id: redis_class_id,
-      member_id: userInfo.member_id,
+      member_id: userInfo.userId,
       nickname: userInfo.username,
-      profile_img: userInfo.profile_img,
+      profile_img: userInfo.profileImg,
       message: message,
       viewer_num: 0,
     }),
@@ -87,7 +88,7 @@ const ChatFrame = (props) => {
 
   const connectSocket = useCallback(() => {
     // 1. webSocket 클라이언트 생성
-    const sock = new SockJs("https://magorosc.shop/ws");
+    const sock = new SockJs(`${process.env.REACT_APP_HTTPS_URL}/ws`);
     stompClient.current = webstomp.over(sock);
 
     // optional ) stomp client debug mode OFF
@@ -124,9 +125,11 @@ const ChatFrame = (props) => {
     return () => disconnectSocket();
   }, [connectSocket, disconnectSocket]);
 
-  // window.onbeforeunload = function () {
-  //   stompClient.current.disconnect();
-  // };
+  // 뒤로가기/ 브라우저 창 닫기/ 새로고침 시 호출
+  // window.onbeforeunload((e) => {
+  //   console.log(e);
+  //   window.alert("onbeforeunload");
+  // });
 
   return (
     <>
