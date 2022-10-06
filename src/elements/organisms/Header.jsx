@@ -5,7 +5,7 @@ import styled from "styled-components";
 
 import { apis } from "../../shared/axios";
 import { showConfirm } from "../../shared/popups";
-import { ReactComponent as Logo } from "../../assets/icons/common/logo.svg";
+import { ReactComponent as Logo } from "../../assets/icons/common/frigoLogo.svg";
 import Link from "../atoms/Link";
 import DropDown from "../atoms/DropDown";
 import Potal from "../../components/modals/Potal";
