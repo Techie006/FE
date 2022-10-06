@@ -4,7 +4,7 @@ import { ReactComponent as Kakao } from "../../../assets/icons/auth/kakaoLogo.sv
 import { ReactComponent as Google } from "../../../assets/icons/auth/googleLogo.svg";
 
 const OAuth = ({ type }) => {
-  const currUrl = process.env.REACT_APP_HTTPS_URL;
+  const currUrl = process.env.REACT_APP_FE_URL;
 
   // https://accounts.kakao.com/login?continue=https%3A%2F%2Fkauth.kakao.com%2Foauth%2Fauthorize%3Fresponse_type%3Dcode%26redirect_uri%3Dhttp%253A%252F%252Flocalhost%253A3000%252FkakaoLogin%26through_account%3Dtrue%26client_id%3D2b986d1b574416a7d6d064619545aaff
   const KAKAO_CLIENT_ID = "2b986d1b574416a7d6d064619545aaff";
