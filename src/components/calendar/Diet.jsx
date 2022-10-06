@@ -1,15 +1,11 @@
 import { useDispatch } from "react-redux";
-import Swal from "sweetalert2";
-import Dropdown from "rc-dropdown";
-import Menu, { Item } from "rc-menu";
 import styled from "styled-components";
 
-import "rc-dropdown/assets/index.css";
-import "./rc-dropdown/style.css";
 import { parseDate } from "../../shared/regex";
 import { openDietModal, __deleteDiet } from "../../modules/redux/calendar";
 import { showConfirm, showAlert } from "../../shared/popups";
 import BookmarkBtn from "../../elements/molecules/BookmarkBtn";
+import DropDown from "../../elements/atoms/DropDown";
 import IconBox from "../../elements/atoms/IconBox";
 import { ReactComponent as Edit } from "../../assets/icons/edit.svg";
 import Textbox from "../../elements/atoms/Textbox";
@@ -51,15 +47,7 @@ const Diet = ({ id, time, day, ...props }) => {
   const showSuccessAlert = () =>
     showAlert(1000, "success", "해당 식단을 삭제합니다.");
 
-  // rc-menu로 드롭다운 생성
-  const overlay = () => (
-    <Menu onSelect={onSelect}>
-      <Item key='update'>수정하기</Item>
-      <Item key='delete'>삭제하기</Item>
-    </Menu>
-  );
-
-  // 사용자가 특정 드롭다운 선택
+  // 사용자가 특정 드롭다운 선택 시 key값에 따라 동작하는 함수
   const onSelect = ({ key }) => {
     if (key === "update") {
       showModal();
@@ -92,11 +80,15 @@ const Diet = ({ id, time, day, ...props }) => {
         </StName>
         <StButtons>
           <BookmarkBtn recipe_id={recipe_id} is_liked={liked} isBox={false} />
-          <Dropdown trigger={["click"]} overlay={overlay} animation='slide-up'>
+          <DropDown
+            onSelect={onSelect}
+            keys={["update", "delete"]}
+            contents={["수정하기", "삭제하기"]}
+          >
             <IconBox page='calendar' func='edit' isBox={false}>
               <Edit fill='#A5A5A5' />
             </IconBox>
-          </Dropdown>
+          </DropDown>
         </StButtons>
       </StHeader>
       <StInfo>{`${method} | ${category} | ${calorie}kcal`}</StInfo>

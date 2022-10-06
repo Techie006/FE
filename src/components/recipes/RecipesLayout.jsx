@@ -4,11 +4,11 @@ import styled from "styled-components";
 const RecipesLayout = (props) => {
   return (
     <>
-      {/* <GridTemplate>
-        <StRecipeSection> */}
+      <GridTemplate>
+        <StRecipeSection>
         <Recipes />
-        {/* </StRecipeSection>
-      </GridTemplate> */}
+        </StRecipeSection>
+      </GridTemplate>
     </>
   );
 };
@@ -23,7 +23,6 @@ const StGrid = styled.div`
 
 const StRecipeSection = styled(StGrid)`
   grid-column: 1 / span 12;
-  height: auto;
 
   /* mobile */
   @media all and (max-width: 600px) {

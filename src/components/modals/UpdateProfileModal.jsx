@@ -52,7 +52,7 @@ const UpdateProfileModal = ({ onClose }) => {
         try{
             
         if( watch("updatePw") == watch("updatePwConfirm") ){
-            setUpdateErrorMessage("")
+            console.log("hi")
         const resp = await axios.put("https://magorosc.shop/api/my/password",{
             present_password : watch("password"),
             check_password : watch("updatePw"),
@@ -180,7 +180,7 @@ const UpdateProfileModal = ({ onClose }) => {
                         required: "비밀번호를 다시 한 번 입력해주세요.",
                         validate: {
                             check: (value) =>
-                              watch("password") === value ||
+                              watch("updatePw") === value ||
                               "비밀번호가 일치하지 않습니다.",
                           },
                         })}

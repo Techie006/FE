@@ -13,9 +13,9 @@ const Recipe = ({
   liked,
   onClick,
 }) => {
-  const ingredientList = ingredients.map((data ,index) => <div key={index} className="ingredient">{data}</div> )
+  const ingredientList = ingredients.map((data) => <div className="ingredient">{data}</div> )
+
   return (
-    // <StRecipeSection>
     <StWrapper className="wrapper">
       <StImg alt={recipe_name} style={{
         backgroundImage : `url(${final_img})`,
@@ -25,37 +25,17 @@ const Recipe = ({
       </StImg>
       <StDesc>
       <div className="ingredient_list">{ingredientList}</div>
-      <StTitle onClick={() => onClick({ id, recipe_name })}>{recipe_name}</StTitle>
+      <StTitle className="title" onClick={() => onClick({ id, recipe_name })}>{recipe_name}</StTitle>
       
       <StEtcInfo>
         {method} | {category} | {calorie} kcal
       </StEtcInfo>
       </StDesc>
     </StWrapper>
-    // </StRecipeSection>
   );
 };
 
 export default Recipe;
-
-// const StRecipeSection = styled.div`
-//   /* width: 405px; */
-//   dispaly : flex;
-//   flex-direction : row;
-//   grid-column: span 12;
-
-//   background: #ffffff;
-//   box-shadow: 0px 3px 13px 1px rgba(0, 0, 0, 0.05);
-//   border-radius: 10px;
-//   &:hover {
-//     cursor: pointer;
-//   }
-
-//   /* mobile */
-//   @media all and (max-width: 600px) {
-//     grid-column-end: span 4;
-//   }
-// `;
 
 const StWrapper = styled.div`
   cursor: pointer;
@@ -88,7 +68,9 @@ const StWrapper = styled.div`
     
     margin-bottom : 10px;
   }
-
+  // .wrapper:hover .title {
+  //   color : #8E7B6D;
+  // }
 `;
 const StImg = styled.div`
   border-top-right-radius: 10px;
@@ -109,9 +91,6 @@ const StTitle = styled.div`
   letter-spacing: -0.5px;
   color: #4B4B4B;
   margin-bottom : 10px;
-  :hover {
-    color : #8E7B6D;
-  }
 `
 const StEtcInfo = styled.div`
   font-weight: 400;

@@ -1,6 +1,5 @@
 import Layout from "../elements/templates/Layout";
-// import Header from "../elements/organisms/Header";
-import Header from "../components/common/Header";
+import Header from "../elements/organisms/Header";
 // import SearchResultLayout from "../componenets/post/SearchResultLayout";
 
 const SearchResult = (props) => {

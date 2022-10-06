@@ -181,7 +181,6 @@ const Button = ({
           hoverColor = "#482647";
         }
         break;
-        
       default:
         return;
     }
