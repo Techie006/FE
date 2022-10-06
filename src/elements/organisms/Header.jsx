@@ -1,16 +1,16 @@
 import { useState } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
-import Swal from "sweetalert2";
-import axios from "axios";
 import styled from "styled-components";
 
+import { apis } from "../../shared/axios";
+import { showConfirm } from "../../shared/popups";
 import { ReactComponent as Logo } from "../../assets/icons/common/Logo.svg";
+import Link from "../atoms/Link";
+import DropDown from "../atoms/DropDown";
 import Potal from "../../components/modals/Potal";
 import UpdateProfileModal from "../../components/modals/UpdateProfileModal";
-import Link from "../atoms/Link";
 
 const Header = () => {
-  const [open, setOpen] = useState(false);
   const [showModal, setShowModal] = useState(false);
 
   const navigate = useNavigate();
@@ -28,55 +28,50 @@ const Header = () => {
     />
   ));
 
-  const showDropdown = () => {
-    setOpen(!open);
+  // 사용자가 특정 드롭다운 선택
+  const onSelect = async ({ key }) => {
+    if (key === "profile") {
+      setShowModal(true);
+      return;
+    }
+    if (key === "bookmark") {
+      navigate("/bookmark");
+      return;
+    }
+    if (key === "signout") {
+      console.log("onClick signout");
+      const result = await showConfirm(
+        "정말 로그아웃 하실건가요?",
+        "warning",
+        true,
+        "조금 더 둘러볼래요.",
+        "로그아웃 할래요."
+      );
+
+      console.log(result);
+
+      if (result.isConfirmed) {
+        console.log("logout");
+        const resp = await apis.sign_out();
+        const { result } = resp.data;
+        if (!result) {
+          return;
+        }
+
+        // 로컬 스토리지에서 유저 정보를 삭제
+
+        localStorage.clear();
+
+        // 로그인 페이지로 이동
+        navigate("/auth");
+      }
+    }
   };
+
+  const signOutHandler = () => {};
 
   const showModalHandler = () => {
-    setOpen(false);
-    setShowModal((prev) => !prev);
-  };
-
-  const linkBookMark = () => {
-    navigate("/bookmark");
-  };
-
-  const signoutHandler = () => {
-    setOpen(!open);
-    const auth = localStorage.getItem("Authorization");
-    const refresh = localStorage.getItem("Refresh_Token");
-
-    const swalWithBootstrapButtons = Swal.mixin({
-      customClass: {
-        confirmButton: "btn btn-success",
-        cancelButton: "btn btn-danger",
-      },
-      buttonsStyling: false,
-    });
-
-    swalWithBootstrapButtons
-      .fire({
-        title: "정말 로그아웃 하실건가요??",
-        icon: "warning",
-        showCancelButton: true,
-        confirmButtonText: "로그아웃 할게요!",
-        cancelButtonText: "조금 더 둘러볼게요!",
-        reverseButtons: true,
-      })
-      .then((result) => {
-        if (result.isConfirmed) {
-          axios.delete(`https://magorosc.shop/api/user/signout`, {
-            headers: {
-              Authorization: auth,
-              Refresh_Token: refresh,
-            },
-          });
-
-          localStorage.removeItem("Authorization");
-          localStorage.removeItem("Refresh_Token");
-          navigate("/auth");
-        }
-      });
+    setShowModal(false);
   };
 
   return (
@@ -84,23 +79,16 @@ const Header = () => {
       <StHeader>
         <Logo />
         {navigator}
-        <StMypageWrapper>
-          <StMypage onClick={showDropdown}>마이페이지</StMypage>
-          <StMypageMenu>
-            {open ? (
-              <div>
-                <ul>
-                  <li onClick={showModalHandler}>프로필 설정</li>
-                  <li onClick={linkBookMark}>북마크한 레시피</li>
-                  <li onClick={signoutHandler}>로그아웃</li>
-                </ul>
-              </div>
-            ) : null}
-            <Potal>
-              {showModal && <UpdateProfileModal onClose={showModalHandler} />}
-            </Potal>
-          </StMypageMenu>
-        </StMypageWrapper>
+        <DropDown
+          onSelect={onSelect}
+          keys={["profile", "bookmark", "signout"]}
+          contents={["프로필 설정", "북마크", "로그아웃"]}
+        >
+          <StMypage>마이페이지</StMypage>
+        </DropDown>
+        <Potal>
+          {showModal && <UpdateProfileModal onClose={showModalHandler} />}
+        </Potal>
       </StHeader>
     </StLayout>
   );
