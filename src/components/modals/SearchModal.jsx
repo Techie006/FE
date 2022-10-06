@@ -51,7 +51,6 @@ const SearchModal = ({onClose}) => {
         }else{
             setKeyItemsError("검색결과가 없습니다!")
         }
-            console.log("as",resp.data.content.auto_complete)
         // && 연산자로 묶는거 고민
 
         const searchIngredients = async () => {
@@ -80,8 +79,7 @@ const SearchModal = ({onClose}) => {
             },[keyword])
 
     return (
-        <Modal header="재료를 검색해주세요!" onClick={onClose} depth={2}>
-        
+        <Modal header="재료를 검색해주세요!" onClick={onClose} depth={2} >
                 <StSearchInputWrapper>
                 <div>
                 <StSearchInput
@@ -139,6 +137,7 @@ const StIcon = styled.div`
     height : 19px;
 `
 const StSearchInput = styled.input`
+    width : 285px;
     border : 0px;
     background-color : #FAFAFA;
     color : #5B5B5B;

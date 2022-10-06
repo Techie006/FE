@@ -13,7 +13,7 @@ const Modal = ({ header, onClick, depth, ...props }) => {
       <StLayout depth={depth}>
         {/* depth에 따라 스타일 분기처리 */}
         <StHeader hasLine={depth === 1}>
-          {depth === 1 ? <BT2>{header}</BT2> : <ST1>{header}</ST1>}
+          {depth === 1 ? <BT2>{header}</BT2> : <ST1 style={{padding : "6px 33px 10px 0px"}}>{header}</ST1>}
           <IconBox page='modal' func='close' isCircle={true} onClick={onClick}>
             {/* <X fill='#5B5B5B' /> */}
           </IconBox>
@@ -57,9 +57,9 @@ const StLayout = styled.div`
   position: fixed;
   left: 50%;
   top: 46%;
+  width : 405px;
+  height : 600px;
   transform: translate(-50%, -50%);
-  
-  
   background: #ffffff;
   border-radius: 15px;
   overflow-y: auto;

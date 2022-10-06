@@ -61,21 +61,15 @@ const Header = () => {
       })
 
       console.log(resp.data.status.message)
-      const swalWithBootstrapButtons = Swal.mixin({
-        customClass: {
-          confirmButton: 'btn btn-success',
-          cancelButton: 'btn btn-danger'
-        },
-        buttonsStyling: false
-      })
-      
-      swalWithBootstrapButtons.fire({
-        title: '정말 로그아웃 하실건가요??',
+
+      Swal.fire({
+        title: '정말 로그아웃 하실건가요?',
         icon: 'warning',
         showCancelButton: true,
         confirmButtonText: '로그아웃 할게요!',
+        confirmButtonColor: 'red',
         cancelButtonText: '조금 더 둘러볼게요!',
-        reverseButtons: true
+        cancelButtonColor : "#74BDB2",
       }).then((result) => {
         if (result.isConfirmed) {
           localStorage.removeItem("Authorization");

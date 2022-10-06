@@ -87,7 +87,7 @@ const HomeIngredientsModal = ({ onClose }) => {
             <StyledContainer>
             <StyledWrapper>
             <div className='ingredient_wrapper'>
-            {ingredients.map((data, index) => (
+            {ingredients?.map((data, index) => (
                 <StyledIngredinet key={index}>
                 <div className='left-section'>
                 <div>

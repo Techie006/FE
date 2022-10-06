@@ -1,5 +1,5 @@
 import { useState, useCallback, useEffect } from "react";
-import { ReactComponent as X } from "../../assets/icons/x.svg";
+import { ReactComponent as X } from "../../assets/icons/circleX.svg";
 import { apis } from "../../shared/axios";
 // import RESP_CHAE from "../../server/response_chae";
 import Loader from "../common/Loader";
@@ -128,7 +128,7 @@ const StyledContent = styled.div`
     align-items: left;
     text-align: left;
     width: 622px;
-    height: 500px;
+    height: 726px;
     border : 1px solid black;
     border-radius: 15px;
     position: relative;
@@ -199,7 +199,7 @@ const StCompletebutton = styled.button`
   cursor : pointer;
   position : fixed; 
   top : 80%;
-  left : 65%;
+  left : 62%;
   padding: 9px 17px;
   margin-bottom : 20px;
   text-align : right;

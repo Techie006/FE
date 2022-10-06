@@ -99,7 +99,7 @@ export default HomeIngredients;
 const StyledInredientsWrapper = styled.div`
     display : flex;
     flex-direction : column;
-    height : 630px;
+    height : 638px;
     padding-bottom : 10px;
     background-color : ${(props) => props.theme.colors.background.white};
     box-shadow: ${(props) => props.theme.section.layout.boxShadow};

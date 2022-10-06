@@ -25,7 +25,7 @@ const Recipe = ({
       </StImg>
       <StDesc>
       <div className="ingredient_list">{ingredientList}</div>
-      <StTitle className="title" onClick={() => onClick({ id, recipe_name })}>{recipe_name}</StTitle>
+      <StTitle onClick={() => onClick({ id, recipe_name })}>{recipe_name}</StTitle>
       
       <StEtcInfo>
         {method} | {category} | {calorie} kcal
@@ -88,9 +88,7 @@ const StWrapper = styled.div`
     
     margin-bottom : 10px;
   }
-  // .wrapper:hover .title {
-  //   color : #8E7B6D;
-  // }
+
 `;
 const StImg = styled.div`
   border-top-right-radius: 10px;
@@ -111,6 +109,9 @@ const StTitle = styled.div`
   letter-spacing: -0.5px;
   color: #4B4B4B;
   margin-bottom : 10px;
+  :hover {
+    color : #8E7B6D;
+  }
 `
 const StEtcInfo = styled.div`
   font-weight: 400;

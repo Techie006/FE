@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 
 import Select from "react-select";
-import { ReactComponent as X } from "../../assets/icons/x.svg";
+import { ReactComponent as X } from "../../assets/icons/circleX.svg";
 
 // import { apis } from "../../shared/axios";
 // import RESP_CHAE from "../../server/response_chae";

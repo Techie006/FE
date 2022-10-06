@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { useForm } from "react-hook-form";
 import { ErrorText } from "../../styles/Text";
-import { ReactComponent as X } from "../../assets/icons/x.svg";
+import { ReactComponent as X } from "../../assets/icons/circleX.svg";
 import axios from 'axios';
 
 import { showAlert } from "../../shared/popups";

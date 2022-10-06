@@ -55,6 +55,7 @@ const UpdateProfileModal = ({ onClose }) => {
             setUpdateErrorMessage("")
         const resp = await axios.put("https://magorosc.shop/api/my/password",{
             present_password : watch("password"),
+            check_password : watch("updatePw"),
             change_password : watch("updatePwConfirm"),
             },{
                 headers:{
@@ -110,7 +111,7 @@ const UpdateProfileModal = ({ onClose }) => {
             <StUpdatePwWrapper>
                 <form onSubmit={handleSubmit(updateProfileHandler)}>
                     <StTitle>기존 비밀번호 입력</StTitle>
-                    <div className='input_wrapper'>
+                    <div className='pwinput_wrapper'>
                     <div>
                     <input
                         autoComplete='on'
@@ -197,7 +198,12 @@ const UpdateProfileModal = ({ onClose }) => {
                 <div>
                     <StProfileUpload>프로필 업로드</StProfileUpload>
                     <StUploadFileWrapper>
+
+                    <label for="file">
+                        <div class="btn-upload">파일 업로드하기</div>
+                    </label>
                     <input
+                    id = "file"
                     type = "file"
                     ref={fileInput}
                     onChange={handleChange}
@@ -257,6 +263,22 @@ const StWrapper = styled.div`
         height : 40px;
         margin-bottom : 2px;
     }
+    .pwinput_wrapper {
+        display : flex;
+        flex-direction : row ;
+        justify-content: space-between;
+        background-color : #FAFAFA;
+        border: 0.6px solid #DADADA;
+        border-radius: 6px;
+        display : flex;
+        flex-direction : row;
+        padding : 11px 14px;
+        align-items : center;
+        
+        width : 285px;
+        height : 40px;
+        margin-bottom : 2px;
+    }
     .submitButton {
         display : flex;
         margin : 10px auto;
@@ -276,6 +298,26 @@ const StWrapper = styled.div`
         color : #664500;   
         }
     }
+    .btn-upload {
+        width: 150px;
+        height: 30px;
+        background: #fff;
+        border: 1px solid rgb(77,77,77);
+        border-radius: 10px;
+        font-weight: 500;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        &:hover {
+          background: #ADADAD;
+          color: #5B5B5B;
+        }
+      }
+      
+      #file {
+        display: none;
+      }
 `
 const StModalContent = styled.div`
     display : flex;
