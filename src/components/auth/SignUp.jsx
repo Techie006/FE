@@ -38,15 +38,17 @@ const Signup = ({ onClick }) => {
     // 서버 측 에러 처리
     if (!result) {
       switch (code) {
-        case "201" || "202":
+        case "201":
+        case "202":
           setError(
             "email",
-            // 이미 존재하는 이메일입니다 / 적절하지않은 이메일 형식입니다
+            // 이미 존재하는 이메일입니다 / 적절하지 않은 이메일 형식입니다
             { type: "validate", message: message },
             { shouldFocus: true }
           );
           break;
-        case "203" || "204":
+        case "203":
+        case "204":
           setError(
             "username",
             // 사용자 이름이 너무 깁니다 / 적절하지 않은 사용자 이름 형식입니다.

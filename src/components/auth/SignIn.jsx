@@ -37,7 +37,9 @@ const SignIn = ({ onClick }) => {
     // 서버 측 에러 처리
     if (!result) {
       switch (code) {
-        case "205" || "206" || "207":
+        case "205":
+        case "206":
+        case "207":
           setError(
             "email",
             // 가입되지 않은 이메일입니다 / 카카오로 가입된 유저입니다 / 구글로 가입된 유저입니다
