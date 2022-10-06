@@ -1,8 +1,6 @@
-import Layout from "../components/common/Layout";
-import Header from "../components/common/Header";
+import Layout from "../elements/templates/Layout";
+import Header from "../elements/organisms/Header";
 import BookMarkRecipeLayout from "../components/recipes/BookMarkRecipeLayout";
-import Helper from "../components/common/Helper";
-import Footer from "../components/common/Footer";
 
 const BookMarkRecipe = (props) => {
   return (
@@ -10,8 +8,6 @@ const BookMarkRecipe = (props) => {
       <Layout>
         <Header />
         <BookMarkRecipeLayout />
-        <Helper />
-        <Footer />
       </Layout>
     </>
   );

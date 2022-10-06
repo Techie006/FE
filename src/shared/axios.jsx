@@ -40,7 +40,7 @@ export const apis = {
   sign_in_kakao: ({ code }) => api.get(`/user/kakao/callback?code=${code}`),
   sign_up: ({ email, username, password }) =>
     api.post(`/api/user/signup`, { email, username, password }),
-  // signout: () => api.delete(``)
+  sign_out: () => api.delete(`/api/user/signout`),
 
   // statistics page
   get_state: () => api.get(`/api/statistics/state`),
