@@ -25,15 +25,11 @@ const VideoHeader = () => {
 
   const leaveVideo = async () => {
     // publisher인 경우 종료 API 호출
-    console.log("call leave video", role);
     if (role === "pub") {
-      console.log("leaveVideo!!!!!!!!");
       const resp = await apis.quit_class({ class_id });
       const {
         status: { code, message },
       } = resp.data;
-
-      console.log(resp.data);
 
       // 존재하지 않는 클래스이거나 호스트가 아닌 경우
       if (code === 400) {
@@ -49,9 +45,18 @@ const VideoHeader = () => {
     navigate("/classes");
   };
 
+  window.onbeforeunload = (e) => {
+    console.log(e);
+    console.log("on before unload");
+    window.confirm("on!!");
+  };
+
   useEffect(() => {
     getData();
-    return () => leaveVideo();
+    return () => {
+      console.log("useEffect return");
+      leaveVideo();
+    };
   }, []);
 
   return (

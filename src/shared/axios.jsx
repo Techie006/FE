@@ -15,7 +15,6 @@ const api = axios.create({
   },
 });
 
-// TODO login, signup 에는 안들어가게 조건부 분기하기
 api.interceptors.request.use(function (config) {
   const auth = localStorage.getItem("Authorization");
   config.headers.common["Authorization"] = auth;
