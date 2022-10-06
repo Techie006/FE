@@ -1,5 +1,6 @@
 import styled from "styled-components";
 
+import { ReactComponent as Kakao } from "../../../assets/icons/auth/kakaoLogo.svg";
 import { ReactComponent as Google } from "../../../assets/icons/auth/googleLogo.svg";
 
 const OAuth = ({ type }) => {
@@ -20,7 +21,7 @@ const OAuth = ({ type }) => {
       href={type === "kakao" ? KAKAO_AUTH_URL : GOOGLE_AUTH_URL}
       type={type}
     >
-      <Google />
+      {type === "kakao" ? <Kakao /> : <Google />}
       <div>{type === "kakao" ? "카카오 로그인" : "구글 로그인"}</div>
     </StLayout>
   );
