@@ -117,7 +117,7 @@ const OpenViduVideo = (props) => {
     const mediaStream = await ov.getUserMedia({
       audioSource: false,
       videoSource: undefined,
-      resolution: "640x640",
+      resolution: "911x512",
       frameRate: 60,
     });
 
