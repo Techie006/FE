@@ -1,0 +1,28 @@
+.rc-dropdown {
+  font-family: "Noto Sans KR";
+  font-style: normal;
+  font-weight: 400;
+  font-size: 12px;
+  line-height: 25px;
+  color: #5b5b5b;
+}
+
+.rc-dropdown .rc-menu {
+  background: #ffffff;
+  border: 1px solid #dadada;
+  box-shadow: 0px 2px 8px rgba(0, 0, 0, 0.1);
+  border-radius: 2px;
+}
+
+.rc-dropdown .rc-menu > li {
+  width: 78px;
+  height: 30px;
+  padding: 3px;
+  border-bottom: 1px solid #dadada;
+  text-align: center;
+}
+
+.rc-dropdown .rc-menu > li:hover {
+  color: #ff8e42;
+  cursor: pointer;
+}
