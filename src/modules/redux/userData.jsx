@@ -15,8 +15,6 @@ const userSlice = createSlice({
   reducers: {
     user: (state, action) => {
         state.userData = {...action}
-      console.log("action",action)
-      console.log("111",state.userData)
     },
   },
 });

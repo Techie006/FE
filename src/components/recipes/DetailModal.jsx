@@ -11,6 +11,7 @@ import axios from "axios";
 import styled from "styled-components";
 
 const DetailModal = ({ id, recipeName, totalIngredient, onClick }) => {
+
   const [loading, setLoading] = useState(false);
   const [showModal, setShowModal] = useState(false);
   const [recipe, setRecipe] = useState({});
@@ -26,13 +27,11 @@ const DetailModal = ({ id, recipeName, totalIngredient, onClick }) => {
       },
     });
     const { result, content } = resp.data;
-    console.log("aa", resp.data);
 
     if (!result) {
       setLoading(false);
       return;
     }
-    console.log(recipe);
     setRecipe(content.recipe);
     setLoading(false);
   }, []);
@@ -66,7 +65,11 @@ const DetailModal = ({ id, recipeName, totalIngredient, onClick }) => {
             <StHeader>
               <div className='left_section'>
                 <div className='header_title'>{recipeName}</div>
-                <div className='header_ingredient'>{headerIngredient}</div>
+                <div className='header_ingredient'>
+                  <div className='ingredient'>{recipe.method}</div>
+                  <div className='ingredient'>{recipe.category}</div>
+                  <div className='ingredient'>{recipe.calorie} kcal</div>
+                </div>
               </div>
               <X fill='black' onClick={onClick} />
               <StCompletebutton
@@ -114,6 +117,7 @@ const StyledModalBackground = styled.div`
   align-items: center;
   justify-content: center;
   position: fixed;
+  z-index: 999;
   left: 0;
   top: 0;
   text-align: center;
@@ -125,15 +129,15 @@ const StyledContent = styled.div`
   align-items: left;
   text-align: left;
   width: 622px;
-  height: 500px;
+  height: 600px;
   border: 1px solid black;
   border-radius: 15px;
   position: relative;
   background-color: #ffffff;
-  z-index: 100;
+  z-index: 999;
   overflow: auto;
   &::-webkit-scrollbar {
-    width: 8px;
+    display : none;
     height: 8px;
     border-radius: 6px;
     background: rgba(255, 255, 255, 0.4);
@@ -191,7 +195,7 @@ const StCompletebutton = styled.button`
   cursor: pointer;
   position: fixed;
   top: 80%;
-  left: 65%;
+  left: 64%;
   padding: 9px 17px;
   margin-bottom: 20px;
   text-align: right;
@@ -239,7 +243,7 @@ const StDetailRecipe = styled.div`
   flex-wrap: wrap;
   overflow: auto;
   &::-webkit-scrollbar {
-    width: 8px;
+    display : none;
     height: 8px;
     border-radius: 6px;
     background: rgba(255, 255, 255, 0.4);

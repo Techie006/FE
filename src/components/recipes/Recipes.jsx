@@ -23,7 +23,6 @@ const Recipes = (props) => {
     id: -1,
     recipe_name: "",
   });
-  console.log(keyword)
   const onChangeData = (e) => {
 
     if (e.target.value === "") {
@@ -37,8 +36,6 @@ const Recipes = (props) => {
   // const PAGELIMIT = 5;
 
   const get_data = useCallback(async () => {
-    // const resp = RESP_CHAE.RECIPES.GET_RECIPES_SUCCESS;
-    // const resp = RESP_CHAE.RECIPES.GET_RECIPE_FAIL;
     // const resp = await apis.get_recipes({ pageNum.current, PAGELIMIT });
     // const resp = await axios.get(`https://magorosc.shop/api/recipes?pageNum=${pageNum}&pageLimit=${pageLimit}`);
     const auth = localStorage.getItem("Authorization")
@@ -66,9 +63,9 @@ const Recipes = (props) => {
   }, [get_data]);
 
   const clickHandler = (recipe) => {
-    setKeyword("");
+    // setKeyword("");
     setShowModal((prev) => !prev);
-    seachRecipe();
+    // seachRecipe();
     setRecipe({ ...recipe });
   };
   const showModalHandler = () => {
@@ -108,7 +105,6 @@ const Recipes = (props) => {
 // && 연산자로 묶는거 고민
 }
 const searchRecipeResult = async () => {
-  console.log("키워드",keyword)
   const auth = localStorage.getItem("Authorization")
   const resp = await axios.post(`https://magorosc.shop/api/recipes/search?pageNum=${0}&pageLimit=${100}`,{
     recipe_name : keyword
@@ -117,7 +113,6 @@ const searchRecipeResult = async () => {
         "Authorization" : auth,
     }
   });
-  console.log(resp.data)
   setRecipes(resp.data.content.recipes)
   setSearchName(resp.data.content.search_name)
   setSearch(!search)

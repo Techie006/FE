@@ -11,8 +11,6 @@ const searchDataSlice = createSlice({
   reducers: {
     searchData: (state, action) => {
       state.search = { ...action }
-      console.log("action",state.search)
-      console.log("action",action)
     },
     recommend : (state, action) => {
         state.recommend = { ...action }

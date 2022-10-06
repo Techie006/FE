@@ -66,7 +66,7 @@ const SearchModal = ({onClose}) => {
                 const searchList = resp.data.content.search_list
 
                 setRecipeBox(searchList)
-                console.log("asd",recipeBox)
+
                 }
         }
         useEffect(() => {
@@ -77,7 +77,7 @@ const SearchModal = ({onClose}) => {
                 clearTimeout(trottled)
             }
             },[keyword])
-
+            
     return (
         <Modal header="재료를 검색해주세요!" onClick={onClose} depth={2} >
                 <StSearchInputWrapper>

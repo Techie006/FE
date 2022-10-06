@@ -1,20 +1,26 @@
-import React, { useState, useRef } from "react";
+import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import { ReactComponent as ShowPW } from "../../assets/icons/auth/showPW.svg";
 import { ReactComponent as HidePW } from "../../assets/icons/auth/hidePW.svg";
-import { FcAddImage } from "react-icons/fc";
+// import { FcAddImage } from "react-icons/fc";
 import { ErrorText } from "../../styles/Text";
+// import { ST3, ET1, T4 } from "../../../styles/Text";
+// import { ReactComponent as CircleX } from "../../../assets/icons/classes/circleX.svg";
 import { pwCheck } from "../../shared/regex";
 import axios from 'axios';
 import Swal from "sweetalert2";
 import styled from "styled-components";
 import Button from "../../elements/atoms/Button";
+import { ReactComponent as X } from "../../assets/icons/common/X.svg";
 
 const UpdateProfileModal = ({ onClose }) => {
 
     const navigate = useNavigate();
 
+    const [showImg, setShowImg] = useState(false);
+    const [imgUrl, setImgUrl] = useState([]);
+    const [imgInfo, setImgInfo] = useState("선택된 사진이 없어요.");
     const [show, setShow] = useState(false);
     const [errorMessage, setErrorMessage] = useState("")
     const [updateErrorMessage, setUpdateErrorMessage] = useState("")
@@ -27,14 +33,15 @@ const UpdateProfileModal = ({ onClose }) => {
         formState: { errors, isValid },
       } = useForm({ mode: "onChange" });
 
-    const fileInput = useRef(null);
-      
+      const userName = localStorage.getItem("username")
+      const userImg = localStorage.getItem("profileImg")
+
       const onShowHandler = (e) => {
         e.preventDefault()
         e.stopPropagation()
         setShow((prev) => !prev)
     }
-
+    
     const uploadUserProfile = async () => {
         const auth = localStorage.getItem("Authorization")
         const resp = await axios.put("https://magorosc.shop/api/my/profile",{
@@ -52,7 +59,7 @@ const UpdateProfileModal = ({ onClose }) => {
         try{
             
         if( watch("updatePw") == watch("updatePwConfirm") ){
-            console.log("hi")
+            
         const resp = await axios.put("https://magorosc.shop/api/my/password",{
             present_password : watch("password"),
             check_password : watch("updatePw"),
@@ -62,7 +69,6 @@ const UpdateProfileModal = ({ onClose }) => {
                     "Authorization" : auth
                 }
             })
-            console.log(resp)
             Swal.fire(
                 '비밀번호 변경을 성공하였습니다!',
                 '다시 로그인해 주시기 바랍니다.',
@@ -76,12 +82,9 @@ const UpdateProfileModal = ({ onClose }) => {
         
             }else{
                 setUpdateErrorMessage("변경할 비밀번호를 다시 확인해주세요.")
-                console.log("bad")
             }
         }
         catch(error){
-            console.log("password_error",error.response.data.status.message)
-            
             setErrorMessage(error.response.data.status.message)
         }
     }
@@ -95,16 +98,16 @@ const UpdateProfileModal = ({ onClose }) => {
             <StProfileHeaderWrapper>
             {!curr ? (<StProfileHeader>계정 설정</StProfileHeader>)
             : (<StProfileHeader>프로필 변경</StProfileHeader>)}
-                <StCloseBox onClick ={onClose}>x</StCloseBox>
+                <X className='x' onClick={onClose}/>
             </StProfileHeaderWrapper>
 
             {!curr ? (
                 <div>
                 <StProfileWrapper>
-                    <StProfileImg><FcAddImage onClick={()=> setCurr(true)}/></StProfileImg>
+                    <StProfileImg onClick={()=> setCurr(true)} src={userImg}></StProfileImg>
                     <StUserName>
                         <div className='nickname'>닉네임</div>
-                        <div className='user_name'>유저네임</div>
+                        <div className='user_name'>{userName}</div>
                     </StUserName>
                 </StProfileWrapper>
             
@@ -198,25 +201,53 @@ const UpdateProfileModal = ({ onClose }) => {
                 <div>
                     <StProfileUpload>프로필 업로드</StProfileUpload>
                     <StUploadFileWrapper>
-
-                    <label for="file">
-                        <div class="btn-upload">파일 업로드하기</div>
-                    </label>
-                    <input
-                    id = "file"
-                    type = "file"
-                    ref={fileInput}
-                    onChange={handleChange}
-                    style={{
-                            border : "none",
-                            cursor : "pointer",
-                            backgroundColor: "#D3D3D3",
-                            borderRadius: "6px",
-                            width : "200px",
-                            height : "40px",
-                            marginRight : "10px",
-                    }}
-                    />
+            {/* 프로필 업로드 */}
+            {/* <StPart hasError={errors.classImgs}>
+              <ST3 as='label' htmlFor='classImgs'>
+                썸네일 업로드
+              </ST3>
+              <StFilePicker>
+                <StLabelBox className='input-file-button' htmlFor='classImgs'>
+                  <StLabelText>파일 선택</StLabelText>
+                </StLabelBox>
+                <StFileInput type='text' value={imgInfo} onChange={() => {}} />
+                <StWrapper>
+                  <input
+                    type='file'
+                    style={{ display: "none" }}
+                    accept='image/jpg, image/png, image/jpeg'
+                    id='classImgs'
+                    placeholder='이미지 파일 선택'
+                    {...register("classImgs", {
+                      required:
+                        "신규 클래스 생성을 위해서 썸네일을 입력해주세요.",
+                      onChange: (e) => changeImgHandler(e),
+                    })}
+                  /> */}
+                  {/* 이미지 삭제 버튼 */}
+                  {/* {showImg ? (
+                    <StButton onClick={deleteHandler}>
+                      <CircleX />
+                    </StButton>
+                  ) : null}
+                </StWrapper>
+              </StFilePicker>
+              {errors.classImgs ? <ET1>{errors.classImgs.message}</ET1> : null}
+            </StPart>
+            <StImgPart>
+              {!showImg ? (
+                <StImgGuide>
+                  <StGuideText>미리보기</StGuideText>
+                  <StHelperText>썸네일 이미지 최대 20MB</StHelperText>
+                </StImgGuide>
+              ) : null}
+              {showImg ? (
+                <>
+                  <StImg src={imgUrl[0]} alt='img' />
+                </>
+              ) : null}
+            </StImgPart> */}
+            {/* 프로필 업로드 */}
                     <StFileUrl></StFileUrl>
                     </StUploadFileWrapper>
                     <StImg></StImg>
@@ -281,7 +312,7 @@ const StWrapper = styled.div`
     }
     .submitButton {
         display : flex;
-        margin : 10px auto;
+        margin : 40px auto;
         background-color : #FFDD7C;
         border-radius: 8px;
         width : 123px;
@@ -325,7 +356,7 @@ const StModalContent = styled.div`
     justify-content: left;
     align-items: left;
     text-align: left;
-    height: 590px;
+    height: 530px;
     width: 405px;
     border : 1px solid black;
     border-radius: 15px;
@@ -337,10 +368,10 @@ const StProfileWrapper = styled.div`
     display : flex;
     flex-direction : row;
 `
-const StProfileImg = styled.div`
-    border : 1px solid black;
-    width : 150px;
-    height : 150px;
+const StProfileImg = styled.img`
+    width : 84px;
+    height : 84px;
+    border-radius : 100%;
     margin : 16px 24px 4px 66px;
 `
 const StUserName =styled.div`

@@ -1,6 +1,9 @@
 import React, { useState,useEffect } from 'react';
+import EmptyImg from "../../assets/icons/emptyImgBigModal.png"
+import { useSelector, useDispatch } from "react-redux";
 import xButton from '../../assets/icons/xButton.png'
 import hoverXButton from '../../assets/icons/hoverXButton.png'
+import { ReactComponent as X } from "../../assets/icons/common/X.svg";
 import axios from 'axios';
 import styled from "styled-components";
 
@@ -8,6 +11,7 @@ const HomeIngredientsModal = ({ onClose }) => {
 
     const [ curr, setCurr ] = useState("")
     const [ ingredients, setIngredients ] = useState([])
+    const [ empty, setEmpty ] = useState(false)
 
     const onProduceClick = () => {
         setCurr("produce")
@@ -26,19 +30,18 @@ const HomeIngredientsModal = ({ onClose }) => {
     }
     const onFreezeClick = () => {
         setCurr("freeze")
-        console.log("curr",curr)
     }
     const onRefrigeratedClick = () => {
         setCurr("refrigerated")
-        console.log("curr",curr)
     }
     const onRoomTempClick = () => {
         setCurr("room_temp")
-        console.log("curr",curr)
     }
     const onTotalClick = () => {
         setCurr("")
     }
+    const recipeData = useSelector((state) => state.searchData)
+    console.log("data",recipeData)
 
     const getIngredients = async () => {
 
@@ -49,7 +52,7 @@ const HomeIngredientsModal = ({ onClose }) => {
                 "Authorization" : auth,
             } 
         })
-        console.log("hoem",resp.data)
+        setEmpty(resp.data.content.empty)
         
         const getAllIngredients = resp.data.content.storage
         setIngredients(getAllIngredients)
@@ -67,7 +70,8 @@ const HomeIngredientsModal = ({ onClose }) => {
                         <div className='header_title'>우리집 식재료</div>
                         <div className='header_subtitle'>추가한 식재료의 유통기한을 확인해보세요!</div>
                     </div>
-                    <div className='x' onClick={onClose}/>
+                    {/* <div className='x' onClick={onClose}/> */}
+                    <X className='x' onClick={onClose}/>
                 </div>
             <StyledButtonList>
                 <Stbutton onClick={onTotalClick}>전체</Stbutton>
@@ -85,8 +89,9 @@ const HomeIngredientsModal = ({ onClose }) => {
                 </div>
             </StyledButtonList>
             <StyledContainer>
+            
             <StyledWrapper>
-            <div className='ingredient_wrapper'>
+            {!empty ? ( <div className='ingredient_wrapper'>
             {ingredients?.map((data, index) => (
                 <StyledIngredinet key={index}>
                 <div className='left-section'>
@@ -112,7 +117,7 @@ const HomeIngredientsModal = ({ onClose }) => {
                 </div>
                 )
                 :
-                data.d_date.substr(2) < 5 ?
+                data.d_date.substr(2) < 5 || data.d_date === "D-Day" ?
                 (
                 <div className='d_day' style={{
                     color : "#FFB356",
@@ -131,7 +136,12 @@ const HomeIngredientsModal = ({ onClose }) => {
                 </div>
             </StyledIngredinet>
             ))}
-            </div>
+            </div>) : (
+            <StEmptyWrapper>
+                <StEmptyImg className='empty_img'/>
+                <div className='empty_desc'>식재료가 비어있어요!</div>
+            </StEmptyWrapper>
+            )}
             </StyledWrapper>
             </StyledContainer>
             </StyledContent>
@@ -200,18 +210,7 @@ const StyledContent = styled.div`
         color: #A5A5A5;
     }
     .x {
-        width : 21.5px;
-        height : 21.5px;
-        background-image: url(${xButton});
-        background-repeat: no-repeat;
-        background-size: cover;
-
-        :hover {
-        background-image: url(${hoverXButton});
-        background-repeat: no-repeat;
-        background-size: cover;
-    }
-    }
+     cursor : pointer;
 `
 const StyledButtonList = styled.div`
     display : flex;
@@ -309,5 +308,30 @@ const StyledWrapper = styled.div`
 const StyledContainer = styled.div`
     display : flex;
     flex-direction : row;
+`
+const StEmptyWrapper = styled.div`
+    margin : 150px 410px;
+    .empty_desc {
+        font-weight: 500;
+        font-size: 16px;
+        line-height: 23px;
+        display: flex;
+        align-items: center;
+        text-align: center;
+        letter-spacing: -0.5px;
+        color: #C0C0C0;
+    }
+`
+const StEmptyImg = styled.div`
+    display : flex;
+    text-align : center;
+    align-items : center;
+    justify-content : center;
+    background-image: url(${EmptyImg});
+    width : 182px;
+    height : 135px;
+    background-repeat: no-repeat;
+    background-size: cover;
+    margin-bottom : 40px;
     
 `

@@ -9,9 +9,6 @@ const TodayRecipe = () => {
     const navigate = useNavigate();
 
     const [todayRecipes, setTodayRecipes] = useState([])
-    console.log(todayRecipes)
-    // const emptyData = todayRecipes[0].id
-
 
     const auth = localStorage.getItem("Authorization")
     const refresh = localStorage.getItem("Refresh_Token")
@@ -38,7 +35,6 @@ const TodayRecipe = () => {
     
     const recipeData = resp.data.content.meals
     setTodayRecipes(recipeData)
-    console.log(recipeData)
     }
 
     useEffect(() => {
@@ -148,6 +144,7 @@ const StTodayrecipe = styled.div`
     }
 `
 const StRecipeTitle = styled.div`
+    margin-top : 14px;
     margin-bottom : 14px;
 `
 const StContent = styled.div`

@@ -3,13 +3,13 @@ import Ingredient from "./Ingredient"
 import styled from "styled-components";
 
 
-const Ingredients = ({ ingredients }) => {
-    
+const Ingredients = ({ ingredients, setIngredients ,state }) => {
     return (
         <StyledWrapper>
             {ingredients.storage && ingredients.storage.map((data, index) => (
-                <Ingredient totalIngredient = {data} key = {index}/>
+                <Ingredient totalIngredient = {data} key = {index} setIngredients={setIngredients} state={state} />
             ))}
+            {/* <Ingredient totalIngredient = {ingredients} /> */}
         </StyledWrapper>
     );
 };
