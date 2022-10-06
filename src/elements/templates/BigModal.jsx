@@ -2,7 +2,8 @@ import styled from "styled-components";
 import GridTemplate from "../../elements/templates/GridTemplate";
 import { BT2, ST1 } from "../../styles/Text";
 import IconBox from "../atoms/IconBox";
-// import { ReactComponent as X } from "../../assets/icons/x.svg";
+import { ReactComponent as X } from "../../assets/icons/common/X.svg";
+
 
 const Modal = ({ header, onClick, depth, ...props }) => {
   return (
@@ -15,7 +16,7 @@ const Modal = ({ header, onClick, depth, ...props }) => {
         <StHeader hasLine={depth === 1}>
           {depth === 1 ? <BT2>{header}</BT2> : <ST1 style={{padding : "6px 33px 10px 0px"}}>{header}</ST1>}
           <IconBox page='modal' func='close' isCircle={true} onClick={onClick}>
-            {/* <X fill='#5B5B5B' /> */}
+            <X />
           </IconBox>
         </StHeader>
         {props.children}

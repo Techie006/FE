@@ -1,8 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useForm } from "react-hook-form";
 import { useSelector, useDispatch } from "react-redux";
-import { searchData } from "../../modules/redux/searchData";
-import Button from "../../elements/atoms/Button"
+// import Button from "../../elements/atoms/Button"
 import Select, { NonceProvider } from "react-select";
 import Calendar from 'react-calendar';
 import moment from "moment";
@@ -13,14 +12,15 @@ import Modal from "../../elements/templates/BigModal";
 // import "./rc-dropdown/style.css";
 import magnifier from "../../assets/icons/magnifier.png"
 import calendar from "../../assets/icons/calendar.png"
-
+import { ReactComponent as CircleX } from "../../assets/icons/classes/circleX.svg";
 import Swal from "sweetalert2";
 import styled from "styled-components";
 import axios from 'axios';
+import { searchData } from '../../modules/redux/searchData';
 
 
 
-const CreateIngredientModal = ({ onClose }) => {
+const CreateIngredientModal = ({ onClose, showModal }) => {
 
     const Storage = [
         {value : "refrigerated", label : "냉장"},
@@ -35,15 +35,18 @@ const CreateIngredientModal = ({ onClose }) => {
     const [expValue, expOnChange] = useState(new Date());
     const [showSearch, setShowSearch] = useState(false)
     const [errorMessages, setErrorMessages] = useState("")
-    const [disabled, setDisabled] = useState(true)
+    const [searchIngre, setSearchIngre] = useState("")
+    const [result, setResult] = useState(false)
     
     const dispatch = useDispatch()
 
     const search = useSelector((state) => state.searchData);
-    const searchData = search.search.payload
+    const targetData = search.search.payload
     
     const recommend = useSelector((state) => state.searchData.recommend);
     var recommendData = recommend.payload
+    
+    
 
     const errorMessage = {
         ingredientTitle : "재료를 정확하게 추가해주세요!",
@@ -73,19 +76,6 @@ const CreateIngredientModal = ({ onClose }) => {
     const showSearchHandler = () => {
         setShowSearch(!showSearch)
     }
-    // const disabledButtonHandler = () => {
-        
-    //     if (searchData === "") return 
-    //     console.log("1")
-    //     if (selectStorage.value === "") return 
-    //     console.log("2")
-    //     if (purchaseDate == "") return 
-    //     console.log("3")
-    //     if (expDate == "") return 
-    //     console.log("4")
-    //     if (purchaseDate < expDate) return
-    //     else setDisabled(false)
-    // }
 
     const onSubmitHandler = async () => {
 
@@ -97,7 +87,7 @@ const CreateIngredientModal = ({ onClose }) => {
             
             const resp = await axios.post("https://magorosc.shop/api/ingredient",{
                 id : recommendData,
-                food_name : searchData,
+                food_name : targetData,
                 storage : selectStorage.value,
                 in_date : moment(value).format("YYYY-MM-DD"),
                 exp_date : moment(expValue).format("YYYY-MM-DD")
@@ -106,14 +96,17 @@ const CreateIngredientModal = ({ onClose }) => {
                     "Authorization" : auth,
                 } 
             })
+            setResult(resp.data.result)
             onClose()
-            
         }
         catch(error){
             console.log(error)
             setErrorMessages(errorMessage)
         }
     }
+    useEffect(() => {
+        dispatch(searchData(""))
+    },[showModal])
 
     const selectStyle = {
         valueContainer: (provided) => ({
@@ -127,23 +120,25 @@ const CreateIngredientModal = ({ onClose }) => {
             ...provided,
             height : '18px',
             width : '85px',
-            fontSize: "14px;"
+            fontSize: "14px;",
+            display : "flex",
+            alignItems  : "center"
         }),
         Input : (provided) => ({
             ...provided,
             height : '40px',
             width : '286px',
-            
         }),
         singleValue : (provided) => ({
             ...provided,
             height : '18px',
             width : '84px',
-            color : '#656565',
             fontWeight: "400",
             letterSpacing: "-0.005em",
             fontSize: "14px;",
-            color : "#A5A5A5"
+            color : "#A5A5A5",
+            display : "flex",
+            alignItems  : "center"
         }),
         control : (provided) => ({
             ...provided,
@@ -174,15 +169,13 @@ const CreateIngredientModal = ({ onClose }) => {
                 <StTitles>재료명</StTitles>
                 <SearchWrapper>
                 <StSearchBox>
-                    {searchData !== "" && <div>{searchData}</div>}
+                    {targetData !== "" && <div>{targetData}</div>}
                 </StSearchBox>
                 <Potal>
                 {showSearch && <SearchModal onClose = {showSearchHandler}/>}
                 </Potal>
                 <StSearchButton onClick={showSearchHandler}/>
                 </SearchWrapper>
-                {searchData === "" && <ErrorText>재료를 정확하게 추가해주세요!</ErrorText>}
-
                 </div>
                 <div className='storage'>
                 <StTitles>입주 칸</StTitles>

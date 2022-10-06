@@ -21,7 +21,6 @@ const BookMarkedRecipes = () => {
     const clickHandler = (data) => {
         setShowModal(!showModal);
         setRecipe(data)
-        console.log("ssss",recipe)
     }
 
     const getBookMarkedRecipes = async () => {
@@ -34,11 +33,8 @@ const BookMarkedRecipes = () => {
             },
         });
         const recipesData = resp.data.content
-        console.log("resp",resp.data.content.recipes)
         setRecipes(recipesData.recipes);
         setUser(recipesData.user_name)
-        console.log("resp",recipes);
-
         }
         useEffect(() => {
             getBookMarkedRecipes();
@@ -123,9 +119,11 @@ const StBookMarkRecipes = styled.div`
     border-top : 1.5px solid #ECECEC;
 `
 const StImg = styled.div`
+    position: absolute
     border-top-right-radius: 10px;
     border-top-left-radius: 10px;
-    width : 352px;
+    width : 100%;
+    overflow: hidden;
     height : 167px;
     padding-left : 91%;
     padding-top : 3%;
@@ -168,8 +166,11 @@ const StRecipeName = styled.div`
     font-weight: 700;
     font-size: 20px;
     line-height: 26px;
-    color: #8E7B6D;
+    color : #4B4B4B;
     text-align : left;
+    :hover {
+        color: #8E7B6D;
+    }
 `
 
 const StEtcInfo = styled.div`

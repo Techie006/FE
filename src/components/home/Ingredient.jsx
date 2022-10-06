@@ -1,36 +1,38 @@
 import React, { useEffect, useState } from 'react';
-import { useSelector } from "react-redux";
-import { ReactComponent as X } from "../../assets/icons/circleX.svg";
+import { useSelector, useDispatch } from "react-redux";
+import { __deleteIngredient, __getAllIngredient } from "../../modules/redux/recipeData";
+import xButton from '../../assets/icons/xButton.png'
 import hoverXButton from '../../assets/icons/hoverXButton.png'
 import axios from 'axios';
 import styled from "styled-components";
 
-const Ingredient = ( {totalIngredient} ) => {
-    console.log("icon",totalIngredient)
+const Ingredient = ( {totalIngredient, setIngredients ,state} ) => {
 
-    // const deleteIngredient = useSelector((ingredient) => ingredient.searchData.recommend)
-    // console.log("delete",deleteIngredient)
-    const [id, setId] = useState("")
+    const [showXbutton, setShowXButton] = useState(false)
+
+
+    const filteredIngredient = useSelector((state) => state.recipeData.ingredients)
     
-    const onXButtonHandler = async (e) => {
+    const dispatch = useDispatch()
+    const onXButtonHandler = async (id) => {
 
-        setId(totalIngredient.id)
         console.log(id)
-
         const auth = localStorage.getItem("Authorization")
-
         const resp = await  axios.delete(`https://magorosc.shop/api/ingredient?id=${id}`,{
-            
-                headers : {
-                    "Authorization" : auth,
+                    headers : {
+                        "Authorization" : auth,
+                    }
                 }
+                )
+                dispatch(__deleteIngredient(id))
             }
-            )
-            
-    }
+
+        useEffect(() => {
+            dispatch(__getAllIngredient)
+        },[dispatch])
 
     const Ddate =
-    totalIngredient.d_date === "만료" ?
+    totalIngredient.d_date === "기한 만료" ?
         (
         <div className='d_day' style={{
             color : "#FF5C01"
@@ -39,7 +41,7 @@ const Ingredient = ( {totalIngredient} ) => {
         </div>
         )
         :
-        totalIngredient.d_date.substr(2) < 4 ?
+        totalIngredient.d_date.substr(2) < 5 || totalIngredient.d_date ===  "D-Day" ?
         (
         <div className='d_day' style={{
             color : "#FFB356",
@@ -55,30 +57,35 @@ const Ingredient = ( {totalIngredient} ) => {
             {totalIngredient.d_date}
         </div>   
         )
-    
-    // const [show, setShow] = useState(true);
-    
 
     return (
-        <StyledIngredinet>
-            <div className='left_section'>
-            <StIngredientIcon src={totalIngredient.icon_image}/>
-            <StFoodNameDateGroup>
-                <div className='food_name'>
-                {totalIngredient.food_name}
-                </div>
-                <div className='in_date'>
-                {totalIngredient.in_date}
-                </div>
-            </StFoodNameDateGroup>
-            </div>
-            <div className='right_section'>
             <div>
-            {Ddate}
-            </div>
-                {/* <X fill='#5B5B5B' onClick={onXButtonHandler}/> */}
-            </div>
-        </StyledIngredinet>
+                {/* {filteredIngredient.map((data) => ( */}
+                    <StyledIngredinet>
+                <div className='left_section'>
+                <StIngredientIcon src={totalIngredient.icon_image}/>
+                <StFoodNameDateGroup>
+                    <div className='food_name'>
+                    {totalIngredient.food_name}
+                    </div>
+                    <div className='in_date'>
+                    {totalIngredient.in_date}
+                    </div>
+                </StFoodNameDateGroup>
+                </div>
+                <div className='right_section'>
+                <div>
+                {Ddate}
+                </div>
+                {/* {showXbutton ? <StXButton onClick={() =>{onXButtonHandler(totalIngredient.id)}} onMouseOver={setShowXButton(!showXbutton)}/> : null} */}
+                <StXButton onClick={() =>{onXButtonHandler(totalIngredient.id)}}/>
+                    
+                </div>
+                </StyledIngredinet>
+                {/* } */}
+                </div>
+                
+            
     );
 };
 
@@ -146,18 +153,18 @@ const StFoodNameDateGroup = styled.div`
         font-weight : 400;
     }
 `
-// const StXButton = styled.div`
-//     margin-left : 10px;
-//     width : 21px;
-//     height : 21px;
-//     cursor : pointer;
-//     background-image: url(${xButton});
-//     background-repeat: no-repeat;
-//     background-size: cover;
+const StXButton = styled.div`
+    margin-left : 10px;
+    width : 21px;
+    height : 21px;
+    cursor : pointer;
+    background-image: url(${xButton});
+    background-repeat: no-repeat;
+    background-size: cover;
 
-//     :hover {
-//         background-image: url(${hoverXButton});
-//         background-repeat: no-repeat;
-//         background-size: cover;
-//     }
-// `
+    :hover {
+        background-image: url(${hoverXButton});
+        background-repeat: no-repeat;
+        background-size: cover;
+    }
+`

@@ -23,7 +23,7 @@ const HomeLayout = () => {
             <StChartWrapper>
             {/* <div className='chart_title'>우리집 냉장고 상태</div>
             <div className='chart_subTitle'>우리집 냉장고 현황</div> */}
-            <Ingredients/>
+            <Ingredients fromMain={true} style={{}}/>
             </StChartWrapper>
             <TodayRecipe/>
             </StCartSection>
@@ -38,9 +38,7 @@ export default HomeLayout;
 const StWrapper = styled.div`
 `
 const StGrid = styled.div`
-  background: ${(props) => props.theme.section.layout.background};
   border-radius: ${(props) => props.theme.section.layout.borderRadius};
-  box-shadow: ${(props) => props.theme.section.layout.boxShadow};
 `;
 
 const StMainSection = styled(StGrid)`

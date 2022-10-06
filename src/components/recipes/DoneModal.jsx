@@ -46,23 +46,16 @@ const DoneModal = ({ id, onClick, onClickDetail }) => {
     label: `[${ingredient.category}] ${ingredient.food_name}`,
     value: ingredient.id,
   }));
-  console.log(ingredientOptions);
 
   const disabled = selectedIds.length === 0;
 
   const changedHandler = (data) => {
     const values = data.map((selected) => selected.value);
     setSelectedIds([...values]);
-    console.log(selectedIds);
   };
 
   const send_data = async () => {
-    // const payload = {
-    //   ingredients_id: selectedIds,
-    // };
-    // console.log(payload);
-    // const resp = RESP_CHAE.RECIPES.FINISH_RECIPE_SUCCESS;
-    // const resp = await apis.done_recipe({ id, payload });
+
     const auth = localStorage.getItem("Authorization");
 
     const resp = await axios.post(

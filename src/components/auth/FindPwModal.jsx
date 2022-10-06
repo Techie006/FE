@@ -22,25 +22,18 @@ const FindPwModal = ( { onClick } ) => {
     const onSubmitHadler = async () => {
 
         try{
-
             const resp = await axios.patch(`https://magorosc.shop/api/password`,{
 
                 email : watch("email")
                 })
-                console.log(resp.data)
-
-                
-
             if ( resp.data.result === true ) 
                 showAlert(3000, "info", "인증메일 전송중입니다.");
             else setError(resp.data.status.message)
         }
         catch(error) {
             console.log(error)
-            
         }
     }
-
     return (
         <StyledModalBackground>
             <StyledContent>

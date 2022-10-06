@@ -32,7 +32,6 @@ const StWrapper = styled.div`
     align-items : center;
     font-family: 'Happiness Sans';
     height : 60px;
-    border : 1px solid black;
     background-color : ${(props) => props.theme.colors.background.white};
     font-size : 18px;
     font-weight : 900;
@@ -44,7 +43,7 @@ const StWrapper = styled.div`
     border-radius : ${(props) => props.theme.section.layout.borderRadius};
     box-shadow : ${(props) => props.theme.section.layout.boxShadow};
 `
-const StAddImg = styled.img`
+const StAddImg = styled.div`
     cursor: pointer;
     width : 36px;
     height : 36px;

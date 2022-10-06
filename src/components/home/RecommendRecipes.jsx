@@ -1,43 +1,47 @@
 import React, { useState, useEffect } from "react";
-
-// import BookmarkBtn from "../common/BookmarkBtn";
-// import IconBox from "../../elements/atoms/IconBox";
+import emptyIngredient from "../../assets/icons/emptyIngredient.png"
 import BookmarkBtn from "../common/BookmarkBtn";
 import axios from "axios";
 import styled from "styled-components";
-import { faColonSign } from "@fortawesome/free-solid-svg-icons";
+import DetailModal from "../recipes/DetailModal";
+
 
 const RecommendRecipes = () => {
+
   const [warningIngredient, setWarningIngredient] = useState([]);
   const [showRecipes, setShowRecipes] = useState([]);
-  console.log("showre",showRecipes)
+  const [recipeData, setReciepData] = useState("")
+  const [openModal, setOpenModal] = useState(false)
+  const [empty, setEmpty] = useState(false)
 
   const auth = localStorage.getItem("Authorization");
   const refresh = localStorage.getItem("Refresh_Token");
 
   var inHurryFoodName = warningIngredient.map((data) => data.food_name);
 
+  const clickHandler = (data) => {
+    setReciepData(data)
+    setOpenModal(!openModal)
+  }
+
   const onClickHandler = async (e) => {
     const buttonValue = e.target.value;
-    console.log("buttonValue", buttonValue);
-    console.log("warningIngredient",warningIngredient)
     try {
       const resp = await axios.post(
-        "https://magorosc.shop/api/recipes/recommend",
+        `https://magorosc.shop/api/recipes/recommend?pageNum=${0}&pageLimit=${7}`,
         {
           base: buttonValue,
-          // mark_name 드리면됨
+          // mark_name
           foods: inHurryFoodName,
         },
         {
           headers: {
             Authorization: auth,
           },
-        }
-      );
-      console.log("recipesData", resp.data.content.recipes);
-      setShowRecipes(resp.data.content.recipes);
-      console.log("qqqq", showRecipes);
+        });
+        setEmpty(resp.data.content.empty)
+        setShowRecipes(resp.data.content.recipes);
+      
     } catch (error) {
       console.log(error);
     }
@@ -50,27 +54,18 @@ const RecommendRecipes = () => {
         Refresh_Token: refresh,
       },
     });
-    console.log("in_hurry", resp.data.content.in_hurry);
     setWarningIngredient(resp.data.content.in_hurry);
+    
   };
-
-  console.log("inHurryFoodName", inHurryFoodName);
 
   useEffect(() => {
     getWarningIngredients();
   }, []);
 
-  const commonIngredients = showRecipes.map((data, index) => (
-    <StRestIngredients key={index}>{data.common_ingredients}</StRestIngredients>
-  ))
-
-  const commonIngredient = commonIngredients.map((data, index) => (
-    <StRestIngredients>{data.common_ingredients}</StRestIngredients>
-  ))
-  
-
   return (
-    <StRecipesWrapper>
+    <div>
+      
+      <StRecipesWrapper>
       <StHeader>
         <StTitle>추천 레시피</StTitle>
         <StSubTitle>유통기한 임박재료의 레시피를 추천해드려요!</StSubTitle>
@@ -78,7 +73,7 @@ const RecommendRecipes = () => {
       <StButtonWrapper>
       <StButtonList>
         {warningIngredient &&
-          warningIngredient.map((data, index) => (
+          warningIngredient?.map((data, index) => (
             <StButtonScroll key={index}>
               <StIngredientButton
                 onClick={onClickHandler}
@@ -90,12 +85,12 @@ const RecommendRecipes = () => {
           ))}
       </StButtonList>
       </StButtonWrapper>
+      {!empty ? ( 
       <StRecipes>
         {showRecipes &&
-          showRecipes.map((data, index) => (
+          showRecipes?.map((data, index) => (
             <StRecipe 
             key={index}
-            // onClick={getDtailRecipe}
             value={data.id}>
               <StRecipeImg src = {data.recipe_image}/>
               <StRecipeDesc>
@@ -103,18 +98,26 @@ const RecommendRecipes = () => {
                 <div className="ingredients">{data.common_ingredients.map((data) => <StRestIngredients>{data}</StRestIngredients> )}</div>
                 <BookmarkBtn className="bookmark" recipe_id={data.id} is_liked={data.liked} isBox={false} />
               </StIngreWrapper>
-              <StRecipeTitle>{data.recipe_name}</StRecipeTitle>
+              <StRecipeTitle onClick={() => clickHandler(data)}>{data.recipe_name}</StRecipeTitle>
               <StDay>{data.method} | {data.category} | {data.calorie}kcal</StDay>
               </StRecipeDesc>
-
-              {/* <BookmarkBtn recipe_id={data.id} is_liked={data.liked} isBox={true} />
-              <IconBox page="calendar" func="bookmark" isBox={true}>
-                <Test fill="#A5A5A5" />
-              </IconBox> */}
             </StRecipe>
           ))}
-      </StRecipes>
-    </StRecipesWrapper>
+            {openModal ? (<DetailModal
+              id={recipeData.id}
+              recipeName={recipeData.recipe_name}
+              onClick={clickHandler}
+            />) : null }
+      </StRecipes>)
+     : (
+       <StEmptyWrapper>
+         <StEmptyImg></StEmptyImg>
+        <StEmptyDesc>해당 재료의</StEmptyDesc>
+        <StEmptyDesc>레시피가 없습니다!</StEmptyDesc>
+        </StEmptyWrapper>
+     )}
+      </StRecipesWrapper>
+    </div>
   );
 };
 
@@ -162,7 +165,7 @@ const StButtonList = styled.span`
   
   overflow: auto;
   &::-webkit-scrollbar {
-    width: 8px;
+    display : none;
     height: 8px;
     border-radius: 6px;
     background: rgba(255, 255, 255, 0.4);
@@ -200,7 +203,7 @@ const StRecipes = styled.div`
   height: 586px;
   overflow: scroll;
   &::-webkit-scrollbar {
-    width: 8px;
+    display : none;
     height: 8px;
     border-radius: 6px;
     background: rgba(255, 255, 255, 0.4);
@@ -268,9 +271,31 @@ const StDay = styled.div`
   font-weight : 400;
   font-size : 10px
 `
-const StMethod = styled.div`
-
-  width: 100px;
-  height: 20px;
-  
-`;
+const StEmptyWrapper = styled.div`
+display : flex;
+flex-direction : column;
+justify-content : center;
+text-align : center;
+align-items : center;
+  padding-top : 210px;
+`
+const StEmptyImg = styled.div`
+  background-image: url(${emptyIngredient});
+  background-repeat: no-repeat;
+  background-size: cover;
+  width : 150px;
+  height : 150px;
+  margin-bottom : 20px;
+  margin-left : 10px;
+`
+const StEmptyDesc = styled.div`
+  font-weight: 500;
+  font-size: 18px;
+  line-height: 23px;
+  display: flex;
+  justify-content : center;
+  align-items: center;
+  text-align: center;
+  letter-spacing: -0.5px;
+  color: #C0C0C0;
+`

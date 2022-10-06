@@ -4,7 +4,9 @@ import MoreView from '../../assets/icons/moreView.png'
 import HoverMoreView from '../../assets/icons/hoverMoreView.png'
 import Ingredients from './Ingredients';
 import Potal from '../modals/Potal';
+import { __getAllIngredient } from "../../modules/redux/recipeData";
 import styled from "styled-components";
+import emptyIngredient from "../../assets/icons/emptyIngredient.png";
 import HomeIngredientsModal from '../modals/HomeIngredientsModal';
 import axios from 'axios';
 import { recommend } from '../../modules/redux/searchData';
@@ -14,6 +16,7 @@ const HomeIngredients = () => {
     const [ingredients, setIngredients] = useState([]);
     const [curr, setCurr] = useState("freeze")
     const [filterData, setFilterData] = useState([])
+    const [empty, setEmpty] = useState(false)
     
     const dispatch = useDispatch();
 
@@ -22,19 +25,15 @@ const HomeIngredients = () => {
     }
     const onFreezeClick = () => {
         setCurr("freeze")
-        console.log("curr",curr)
     }
     const onRefrigeratedClick = () => {
         setCurr("refrigerated")
-        console.log("curr",curr)
     }
     const onRoomTempClick = () => {
         setCurr("room_temp")
-        console.log("curr",curr)
     }
     const onTotalClick = () => {
         setCurr("")
-        console.log("curr",curr)
     }
     
     const auth = localStorage.getItem("Authorization")
@@ -51,6 +50,9 @@ const HomeIngredients = () => {
             }
             )
             setIngredients(resp.data.content)
+            console.log("data",resp.data.content)
+            setEmpty(resp.data.content.empty)
+            dispatch(__getAllIngredient(curr))
             
             const filterExpDone = resp.data.content.storage.filter((data) => data.d_date !== "만료" )
             
@@ -90,7 +92,15 @@ const HomeIngredients = () => {
                 <StStatusButton onClick={onRefrigeratedClick}>냉장</StStatusButton>
                 <StStatusButton onClick={onRoomTempClick}>상온</StStatusButton>
             </StyledButtonList>
-            <Ingredients ingredients= {ingredients} setState={setIngredients} />
+            {!empty ? 
+            (<Ingredients ingredients= {ingredients} setIngredients={setIngredients} state={ingredients}/>)
+            : (
+            <StEmptyWrapper>
+                <StEmptyImg/>
+                <div className='empty_desc'>식재료가 비었네요.</div>
+                <div className='empty_desc'>재료를 추가해 주세요!</div>
+            </StEmptyWrapper>)}
+            
         </StyledInredientsWrapper>
     );
 };
@@ -128,7 +138,7 @@ const StyledWrapperTitle = styled.div`
     font-family: 'Happiness Sans';
     text-align : center;
 `
-const StyleMoreView = styled.img`
+const StyleMoreView = styled.div`
     width : 36px;
     height : 36px;
     cursor: pointer;
@@ -169,4 +179,29 @@ const StStatusButton =styled.button`
         color : ${(props) => props.theme.colors.font.mainWhite};
         background-color : ${(props) => props.theme.colors.background.yellow};
     } 
+`
+const StEmptyWrapper =styled.div`
+    display : flex;
+    flex-direction : column;
+    justify-content : center;
+    align-items : center;
+    margin-top : 150px;
+    .empty_desc {
+        font-weight: 500;
+        font-size: 16px;
+        line-height: 23px;
+        display: flex;
+        align-items: center;
+        text-align: center;
+        letter-spacing: -0.5px;
+        color: #C0C0C0;
+        }
+`
+const StEmptyImg = styled.div`
+    background-image: url(${emptyIngredient});
+    background-repeat: no-repeat;
+    background-size: cover;
+    width : 100px;
+    height : 100px;
+    margin-bottom : 20px;
 `
