@@ -1,4 +1,5 @@
-import { useState } from "react";
+import { useSelector } from "react-redux";
+import { useState, useEffect, useCallback } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
 import styled from "styled-components";
 
@@ -11,10 +12,22 @@ import Potal from "../../components/modals/Potal";
 import UpdateProfileModal from "../../components/modals/UpdateProfileModal";
 
 const Header = () => {
+  const isLogin = useSelector((state) => state.auth.isLogin);
   const [showModal, setShowModal] = useState(false);
 
   const navigate = useNavigate();
   const location = useLocation();
+
+  // 로그인 되어있지 않으면 로그인 페이지로 이동
+  const redirectHandler = useCallback(() => {
+    if (!isLogin) {
+      navigate("/auth");
+    }
+  }, [isLogin, navigate]);
+
+  useEffect(() => {
+    redirectHandler();
+  }, [redirectHandler]);
 
   const NAVIGATORS = ["홈", "통계", "캘린더", "클래스", "레시피"];
   const PATHS = ["/", "/statistics", "/calendar", "/classes", "/recipes"];
@@ -48,10 +61,7 @@ const Header = () => {
         "로그아웃 할래요."
       );
 
-      console.log(result);
-
       if (result.isConfirmed) {
-        console.log("logout");
         const resp = await apis.sign_out();
         const { result } = resp.data;
         if (!result) {
@@ -67,8 +77,6 @@ const Header = () => {
       }
     }
   };
-
-  const signOutHandler = () => {};
 
   const showModalHandler = () => {
     setShowModal(false);
@@ -132,17 +140,5 @@ const StMypage = styled.div`
   &:hover {
     cursor: default;
     color: #fc9700;
-  }
-`;
-
-const StMypageMenu = styled.div`
-  position: absolute;
-  z-index: 50;
-`;
-
-const StMypageWrapper = styled.div`
-  li {
-    border: 1px solid black;
-    background-color: white;
   }
 `;
