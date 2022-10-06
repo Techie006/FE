@@ -5,7 +5,7 @@ import styled from "styled-components";
 
 import { apis } from "../../shared/axios";
 import { showConfirm } from "../../shared/popups";
-import { ReactComponent as Logo } from "../../assets/icons/common/Logo.svg";
+import { ReactComponent as Logo } from "../../assets/icons/common/logo.svg";
 import Link from "../atoms/Link";
 import DropDown from "../atoms/DropDown";
 import Potal from "../../components/modals/Potal";
@@ -92,7 +92,7 @@ const Header = () => {
           keys={["profile", "bookmark", "signout"]}
           contents={["프로필 설정", "북마크", "로그아웃"]}
         >
-          <StMypage>마이페이지</StMypage>
+          <StMypage>설정</StMypage>
         </DropDown>
         <Potal>
           {showModal && <UpdateProfileModal onClose={showModalHandler} />}
