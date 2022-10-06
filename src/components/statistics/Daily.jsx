@@ -90,7 +90,7 @@ const Daily = (props) => {
   return (
     <>
       <StHeader>
-        <ST3>오늘 우리집 식재료 상태는?</ST3>
+        <ST3>어제 대비 나의 식단은?</ST3>
         <Category
           contents={["열량", "영양성분"]}
           onClick={clickHandler}

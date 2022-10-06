@@ -23,7 +23,7 @@ const HomeLayout = () => {
             <StChartWrapper>
             {/* <div className='chart_title'>우리집 냉장고 상태</div>
             <div className='chart_subTitle'>우리집 냉장고 현황</div> */}
-            <Ingredients fromMain={true} style={{}}/>
+            <Ingredients fromMain={false} style={{}}/>
             </StChartWrapper>
             <TodayRecipe/>
             </StCartSection>
