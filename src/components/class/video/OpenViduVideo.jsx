@@ -117,7 +117,7 @@ const OpenViduVideo = (props) => {
     const mediaStream = await ov.getUserMedia({
       audioSource: false,
       videoSource: undefined,
-      resolution: "640x480",
+      resolution: "640x640",
       frameRate: 60,
     });
 
@@ -150,6 +150,7 @@ const OpenViduVideo = (props) => {
 
   useEffect(() => {
     joinSession();
+    // return () => leaveSession();
   }, []);
 
   useEffect(() => {

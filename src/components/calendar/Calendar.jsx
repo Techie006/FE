@@ -66,7 +66,7 @@ const RecipeCalendar = () => {
       {!isLoading ? (
         <StLayout>
           <Calendar
-            style={{ height: "500px", width: "100%", margin: "auto" }}
+            style={{ height: "550px", width: "100%", margin: "auto" }}
             components={{
               toolbar: Toolbar,
             }}

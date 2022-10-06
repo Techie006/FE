@@ -125,6 +125,12 @@ const ChatFrame = (props) => {
     return () => disconnectSocket();
   }, [connectSocket, disconnectSocket]);
 
+  // 뒤로가기/ 브라우저 창 닫기/ 새로고침 시 호출
+  // window.onbeforeunload((e) => {
+  //   console.log(e);
+  //   window.alert("onbeforeunload");
+  // });
+
   return (
     <>
       <ChatHeader />
