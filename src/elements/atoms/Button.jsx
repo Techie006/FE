@@ -34,6 +34,32 @@ const Button = ({
     let hoverColor = "";
 
     switch (page) {
+      case "auth":
+        if (func === "signup" || func === "signin") {
+          borderRadius = "6px";
+          width = "329px";
+          height = "50px";
+          // padding = "11px 129px";
+
+          fontWeight = "700";
+          fontSize = "19px";
+          lineHeight = "28px";
+
+          if (!disabled) {
+            border = "1px solid #F07401";
+            background = "#FC9700";
+            color = "#FAFAFA";
+            hoverBackground = "#F07401";
+            hoverColor = "#FAFAFA";
+          } else {
+            border = "1px solid #FFEAD8";
+            background = "#FFEAD8";
+            color = "#FAFAFA";
+            hoverBackground = "#FFEAD8";
+            hoverColor = "#FAFAFA";
+          }
+        }
+        break;
       case "statistics":
         if (func === "filter") {
           border = "none";
@@ -155,6 +181,7 @@ const Button = ({
           hoverColor = "#482647";
         }
         break;
+        
       default:
         return;
     }

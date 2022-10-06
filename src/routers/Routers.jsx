@@ -1,16 +1,24 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 
+// auth
 import Auth from "../pages/Auth";
-import KakaoLogin from "../components/auth/KakaoLogin";
-import GoogleLogin from "../components/auth/GoogleLogin";
+import KakaoOAuth from "../pages/KakaoOAuth";
+import GoogleOAuth from "../pages/GoogleOAuth";
+// main
 import Home from "../pages/Home";
+// statistics
 import Statistics from "../pages/Statistics";
+// calendar
 import Calendar from "../pages/Calendar";
+// cookingClass
 import Classes from "../pages/Classes";
 import Class from "../pages/Class";
+// recipes
 import Recipe from "../pages/Recipe";
-import BookMarkRecipe from "../pages/BookMarkRecipe";
 import SearchResult from "../pages/SearchResult";
+// my
+import BookMarkRecipe from "../pages/BookMarkRecipe";
+// others
 import NotFound from "../pages/NotFound";
 
 // TODO protected router 구현하기
@@ -18,21 +26,29 @@ const Routers = (props) => {
   return (
     <BrowserRouter>
       <Routes>
+        {/* auth */}
         <Route path='/auth' element={<Auth />} />
-        <Route path='/kakaoLogin' element={<KakaoLogin />} />
-        <Route path='/googleLogin' element={<GoogleLogin />} />
+        <Route path='/kakaoLogin' element={<KakaoOAuth />} />
+        <Route path='/googleLogin' element={<GoogleOAuth />} />
+        {/* main */}
         <Route path='/' element={<Home />} />
         <Route path='/home' element={<Home />} />
+        {/* my */}
         <Route path='/bookmark' element={<BookMarkRecipe />} />
+        {/* statistics */}
         <Route path='/statistics' element={<Statistics />} />
+        {/* calendar */}
         <Route path='/calendar' element={<Calendar />} />
+        {/* cookingClass */}
         <Route path='/classes' element={<Classes />} />
         <Route
           path='/class/:class_id/:redis_class_id/:role'
           element={<Class />}
         />
+        {/* recipes */}
         <Route path='/recipes' element={<Recipe />} />
         <Route path='/recipes/:keyword' element={<SearchResult />} />
+        {/* others */}
         <Route path='*' element={<NotFound />} />
       </Routes>
     </BrowserRouter>

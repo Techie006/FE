@@ -1,14 +1,13 @@
-import React from 'react';
+import React, { useState } from 'react';
 import Ingredient from "./Ingredient"
 import styled from "styled-components";
 
-
 const Ingredients = ({ ingredients }) => {
-    
+
     return (
-        <StyledWrapper>
+        <StyledWrapper className='Ingredients'>
             {ingredients.storage && ingredients.storage.map((data, index) => (
-                <Ingredient totalIngredient = {data} key = {index}/>
+                <Ingredient ingredients={ingredients.storage} totalIngredient = {data} key = {index} />
             ))}
         </StyledWrapper>
     );

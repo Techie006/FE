@@ -2,7 +2,7 @@ import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
   search : "",
-  recommend : ""
+  recommend : []
 };
 
 const searchDataSlice = createSlice({
@@ -11,13 +11,17 @@ const searchDataSlice = createSlice({
   reducers: {
     searchData: (state, action) => {
       state.search = { ...action }
-      console.log("action",state.search)
+      
       console.log("action",action)
     },
     recommend : (state, action) => {
         state.recommend = { ...action }
-        
     },
+    deleteIngredient : (state, action) => {
+        state.recommend = state.recommend.filter(
+        (data) => data.id !== action.payload.id
+      );
+    }
     }
 });
 

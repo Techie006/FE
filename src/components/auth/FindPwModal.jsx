@@ -4,12 +4,14 @@ import { ErrorText } from "../../styles/Text";
 import { ReactComponent as X } from "../../assets/icons/x.svg";
 import axios from 'axios';
 
-import Swal from "sweetalert2";
+import { showAlert } from "../../shared/popups";
 import styled from "styled-components";
 
 
 const FindPwModal = ( { onClick } ) => {
+    
     const [error, setError] = useState("")
+
     const {
         register,
         watch,
@@ -26,10 +28,16 @@ const FindPwModal = ( { onClick } ) => {
                 email : watch("email")
                 })
                 console.log(resp.data)
+
+                
+
+            if ( resp.data.result === true ) 
+                showAlert(3000, "info", "인증메일 전송중입니다.");
+            else setError(resp.data.status.message)
         }
         catch(error) {
             console.log(error)
-            setError(error)
+            
         }
     }
 
@@ -40,7 +48,7 @@ const FindPwModal = ( { onClick } ) => {
                 <StTitle>
                     비밀번호 찾기
                 </StTitle>
-                <X className='x' fill= "#4B4B4B" onClick={onClick}/>
+                <X fill= "#4B4B4B" onClick={onClick}/>
                 </StHeader>
                 <StContent>
                     <StContentTitle>
@@ -55,10 +63,7 @@ const FindPwModal = ( { onClick } ) => {
                     required : "이메일을 입력해주세요."
                     })}
                     />
-                    {errors.email ? 
-                    (<ErrorText>{errors.email.message}</ErrorText>):
-                    (null)}
-                    {setError === "" ? 
+                    {setError !== "" ? 
                     (<ErrorText>{error}</ErrorText>):
                     (null)}
                     <input type="submit" className="submitButton" value = "이메일 인증하기"/>
@@ -89,7 +94,7 @@ const StyledContent = styled.div`
     flex-direction : column;
     text-align: left;
     width: 405px;
-    height: 262px;
+    height: 272px;
     position: relative;
     background: #FFFFFF;
     border-radius: 15px;
@@ -102,18 +107,24 @@ const StyledContent = styled.div`
         line-height: 20px;
         letter-spacing: -0.005em;
         color: #A5A5A5;
-        margin-left : 61px;
         border-radius : 6px;
+        border : 0.6px solid #DADADA;
+        margin-bottom : 10px;
     }
     .submitButton {
+        display : flex;
+        justify-content: center;
+        margin-top : 40px;
+        margin-left : 80px;
         width : 123px;
         height : 36px;
         background-color: #FFDD7C;
         border-radius: 8px;
-        font-size: 10px;
+        font-size: 14px;
         text-align: center;
         letter-spacing: -0.005em;
         color: #664500;
+        border : 0px;
         
         :hover {
             background-color: #FFB356;
@@ -122,7 +133,7 @@ const StyledContent = styled.div`
     }
     x {
         width : 10px;
-        height : 10px;
+        height : 10px; 
     }
 `
 const StHeader = styled.div`
@@ -130,13 +141,15 @@ const StHeader = styled.div`
     flex-direction : row;
     justify-content : space-between;
     border-bottom: 1.5px solid #ECECEC;
+    padding : 20px 28px;
+    align-items : center;
 `
 const StTitle = styled.div`
     font-weight: 900;
     font-size: 24px;
     line-height: 32px;
     color: #4B4B4B;
-    padding : 20px 28px;
+    
 `
 const StContentTitle = styled.div`
     font-weight: 700;
@@ -144,6 +157,9 @@ const StContentTitle = styled.div`
     line-height: 23px;
     letter-spacing: -0.5px;
     color: #4B4B4B;
-    margin : 18px 10px 10px 61px;   
+    margin-bottom : 10px;
+    
 `
-const StContent = styled.div``
+const StContent = styled.div`
+    padding : 18px 10px 10px 61px;   
+`

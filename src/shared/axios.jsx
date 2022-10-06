@@ -2,9 +2,9 @@ import axios from "axios";
 import { encode as base64_encode } from "base-64";
 
 const base = {
-  server_http: "http://3.38.214.79",
-  server_https: "https://magorosc.shop",
-  openvidu_server: "https://monsterwarrior.shop",
+  server_http: process.env.REACT_APP_HTTP_URL,
+  server_https: process.env.REACT_APP_HTTPS_URL,
+  openvidu_server: process.env.REACT_APP_OPENVIDU_URL,
 };
 
 const api = axios.create({
@@ -27,11 +27,22 @@ const videoApi = axios.create({
   headers: {
     "Content-Type": "application/json",
     //	Authorization: Basic EncodeBase64(OPENVIDUAPP:<YOUR_SECRET>)
-    Authorization: `Basic ${base64_encode("OPENVIDUAPP:jack0906")}`,
+    Authorization: `Basic ${base64_encode(
+      `OPENVIDUAPP:${process.env.REACT_APP_OPENVIDU_SECRET}`
+    )}`,
   },
 });
 
 export const apis = {
+  // auth page
+  sign_in: ({ email, password }) =>
+    api.post(`/api/user/signin`, { email, password }),
+  sign_in_google: ({ code }) => api.get(`/user/google/callback?code=${code}`),
+  sign_in_kakao: ({ code }) => api.get(`/user/kakao/callback?code=${code}`),
+  sign_up: ({ email, username, password }) =>
+    api.post(`/api/user/signup`, { email, username, password }),
+  // signout: () => api.delete(``)
+
   // statistics page
   get_state: () => api.get(`/api/statistics/state`),
   get_category: () => api.get(`/api/statistics/category`),

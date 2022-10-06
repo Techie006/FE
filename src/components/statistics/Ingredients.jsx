@@ -76,7 +76,7 @@ const Ingredients = ({ fromMain = false }) => {
   return (
     <>
       <ST3>오늘 우리집 식재료 상태는?</ST3>
-      {/* {loading ? <LoadingSpinner /> : null} */}
+      {loading ? <LoadingSpinner /> : null}
       {!loading && showMsg ? (
         <HelperNav
           msg='아직 추가된 내용이 없어요./ 우리집 식재료를 추가해서/ 나만의 통계를 확인해보세요!'

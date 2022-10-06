@@ -15,7 +15,6 @@ const HomeIngredients = () => {
     const [curr, setCurr] = useState("freeze")
     const [filterData, setFilterData] = useState([])
     
-
     const dispatch = useDispatch();
 
     const showModalHandler = () => {
@@ -45,7 +44,6 @@ const HomeIngredients = () => {
 
         try{
             const resp = await axios.get(`https://magorosc.shop/api/ingredients?storage=${curr}`,{
-            // const resp = await axios.get("https://magorosc.shop/api/ingredients?storage=freeze",{
                 headers : {
                     "Authorization" : auth,
                     "Refresh_Token" : refresh
@@ -69,8 +67,9 @@ const HomeIngredients = () => {
     useEffect(() => {
         dispatch(recommend(filterData))
     },[ingredients]);
+
     return (
-        <StyledInredientsWrapper>
+        <StyledInredientsWrapper className='homeIngredients'>
             <StIngredientsHeader>
                 <StyledWrapperTitle>우리집 식재료 확인하기</StyledWrapperTitle>
                 <StyleMoreView onClick = {showModalHandler} />
@@ -91,7 +90,7 @@ const HomeIngredients = () => {
                 <StStatusButton onClick={onRefrigeratedClick}>냉장</StStatusButton>
                 <StStatusButton onClick={onRoomTempClick}>상온</StStatusButton>
             </StyledButtonList>
-            <Ingredients ingredients= {ingredients}/>
+            <Ingredients ingredients= {ingredients} setState={setIngredients} />
         </StyledInredientsWrapper>
     );
 };

@@ -78,27 +78,6 @@ const SearchModal = ({onClose}) => {
                 clearTimeout(trottled)
             }
             },[keyword])
-    
-    // const throttleInputChange = async (e) => {
-    //     if(isThrottling) return;
-
-    //     const auth = localStorage.getItem("Authorization")
-
-    //     setThrottle(e.target.value);
-    //     const resp = await axios.get("https://magorosc.shop/api/ingredients/autocomplete",{
-    //         food_name : trottled
-    //     },{
-    //         headers : {
-    //             "Authorization" : auth,
-                
-    //         } 
-    //     })
-        
-    //     setIsThrottling(true)
-        
-    //     setTimeout(() => setIsThrottling(false),TIMER);
-
-    // }
 
     return (
         <Modal header="재료를 검색해주세요!" onClick={onClose} depth={2}>

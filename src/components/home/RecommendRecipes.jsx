@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 
 // import BookmarkBtn from "../common/BookmarkBtn";
 // import IconBox from "../../elements/atoms/IconBox";
-
+import BookmarkBtn from "../common/BookmarkBtn";
 import axios from "axios";
 import styled from "styled-components";
 import { faColonSign } from "@fortawesome/free-solid-svg-icons";
@@ -98,6 +98,7 @@ const RecommendRecipes = () => {
               <StRecipeDesc>
               <StIngreWrapper>
                 <StRestIngredients>{data.common_ingredients}</StRestIngredients>
+                <BookmarkBtn className="bookmark" recipe_id={data.id} is_liked={data.liked} isBox={false} />
                 {/* <CommonIngredients ingredients={data.common_ingredients} /> */}
               </StIngreWrapper>
               <StRecipeTitle>{data.recipe_name}</StRecipeTitle>
@@ -232,6 +233,9 @@ const StRecipeDesc = styled.div`
 `
 const StIngreWrapper = styled.div`
   display: flex;
+  flex-direction : row;
+  justify-content : space-between;
+  align-items: center;
   padding : 0px;
 `
 const StRestIngredients = styled.div`

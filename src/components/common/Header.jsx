@@ -31,7 +31,7 @@ const Header = () => {
     "/home",
     "/statistics",
     "/calendar",
-    "/class",
+    "/classes",
     "/recipes",
     
   ];
@@ -113,7 +113,7 @@ const Header = () => {
           <div>
           <ul>
             <li onClick = {showModalHandler}>프로필 설정</li>
-            <li onClick = {linkBookMark}>북마크한 레시피</li>
+            <li onClick = {linkBookMark}>북마크</li>
             <li onClick={signoutHandler}>로그아웃</li>
           </ul>
           </div>)

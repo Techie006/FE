@@ -41,7 +41,6 @@ const Recipes = (props) => {
 
     const buttonHandler = async (data) => {
       
-
       const resp = await axios.post(`https://magorosc.shop/api/recipes/category`,{
           type : data.type,
           category : data.category
@@ -52,7 +51,6 @@ const Recipes = (props) => {
       });
       setRecipes(resp.data.content.recipes)
     }
-
 
   const onChangeData = (e) => {
 

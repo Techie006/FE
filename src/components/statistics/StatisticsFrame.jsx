@@ -7,7 +7,7 @@ import Changes from "./Changes";
 
 const StatisticsFrame = () => {
   return (
-    <GridTemplate>
+    <GridTemplate height='349px'>
       <StLeftSection>
         <Ingredients fromMain={false} />
       </StLeftSection>

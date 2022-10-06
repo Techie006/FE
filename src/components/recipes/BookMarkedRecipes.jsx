@@ -34,18 +34,16 @@ const BookMarkedRecipes = () => {
             },
         });
         const recipesData = resp.data.content
-        console.log("resp",resp.data.content.recipes)
         setRecipes(recipesData.recipes);
         setUser(recipesData.user_name)
-        console.log("resp",recipes);
-
+        
         }
         useEffect(() => {
             getBookMarkedRecipes();
         },[])
         const bookmarkRecipe =                 
         recipes && recipes.map((data, index) =>(
-            <StBookMarkRecipe key={index} onClick={() => {clickHandler(data)}}>
+            <StBookMarkRecipe key={index} >
                 
                 <StImg style={{
                     backgroundImage : `url(${data.final_img})`,
@@ -57,7 +55,7 @@ const BookMarkedRecipes = () => {
                 <StRecipeIngredients>{data.ingredients.map((data) => 
                 (<div className='recipe_ingredient'>{data}</div>))}
                 </StRecipeIngredients>
-                <StRecipeName>{data.recipe_name}</StRecipeName>
+                <StRecipeName onClick={() => {clickHandler(data)}}>{data.recipe_name}</StRecipeName>
                 <StEtcInfo>
                     {data.method} | {data.category} | {data.calorie} kcal
                 </StEtcInfo>
@@ -94,12 +92,12 @@ const StGrid = styled.div`
 `;
 
 const StMainSection = styled(StGrid)`
-  grid-column: 1 / span 12;
+//   grid-column: 1 / span 12;
 
-  /* mobile */
-  @media all and (max-width: 600px) {
-    grid-column: 1 / span 4;
-  }
+//   /* mobile */
+//   @media all and (max-width: 600px) {
+//     grid-column: 1 / span 4;
+//   }
 `;
 const StWrapper = styled.div`
     cursor: pointer;

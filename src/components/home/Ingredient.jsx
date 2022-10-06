@@ -1,37 +1,32 @@
 import React, { useEffect, useState } from 'react';
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
+import deleteIngredient from '../../modules/redux/searchData';
 import { ReactComponent as X } from "../../assets/icons/circleX.svg";
 import xButton from '../../assets/icons/xButton.png'
 import hoverXButton from '../../assets/icons/hoverXButton.png'
 import axios from 'axios';
+
 import styled from "styled-components";
 
-const Ingredient = ( {totalIngredient} ) => {
-    // console.log("icon",totalIngredient)
+const Ingredient = ( { totalIngredient } ) => {
 
+    const dispatch = useDispatch();
     // const deleteIngredient = useSelector((ingredient) => ingredient.searchData.recommend)
     // console.log("delete",deleteIngredient)
-    const [id, setId] = useState("")
+    const onXButtonHandler = async (id) => {
     
-    const onXButtonHandler = async (e) => {
-
-        setId(totalIngredient.id)
-        
         const auth = localStorage.getItem("Authorization")
 
         const resp = await  axios.delete(`https://magorosc.shop/api/ingredient?id=${id}`,{
-            
+
                 headers : {
                     "Authorization" : auth,
                 }
             }
             )
-            
     }
+    
 
-    useEffect(() => {
-        onXButtonHandler()
-    },[])
     const Ddate =
     totalIngredient.d_date === "기한 만료" ?
         (
@@ -63,7 +58,7 @@ const Ingredient = ( {totalIngredient} ) => {
     
 
     return (
-        <StyledIngredinet>
+        <StyledIngredinet className='Ingredient'>
             <div className='left_section'>
             <StIngredientIcon src={totalIngredient.icon_image}/>
             <StFoodNameDateGroup>
@@ -80,7 +75,7 @@ const Ingredient = ( {totalIngredient} ) => {
             {Ddate}
             </div>
                 {/* <X fill='#5B5B5B' onClick={onXButtonHandler}/> */}
-                {/* <StXButton /> */}
+                <StXButton onClick={() => {onXButtonHandler(totalIngredient.id)}} />
             </div>
         </StyledIngredinet>
     );

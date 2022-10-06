@@ -14,6 +14,8 @@ const DetailModal = ({ id, recipeName, totalIngredient, onClick }) => {
   const [loading, setLoading] = useState(false);
   const [showModal, setShowModal] = useState(false);
   const [recipe, setRecipe] = useState({});
+  const [recipes, setRecipes] = useState([]);
+  
 
   const get_data = useCallback(async () => {
     // const resp = RESP_CHAE.RECIPES.GET_RECIPE_SUCCESS;
@@ -34,6 +36,8 @@ const DetailModal = ({ id, recipeName, totalIngredient, onClick }) => {
     }
     console.log(recipe)
     setRecipe(content.recipe);
+    setRecipes(content)
+    console.log("ss",content)
     setLoading(false);
   }, []);
 
@@ -54,8 +58,6 @@ const DetailModal = ({ id, recipeName, totalIngredient, onClick }) => {
       <div className="desc">{desc}</div>
     </StInstruction>
   ));
-  const headerIngredient = totalIngredient && totalIngredient.map((data)=> 
-  (<div className="ingredient">{data}</div>))
 
   return (
     <>
@@ -68,7 +70,9 @@ const DetailModal = ({ id, recipeName, totalIngredient, onClick }) => {
               {recipeName}
             </div>
             <div className="header_ingredient">
-              {headerIngredient}
+              <div className="ingredient">{recipe.method}</div>
+              <div className="ingredient">{recipe.category}</div>
+              <div className="ingredient">{recipe.calorie} kcal</div>
             </div>
             </div>
             <X fill="black" onClick={onClick}/>
@@ -185,6 +189,10 @@ const StHeader = styled.div`
       text-align: center;
       letter-spacing: -0.5px;
       color: #FF5C01;
+    }
+    .ingredients_wrapper {
+      display : flex;
+      flex-direction : row;
     }
 `
 const StCompletebutton = styled.button`

@@ -94,7 +94,7 @@ const CreateIngredientModal = ({ onClose }) => {
         try{
             // if (purchaseDate > expDate) {
             //     setValidation("입주시기가 유통기한보다 같거나 이전날짜입니다.")
-            
+
             const resp = await axios.post("https://magorosc.shop/api/ingredient",{
                 id : recommendData,
                 food_name : searchData,
@@ -106,6 +106,7 @@ const CreateIngredientModal = ({ onClose }) => {
                     "Authorization" : auth,
                 } 
             })
+
             onClose()
             
         }
@@ -114,6 +115,9 @@ const CreateIngredientModal = ({ onClose }) => {
             setErrorMessages(errorMessage)
         }
     }
+    // useEffect(() => {
+    //     dispatch(searchData)
+    // },[onClose])
 
     const selectStyle = {
         valueContainer: (provided) => ({
@@ -121,11 +125,11 @@ const CreateIngredientModal = ({ onClose }) => {
             height : '40px',
             width : '85px',
             padding : "11px 14px 11px",
-            alignItems : "baseline"
+            // alignItems : "center"
+            margin : "0px auto"
         }),
         placeholder: (provided) => ({
             ...provided,
-            height : '18px',
             width : '85px',
             fontSize: "14px;"
         }),
@@ -236,8 +240,8 @@ const CreateIngredientModal = ({ onClose }) => {
                     {/* {error.response.data.status.message<ErrorText></ErrorText>} */}
                 </StExp>
                 <div className='input_wrapper'>
-                <Button content="등록하기" disabled={disabled}/>
-                {/* <input type="submit" className="submitButton" value = "등록하기"/> */}
+                {/* <Button content="등록하기" disabled={disabled}/> */}
+                <input type="submit" className="submitButton" value = "등록하기"/>
                 </div>
                 </form>
                 </StCreateModalWrapper>
@@ -248,7 +252,7 @@ const CreateIngredientModal = ({ onClose }) => {
 export default CreateIngredientModal;
 
 const StCreateModalWrapper = styled.div`
-    height : 542px;
+    height : 500px;
     padding : 0px 60px;
     .input_wrapper{
         text-align : center;

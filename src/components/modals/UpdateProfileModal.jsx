@@ -1,13 +1,15 @@
 import React, { useState, useRef } from "react";
 import { useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
-import { AiFillEyeInvisible } from "react-icons/ai";
+import { ReactComponent as ShowPW } from "../../assets/icons/auth/showPW.svg";
+import { ReactComponent as HidePW } from "../../assets/icons/auth/hidePW.svg";
 import { FcAddImage } from "react-icons/fc";
-import { AiFillEye } from "react-icons/ai";
 import { ErrorText } from "../../styles/Text";
+import { pwCheck } from "../../shared/regex";
 import axios from 'axios';
 import Swal from "sweetalert2";
 import styled from "styled-components";
+import Button from "../../elements/atoms/Button";
 
 const UpdateProfileModal = ({ onClose }) => {
 
@@ -22,8 +24,9 @@ const UpdateProfileModal = ({ onClose }) => {
         watch,
         reset,
         handleSubmit,
-        formState: { errors },
-      } = useForm({ mode: "submit" });
+        formState: { errors, isValid },
+      } = useForm({ mode: "onChange" });
+
     const fileInput = useRef(null);
       
       const onShowHandler = (e) => {
@@ -51,16 +54,14 @@ const UpdateProfileModal = ({ onClose }) => {
         if( watch("updatePw") == watch("updatePwConfirm") ){
             setUpdateErrorMessage("")
         const resp = await axios.put("https://magorosc.shop/api/my/password",{
-                
             present_password : watch("password"),
             change_password : watch("updatePwConfirm"),
-
             },{
                 headers:{
-
                     "Authorization" : auth
                 }
             })
+            console.log(resp)
             Swal.fire(
                 '비밀번호 변경을 성공하였습니다!',
                 '다시 로그인해 주시기 바랍니다.',
@@ -110,16 +111,22 @@ const UpdateProfileModal = ({ onClose }) => {
                 <form onSubmit={handleSubmit(updateProfileHandler)}>
                     <StTitle>기존 비밀번호 입력</StTitle>
                     <div className='input_wrapper'>
+                    <div>
                     <input
                         autoComplete='on'
                         className='present_pw'
                         type = {!show ? "password" : "text"}
                         id = "password"
-                        placeholder="패스워드를 입력해주세요."
                         {...register("password",{
-                        required : "패스워드를 입력해주세요."
+                        required: "비밀번호를 기입하셔야 합니다.",
                         })}
                     />
+                    </div>
+                    <div>
+                    <StButton onClick={onShowHandler}>
+                    {show ? <ShowPW /> : <HidePW />}
+                    </StButton>
+                    </div>
                     </div>
                     {errors.password ? (
                     <ErrorText>{errors.password.message}</ErrorText>
@@ -127,12 +134,11 @@ const UpdateProfileModal = ({ onClose }) => {
                     (
                     null
                     )}
+                    
+                    
                     {errorMessage !== "" ? 
                     (<ErrorText>{errorMessage}</ErrorText>)
-                    :
-                    (
-                    <StBlank></StBlank>    
-                    )}
+                    : null}
                     <StTitle>새로운 비밀번호 입력</StTitle>
                     <div className='input_wrapper'>
                     <input
@@ -140,18 +146,28 @@ const UpdateProfileModal = ({ onClose }) => {
                         className='update_pw'
                         type = {!show ? "password" : "text"}
                         id = "update_pw"
-                        placeholder="패스워드를 입력해주세요."
                         {...register("updatePw",{
-                        required : "패스워드를 입력해주세요."
+                        required: "비밀번호를 기입하셔야 합니다.",
+                        minLength: {
+                            value: 8,
+                            message: "비밀번호는 8자 이상이어야 합니다.",
+                          },
+                          maxLength: {
+                            value: 15,
+                            message: "비밀번호는 15자 이하여야 합니다.",
+                          },
+                        validate: {
+                            type: (value) =>
+                            pwCheck(value) || 
+                            "비밀번호에 영문/숫자/특수문자(@$!%*#?&)를 모두 사용해야합니다."
+                        }
                         })}
                     />
                     </div>
                     {updateErrorMessage !== "" ? 
                     (<ErrorText>{updateErrorMessage}</ErrorText>)
-                    :
-                    (
-                    <StBlank></StBlank>
-                    )}
+                    : null}
+
                     <StTitle>비밀번호 확인</StTitle>
                     <div className='input_wrapper'>
                     <input
@@ -159,28 +175,21 @@ const UpdateProfileModal = ({ onClose }) => {
                         className='update_pw_confirm'
                         type = {!show ? "password" : "text"}
                         id = "update_password_confirm"
-                        placeholder="패스워드를 입력해주세요."
                         {...register("updatePwConfirm",{
-                        required : "패스워드를 입력해주세요."
+                        required: "비밀번호를 다시 한 번 입력해주세요.",
+                        validate: {
+                            check: (value) =>
+                              watch("password") === value ||
+                              "비밀번호가 일치하지 않습니다.",
+                          },
                         })}
                     />
                     </div>
                     {errors.updatePwConfirm ? (
                     <ErrorText>{errors.updatePwConfirm.message}</ErrorText>
-                    ):
-                    (
-                    <StBlank></StBlank>
-                    )}
-                     {!show ? (
-                        <button className='show_button' onClick = {onShowHandler}>
-                            <AiFillEye className='icon' />
-                        </button>
-                        ) : (
-                        <button className='show_button' onClick = {onShowHandler}>
-                            <AiFillEyeInvisible className="icon" />
-                        </button>
-                        )}
-                    <input type="submit" className="submitButton" value = "비밀번호 변경하기"/>
+                    ): null}
+                    <input type="submit" className="submitButton" value = "수정하기"/>
+  
                 </form>
             </StUpdatePwWrapper>
             </div>
@@ -232,7 +241,41 @@ const StWrapper = styled.div`
     left: 0;
     top: 0;
     text-align: center;
-
+    .input_wrapper {
+        display : flex;
+        flex-direction : row ;
+        justify-content: flex-start;
+        background-color : #FAFAFA;
+        border: 0.6px solid #DADADA;
+        border-radius: 6px;
+        display : flex;
+        flex-direction : row;
+        padding : 11px 14px;
+        align-items : center;
+        
+        width : 285px;
+        height : 40px;
+        margin-bottom : 2px;
+    }
+    .submitButton {
+        display : flex;
+        margin : 10px auto;
+        background-color : #FFDD7C;
+        border-radius: 8px;
+        width : 123px;
+        height : 36px;
+        font-weight: 700;
+        font-size: 14px;
+        line-height: 16px;
+        letter-spacing: -0.005em;
+        color: #482647;
+        justify-content: space-around;
+        padding : 10px 15px;
+        :hover {
+        background: #FFB356;
+        color : #664500;   
+        }
+    }
 `
 const StModalContent = styled.div`
     display : flex;
@@ -240,7 +283,7 @@ const StModalContent = styled.div`
     justify-content: left;
     align-items: left;
     text-align: left;
-    height: 534px;
+    height: 590px;
     width: 405px;
     border : 1px solid black;
     border-radius: 15px;
@@ -275,7 +318,7 @@ const StUserName =styled.div`
     }
 `
 const StUpdatePwWrapper = styled.div`
-    padding : 30px 0px 40px 66px ;
+    padding : 30px 60px 40px 60px ;
     input {
         width : 200px ;
         height : 18px;
@@ -289,18 +332,6 @@ const StUpdatePwWrapper = styled.div`
         :focus {
             outline : none;
         }
-    .input_wrapper {
-        background-color : #FAFAFA;
-        border: 0.6px solid #DADADA;
-        border-radius: 6px;
-        display : flex;
-        flex-direction : row;
-        justify-content : center;
-        align-items : center;
-        paddign : 11px 14px;
-        width : 285px;
-        height : 40px;
-    }
 `
 const StTitle = styled.div`
     font-weight: 700;
@@ -308,6 +339,7 @@ const StTitle = styled.div`
     letter-spacing: -0.5px;
     color: #4B4B4B;
     margin-bottom : 10px;
+    margin-top : 10px;
 `
 const StProfileHeaderWrapper = styled.div`
     display : flex;
@@ -372,9 +404,13 @@ const StChangeDefault = styled.button`
     border: 0.6px solid #ECECEC;
     border-radius: 6px;
     margin-bottom : 40px;
-    
 `
+const StButton = styled.div`
+    width :22px;
+    height : 11px;
+    margin-bottom : 10px;
 
+`
 
 
 
