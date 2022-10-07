@@ -167,14 +167,14 @@ const CreateIngredientModal = ({ onClose, showModal }) => {
                 <form onSubmit = {handleSubmit(onSubmitHandler)}>
                 <div className='ingredients_name'>
                 <StTitles>재료명</StTitles>
-                <SearchWrapper>
+                <SearchWrapper onClick={showSearchHandler}>
                 <StSearchBox>
                     {targetData !== "" && <div>{targetData}</div>}
                 </StSearchBox>
                 <Potal>
                 {showSearch && <SearchModal onClose = {showSearchHandler}/>}
                 </Potal>
-                <StSearchButton onClick={showSearchHandler}/>
+                <StSearchButton />
                 </SearchWrapper>
                 </div>
                 <div className='storage'>

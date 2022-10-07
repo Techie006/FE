@@ -104,7 +104,8 @@ const UpdateProfileModal = ({ onClose }) => {
             {!curr ? (
                 <div>
                 <StProfileWrapper>
-                    <StProfileImg onClick={()=> setCurr(true)} src={userImg}></StProfileImg>
+                    {/* <StProfileImg onClick={()=> setCurr(true)} src={userImg}></StProfileImg> */}
+                    <StProfileImg src={userImg}></StProfileImg>
                     <StUserName>
                         <div className='nickname'>닉네임</div>
                         <div className='user_name'>{userName}</div>
