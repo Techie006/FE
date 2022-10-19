@@ -3,7 +3,7 @@ import Header from "../elements/organisms/Header";
 import RecipesLayout from "../components/recipes/RecipesLayout";
 import Helper from "../elements/organisms/Helper";
 
-const Recipe = (props) => {
+const Recipes = (props) => {
   return (
     <>
       <Layout>
@@ -15,4 +15,4 @@ const Recipe = (props) => {
   );
 };
 
-export default Recipe;
+export default Recipes;

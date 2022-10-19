@@ -14,7 +14,7 @@ import Calendar from "../pages/Calendar";
 import Classes from "../pages/Classes";
 import Class from "../pages/Class";
 // recipes
-import Recipe from "../pages/Recipe";
+import Recipes from "../pages/Recipes";
 import SearchResult from "../pages/SearchResult";
 // my
 import BookMarkRecipe from "../pages/BookMarkRecipe";
@@ -46,7 +46,7 @@ const Routers = (props) => {
           element={<Class />}
         />
         {/* recipes */}
-        <Route path='/recipes' element={<Recipe />} />
+        <Route path='/recipes' element={<Recipes />} />
         <Route path='/recipes/:keyword' element={<SearchResult />} />
         {/* others */}
         <Route path='*' element={<NotFound />} />
